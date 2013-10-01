@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="controller" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:panelGroup  rendered="#{cc.attrs.controller.printPreview}">
+            <p:commandButton value="Print" ajax="false" action="#" >
+                <p:printer target="gpBillPreview" ></p:printer>
+            </p:commandButton>
+            <div id="centrewrapper">
+                <div id="centrecell">
+                    <div class="centrecontent">
+
+                        <div style="border: 1px solid;" >
+                            <h:panelGroup id="gpBillPreview" >
+                                <div style="height:14cm; width:12cm; padding:0.5cm; overflow:hidden!important; page-break-after:always; font-family: sans-serif; font-size: 16px; position: relative; " >
+                                    <h:outputLabel value="#{cc.attrs.controller.current.insId}"  style="position:absolute;left:4.5cm; top:1.5cm;" />                                     
+                                    <h:outputLabel value="#{cc.attrs.controller.current.billDate}"  style="position: absolute; left: 10.5cm; top:1.5cm;" >
+                                        <f:convertDateTime pattern="dd/MM/yy"/>
+                                    </h:outputLabel>
+
+
+                                    <h:outputLabel value="PAYMENT VOUCHER" style="position:absolute;left:4.0cm; top:3.8cm; font-weight: bold;"   />
+
+
+
+                                    <h:outputLabel value="#{cc.attrs.controller.current.paymentScheme.name}" style="position:absolute;left:4.5cm; top:2.0cm;"  />
+
+                                    <h:outputLabel value="#{cc.attrs.controller.current.billTime}"  style="position: absolute; left: 10.5cm; top:2.0cm;" >
+                                        <f:convertDateTime pattern="hh mm a"/>
+                                    </h:outputLabel>
+
+                                    <h:outputLabel value="#{cc.attrs.controller.current.staff.person.name}" style="position:absolute;left:3.5cm; top:4.8cm; text-transform: capitalize; "  />
+
+
+                                    <h:outputLabel value=".................." style="position:absolute;left:1.5cm; top:13.5cm;"  />
+                                    <h:outputLabel value="Cashier : #{cc.attrs.controller.current.creater.code}" style="position:absolute;left:1.5cm; top:14.1cm;"  />
+
+                                    <h:outputLabel value="......................" style="position:absolute;left:7.5cm; top:13.5cm;"  />
+                                    <h:outputLabel value="Consultant Sig." style="position:absolute;left:7.5cm; top:14.1cm;"  />
+
+
+                                    <h:outputLabel value="#{cc.attrs.controller.current.collectingCentre.name} #{cc.attrs.controller.current.creditCompany.name}" style="position:absolute;left:5.5cm; top:14.1cm;"  />
+
+                                    <h:dataTable value="#{cc.attrs.controller.payingBillFees}" var="bip" style="position: absolute;left:0.9cm; top:6cm; border: 0px; "   >
+                                        <h:column >
+                                            <h:outputLabel value="#{bip.bill.insId}" style="margin: 4px;" />
+                                        </h:column>
+                                        <h:column >
+                                            <h:outputLabel value="#{bip.bill.patient.person.nameWithTitle}" rendered="#{bf.bill.patientEncounter eq null}" style="margin: 4px; text-transform: capitalize;" />                                    
+                                            <h:outputLabel value="#{bip.bill.patientEncounter.patient.person.nameWithTitle}" style="margin: 4px; text-transform: capitalize;" />                                                                                
+                                        </h:column>
+                                    </h:dataTable>
+
+
+                                    <div style="position: absolute;left:9.6cm; top:6cm; border: 0px; text-align: right;"  >
+                                        <h:dataTable value="#{cc.attrs.controller.payingBillFees}" var="bip1"  >
+                                            <h:column>
+                                                <h:outputLabel value="#{bip1.feeValue}"  style="margin: 4px;" >
+                                                    <f:convertNumber pattern="#,000.00" />
+                                                </h:outputLabel>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </div>
+
+                                    <div style="position: relative;left:3.6cm; margin-top: 0.5cm; top:9.5cm; border: 0px; text-align: right;" >
+                                        <table><tr><td><br/><br/></td>
+                                                <td><br/><br/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="min-width: 4.5cm;text-align: left;">
+                                                    <h:outputLabel value="Total"/>
+                                                </td>
+                                                <td>
+                                                    <h:outputLabel value="#{-cc.attrs.controller.current.netTotal}"  style="font-size: 110%; font-weight: bold ; text-align: right;    ">
+                                                        <f:convertNumber  type="currency" currencySymbol="Rs. "  />
+                                                    </h:outputLabel>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:panelGroup>
+    </cc:implementation>
+</html>

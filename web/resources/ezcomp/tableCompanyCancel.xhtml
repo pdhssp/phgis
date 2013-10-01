@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="bill" />
+        <cc:attribute name="controller" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:dataTable value="#{cc.attrs.bill}" var="b7"   sortBy="#{b7.billType}" rendered="#{cc.attrs.bill.size()!=0}">
+            <f:facet name="header">  
+                Credit Company Payment Cancel
+            </f:facet> 
+            <p:column headerText="Time" style="width:16%; " >
+                <h:outputLabel value="#{b7.createdAt}" >
+                    <f:convertDateTime pattern="hh:mm a"/>
+                </h:outputLabel>
+            </p:column>
+
+            <p:column headerText="Id"  style="">
+                #{b7.insId}
+            </p:column>
+            <p:column headerText="Credit Company"  style="">                            
+                <h:outputLabel value="#{b7.fromInstitution.name}" />
+            </p:column>
+
+            <p:column headerText="Cash" style="text-align: right;"   >
+                <h:outputLabel rendered="#{b7.paymentScheme.paymentMethod=='Cash'}" value="#{b7.netTotal}" >
+                    <f:convertNumber pattern="#,000.00"/>
+                </h:outputLabel>
+                <h:outputLabel rendered="#{b7.paymentScheme.paymentMethod!='Cash'}" value="0.00"/>
+            </p:column>   
+
+            <p:column headerText="Cheque" style="text-align: right;"   >
+                <h:outputLabel rendered="#{b7.paymentScheme.paymentMethod=='Cheque'}" value="#{b7.netTotal}" >
+                    <f:convertNumber pattern="#,000.00"/>
+                </h:outputLabel>
+                <h:outputLabel rendered="#{b7.paymentScheme.paymentMethod!='Cheque'}" value="0.00"/>
+            </p:column>    
+
+            <p:column headerText="Slip" style="text-align: right;"   >
+                <h:outputLabel rendered="#{b7.paymentScheme.paymentMethod=='Slip'}" value="#{b7.netTotal}" >
+                    <f:convertNumber pattern="#,000.00"/>
+                </h:outputLabel>
+                <h:outputLabel rendered="#{b7.paymentScheme.paymentMethod!='Slip'}" value="0.00"/>
+            </p:column>    
+
+            <p:column headerText="Descripion"  style="">
+                #{b7.comments}
+            </p:column>    
+            <p:column headerText="Billed Id" style="" >
+                <h:outputLabel value="#{b7.billedBill.insId}" >
+                </h:outputLabel>
+            </p:column>
+            <p:column headerText="Billed Date/Time" style="" >
+                <h:outputLabel value="#{b7.billedBill.createdAt}" >
+                    <f:convertDateTime pattern="dd MM yyyy hh:mm a"/>
+                </h:outputLabel>
+            </p:column>
+            <p:column>
+                <p:selectBooleanCheckbox style="border: black 2px solid;"/>
+            </p:column>
+            <p:summaryRow  >
+                <p:column colspan="3">
+                    Total:
+                </p:column>
+                <p:column >
+                    <h:outputLabel value="#{cc.attrs.controller.cashRecieveCancelTotCash}" style="text-align: right;float: right;">
+                        <f:convertNumber pattern="#,000.00" />
+                    </h:outputLabel>
+                </p:column>
+                <p:column >
+                    <h:outputLabel value="#{cc.attrs.controller.cashRecieveCancelTotCheque}" style="text-align: right;float: right;">
+                        <f:convertNumber pattern="#,000.00" />
+                    </h:outputLabel>
+                </p:column>
+                <p:column >
+                    <h:outputLabel value="#{cc.attrs.controller.cashRecieveCancelTotSlip}" style="text-align: right;float: right;">
+                        <f:convertNumber pattern="#,000.00" />
+                    </h:outputLabel>
+                </p:column>
+            </p:summaryRow>
+        </p:dataTable>
+    </cc:implementation>
+</html>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="content">
+
+        <h:panelGroup rendered="#{!webUserController.hasPrivilege('LabPrinting')}" >
+            You are NOT authorized
+        </h:panelGroup>
+
+
+        <h:panelGroup rendered="#{webUserController.hasPrivilege('LabPrinting')}" >
+
+            <h:form  >
+                <p:growl autoUpdate="true" />
+                <p:panel header="Manage" >
+
+                    <p:panelGrid columns="4">
+                        <h:outputLabel value="From Date"/>
+                        <p:calendar  pattern="dd MMMM yyyy hh mm a" navigator="true"  id="fromDate" value="#{patientInvestigationController.fromDate}"  >
+                            <f:ajax event="dateSelect" execute="toDate fromDate"  render="dtF toDate fromDate"/>
+                        </p:calendar>
+                        <h:outputLabel value="To Date"/>
+                        <p:calendar  pattern="dd MMMM yyyy hh mm a" navigator="true" id="toDate" value="#{patientInvestigationController.toDate}"  >
+                            <f:ajax event="dateSelect" execute="toDate fromDate"  render="dtF toDate fromDate"/>
+                        </p:calendar>
+
+
+
+                    </p:panelGrid>
+
+
+
+                    <p:dataTable id="dtF" value="#{patientInvestigationController.lstToPrint}" var="smpIx" >
+                        <p:column headerText="Bill Id">
+                            <p:outputLabel value="#{smpIx.patientInvestigation.billItem.bill.id}"/>
+                        </p:column>
+                        <p:column headerText="Patient" >
+                            <h:outputLabel value="#{smpIx.patientInvestigation.billItem.bill.patient.person.nameWithTitle}"/>
+                        </p:column>
+                        <p:column headerText="Investigation" >
+                            <h:outputLabel value="#{smpIx.patientInvestigation.investigation.name}"/>
+                        </p:column>
+                        <p:column headerText="Sampled" >
+                            <h:outputLabel value="#{smpIx.patientInvestigation.sampledAt }"/>
+                        </p:column>
+                        <p:column headerText="Received" >
+                            <h:outputLabel value="#{smpIx.patientInvestigation.received}"/>
+                        </p:column>
+                        <p:column headerText="Data Entered" >
+                            <h:outputLabel value="#{smpIx.patientInvestigation.dataEntered}"/>
+                        </p:column>
+                        <p:column headerText="Approved" >
+                            <h:outputLabel value="#{smpIx.patientInvestigation.approved}"/>
+                        </p:column>
+                        <p:column >
+                            <h:commandButton value="Print Sample" action="lab_patient_report_print" >
+                                <f:setPropertyActionListener value="#{smpIx}" target="#{patientReportController.currentPatientReport}"></f:setPropertyActionListener>
+                            </h:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+        </h:panelGroup>
+
+    </ui:define>
+
+</ui:composition>

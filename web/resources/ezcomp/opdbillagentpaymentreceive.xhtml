@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns:cc="http://java.sun.com/jsf/composite"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="bill" />
+        <cc:attribute name="billController" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <div >
+
+            <div >
+                <div >
+                    <h:form>    
+                        <p:commandButton value="Print" ajax="false" action="#" >
+                            <p:printer target="gpBillPreview" ></p:printer>
+                        </p:commandButton>
+                        <p:commandButton value="New Lab Bill" ajax="false" action="#{cc.attrs.billController.prepareNewBill()}" >
+                        </p:commandButton>
+                        <div style="border: 1px solid;" >
+
+                            <p:panel   id="gpBillPreview"  style="margin: auto; border: 0px; padding: 0px; " >
+
+                                <div >
+                                    <div>
+
+
+                                        <div style="page-break-after: always; page-break-inside: avoid; min-width: 5cm; min-height: 5cm;">
+                                            <div style="height:13.5cm!important; width:12cm!important; padding:0.0cm; overflow:hidden!important; page-break-after:always; font-family: sans-serif; font-size: 11px!important; position: relative;  margin: 0px; background-size: 100% auto; " >
+
+                                                <h:outputLabel value="#{cc.attrs.bill.insId}"
+                                                               style="position:absolute;left:4.5cm; top:1.1cm;"  >
+                                                </h:outputLabel>
+
+                                                <h:outputLabel value="#{cc.attrs.bill.billDate}"
+                                                               style="position: absolute; left: 9.8cm; top:1.1cm;" >
+                                                    <f:convertDateTime pattern="dd/MM/yy"/>
+                                                </h:outputLabel>
+
+                                                <h:outputLabel value="#{cc.attrs.bill.paymentScheme.name}"
+                                                               style="position:absolute;left:4.5cm; top:1.6cm;"  >
+                                                </h:outputLabel>
+
+                                                <h:outputLabel value="#{cc.attrs.bill.billTime}"
+                                                               style="position: absolute; left: 9.8cm; top:1.6cm;" >
+                                                    <f:convertDateTime pattern="hh mm a"/>
+                                                </h:outputLabel>
+
+                                                <h:outputLabel value="#{cc.attrs.bill.patient.person.nameWithTitle}"
+                                                               style="position:absolute;left:4.5cm; top:2.0cm; text-transform: uppercase; "  >
+                                                </h:outputLabel>
+
+                                                <h:outputLabel value="#{cc.attrs.bill.patient.person.phone}"
+                                                               style="position: absolute;left:4.5cm; top:2.5cm;"  >
+                                                </h:outputLabel>
+
+                                                <h:outputLabel value="Cashier : #{cc.attrs.bill.creater.code}"
+                                                               style="position:absolute;left:2.0cm; top:12.0cm;"  >
+                                                </h:outputLabel>
+
+                                                <h:outputLabel value="#{cc.attrs.bill.collectingCentre.name} #{cc.attrs.bill.creditCompany.name}"
+                                                               style="position:absolute;left:5.5cm; top:12.0cm;"  >
+                                                </h:outputLabel>
+
+
+
+
+                                                <div style="position: absolute;left:9.6cm; top:1.5cm; border: 0px; text-align: right!important; "  >
+
+                                                </div>
+                                                <div style="position: relative;left:3.6cm;  margin-top: 0.5cm; top:5.0cm; border: 0px; text-align: right!important;" >
+
+                                                    <table>
+                                                        <tr>
+                                                            <td style="min-width: 4.5cm;text-align: left;">
+                                                                <h:outputLabel value="#{cc.attrs.bill.fromInstitution.institutionType}" rendered="#{cc.attrs.bill.fromInstitution ne null}" style="font-size: 90%;  text-align: right!important;  font-size: 11px!important;   "/>
+                                                                <h:outputLabel value="#{cc.attrs.bill.staff.person.name}" rendered="#{cc.attrs.bill.staff ne null}" style="font-size: 90%;  text-align: right!important;  font-size: 11px!important;   "/>
+                                                                <h:outputLabel value="#{cc.attrs.bill.person.name}" rendered="#{cc.attrs.bill.person ne null}" style="font-size: 90%;  text-align: right!important;  font-size: 11px!important;   "/>
+                                                            </td>
+                                                            <td style="text-align: right!important; ">
+                                                                <h:outputLabel value="#{cc.attrs.bill.fromInstitution.name}"  style="font-size: 110%; font-weight: bold ; text-align: right!important; font-size: 11px!important;    ">
+                                                                    <f:convertNumber pattern="#,000.00" />
+                                                                </h:outputLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <br/>
+                                                                <br/>
+                                                            </td>
+                                                            <td>
+                                                                <br/>
+                                                                <br/>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="min-width: 4.5cm;text-align: left;">
+                                                                <h:outputLabel value="Total" style="font-size: 90%;  text-align: right!important;  font-size: 11px!important;   "/>
+                                                            </td>
+                                                            <td style="text-align: right!important; ">
+                                                                <h:outputLabel value="#{cc.attrs.bill.total}"  style="font-size: 110%; font-weight: bold ; text-align: right!important; font-size: 11px!important;    ">
+                                                                    <f:convertNumber pattern="#,000.00" />
+                                                                </h:outputLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="min-width: 4.5cm;text-align: left;">
+                                                                <h:outputLabel  rendered="#{cc.attrs.bill.discount ne 0.0}" style="font-size: 90%;  text-align: right!important;  font-size: 11px!important;   "  value="Discount"/>
+                                                            </td>
+                                                            <td style="text-align: right!important; ">
+                                                                <h:outputLabel rendered="#{cc.attrs.bill.discount ne 0.0}"   value="#{cc.attrs.bill.discount}"  style="font-size: 90%;  text-align: right!important;  font-size: 11px!important;   ">
+                                                                    <f:convertNumber pattern="#,000.00" />
+                                                                </h:outputLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="min-width: 4.5cm;text-align: left;">
+                                                                <h:outputLabel  rendered="#{cc.attrs.bill.discount ne 0.0}"    value="Net Total" style="font-size: 90%;  text-align: right!important;  font-size: 11px!important;   "/>
+                                                            </td>
+                                                            <td style="text-align: right!important; ">
+                                                                <h:outputLabel  rendered="#{cc.attrs.bill.discount ne 0.0}"    value="#{cc.attrs.bill.netTotal}"  style="font-size: 110%; font-weight: bold ; text-align: right!important; font-size: 11px!important;    ">
+                                                                    <f:convertNumber pattern="#,000.00" />
+                                                                </h:outputLabel>
+                                                            </td>
+                                                        </tr>
+
+
+                                                    </table>
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </p:panel>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+    </cc:implementation>
+</html>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="content">
+
+        <h:panelGroup >
+            <h:form id="form"  >
+                <p:growl autoUpdate="true" />
+
+                <p:panel header="Manage Health Form" >
+                    <h:panelGrid id ="gpVeda" columns="2" styleClass="alignTop" >
+
+                        <h:panelGrid id="gpSelect" columns="1"  >
+                            <p:panel header="Search Health Form" >
+                                <h:panelGrid id="gpSelectText" >
+
+                                    <p:inputText id="txtSearch" value="#{healthFormController.selectText}" >
+                                        <f:ajax execute="txtSearch" render="lstSelect" event="keyup" />
+                                    </p:inputText>
+
+                                    <p:selectOneListbox converter="ixcon"   id="lstSelect"   value="#{healthFormController.current}" style="min-width: 223px; height: 300px;">
+                                        <f:selectItems  value="#{healthFormController.selectedItems}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
+                                        <p:ajax event="change"   update="gpDetail" process="lstSelect" >
+                                        </p:ajax>
+                                    </p:selectOneListbox>
+
+
+                                </h:panelGrid>
+                                <h:panelGrid id="gpSelectButtons" columns="3"  >
+                                    <p:commandButton id="btnAdd" ajax="false" value="Add"  action="#{healthFormController.prepareAdd()}" styleClass="buttons" >
+                                        <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail " execute="" >
+                                        </f:ajax>
+                                    </p:commandButton>
+                                    <p:commandButton id="btnDelete" ajax="false" onclick="if (!confirm('Are you sure you want to delete this record?'))
+                                                return false;" action="#{healthFormController.delete()}"  value="Delete"  >
+                                    </p:commandButton>
+
+
+                                </h:panelGrid>
+                            </p:panel>
+                        </h:panelGrid  >
+
+                        <p:panel header="Edit Details">
+                            <f:facet name="header" >
+                                <h:outputLabel value="Edit Details" ></h:outputLabel>
+                                <p:commandButton style="float:right;" id="btnSave" value="Save"   action="#{healthFormController.saveSelected()}" styleClass="buttons" 
+                                                 ajax="false" >
+                                </p:commandButton>
+                            </f:facet>
+                            <h:panelGrid id="gpDetail" columns="1">
+                                <h:panelGrid id="gpDetailText" columns="2">
+                                    <h:outputText id="lblName" value="Name" ></h:outputText>
+                                    <h:inputText id="txtName" value="#{healthFormController.current.name}" required="true" ></h:inputText>
+                                    <h:outputText id="lblAddress" value="Printing Name" ></h:outputText>
+                                    <h:inputText id="txtAddress"  class="pdInputText" value="#{healthFormController.current.printName}"  ></h:inputText>
+                                    <h:outputText id="lblFullName" value="Full Name" ></h:outputText>
+                                    <h:inputText id="txtFullName"  class="pdInputText" value="#{healthFormController.current.fullName}"  ></h:inputText>
+                                    <p:outputLabel value="Code"/>
+                                    <p:inputText value="#{healthFormController.current.code}"/>
+                                    <h:outputText value="Category" ></h:outputText>
+                                    <h:selectOneListbox id="cmbCat"  size="1" value="#{healthFormController.current.investigationCategory}" >
+                                        <f:selectItem itemLabel="Please select a category"/>
+                                        <f:selectItems value="#{investigationCategoryController.items}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat}" />
+                                    </h:selectOneListbox>
+                                    </h:panelGrid>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+
+        </h:panelGroup>
+
+        <h:form>
+
+
+
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

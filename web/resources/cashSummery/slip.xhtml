@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="controller" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:dataTable value="#{cc.attrs.controller.slipBill}" var="ch" sortBy="#{ch.billClass}" rendered="#{cc.attrs.controller.slipBill.size()!=0}">
+            <f:facet name="header">
+               <p:outputLabel value="&nbsp;"/>
+                <p:outputLabel value="Slip Transactions" style="position: absolute;left: 3%;"/>    
+            </f:facet>
+            <p:column headerText="Bill No"  style="width: 20%;">
+                #{ch.insId}                            
+            </p:column>                        
+            <p:column headerText="Invoice No" style="width: 20%;"> 
+                #{ch.comments}                            
+            </p:column>                        
+            <p:column headerText="Bank">
+                #{ch.chequeBank.name}                            
+            </p:column>
+            <p:column headerText="Slip Date" style="width: 20%;"> 
+                <h:outputLabel value="#{ch.chequeDate}">                                
+                    <f:convertDateTime pattern="dd MMMM yyyy"/>
+                </h:outputLabel>  
+            </p:column> 
+            <p:column headerText="Total" style="width: 20%;">
+                <h:outputLabel value="#{-ch.netTotal}">
+                    <f:convertNumber pattern="#,000.00"/>
+                </h:outputLabel>      
+            </p:column>
+            <p:summaryRow >
+                <p:column colspan="4"/>
+                <p:column style="text-align: right;">
+                    <h:outputLabel value="#{-cc.attrs.controller.slipTot}">
+                        <f:convertNumber pattern="#,000.00"/>
+                    </h:outputLabel>                                            
+                </p:column>                                       
+            </p:summaryRow>
+        </p:dataTable>
+    </cc:implementation>
+</html>

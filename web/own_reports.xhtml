@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content">
+
+                <h:form>
+
+                    <h:panelGrid columns="3"  >
+                        <h:panelGrid columns="1">
+                            <f:facet name="header">
+                                <p:outputLabel value="Cashier"/>
+                            </f:facet>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Cashier Detailed Report" action="report_opd_cashier_session_detailed_report_user_own.xhtml" actionListener="#{commonReport.recreteModal}"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Cashier Summery" action="report_opd_individual_cashier_report_own.xhtml" actionListener="#{commonReport.recreteModal}"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="All Cashier Summery" action="report_opd_cashier_report_own.xhtml" actionListener="#{cashierReportController.recreteModal}"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Day-end Detailed Report" action="report_opd_cashier_session_detailed_report_institution_own.xhtml" actionListener="#{commonReport.recreteModal}"/>                                
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Bills by Cashier" action="opd_search_for_user_bills_own.xhtml"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" >
+                            <f:facet name="header">
+                                <p:outputLabel value="Accountant"/>
+                            </f:facet>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Daily Cash Summery Department" action="report_opd_daily_summery_cash_department"/> 
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Daily Cash Summery Category" action="report_opd_daily_summery_cash_category"/> 
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Daily Cash Summery Item"  action="report_opd_daily_summery_cash_item"/> 
+                        </h:panelGrid>
+
+
+                        <h:panelGrid columns="1" >
+                            <f:facet name="header">
+                                <p:outputLabel value="Check Entered Data"/>
+                            </f:facet>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Investigation List" action="lab_investigation_list"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Investigation Fee List" action="lab_investigation_list_fee"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Service List Search " action="opd_service_department_list"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Service List with Fee " action="opd_service_list"/>                                
+                            
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" >
+                            <f:facet name="header">
+                                <p:outputLabel value="Managing Director"/>
+                            </f:facet>
+                            <h:panelGrid >                               
+                                <p:commandButton styleClass="linkButton" ajax="false" value="Report By Bill(Opd)" action="report_md_opd_bill" actionListener="#{mdReportController.makeNull}"/> 
+                                <p:commandButton styleClass="linkButton" ajax="false" value="Report By Item(Opd)" action="report_md_opd_item" actionListener="#{mdReportController.makeNull}"/> 
+                            </h:panelGrid>
+                            <h:panelGrid >                               
+                                <p:commandButton styleClass="linkButton" ajax="false" value="Report By Bill(Inward)" action="report_md_inward_bill_added_date" actionListener="#{mdInwardReportController.makeNull}"/> 
+                                <p:commandButton styleClass="linkButton" ajax="false" value="Report By Item(Inward)" action="report_md_inward_item_added_date" actionListener="#{mdInwardReportController.makeNull}"/> 
+                                <p:commandButton styleClass="linkButton" ajax="false" value="Report By Bill(Discharged)" action="report_md_inward_bill_discharged" actionListener="#{mdInwardReportController.makeNull}"/> 
+                                <p:commandButton styleClass="linkButton" ajax="false" value="Report By Item(Discharged)" action="report_md_inward_item_discharged" actionListener="#{mdInwardReportController.makeNull}"/> 
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" >
+                            <f:facet name="header">
+                                <p:outputLabel value="Lab" />
+                            </f:facet>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Handover Report (Without Credit)" action="report_opd_handover_report_without_credit_own"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Handover Report (With Credit)" action="report_opd_handover_report_with_credit_own"/>                                
+
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Investigation Month End summery" action="report_opd_investigation_month_end_summery_own"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Investigation Month End Detail" action="report_opd_investigation_month_end_detail_own"/>
+
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Monthend Details without credit" action="report_opd_investigation_month_end_detail_without_credit_own.xhtml"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Monthend Summery without credit" action="report_opd_investigation_month_end_summery_without_credit_own.xhtml"/>
+
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Report by Referring Doctor" action="report_opd_by_refering_doctor_own.xhtml"/>
+                            <p:commandButton styleClass="linkButton" ajax="false" value="Report by Collection Centre" action="report_lab_by_collection_centre_own.xhtml"/>
+
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

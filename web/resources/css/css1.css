@@ -10,7 +10,23 @@ root {
     display: block;
 }
 
+.heading1{font-family: Garamond, serif;
+          line-height: 1em;
+          color: #8c8cf7;
+          font-weight:bold;
+          font-size: 46px;
+          text-shadow:0px 0px 0 rgb(87,87,194),1px 1px 0 rgb(43,43,150), 2px 2px 0 rgb(0,0,107),3px 3px 2px rgba(0,0,0,0.6),3px 3px 1px rgba(0,0,0,0.5),0px 0px 2px rgba(0,0,0,.2);
+}
 
+
+.heading2{
+    font-family: Garamond, serif;
+    line-height: 1em;
+    color: #8c8cf7;
+    font-weight:bold;
+    font-size: 32px;
+    text-shadow:0px 0px 0 rgb(87,87,194),1px 1px 0 rgb(43,43,150), 2px 2px 0 rgb(0,0,107),3px 3px 2px rgba(0,0,0,0.6),3px 3px 1px rgba(0,0,0,0.5),0px 0px 2px rgba(0,0,0,.2);
+}
 .cssTest{
     background: blueviolet;
     color: red;
@@ -48,3 +64,4 @@ root {
     width: 90%;
     font-size: 12px!important;
 }
+

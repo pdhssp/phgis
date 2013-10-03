@@ -4,9 +4,12 @@
  */
 package com.divudi.entity;
 
+import com.divudi.data.AreaType;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,6 +50,20 @@ public class Area implements Serializable {
     private String sname;
     private String tname;
 
+    @Enumerated(EnumType.STRING)
+    AreaType areaType;
+
+    public AreaType getAreaType() {
+        return areaType;
+    }
+
+    public void setAreaType(AreaType areaType) {
+        this.areaType = areaType;
+    }
+    
+    
+    
+    
     public Long getId() {
         return id;
     }

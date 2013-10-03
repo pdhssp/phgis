@@ -9,14 +9,14 @@ package com.divudi.data;
  * @author Buddhika
  */
 public enum InstitutionType {
-    Agency,
-    CollectingCentre,
-    CreditCompany,
-    Bank,
-    Lab,
+    MohOffice,
+    PdhsOffice,
+    RdhsOffice,
+    PhiOffice,
+    PhmOffice,
+    GnOffice,
     Hospital,
-    Dealer,
-    Importer,
-    Manufacturer,
-    Company,
+    GovernmentOffice,
+    PrivateCompany,
+    Other,
 }

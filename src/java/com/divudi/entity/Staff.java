@@ -4,10 +4,13 @@
  */
 package com.divudi.entity;
 
+import com.divudi.data.StaffRole;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -58,6 +61,19 @@ public class Staff implements Serializable {
     String fileName;
     String fileType;
 
+    @Enumerated(EnumType.STRING)
+    StaffRole staffRole;
+
+    public StaffRole getStaffRole() {
+        return staffRole;
+    }
+
+    public void setStaffRole(StaffRole staffRole) {
+        this.staffRole = staffRole;
+    }
+    
+    
+    
     public byte[] getBaImage() {
         return baImage;
     }

@@ -62,8 +62,6 @@ public class SessionController implements Serializable, HttpSessionListener {
     String defLocale;
     @Inject
     private MessageController messageController;
-    @Inject
-    private MenuController meController;
     private List<Privileges> privilegeses;
     @Inject
     SecurityController securityController;
@@ -163,22 +161,6 @@ public class SessionController implements Serializable, HttpSessionListener {
     }
 
     public String loginAction() {
-//
-//        HttpServletRequest request;
-//        request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//        Enumeration headerIter = request.getHeaderNames();
-//        String userAgent = request.getHeader("User-Agent");
-//
-//        while (headerIter.hasMoreElements()) {
-//            String headername = (String) headerIter.nextElement();
-//            System.out.println("headername + : " + request.getHeader(headername));
-//        }
-//
-//        String clientAddr = request.getRemoteAddr();
-//        String clientPc = request.getRemoteHost();
-//        System.out.println("Client : " + clientPc + " & client address : " + clientAddr + " & Browser : " + userAgent);
-//
-
         if (login()) {
             return "";
         } else {
@@ -188,23 +170,15 @@ public class SessionController implements Serializable, HttpSessionListener {
     }
 
     private boolean login() {
-
         getApplicationEjb().recordAppStart();
-
         if (userName.trim().equals("")) {
             UtilityController.addErrorMessage("Please enter a username");
             return false;
         }
-        // password
         if (isFirstVisit()) {
             prepareFirstVisit();
             return true;
         } else {
-            //JsfUtil.addSuccessMessage("Checking Old Users");
-            if (department == null) {
-                UtilityController.addErrorMessage("Please select a department");
-                return false;
-            }
             return checkUsers();
         }
     }
@@ -371,36 +345,26 @@ public class SessionController implements Serializable, HttpSessionListener {
     }
 
     private boolean checkUsers() {
-//        JsfUtil.addSuccessMessage("Going to check users");
         String temSQL;
         temSQL = "SELECT u FROM WebUser u WHERE u.retired = false";
         List<WebUser> allUsers = getFacede().findBySQL(temSQL);
         for (WebUser u : allUsers) {
             if (getSecurityController().decrypt(u.getName()).equalsIgnoreCase(userName)) {
-//                JsfUtil.addSuccessMessage("A user found");
-
                 if (getSecurityController().matchPassword(passord, u.getWebUserPassword())) {
-//                    if (!canLogToDept(u, department)) {
-//                        UtilityController.addErrorMessage("No privilage to Login This Department");
-//
-//                        return false;
-//                    }
-
                     if (getApplicationController().isLogged(u) != null) {
                         UtilityController.addErrorMessage("This user already logged. Other instances will be logged out now.");
-//                        return false;
                     }
-
                     u.setDepartment(department);
                     u.setInstitution(institution);
                     getFacede().edit(u);
-
+                    setDepartment(u.getDepartment());
+                    setInstitution(u.getInstitution());
+                    sd
                     setLoggedUser(u);
                     setLogged(Boolean.TRUE);
                     setActivated(u.isActivated());
                     setRole(u.getRole());
                     getMessageController().setDefLocale(u.getDefLocale());
-                    getMeController().createMenu(u);
                     getWebUserBean().setLoggedUser(u);
 
                     recordLogin();
@@ -651,14 +615,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         getWebUserBean().setLoggedUser(loggedUser);
     }
 
-    public MenuController getMeController() {
-        return meController;
-    }
-
-    public void setMeController(MenuController meController) {
-        this.meController = meController;
-    }
-
+   
     public List<Privileges> getPrivilegeses() {
         if (privilegeses == null || privilegeses.isEmpty()) {
             privilegeses.addAll(Arrays.asList(Privileges.values()));

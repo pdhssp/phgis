@@ -46,7 +46,7 @@ public class LabController {
 
     public void prepareAdd() {
         current = new Institution();
-        current.setInstitutionType(InstitutionType.CollectingCentre);
+        current.setInstitutionType(InstitutionType.GnOffice);
     }
 
     public void setSelectedItems(List<Institution> selectedItems) {
@@ -99,7 +99,7 @@ public class LabController {
     public Institution getCurrent() {
         if (current == null) {
             current = new Institution();
-            current.setInstitutionType(InstitutionType.Lab);
+            current.setInstitutionType(InstitutionType.GnOffice);
         }
         return current;
     }

@@ -27,7 +27,7 @@ import javax.enterprise.context.SessionScoped;
  */
 @Named
 @SessionScoped
-public  class ImporterController implements Serializable {
+public  class MohOfficeController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -42,7 +42,7 @@ public  class ImporterController implements Serializable {
   
     public void prepareAdd() {
         current = new Institution();
-        current.setInstitutionType(InstitutionType.Importer);
+        current.setInstitutionType(InstitutionType.PhmOffice);
     }
 
     public void setSelectedItems(List<Institution> selectedItems) {
@@ -92,7 +92,7 @@ public  class ImporterController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    public ImporterController() {
+    public MohOfficeController() {
     }
 
     public Institution getCurrent() {

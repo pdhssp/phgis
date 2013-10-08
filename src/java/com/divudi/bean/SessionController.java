@@ -359,7 +359,7 @@ public class SessionController implements Serializable, HttpSessionListener {
                     getFacede().edit(u);
                     setDepartment(u.getDepartment());
                     setInstitution(u.getInstitution());
-                    sd
+                    
                     setLoggedUser(u);
                     setLogged(Boolean.TRUE);
                     setActivated(u.isActivated());

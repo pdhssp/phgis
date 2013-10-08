@@ -42,7 +42,7 @@ public  class ImporterController implements Serializable {
   
     public void prepareAdd() {
         current = new Institution();
-        current.setInstitutionType(InstitutionType.Importer);
+        current.setInstitutionType(InstitutionType.GnOffice);
     }
 
     public void setSelectedItems(List<Institution> selectedItems) {

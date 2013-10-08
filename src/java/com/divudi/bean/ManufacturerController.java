@@ -57,7 +57,7 @@ public  class ManufacturerController implements Serializable {
   
     public void prepareAdd() {
         current = new Institution();
-        current.setInstitutionType(InstitutionType.Manufacturer);
+        current.setInstitutionType(InstitutionType.GnOffice);
     }
 
     public void setSelectedItems(List<Institution> selectedItems) {

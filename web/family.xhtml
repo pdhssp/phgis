@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content">
+
+                <h:form >
+
+                    <p:panel header="Manage Families" >
+
+                        <p:commandButton ajax="false" value="Add New" action="#{familyController.prepareAdd()}">
+                            
+                        </p:commandButton>
+
+                        <p:inputText value="#{familyController.current.address}" ></p:inputText>
+                        <p:inputText value="#{familyController.current.langitude}" ></p:inputText>
+                        <p:inputText value="#{familyController.current.latitude}" ></p:inputText>
+
+                        <p:selectOneMenu value="#{familyController.current.phmArea}" >
+                            <f:selectItem itemLabel="Please select PHM area" />
+
+                        </p:selectOneMenu>
+
+                        <p:commandButton ajax="false" value="Add" action="#{familyController.addDirectly}" />
+
+                        <p:dataTable value="#{familyController.items}" var="ff" >
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Address" />
+                                </f:facet>
+                                <h:outputText value="#{ff.address}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Area" />
+                                </f:facet>
+                                <h:outputText value="#{ff.langitude }" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Area" />
+                                </f:facet>
+                                <h:outputText value="#{ff.latitude }" />
+                            </p:column>
+                            
+                            <p:column >
+                                <p:commandButton ajax="false" value="Show in Map" >
+                                    <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
+                                </p:commandButton>
+                            </p:column>
+                            
+                        </p:dataTable>
+
+                    </p:panel>
+
+                    <p:panel>
+
+                        <p:gmap center="#{familyController.current.langitude}, #{familyController.current.latitude}" zoom="15" type="hybrid"
+style="width:600px;height:400px" />
+                    </p:panel>
+
+                </h:form>
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

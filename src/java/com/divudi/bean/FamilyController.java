@@ -1,55 +1,50 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * MSc(Biomedical Informatics) Project
+ *
+ * Development and Implementation of a Web-based Combined Data Repository of
+ Genealogical, Clinical, Laboratory and Genetic Data
+ * and
+ * a Set of Related Tools
  */
 package com.divudi.bean;
 
-import com.divudi.bean.SessionController;
-import com.divudi.bean.UtilityController;
-import com.divudi.data.InstitutionType;
-import com.divudi.entity.Institution;
-import com.divudi.facade.InstitutionFacade;
+import java.util.TimeZone;
+import com.divudi.facade.FamilyFacade;
+import com.divudi.entity.Family;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 import javax.inject.Inject;
-import javax.inject.Named; import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
- * @author www.divudi.com
+ * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
+ * Informatics)
  */
 @Named
-public class LabController {
+@SessionScoped
+public class FamilyController implements Serializable {
 
-    /**
-     * Creates a new instance of CollectingCentreController
-     */
-    public LabController() {
-    }
     private static final long serialVersionUID = 1L;
     @Inject
     SessionController sessionController;
     @EJB
-    private InstitutionFacade ejbFacade;
-    List<Institution> selectedItems;
-    private Institution current;
-    private List<Institution> items = null;
+    private FamilyFacade ejbFacade;
+    List<Family> selectedItems;
+    private Family current;
+    private List<Family> items = null;
     String selectText = "";
 
-    public List<Institution> getSelectedItems() {
-        selectedItems = getFacade().findBySQL("select c from Institution c where c.retired=false and i.institutionType = com.divudi.data.InstitutionType.CollectingCentre  and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' order by c.name");
-        return selectedItems;
-    }
-
     public void prepareAdd() {
-        current = new Institution();
-        current.setInstitutionType(InstitutionType.GnOffice);
+        current = new Family();
     }
 
-    public void setSelectedItems(List<Institution> selectedItems) {
+    public void setSelectedItems(List<Family> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -80,11 +75,11 @@ public class LabController {
         this.selectText = selectText;
     }
 
-    public InstitutionFacade getEjbFacade() {
+    public FamilyFacade getEjbFacade() {
         return ejbFacade;
     }
 
-    public void setEjbFacade(InstitutionFacade ejbFacade) {
+    public void setEjbFacade(FamilyFacade ejbFacade) {
         this.ejbFacade = ejbFacade;
     }
 
@@ -96,15 +91,17 @@ public class LabController {
         this.sessionController = sessionController;
     }
 
-    public Institution getCurrent() {
+    public FamilyController() {
+    }
+
+    public Family getCurrent() {
         if (current == null) {
-            current = new Institution();
-            current.setInstitutionType(InstitutionType.GnOffice);
+            current = new Family();
         }
         return current;
     }
 
-    public void setCurrent(Institution current) {
+    public void setCurrent(Family current) {
         this.current = current;
     }
 
@@ -125,17 +122,29 @@ public class LabController {
         getCurrent();
     }
 
-    private InstitutionFacade getFacade() {
+    private FamilyFacade getFacade() {
         return ejbFacade;
     }
 
-    public List<Institution> getItems() {
+    public void addDirectly() {
+        if (current == null) {
+            UtilityController.addErrorMessage("Nothing to save");
+            return;
+        }
+        getFacade().create(current);
+        current = new Family();
+    }
+
+    public List<Family> getItems() {
         // items = getFacade().findAll("name", true);
-        String sql = "SELECT i FROM Institution i where i.retired=false and i.institutionType = com.divudi.data.InstitutionType.CollectingCentre order by i.name";
+        String sql = "SELECT i FROM Family i where i.retired=false order by i.address";
         items = getEjbFacade().findBySQL(sql);
         if (items == null) {
-            items = new ArrayList<Institution>();
+            items = new ArrayList<Family>();
         }
         return items;
     }
+    /**
+     *
+     */
 }

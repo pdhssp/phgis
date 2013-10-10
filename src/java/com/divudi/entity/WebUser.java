@@ -63,6 +63,19 @@ public class WebUser implements Serializable {
     Department department;
     @ManyToOne
     Staff staff;
+   
+    @ManyToOne
+    Area area;
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+    
+    
     
     private String code;
 

@@ -20,9 +20,9 @@
                             
                         </p:commandButton>
 
-                        <p:inputText value="#{familyController.current.address}" ></p:inputText>
-                        <p:inputText value="#{familyController.current.langitude}" ></p:inputText>
-                        <p:inputText value="#{familyController.current.latitude}" ></p:inputText>
+                        <p:inputText value="#{familyController.current.address}" required="True" ></p:inputText>
+                        <p:inputText value="#{familyController.current.langitude}" required="True"></p:inputText>
+                        <p:inputText value="#{familyController.current.latitude}" required="True" validatorMessage="Invalid Number"></p:inputText>
 
                         <p:selectOneMenu value="#{familyController.current.phmArea}" >
                             <f:selectItem itemLabel="Please select PHM area" />

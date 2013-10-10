@@ -11,6 +11,7 @@ import static com.divudi.bean.SessionController.isValidEmailAddress;
 import com.divudi.data.Privileges;
 import com.divudi.ejb.ApplicationEjb;
 import com.divudi.ejb.WebUserBean;
+import com.divudi.entity.Area;
 import com.divudi.entity.Department;
 import com.divudi.entity.Institution;
 import com.divudi.entity.Logins;
@@ -49,7 +50,7 @@ import javax.servlet.http.HttpSessionListener;
 @Named
 @SessionScoped
 public class SessionController implements Serializable, HttpSessionListener {
-
+    
     @EJB
     WebUserBean webUserBean;
     @EJB
@@ -67,46 +68,55 @@ public class SessionController implements Serializable, HttpSessionListener {
     SecurityController securityController;
     Department department;
     Institution institution;
-
+    Area area;
+    
+    public Area getArea() {
+        return area;
+    }
+    
+    public void setArea(Area area) {
+        this.area = area;
+    }
+    
     public Department getDepartment() {
         return department;
     }
-
+    
     public void setDepartment(Department department) {
         if (department != null) {
             institution = department.getInstitution();
         }
         this.department = department;
     }
-
+    
     public Institution getInstitution() {
         return institution;
     }
-
+    
     public void setInstitution(Institution institution) {
         this.institution = institution;
     }
-
+    
     public WebUserBean getWebUserBean() {
         return webUserBean;
     }
-
+    
     public void setWebUserBean(WebUserBean webUserBean) {
         this.webUserBean = webUserBean;
     }
-
+    
     public MessageController getMessageController() {
         return messageController;
     }
-
+    
     public SecurityController getSecurityController() {
         return securityController;
     }
-
+    
     public void setSecurityController(SecurityController securityController) {
         this.securityController = securityController;
     }
-
+    
     public void setMessageController(MessageController messageController) {
         this.messageController = messageController;
     }
@@ -131,35 +141,35 @@ public class SessionController implements Serializable, HttpSessionListener {
     String email;
     private String displayName;
     WebUserRole role;
-
+    
     public WebUserRole getRole() {
         return role;
     }
-
+    
     public void setRole(WebUserRole role) {
         this.role = role;
     }
-
+    
     public String getTelNo() {
         return telNo;
     }
-
+    
     public void setTelNo(String telNo) {
         this.telNo = telNo;
     }
-
+    
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     private WebUserFacade getFacede() {
         return uFacade;
     }
-
+    
     public String loginAction() {
         if (login()) {
             return "";
@@ -168,7 +178,7 @@ public class SessionController implements Serializable, HttpSessionListener {
             return "";
         }
     }
-
+    
     private boolean login() {
         getApplicationEjb().recordAppStart();
         if (userName.trim().equals("")) {
@@ -182,31 +192,31 @@ public class SessionController implements Serializable, HttpSessionListener {
             return checkUsers();
         }
     }
-
+    
     private void prepareFirstVisit() {
         WebUser user = new WebUser();
         Person person = new Person();
         person.setName(userName);
         pFacade.create(person);
-
+        
         WebUserRole myRole;
         myRole = new WebUserRole();
         myRole.setName("circular_editor");
         rFacade.create(myRole);
-
+        
         myRole = new WebUserRole();
         myRole.setName("circular_adder");
         rFacade.create(myRole);
-
+        
         myRole = new WebUserRole();
         myRole.setName("circular_viewer");
         rFacade.create(myRole);
-
-
+        
+        
         myRole = new WebUserRole();
         myRole.setName("admin");
         rFacade.create(myRole);
-
+        
         user.setName(getSecurityController().encrypt(userName));
         user.setWebUserPassword(getSecurityController().hash(passord));
         user.setWebUserPerson(person);
@@ -217,12 +227,12 @@ public class SessionController implements Serializable, HttpSessionListener {
 
 //        JsfUtil.addSuccessMessage("New User Added");
 
-
+        
     }
-
+    
     @SuppressWarnings("empty-statement")
     private boolean telNoOk() {
-
+        
         int temp; // temp value to check if the telNo is numeric
         String[] telCodes = {"071", "072", "075", "077", "078"};
 
@@ -251,7 +261,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         }
         return false;
     }
-
+    
     public static boolean isValidEmailAddress(String email) {
         boolean result = true;
         try {
@@ -263,14 +273,14 @@ public class SessionController implements Serializable, HttpSessionListener {
         }
         return result;
     }
-
+    
     public String registeUser() {
 //        if (!telNoOk()) {
 //            JsfUtil.addErrorMessage("Telephone number in correct, Please enter a valid phone number");
 //            return "";
 //        }
 
-
+        
         if (!userNameAvailable(newUserName)) {
             UtilityController.addErrorMessage("User name already exists. Plese enter another user name");
             return "";
@@ -279,18 +289,18 @@ public class SessionController implements Serializable, HttpSessionListener {
             UtilityController.addErrorMessage("Password and Re-entered password are not matching");
             return "";
         }
-
+        
         if (!isValidEmailAddress(email)) {
             return "";
         }
-
+        
         WebUser user = new WebUser();
         Person person = new Person();
         user.setWebUserPerson(person);
         user.setRole(role);
-
+        
         person.setName(newPersonName);
-
+        
         pFacade.create(person);
         user.setName(getSecurityController().encrypt(newUserName));
         user.setWebUserPassword(getSecurityController().hash(newPassword));
@@ -298,12 +308,12 @@ public class SessionController implements Serializable, HttpSessionListener {
         user.setTelNo(telNo);
         user.setEmail(email);
         user.setActivated(Boolean.TRUE);
-
+        
         uFacade.create(user);
         UtilityController.addSuccessMessage("New User Registered.");
         return "";
     }
-
+    
     public String changePassword() {
         WebUser user = getLoggedUser();
         if (!getSecurityController().matchPassword(passord, user.getWebUserPassword())) {
@@ -314,14 +324,14 @@ public class SessionController implements Serializable, HttpSessionListener {
             UtilityController.addErrorMessage("Password and Re-entered password are not maching");
             return "";
         }
-
+        
         user.setWebUserPassword(getSecurityController().hash(newPassword));
         uFacade.edit(user);
         //
         UtilityController.addSuccessMessage("Password changed");
         return "index";
     }
-
+    
     public Boolean userNameAvailable(String userName) {
         Boolean available = true;
         List<WebUser> allUsers = getFacede().findAll();
@@ -332,7 +342,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         }
         return available;
     }
-
+    
     private boolean isFirstVisit() {
         if (getFacede().count() <= 0) {
 //            JsfUtil.addSuccessMessage("First Visit");
@@ -341,9 +351,9 @@ public class SessionController implements Serializable, HttpSessionListener {
 //            JsfUtil.addSuccessMessage("Not, Not First Visit");
             return false;
         }
-
+        
     }
-
+    
     private boolean checkUsers() {
         String temSQL;
         temSQL = "SELECT u FROM WebUser u WHERE u.retired = false";
@@ -366,9 +376,9 @@ public class SessionController implements Serializable, HttpSessionListener {
                     setRole(u.getRole());
                     getMessageController().setDefLocale(u.getDefLocale());
                     getWebUserBean().setLoggedUser(u);
-
+                    
                     recordLogin();
-
+                    
                     UtilityController.addSuccessMessage("Logged successfully");
                     return true;
                 }
@@ -376,39 +386,39 @@ public class SessionController implements Serializable, HttpSessionListener {
         }
         return false;
     }
-
+    
     private boolean canLogToDept(WebUser e, Department d) {
         String sql;
         sql = "select wd from WebUserDepartment wd where wd.retired=false and wd.webUser.id=" + e.getId() + " and wd.department.id = " + d.getId();
-
+        
         if (getWebUserDepartmentFacade().findBySQL(sql).isEmpty()) {
             return false;
         } else {
             return true;
         }
-
+        
     }
     @Inject
     ApplicationController applicationController;
     @EJB
     ApplicationEjb applicationEjb;
-
+    
     public ApplicationEjb getApplicationEjb() {
         return applicationEjb;
     }
-
+    
     public void setApplicationEjb(ApplicationEjb applicationEjb) {
         this.applicationEjb = applicationEjb;
     }
-
+    
     public ApplicationController getApplicationController() {
         return applicationController;
     }
-
+    
     public void setApplicationController(ApplicationController applicationController) {
         this.applicationController = applicationController;
     }
-
+    
     public void logout() {
         userPrivilages = null;
         recordLogout();
@@ -416,9 +426,9 @@ public class SessionController implements Serializable, HttpSessionListener {
         getWebUserBean().setLoggedUser(null);
         setLogged(false);
         setActivated(false);
-
+        
     }
-
+    
     public WebUser getCurrent() {
         if (current == null) {
             current = new WebUser();
@@ -427,132 +437,132 @@ public class SessionController implements Serializable, HttpSessionListener {
         }
         return current;
     }
-
+    
     public void setCurrent(WebUser current) {
         this.current = current;
     }
-
+    
     public WebUserFacade getEjbFacade() {
         return uFacade;
     }
-
+    
     public void setEjbFacade(WebUserFacade ejbFacade) {
         this.uFacade = ejbFacade;
     }
-
+    
     public String getPassord() {
         return passord;
     }
-
+    
     public void setPassord(String passord) {
         this.passord = passord;
     }
-
+    
     public String getUserName() {
         return userName;
     }
-
+    
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
+    
     public String getNewDesignation() {
         return newDesignation;
     }
-
+    
     public void setNewDesignation(String newDesignation) {
         this.newDesignation = newDesignation;
     }
-
+    
     public String getNewInstitution() {
         return newInstitution;
     }
-
+    
     public void setNewInstitution(String newInstitution) {
         this.newInstitution = newInstitution;
     }
-
+    
     public String getNewPassword() {
         return newPassword;
     }
-
+    
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
-
+    
     public String getNewPasswordConfirm() {
         return newPasswordConfirm;
     }
-
+    
     public void setNewPasswordConfirm(String newPasswordConfirm) {
         this.newPasswordConfirm = newPasswordConfirm;
     }
-
+    
     public String getNewPasswordHint() {
         return newPasswordHint;
     }
-
+    
     public void setNewPasswordHint(String newPasswordHint) {
         this.newPasswordHint = newPasswordHint;
     }
-
+    
     public String getNewPersonName() {
         return newPersonName;
     }
-
+    
     public void setNewPersonName(String newPersonName) {
         this.newPersonName = newPersonName;
     }
-
+    
     public PersonFacade getpFacade() {
         return pFacade;
     }
-
+    
     public void setpFacade(PersonFacade pFacade) {
         this.pFacade = pFacade;
     }
-
+    
     public WebUserFacade getuFacade() {
         return uFacade;
     }
-
+    
     public void setuFacade(WebUserFacade uFacade) {
         this.uFacade = uFacade;
     }
-
+    
     public String getNewUserName() {
         return newUserName;
     }
-
+    
     public void setNewUserName(String newUserName) {
         this.newUserName = newUserName;
     }
-
+    
     public boolean isActivated() {
         return activated;
     }
-
+    
     public void setActivated(boolean activated) {
         this.activated = activated;
         setLogged(activated);
     }
-
+    
     public boolean isLogged() {
         return logged;
     }
-
+    
     public void setLogged(boolean logged) {
         this.logged = logged;
     }
-
+    
     public WebUserRoleFacade getrFacade() {
         return rFacade;
     }
-
+    
     public void setrFacade(WebUserRoleFacade rFacade) {
         this.rFacade = rFacade;
     }
-
+    
     public String getDisplayName() {
         return getSecurityController().decrypt(getLoggedUser().getName());
     }
@@ -563,7 +573,7 @@ public class SessionController implements Serializable, HttpSessionListener {
     public SessionController() {
         System.out.println("session started");
     }
-
+    
     public String getDefLocale() {
         defLocale = "en";
         if (getLoggedUser() != null) {
@@ -575,11 +585,11 @@ public class SessionController implements Serializable, HttpSessionListener {
         }
         return defLocale;
     }
-
+    
     public void setDefLocale(String defLocale) {
         this.defLocale = defLocale;
     }
-
+    
     public String getPrimeTheme() {
         if (primeTheme == null || primeTheme.equals("")) {
             primeTheme = "hot-sneaks";
@@ -593,7 +603,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         }
         return primeTheme;
     }
-
+    
     public void setPrimeTheme(String primeTheme) {
         this.primeTheme = primeTheme;
     }
@@ -614,8 +624,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         this.loggedUser = loggedUser;
         getWebUserBean().setLoggedUser(loggedUser);
     }
-
-   
+    
     public List<Privileges> getPrivilegeses() {
         if (privilegeses == null || privilegeses.isEmpty()) {
             privilegeses.addAll(Arrays.asList(Privileges.values()));
@@ -625,7 +634,7 @@ public class SessionController implements Serializable, HttpSessionListener {
     private List<WebUserPrivilege> userPrivilages;
     @EJB
     private WebUserPrivilegeFacade webUserPrivilegeFacade;
-
+    
     public List<WebUserPrivilege> getUserPrivileges() {
         if (userPrivilages == null) {
             String sql;
@@ -638,81 +647,81 @@ public class SessionController implements Serializable, HttpSessionListener {
         }
         return userPrivilages;
     }
-
+    
     public void setPrivilegeses(List<Privileges> privilegeses) {
         this.privilegeses = privilegeses;
     }
-
+    
     public WebUserDepartmentFacade getWebUserDepartmentFacade() {
         return webUserDepartmentFacade;
     }
-
+    
     public void setWebUserDepartmentFacade(WebUserDepartmentFacade webUserDepartmentFacade) {
         this.webUserDepartmentFacade = webUserDepartmentFacade;
     }
-
+    
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
-
+    
     public WebUserPrivilegeFacade getWebUserPrivilegeFacade() {
         return webUserPrivilegeFacade;
     }
-
+    
     public void setWebUserPrivilegeFacade(WebUserPrivilegeFacade webUserPrivilegeFacade) {
         this.webUserPrivilegeFacade = webUserPrivilegeFacade;
     }
-
+    
     public void setUserPrivilages(List<WebUserPrivilege> userPrivilages) {
         this.userPrivilages = userPrivilages;
     }
     Logins thisLogin;
-
+    
     public Logins getThisLogin() {
         return thisLogin;
     }
-
+    
     public void setThisLogin(Logins thisLogin) {
         this.thisLogin = thisLogin;
     }
     @EJB
     LoginsFacade loginsFacade;
-
+    
     public LoginsFacade getLoginsFacade() {
         return loginsFacade;
     }
-
+    
     public void setLoginsFacade(LoginsFacade loginsFacade) {
         this.loginsFacade = loginsFacade;
     }
-
+    
     private void recordLogin() {
-        if (thisLogin != null ) {
+        if (thisLogin != null) {
             thisLogin.setLogoutAt(Calendar.getInstance().getTime());
             if (thisLogin.getId() != null && thisLogin.getId() != 0) {
                 getLoginsFacade().edit(thisLogin);
             }
         }
-
+        
         thisLogin = new Logins();
         thisLogin.setLogedAt(Calendar.getInstance().getTime());
         thisLogin.setInstitution(institution);
         thisLogin.setDepartment(department);
         thisLogin.setWebUser(loggedUser);
-
+        
         HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-
+        
         String ip = httpServletRequest.getRemoteAddr();
         String host = httpServletRequest.getRemoteHost();
-
+        
         thisLogin.setIpaddress(ip);
         thisLogin.setComputerName(host);
-
-
+        
+        
         getLoginsFacade().create(thisLogin);
         getApplicationController().addToLoggins(this);
     }
-
+    
     @PreDestroy
     private void recordLogout() {
         System.out.println("session distroyed");
@@ -724,12 +733,12 @@ public class SessionController implements Serializable, HttpSessionListener {
         getLoginsFacade().edit(thisLogin);
         thisLogin = null;
     }
-
+    
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         System.out.println("starting session");
     }
-
+    
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         System.out.println("recording logout as session is distroid");

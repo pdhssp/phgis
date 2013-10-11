@@ -4,9 +4,13 @@
  */
 package com.divudi.entity;
 
+import com.divudi.data.AreaComparator;
 import com.divudi.data.AreaType;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -49,9 +54,21 @@ public class Area implements Serializable {
     private Area superArea;
     private String sname;
     private String tname;
-
     @Enumerated(EnumType.STRING)
     AreaType areaType;
+    @OneToMany
+    List<GisCoordinate> cordinates;
+
+    public List<GisCoordinate> getCordinates() {
+        if (cordinates != null) {
+            Collections.sort(cordinates, new AreaComparator());
+        }
+        return cordinates;
+    }
+
+    public void setCordinates(List<GisCoordinate> cordinates) {
+        this.cordinates = cordinates;
+    }
 
     public AreaType getAreaType() {
         return areaType;
@@ -60,10 +77,7 @@ public class Area implements Serializable {
     public void setAreaType(AreaType areaType) {
         this.areaType = areaType;
     }
-    
-    
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -184,4 +198,6 @@ public class Area implements Serializable {
     public void setTname(String tname) {
         this.tname = tname;
     }
+
+
 }

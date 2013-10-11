@@ -11,7 +11,7 @@ package com.divudi.bean;
 import com.divudi.entity.Department;
 import com.divudi.entity.ItemFee;
 import com.divudi.entity.Staff;
-import com.divudi.entity.lab.HealthForm;
+import com.divudi.entity.form.HealthForm;
 import com.divudi.facade.DepartmentFacade;
 import com.divudi.facade.InvestigationFacade;
 import com.divudi.facade.ItemFeeFacade;

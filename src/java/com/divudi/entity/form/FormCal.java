@@ -1,4 +1,4 @@
-package com.divudi.entity.lab;
+package com.divudi.entity.form;
 
 import com.divudi.data.CalculationType;
 import java.io.Serializable;

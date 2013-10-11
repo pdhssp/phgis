@@ -4,7 +4,7 @@
  */
 package com.divudi.entity;
 
-import com.divudi.entity.lab.HealthFormItemValueFlag;
+import com.divudi.entity.form.HealthFormItemValueFlag;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;

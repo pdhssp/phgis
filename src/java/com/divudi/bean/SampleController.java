@@ -9,7 +9,7 @@
 package com.divudi.bean;
 import java.util.TimeZone;
 import com.divudi.facade.SampleFacade;
-import com.divudi.entity.lab.Sample;
+import com.divudi.entity.form.Sample;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;

@@ -10,7 +10,7 @@ package com.divudi.bean;
 
 import java.util.TimeZone;
 import com.divudi.facade.ReportFormatFacade;
-import com.divudi.entity.lab.HealthFormReportFormat;
+import com.divudi.entity.form.HealthFormReportFormat;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;

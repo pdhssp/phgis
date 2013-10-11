@@ -13,7 +13,7 @@ import com.divudi.entity.CancelledBill;
 import com.divudi.entity.Department;
 import com.divudi.entity.Institution;
 import com.divudi.entity.RefundBill;
-import com.divudi.entity.lab.PatientHealthForm;
+import com.divudi.entity.form.PatientHealthForm;
 import com.divudi.facade.BillFacade;
 import com.divudi.facade.PatientInvestigationFacade;
 import java.io.Serializable;

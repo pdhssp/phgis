@@ -127,7 +127,7 @@ public class InvestigationMonthSummeryController implements Serializable {
 //                + "b.item.id=" + w.getId() + " and  b.bill.createdAt between :fromDate and :toDate";
         temMap.put("toDate", getToDate());
         temMap.put("fromDate", getFromDate());
-        temMap.put("ixtype", com.divudi.entity.lab.HealthForm.class);
+        temMap.put("ixtype", com.divudi.entity.form.HealthForm.class);
         //    temMap.put("pactype", com.divudi.entity.Packege.class);
         List<BillItem> temps = getBillItemFacade().findBySQL(sql, temMap, TemporalType.TIMESTAMP);
 
@@ -175,7 +175,7 @@ public class InvestigationMonthSummeryController implements Serializable {
 
         temMap.put("toDate", toDate);
         temMap.put("fromDate", fromDate);
-        temMap.put("ixtype", com.divudi.entity.lab.HealthForm.class);
+        temMap.put("ixtype", com.divudi.entity.form.HealthForm.class);
 
         investigations = getItemFacade().findBySQL(sql, temMap, TemporalType.TIMESTAMP);
 

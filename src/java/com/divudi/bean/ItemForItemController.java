@@ -9,8 +9,8 @@
 package com.divudi.bean;
 
 import com.divudi.entity.Item;
-import com.divudi.entity.lab.FormForForm;
-import com.divudi.entity.lab.PatientHealthForm;
+import com.divudi.entity.form.FormForForm;
+import com.divudi.entity.form.PatientHealthForm;
 import com.divudi.facade.ItemForItemFacade;
 import java.io.Serializable;
 import java.util.ArrayList;

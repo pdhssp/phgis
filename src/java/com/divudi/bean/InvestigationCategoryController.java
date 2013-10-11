@@ -8,7 +8,7 @@
  */
 package com.divudi.bean;
 
-import com.divudi.entity.lab.HealthFormCategory;
+import com.divudi.entity.form.HealthFormCategory;
 import com.divudi.facade.InvestigationCategoryFacade;
 import java.io.Serializable;
 import java.util.Calendar;

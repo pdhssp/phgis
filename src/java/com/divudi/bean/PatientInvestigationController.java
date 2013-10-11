@@ -10,11 +10,11 @@ package com.divudi.bean;
 
 import com.divudi.ejb.CommonFunctions;
 import com.divudi.entity.Department;
-import com.divudi.entity.lab.HealthForm;
-import com.divudi.entity.lab.HealthFormItem;
-import com.divudi.entity.lab.PatientHealthForm;
-import com.divudi.entity.lab.PatientHealthFormReport;
-import com.divudi.entity.lab.ReportItem;
+import com.divudi.entity.form.HealthForm;
+import com.divudi.entity.form.HealthFormItem;
+import com.divudi.entity.form.PatientHealthForm;
+import com.divudi.entity.form.PatientHealthFormReport;
+import com.divudi.entity.form.ReportItem;
 import com.divudi.facade.InvestigationFacade;
 import com.divudi.facade.InvestigationItemFacade;
 import com.divudi.facade.PatientInvestigationFacade;

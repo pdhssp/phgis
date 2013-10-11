@@ -4,7 +4,7 @@
  */
 package com.divudi.facade;
 
-import com.divudi.entity.lab.FormForForm;
+import com.divudi.entity.form.FormForForm;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

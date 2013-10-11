@@ -2,14 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.divudi.entity.lab;
+package com.divudi.entity.form;
 
+import com.divudi.entity.Item;
 import com.divudi.entity.WebUser;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,17 +20,18 @@ import javax.persistence.Temporal;
  * @author Buddhika
  */
 @Entity
-public class HealthFormItemValue implements Serializable {
-
+public class FormForForm implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    //Main Properties
-    Long id;
-    @ManyToOne(cascade= CascadeType.ALL,fetch= FetchType.EAGER)
-    HealthFormItem investigationItem;
-    String name;
-//Created Properties
+    private Long id;
+    
+
+    @ManyToOne
+    Item parentItem;
+    @ManyToOne
+    Item childItem;
+    //Created Properties
     @ManyToOne
     WebUser creater;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -43,8 +43,7 @@ public class HealthFormItemValue implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     Date retiredAt;
     String retireComments;
-    Integer orderNo;
-
+    
     public Long getId() {
         return id;
     }
@@ -53,29 +52,20 @@ public class HealthFormItemValue implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public Item getParentItem() {
+        return parentItem;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof HealthFormItemValue)) {
-            return false;
-        }
-        HealthFormItemValue other = (HealthFormItemValue) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setParentItem(Item parentItem) {
+        this.parentItem = parentItem;
     }
 
-    @Override
-    public String toString() {
-        return "com.divudi.entity.InvestigationItemValue[ id=" + id + " ]";
+    public Item getChildItem() {
+        return childItem;
+    }
+
+    public void setChildItem(Item childItem) {
+        this.childItem = childItem;
     }
 
     public WebUser getCreater() {
@@ -126,27 +116,31 @@ public class HealthFormItemValue implements Serializable {
         this.retireComments = retireComments;
     }
 
-    public HealthFormItem getInvestigationItem() {
-        return investigationItem;
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
-    public void setInvestigationItem(HealthFormItem investigationItem) {
-        this.investigationItem = investigationItem;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof FormForForm)) {
+            return false;
+        }
+        FormForForm other = (FormForForm) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String toString() {
+        return "com.divudi.entity.lab.IxForItem[ id=" + id + " ]";
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(Integer orderNo) {
-        this.orderNo = orderNo;
-    }
+    
 }

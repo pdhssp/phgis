@@ -10,10 +10,10 @@ package com.divudi.bean;
 
 import com.divudi.data.CalculationType;
 import com.divudi.data.InvestigationItemType;
-import com.divudi.entity.lab.HealthForm;
-import com.divudi.entity.lab.HealthFormItem;
-import com.divudi.entity.lab.FormCal;
-import com.divudi.entity.lab.ReportItem;
+import com.divudi.entity.form.HealthForm;
+import com.divudi.entity.form.HealthFormItem;
+import com.divudi.entity.form.FormCal;
+import com.divudi.entity.form.ReportItem;
 import com.divudi.facade.InvestigationFacade;
 import com.divudi.facade.InvestigationItemFacade;
 import com.divudi.facade.IxCalFacade;

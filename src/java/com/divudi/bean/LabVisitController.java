@@ -10,7 +10,7 @@ package com.divudi.bean;
 
 import com.divudi.bean.SessionController;
 import com.divudi.facade.LabVisitFacade;
-import com.divudi.entity.lab.HealthFormFill;
+import com.divudi.entity.form.HealthFormFill;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

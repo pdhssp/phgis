@@ -11,12 +11,12 @@ package com.divudi.bean;
 import com.divudi.data.CalculationType;
 import com.divudi.data.InvestigationItemType;
 import com.divudi.ejb.PatientReportBean;
-import com.divudi.entity.lab.HealthForm;
-import com.divudi.entity.lab.HealthFormItem;
-import com.divudi.entity.lab.FormCal;
-import com.divudi.entity.lab.PatientHealthForm;
-import com.divudi.entity.lab.PatientHealthFormReport;
-import com.divudi.entity.lab.PatientHealthFormReportItemValue;
+import com.divudi.entity.form.HealthForm;
+import com.divudi.entity.form.HealthFormItem;
+import com.divudi.entity.form.FormCal;
+import com.divudi.entity.form.PatientHealthForm;
+import com.divudi.entity.form.PatientHealthFormReport;
+import com.divudi.entity.form.PatientHealthFormReportItemValue;
 import com.divudi.facade.IxCalFacade;
 import com.divudi.facade.PatientInvestigationFacade;
 import com.divudi.facade.PatientInvestigationItemValueFacade;
@@ -63,8 +63,6 @@ public class PatientReportController implements Serializable {
     @EJB
     IxCalFacade ixCalFacade;
     String selectText = "";
-    @Inject
-    ItemForItemController itemForItemController;
     private PatientHealthForm currentPtIx;
     private PatientHealthFormReport currentPatientReport;
     HealthForm currentReportInvestigation;
@@ -200,13 +198,6 @@ public class PatientReportController implements Serializable {
 
     }
 
-    public ItemForItemController getItemForItemController() {
-        return itemForItemController;
-    }
-
-    public void setItemForItemController(ItemForItemController itemForItemController) {
-        this.itemForItemController = itemForItemController;
-    }
 
     public HealthForm getCurrentReportInvestigation() {
         return currentReportInvestigation;

@@ -12,9 +12,9 @@ import com.divudi.data.InvestigationItemType;
 import com.divudi.ejb.BillBean;
 import com.divudi.entity.Department;
 import com.divudi.entity.ItemFee;
-import com.divudi.entity.lab.HealthForm;
-import com.divudi.entity.lab.HealthFormCategory;
-import com.divudi.entity.lab.ReportItem;
+import com.divudi.entity.form.HealthForm;
+import com.divudi.entity.form.HealthFormCategory;
+import com.divudi.entity.form.ReportItem;
 import com.divudi.facade.DepartmentFacade;
 import com.divudi.facade.InvestigationFacade;
 import com.divudi.facade.ItemFacade;
@@ -92,7 +92,7 @@ public class HealthFormController implements Serializable {
 
     public void catToIxCat() {
         for (HealthForm i : getItems()) {
-            i.setCategory(i.getInvestigationCategory());
+            i.setCategory(i.getFormCategory());
             getFacade().edit(i);
         }
         UtilityController.addSuccessMessage("Saved");
@@ -264,7 +264,7 @@ public class HealthFormController implements Serializable {
 
     public void saveSelected() {
 
-        getCurrent().setCategory(getCurrent().getInvestigationCategory());
+        getCurrent().setCategory(getCurrent().getFormCategory());
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             System.out.println("1");
             if (billedAs == false) {

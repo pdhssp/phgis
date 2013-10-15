@@ -10,10 +10,10 @@ package com.divudi.bean;
 
 import java.util.TimeZone;
 import com.divudi.data.InvestigationItemType;
-import com.divudi.entity.lab.HealthForm;
+import com.divudi.entity.form.HealthForm;
 import com.divudi.facade.InvestigationItemFacade;
-import com.divudi.entity.lab.HealthFormItem;
-import com.divudi.entity.lab.HealthFormItemValue;
+import com.divudi.entity.form.HealthFormItem;
+import com.divudi.entity.form.HealthFormItemValue;
 import com.divudi.facade.InvestigationFacade;
 import com.divudi.facade.InvestigationItemValueFacade;
 import java.io.Serializable;

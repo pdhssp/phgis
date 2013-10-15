@@ -11,7 +11,7 @@ import java.util.TimeZone;
 import com.divudi.bean.SessionController;
 import com.divudi.bean.UtilityController;
 import com.divudi.facade.InvestigationTubeFacade;
-import com.divudi.entity.lab.HealthReportOtherCategory;
+import com.divudi.entity.form.HealthReportOtherCategory;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;

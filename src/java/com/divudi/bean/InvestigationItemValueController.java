@@ -9,7 +9,7 @@
 package com.divudi.bean;
 
 import com.divudi.facade.InvestigationItemValueFacade;
-import com.divudi.entity.lab.HealthFormItemValue;
+import com.divudi.entity.form.HealthFormItemValue;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;

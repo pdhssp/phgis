@@ -10,7 +10,7 @@ import com.divudi.data.PaymentMethod;
 import com.divudi.ejb.CommonFunctions;
 import com.divudi.entity.BillItem;
 import com.divudi.entity.Item;
-import com.divudi.entity.lab.HealthForm;
+import com.divudi.entity.form.HealthForm;
 import com.divudi.facade.BillComponentFacade;
 import com.divudi.facade.BillFacade;
 import com.divudi.facade.BillItemFacade;
@@ -149,7 +149,7 @@ public class InvestigationMonthSummeryOwnController implements Serializable {
         temMap.put("pm2", PaymentMethod.Card);
         temMap.put("pm3", PaymentMethod.Cheque);
 
-        temMap.put("ixtype", com.divudi.entity.lab.HealthForm.class);
+        temMap.put("ixtype", com.divudi.entity.form.HealthForm.class);
         List<BillItem> temps = getBillItemFacade().findBySQL(sql, temMap, TemporalType.TIMESTAMP);
 
         double tot = 0.0;
@@ -177,7 +177,7 @@ public class InvestigationMonthSummeryOwnController implements Serializable {
         sql = "select bi FROM BillItem bi where bi.bill.institution.id=" + getSessionController().getInstitution().getId() + " and type(bi.item) =:ixtype  and bi.bill.createdAt between :fromDate and :toDate order by bi.item.name";
         temMap.put("toDate", getToDate());
         temMap.put("fromDate", getFromDate());
-        temMap.put("ixtype", com.divudi.entity.lab.HealthForm.class);
+        temMap.put("ixtype", com.divudi.entity.form.HealthForm.class);
         List<BillItem> temps = getBillItemFacade().findBySQL(sql, temMap, TemporalType.TIMESTAMP);
 
         double tot = 0.0;
@@ -214,7 +214,7 @@ public class InvestigationMonthSummeryOwnController implements Serializable {
         temMap.put("pm1", PaymentMethod.Cash);
         temMap.put("pm2", PaymentMethod.Card);
         temMap.put("pm3", PaymentMethod.Cheque);
-        temMap.put("ixtype", com.divudi.entity.lab.HealthForm.class);
+        temMap.put("ixtype", com.divudi.entity.form.HealthForm.class);
         temMap.put("bTp", BillType.OpdBill);
         investigations = getItemFacade().findBySQL(sql, temMap, TemporalType.TIMESTAMP);
 

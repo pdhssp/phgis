@@ -4,7 +4,7 @@
  */
 package com.divudi.facade;
 
-import com.divudi.entity.lab.PatientHealthFormReportItemValue;
+import com.divudi.entity.form.PatientHealthFormReportItemValue;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

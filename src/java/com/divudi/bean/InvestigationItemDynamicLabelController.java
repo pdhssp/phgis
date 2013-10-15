@@ -10,9 +10,9 @@ package com.divudi.bean;
 
 import com.divudi.data.InvestigationItemType;
 import com.divudi.data.Sex;
-import com.divudi.entity.lab.HealthForm;
-import com.divudi.entity.lab.HealthFormItem;
-import com.divudi.entity.lab.HealthFormItemValueFlag;
+import com.divudi.entity.form.HealthForm;
+import com.divudi.entity.form.HealthFormItem;
+import com.divudi.entity.form.HealthFormItemValueFlag;
 import com.divudi.facade.InvestigationFacade;
 import com.divudi.facade.InvestigationItemFacade;
 import com.divudi.facade.InvestigationItemValueFlagFacade;

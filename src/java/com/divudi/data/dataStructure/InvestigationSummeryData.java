@@ -6,7 +6,7 @@ package com.divudi.data.dataStructure;
 
 import com.divudi.entity.BillItem;
 import com.divudi.entity.Item;
-import com.divudi.entity.lab.HealthForm;
+import com.divudi.entity.form.HealthForm;
 import java.util.List;
 
 /**

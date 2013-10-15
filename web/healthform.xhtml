@@ -55,7 +55,9 @@
                                 </p:commandButton>
                             </f:facet>
                             <h:panelGrid id="gpDetail" columns="1">
-                                <h:panelGrid id="gpDetailText" columns="2">
+                                
+                                <h:panelGrid id="gpDetailText" columns="4">
+                                    
                                     <h:outputText id="lblName" value="Name" ></h:outputText>
                                     <h:inputText id="txtName" value="#{healthFormController.current.name}" required="true" ></h:inputText>
                                     <h:outputText id="lblAddress" value="Printing Name" ></h:outputText>
@@ -69,7 +71,38 @@
                                         <f:selectItem itemLabel="Please select a category"/>
                                         <f:selectItems value="#{investigationCategoryController.items}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat}" />
                                     </h:selectOneListbox>
-                                    </h:panelGrid>
+
+
+                                    <p:outputLabel value="Duration"/>
+                                    <p:selectOneMenu value="#{healthFormController.current.durationType}" >
+                                        <f:selectItem itemLabel="Select"  />
+                                        <f:selectItem itemValue="Daily" itemLabel="Daily"/>
+                                        <f:selectItem itemValue="Weekly" itemLabel="Weekly"/>
+                                        <f:selectItem itemValue="Monthly" itemLabel="Monthly"/>
+                                        <f:selectItem itemValue="Quarterly" itemLabel="Quarterly"/>
+                                        <f:selectItem itemValue="Annually" itemLabel="Annually"/>
+                                        <f:selectItem itemValue="Variable" itemLabel="Variable"/>
+                                    </p:selectOneMenu>
+
+
+                                    <p:outputLabel value="Area"/>
+                                    <p:selectOneMenu value="#{healthFormController.current.areaType}">
+                                        <f:selectItem itemLabel="Select"/>
+                                        <f:selectItem itemValue="Country" itemLabel="Country"/>
+                                        <f:selectItem itemValue="Province" itemLabel="Province"/>
+                                        <f:selectItem itemValue="District" itemLabel="District"/>
+                                        <f:selectItem itemValue="MohArea" itemLabel="MOH Area"/>
+                                        <f:selectItem itemValue="PhiArea"  itemLabel="PHI Area"/>
+                                        <f:selectItem itemValue="PhmArea" itemLabel="PHM Area"/>
+                                        <f:selectItem itemValue="GnArea" itemLabel="GN Area"/>
+
+
+
+                                    </p:selectOneMenu>
+
+
+
+                                </h:panelGrid>
                             </h:panelGrid>
                         </p:panel>
                     </h:panelGrid>

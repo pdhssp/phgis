@@ -65,7 +65,7 @@
                                     <p:outputLabel value="Code"/>
                                     <p:inputText value="#{healthFormController.current.code}"/>
                                     <h:outputText value="Category" ></h:outputText>
-                                    <h:selectOneListbox id="cmbCat"  size="1" value="#{healthFormController.current.investigationCategory}" >
+                                    <h:selectOneListbox id="cmbCat"  size="1" value="#{healthFormController.current.formCategory}" >
                                         <f:selectItem itemLabel="Please select a category"/>
                                         <f:selectItems value="#{investigationCategoryController.items}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat}" />
                                     </h:selectOneListbox>

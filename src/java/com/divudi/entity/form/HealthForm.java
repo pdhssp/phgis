@@ -4,9 +4,15 @@
  */
 package com.divudi.entity.form;
 
+import com.divudi.data.AreaType;
+import com.divudi.data.DurationType;
+import com.divudi.data.InstitutionType;
+import com.divudi.entity.Area;
 import com.divudi.entity.Item;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
@@ -21,20 +27,61 @@ public class HealthForm extends Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
     //Main Properties
+    
+    @Enumerated(EnumType.STRING)
+    AreaType areaType;
+    
+    @Enumerated(EnumType.STRING)
+    DurationType durationType;
+    
+    @Enumerated(EnumType.STRING)
+    InstitutionType institutionType;
+    
+    
+    
     @ManyToOne
-    private HealthFormCategory investigationCategory;
+    private HealthFormCategory formCategory;
     @ManyToOne
+    
+    
+    
+    
+    
+    
+    
     private HealthReportOtherCategory investigationTube;
-    @ManyToOne
-    private Sample sample;
-    private Double SampleVolume;
 
-    public HealthFormCategory getInvestigationCategory() {
-        return investigationCategory;
+    public AreaType getAreaType() {
+        return areaType;
     }
 
-    public void setInvestigationCategory(HealthFormCategory investigationCategory) {
-        this.investigationCategory = investigationCategory;
+    public void setAreaType(AreaType areaType) {
+        this.areaType = areaType;
+    }
+
+    public DurationType getDurationType() {
+        return durationType;
+    }
+
+    public void setDurationType(DurationType durationType) {
+        this.durationType = durationType;
+    }
+
+    public InstitutionType getInstitutionType() {
+        return institutionType;
+    }
+
+    public void setInstitutionType(InstitutionType institutionType) {
+        this.institutionType = institutionType;
+    }
+        public HealthFormCategory getFormCategory() {
+        return formCategory;
+    }
+        
+        
+
+    public void setFormCategory(HealthFormCategory formCategory) {
+        this.formCategory = formCategory;
     }
 
     public HealthReportOtherCategory getInvestigationTube() {
@@ -45,19 +92,5 @@ public class HealthForm extends Item implements Serializable {
         this.investigationTube = investigationTube;
     }
 
-    public Sample getSample() {
-        return sample;
-    }
 
-    public void setSample(Sample sample) {
-        this.sample = sample;
-    }
-
-    public Double getSampleVolume() {
-        return SampleVolume;
-    }
-
-    public void setSampleVolume(Double SampleVolume) {
-        this.SampleVolume = SampleVolume;
-    }
 }

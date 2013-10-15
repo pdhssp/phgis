@@ -63,8 +63,6 @@ public class PatientReportController implements Serializable {
     @EJB
     IxCalFacade ixCalFacade;
     String selectText = "";
-    @Inject
-    ItemForItemController itemForItemController;
     private PatientHealthForm currentPtIx;
     private PatientHealthFormReport currentPatientReport;
     HealthForm currentReportInvestigation;
@@ -200,13 +198,6 @@ public class PatientReportController implements Serializable {
 
     }
 
-    public ItemForItemController getItemForItemController() {
-        return itemForItemController;
-    }
-
-    public void setItemForItemController(ItemForItemController itemForItemController) {
-        this.itemForItemController = itemForItemController;
-    }
 
     public HealthForm getCurrentReportInvestigation() {
         return currentReportInvestigation;

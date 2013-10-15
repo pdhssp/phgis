@@ -13,9 +13,9 @@ import com.divudi.entity.Patient;
 import com.divudi.entity.form.HealthForm;
 import com.divudi.entity.form.HealthFormItem;
 import com.divudi.entity.form.HealthFormItemValueFlag;
-import com.divudi.entity.form.PatientHealthForm;
-import com.divudi.entity.form.PatientHealthFormReport;
-import com.divudi.entity.form.PatientHealthFormReportItemValue;
+import com.divudi.entity.form.FilledHealthForm;
+import com.divudi.entity.form.FilledHealthFormReport;
+import com.divudi.entity.form.FilledHealthFormReportItemValue;
 import com.divudi.entity.form.ReportItem;
 import com.divudi.facade.InvestigationItemFacade;
 import com.divudi.facade.InvestigationItemValueFlagFacade;
@@ -42,9 +42,9 @@ public class PatientReportBean {
     @EJB
     private PatientReportFacade prFacade;
 
-    public PatientHealthFormReport patientReportFromPatientIx(PatientHealthForm pi) {
+    public FilledHealthFormReport patientReportFromPatientIx(FilledHealthForm pi) {
         String sql;
-        PatientHealthFormReport r;
+        FilledHealthFormReport r;
         if (pi == null) {
             return null;
         }
@@ -54,7 +54,7 @@ public class PatientReportBean {
         sql = "Select r from PatientReport r where r.retired=false and r.patientInvestigation.id = " + pi.getId();
         r = getPrFacade().findFirstBySQL(sql);
         if (r == null) {
-            r = new PatientHealthFormReport();
+            r = new FilledHealthFormReport();
             r.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             r.setItem(pi.getInvestigation());
             r.setPatientInvestigation(pi);
@@ -63,15 +63,15 @@ public class PatientReportBean {
         return r;
     }
 
-    public PatientHealthFormReport newPatientReportFromPatientIx(PatientHealthForm pi, HealthForm ix) {
-        PatientHealthFormReport r;
+    public FilledHealthFormReport newPatientReportFromPatientIx(FilledHealthForm pi, HealthForm ix) {
+        FilledHealthFormReport r;
         if (pi == null) {
             return null;
         }
         if (pi.getId() == null || pi.getId() == 0) {
             return null;
         }
-        r = new PatientHealthFormReport();
+        r = new FilledHealthFormReport();
         r.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
         r.setItem(ix);
         r.setPatientInvestigation(pi);
@@ -136,7 +136,7 @@ public class PatientReportBean {
         return null;
     }
 
-    public void addPatientReportItemValuesForReport(PatientHealthFormReport ptReport) {
+    public void addPatientReportItemValuesForReport(FilledHealthFormReport ptReport) {
         String sql = "";
         System.out.println("going to add patient report item values for report");
         HealthForm temIx = (HealthForm) ptReport.getItem();
@@ -145,8 +145,8 @@ public class PatientReportBean {
             System.out.println("report items is " + ii.getName());
             if ( (ii.getIxItemType() == InvestigationItemType.Value || ii.getIxItemType() == InvestigationItemType.Calculation) && ii.isRetired() == false) {
                 if (ptReport.getId() == null || ptReport.getId() == 0) {
-                    PatientHealthFormReportItemValue val;
-                    val = new PatientHealthFormReportItemValue();
+                    FilledHealthFormReportItemValue val;
+                    val = new FilledHealthFormReportItemValue();
                     if (ii.getIxItemValueType() == InvestigationItemValueType.Varchar) {
                         val.setStrValue(getDefaultVarcharValue((HealthFormItem) ii, ptReport.getPatientInvestigation().getPatient()));
                     } else if (ii.getIxItemValueType() == InvestigationItemValueType.Memo) {
@@ -166,11 +166,11 @@ public class PatientReportBean {
 
                 } else {
                     sql = "select i from PatientReportItemValue i where i.patientReport.id = " + ptReport.getId() + " and i.investigationItem.id = " + ii.getId() + " and (i.investigationItem.ixItemType = com.divudi.data.InvestigationItemType.Value or i.investigationItem.ixItemType = com.divudi.data.InvestigationItemType.Calculation)";
-                    PatientHealthFormReportItemValue val = getPtRivFacade().findFirstBySQL(sql);
+                    FilledHealthFormReportItemValue val = getPtRivFacade().findFirstBySQL(sql);
                     System.out.println("val is " + val);
                     if (val == null) {
                         System.out.println("val is null");
-                        val = new PatientHealthFormReportItemValue();
+                        val = new FilledHealthFormReportItemValue();
                         if (ii.getIxItemValueType() == InvestigationItemValueType.Varchar) {
                             val.setStrValue(getDefaultVarcharValue((HealthFormItem) ii, ptReport.getPatientInvestigation().getPatient()));
                         } else if (ii.getIxItemValueType() == InvestigationItemValueType.Memo) {
@@ -194,8 +194,8 @@ public class PatientReportBean {
                 }
             } else if (ii.getIxItemType() == InvestigationItemType.DynamicLabel && ii.isRetired() == false) {
                 if (ptReport.getId() == null || ptReport.getId() == 0) {
-                    PatientHealthFormReportItemValue val;
-                    val = new PatientHealthFormReportItemValue();
+                    FilledHealthFormReportItemValue val;
+                    val = new FilledHealthFormReportItemValue();
                     val.setStrValue(getPatientDynamicLabel((HealthFormItem) ii, ptReport.getPatientInvestigation().getPatient()));
                     val.setInvestigationItem((HealthFormItem) ii);
                     val.setPatient(ptReport.getPatientInvestigation().getPatient());
@@ -206,11 +206,11 @@ public class PatientReportBean {
 
                 } else {
                     sql = "select i from PatientReportItemValue i where i.patientReport.id = " + ptReport.getId() + " and i.investigationItem.id = " + ii.getId() + " and i.investigationItem.ixItemType = com.divudi.data.InvestigationItemType.Value";
-                    PatientHealthFormReportItemValue val = getPtRivFacade().findFirstBySQL(sql);
+                    FilledHealthFormReportItemValue val = getPtRivFacade().findFirstBySQL(sql);
                     System.out.println("val is " + val);
                     if (val == null) {
                         System.out.println("val is null");
-                        val = new PatientHealthFormReportItemValue();
+                        val = new FilledHealthFormReportItemValue();
                         val.setStrValue(getPatientDynamicLabel((HealthFormItem) ii, ptReport.getPatientInvestigation().getPatient()));
                         val.setInvestigationItem((HealthFormItem) ii);
                         val.setPatient(ptReport.getPatientInvestigation().getPatient());

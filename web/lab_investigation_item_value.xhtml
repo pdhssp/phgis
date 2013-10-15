@@ -46,7 +46,7 @@
 
                             </p:panelGrid>
 
-                            <p:dataTable id="lstIi" value="#{investigationItemController.current.investigationItemValues}" var="iivt" >
+                            <p:dataTable id="lstIi" value="#{investigationItemController.current.healthformItemValues}" var="iivt" >
                                 <p:column >
                                     <p:inputText value="#{iivt.name}" >
                                         <p:ajax event="blur" process="lstIi" listener="#{investigationItemController.saveSelected()}" />

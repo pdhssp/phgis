@@ -29,7 +29,7 @@ public class HealthFormItemValue implements Serializable {
     //Main Properties
     Long id;
     @ManyToOne(cascade= CascadeType.ALL,fetch= FetchType.EAGER)
-    HealthFormItem investigationItem;
+    HealthFormItem healthformItem;
     String name;
 //Created Properties
     @ManyToOne
@@ -126,12 +126,12 @@ public class HealthFormItemValue implements Serializable {
         this.retireComments = retireComments;
     }
 
-    public HealthFormItem getInvestigationItem() {
-        return investigationItem;
+    public HealthFormItem getHealthformItem() {
+        return healthformItem;
     }
 
-    public void setInvestigationItem(HealthFormItem investigationItem) {
-        this.investigationItem = investigationItem;
+    public void setHealthformItem(HealthFormItem healthformItem) {
+        this.healthformItem = healthformItem;
     }
 
     public String getName() {

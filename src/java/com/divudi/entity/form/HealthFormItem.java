@@ -24,15 +24,17 @@ public class HealthFormItem extends ReportItem implements Serializable {
     private static final long serialVersionUID = 1L;
     
     
-    @OneToMany(mappedBy = "investigationItem", cascade= CascadeType.ALL, fetch= FetchType.EAGER)
-    List<HealthFormItemValue> investigationItemValues;
+//    @OneToMany(mappedBy = "investigationItem", cascade= CascadeType.ALL, fetch= FetchType.EAGER)
+    
+    @OneToMany(mappedBy = "healthformItem", cascade= CascadeType.ALL, fetch= FetchType.EAGER)
+    List<HealthFormItemValue> healthformItemValues;
 
-    public List<HealthFormItemValue> getInvestigationItemValues() {
-        return investigationItemValues;
+    public List<HealthFormItemValue> getHealthformItemValues() {
+        return healthformItemValues;
     }
 
-    public void setInvestigationItemValues(List<HealthFormItemValue> investigationItemValues) {
-        this.investigationItemValues = investigationItemValues;
+    public void setHealthformItemValues(List<HealthFormItemValue> healthformItemValues) {
+        this.healthformItemValues = healthformItemValues;
     }
     
     

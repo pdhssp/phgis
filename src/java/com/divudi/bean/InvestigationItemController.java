@@ -111,8 +111,8 @@ public  class InvestigationItemController implements Serializable {
         }
         HealthFormItemValue i = new HealthFormItemValue();
         i.setName(addingString);
-        i.setInvestigationItem(current);
-        current.getInvestigationItemValues().add(i);
+        i.setHealthformItem(current);
+        current.getHealthformItemValues().add(i);
         getEjbFacade().edit(current);
         UtilityController.addSuccessMessage("Added");
         addingString = "";
@@ -189,7 +189,7 @@ public  class InvestigationItemController implements Serializable {
         System.out.println("3");
         getIivFacade().remove(removingItem);
         System.out.println("4");
-        current.getInvestigationItemValues().remove(removingItem);
+        current.getHealthformItemValues().remove(removingItem);
         System.out.println("5");
         getEjbFacade().edit(current);
         System.out.println("6");

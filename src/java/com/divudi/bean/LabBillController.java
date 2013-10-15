@@ -25,7 +25,7 @@ import com.divudi.entity.BilledBill;
 import com.divudi.entity.Item;
 import com.divudi.entity.Patient;
 import com.divudi.entity.PatientEncounter;
-import com.divudi.entity.form.PatientHealthForm;
+import com.divudi.entity.form.FilledHealthForm;
 import com.divudi.entity.PaymentScheme;
 import com.divudi.entity.Person;
 import com.divudi.facade.BillComponentFacade;
@@ -656,7 +656,7 @@ public  class LabBillController implements Serializable {
             for (BillComponent bc : e.getLstBillComponents()) {
                 if (bc.getId() == null || bc.getId() == 0) {
                     getBillComponentFacade().create(bc);
-                    PatientHealthForm ptIx = new PatientHealthForm();
+                    FilledHealthForm ptIx = new FilledHealthForm();
                     ptIx.setBillItem(e.getBillItem());
                     ptIx.setBillComponent(bc);
                     ptIx.setPackege(bc.getPackege());

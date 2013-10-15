@@ -103,11 +103,11 @@
                                             <p:commandButton process="btnPrintWorksheets" update="tblBills"  rendered="#{pi.collected}"   id="btnPrintWorksheets" value="To Print Worksheets" action="lab_receive">
                                                 <f:setPropertyActionListener value="#{pi}" target="#{patientInvestigationController.current}" ></f:setPropertyActionListener>
                                             </p:commandButton>
-                                            <p:commandButton ajax="false" rendered="#{pi.received}" value="New Result Entry"  action="#{patientReportController.enterNewData}" >
-                                                <f:setPropertyActionListener value="#{pi}" target="#{patientReportController.currentPtIx}"></f:setPropertyActionListener>
+                                            <p:commandButton ajax="false" rendered="#{pi.received}" value="New Result Entry"  action="#{filledReportController.enterNewData}" >
+                                                <f:setPropertyActionListener value="#{pi}" target="#{filledReportController.currentPtIx}"></f:setPropertyActionListener>
                                             </p:commandButton>
                                             <p:commandButton ajax="false" rendered="#{pi.received}" value="New Report Format"  action="lab_ix_for_ix" >
-                                                <f:setPropertyActionListener value="#{pi}" target="#{patientReportController.currentPtIx}"></f:setPropertyActionListener>
+                                                <f:setPropertyActionListener value="#{pi}" target="#{filledReportController.currentPtIx}"></f:setPropertyActionListener>
                                                 <f:setPropertyActionListener value="#{pi}" target="#{itemForItemController.patientIx}"></f:setPropertyActionListener>
                                             </p:commandButton>
                                         </h:panelGrid>
@@ -118,7 +118,7 @@
                                         <p:dataTable value="#{pi.patientReports}" var="dpr" rendered="#{pi.patientReports.size() ne 0}" >
                                             <p:column headerText="Actions">
                                                 <p:commandLink value="To View / Edit / Approve / Print  " ajax="false" action="lab_patient_report">
-                                                    <f:setPropertyActionListener value="#{dpr}" target="#{patientReportController.currentPatientReport}"></f:setPropertyActionListener>
+                                                    <f:setPropertyActionListener value="#{dpr}" target="#{filledReportController.currentPatientReport}"></f:setPropertyActionListener>
                                                 </p:commandLink>
                                             </p:column>
                                             <p:column headerText="Report">

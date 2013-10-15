@@ -4,9 +4,12 @@
  */
 package com.divudi.entity.form;
 
+import com.divudi.entity.Area;
 import com.divudi.entity.Department;
+import com.divudi.entity.Family;
 import com.divudi.entity.Institution;
 import com.divudi.entity.Item;
+import com.divudi.entity.Person;
 import com.divudi.entity.WebUser;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,10 +32,10 @@ import javax.persistence.Temporal;
  * @author Buddhika
  */
 @Entity
-public class PatientHealthFormReport implements Serializable {
+public class FilledHealthFormReport implements Serializable {
 
     @OneToMany(mappedBy = "patientReport", cascade = CascadeType.ALL,fetch= FetchType.EAGER)
-    private List<PatientHealthFormReportItemValue> patientReportItemValues;
+    private List<FilledHealthFormReportItemValue> patientReportItemValues;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +43,7 @@ public class PatientHealthFormReport implements Serializable {
     @ManyToOne
     private Item item;
     @ManyToOne
-    private PatientHealthForm patientInvestigation;
+    private FilledHealthForm patientInvestigation;
     //Created Properties
     @ManyToOne
     private WebUser creater;
@@ -109,17 +112,116 @@ public class PatientHealthFormReport implements Serializable {
     @ManyToOne
     private Institution returnInstitution;
 
-    public List<PatientHealthFormReportItemValue> getPatientReportItemValues() {
+    @ManyToOne
+    Area area;
+    @ManyToOne
+    Institution institution;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date fromDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date toDate;
+    int yearVal;
+    int monthVal;
+    int dateVal;
+    int quarterVal;
+    @ManyToOne
+    Family family;
+    @ManyToOne
+    Person person;
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public int getYearVal() {
+        return yearVal;
+    }
+
+    public void setYearVal(int yearVal) {
+        this.yearVal = yearVal;
+    }
+
+    public int getMonthVal() {
+        return monthVal;
+    }
+
+    public void setMonthVal(int monthVal) {
+        this.monthVal = monthVal;
+    }
+
+    public int getDateVal() {
+        return dateVal;
+    }
+
+    public void setDateVal(int dateVal) {
+        this.dateVal = dateVal;
+    }
+
+    public int getQuarterVal() {
+        return quarterVal;
+    }
+
+    public void setQuarterVal(int quarterVal) {
+        this.quarterVal = quarterVal;
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+    
+    
+    
+    public List<FilledHealthFormReportItemValue> getPatientReportItemValues() {
         
         if (patientReportItemValues != null) {
             Collections.sort(patientReportItemValues, new PatientReportItemValueComparator());
         }else{
-            patientReportItemValues = new ArrayList<PatientHealthFormReportItemValue>();
+            patientReportItemValues = new ArrayList<FilledHealthFormReportItemValue>();
         }
         return patientReportItemValues;
     }
 
-    public void setPatientReportItemValues(List<PatientHealthFormReportItemValue> patientReportItemValues) {
+    public void setPatientReportItemValues(List<FilledHealthFormReportItemValue> patientReportItemValues) {
         this.patientReportItemValues = patientReportItemValues;
     }
 
@@ -381,10 +483,10 @@ public class PatientHealthFormReport implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PatientHealthFormReport)) {
+        if (!(object instanceof FilledHealthFormReport)) {
             return false;
         }
-        PatientHealthFormReport other = (PatientHealthFormReport) object;
+        FilledHealthFormReport other = (FilledHealthFormReport) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -396,11 +498,11 @@ public class PatientHealthFormReport implements Serializable {
         return "com.divudi.entity.lab.PatientReport[ id=" + id + " ]";
     }
 
-    public PatientHealthForm getPatientInvestigation() {
+    public FilledHealthForm getPatientInvestigation() {
         return patientInvestigation;
     }
 
-    public void setPatientInvestigation(PatientHealthForm patientInvestigation) {
+    public void setPatientInvestigation(FilledHealthForm patientInvestigation) {
         this.patientInvestigation = patientInvestigation;
     }
 
@@ -460,10 +562,10 @@ public class PatientHealthFormReport implements Serializable {
         this.item = item;
     }
 
-    static class PatientReportItemValueComparator implements Comparator<PatientHealthFormReportItemValue> {
+    static class PatientReportItemValueComparator implements Comparator<FilledHealthFormReportItemValue> {
 
         @Override
-        public int compare(PatientHealthFormReportItemValue o1, PatientHealthFormReportItemValue o2) {
+        public int compare(FilledHealthFormReportItemValue o1, FilledHealthFormReportItemValue o2) {
             return o1.getInvestigationItem().getCssTop().compareTo(o2.getInvestigationItem().getCssTop());  //To change body of generated methods, choose Tools | Templates.
         }
     }

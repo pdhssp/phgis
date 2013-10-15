@@ -24,13 +24,13 @@
                                     <p:panelGrid columns="2" >
 
                                         <h:outputLabel value="Name" ></h:outputLabel>
-                                        <h:outputLabel value="#{patientReportController.currentPatientReport.patientInvestigation.patient.person.nameWithTitle}" ></h:outputLabel>
+                                        <h:outputLabel value="#{filledReportController.currentPatientReport.patientInvestigation.patient.person.nameWithTitle}" ></h:outputLabel>
                                         <h:outputLabel value="Age" ></h:outputLabel>
-                                        <h:outputLabel value="#{patientReportController.currentPatientReport.patientInvestigation.patient.age}" ></h:outputLabel>
+                                        <h:outputLabel value="#{filledReportController.currentPatientReport.patientInvestigation.patient.age}" ></h:outputLabel>
                                         <h:outputLabel value="Sex" ></h:outputLabel>
-                                        <h:outputLabel value="#{patientReportController.currentPatientReport.patientInvestigation.patient.person.sex}" ></h:outputLabel>
+                                        <h:outputLabel value="#{filledReportController.currentPatientReport.patientInvestigation.patient.person.sex}" ></h:outputLabel>
                                         <h:outputLabel value="Investigation" ></h:outputLabel>
-                                        <h:outputLabel value="#{patientReportController.currentPatientReport.patientInvestigation.investigation.name}" ></h:outputLabel>
+                                        <h:outputLabel value="#{filledReportController.currentPatientReport.patientInvestigation.investigation.name}" ></h:outputLabel>
 
                                     </p:panelGrid>
                                 </p:panel>
@@ -40,14 +40,14 @@
 
                                     <f:facet name="header" >
                                         <h:outputLabel value="Investigation Results" ></h:outputLabel>
-                                        <h:commandButton value="Save" action="#{patientReportController.savePatientReport()}" ></h:commandButton>
+                                        <h:commandButton value="Save" action="#{filledReportController.savePatientReport()}" ></h:commandButton>
                                     </f:facet>
 
 
 
                                     <table>
 
-                                        <ui:repeat value="#{patientReportController.currentPatientReport.patientReportItemValues}" var="pv" >
+                                        <ui:repeat value="#{filledReportController.currentPatientReport.patientReportItemValues}" var="pv" >
                                             <tr>
                                                 <td>
                                                     <h:panelGroup rendered="#{pv.investigationItem.ixItemType eq 'Value' and pv.investigationItem.retired eq false}"  style="min-width: 300px" >

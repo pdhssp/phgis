@@ -36,6 +36,8 @@ import javax.persistence.Transient;
 @Entity
 public class ReportItem implements Serializable {
 
+    int pageNo;
+    
     static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -102,6 +104,17 @@ public class ReportItem implements Serializable {
     @ManyToOne
     Category category;
 
+    public int getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    
+    
+    
     public Category getCategory() {
         return category;
     }

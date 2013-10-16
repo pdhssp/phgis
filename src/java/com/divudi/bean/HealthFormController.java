@@ -9,6 +9,7 @@
 package com.divudi.bean;
 
 import com.divudi.data.InvestigationItemType;
+import com.divudi.data.StaffRole;
 import com.divudi.ejb.BillBean;
 import com.divudi.entity.Department;
 import com.divudi.entity.ItemFee;
@@ -20,6 +21,7 @@ import com.divudi.facade.InvestigationFacade;
 import com.divudi.facade.ItemFacade;
 import com.divudi.facade.ItemFeeFacade;
 import com.divudi.facade.SpecialityFacade;
+import com.google.common.collect.HashBiMap;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +68,25 @@ public class HealthFormController implements Serializable {
     List<HealthForm> catIxs;
     @EJB
     private DepartmentFacade departmentFacade;
+    private List<HealthForm> midvifesForms;
+
+    public List<HealthForm> getMidvifesForms() {
+        if (midvifesForms == null) {
+            midvifesForms = getStaffRoleForms(StaffRole.Phm);
+        }
+        return midvifesForms;
+    }
+
+    public List<HealthForm> getStaffRoleForms(StaffRole sr) {
+        Map m = new HashMap();
+        String jpql = "select f from HealthForm f where f.staffRole =:sr order by f.code";
+        m.put("sr", sr);
+        return getFacade().findBySQL(jpql, m);
+    }
+
+    public void setMidvifesForms(List<HealthForm> midvifesForms) {
+        this.midvifesForms = midvifesForms;
+    }
 
     public List<Department> getInstitutionDepatrments() {
         List<Department> d;
@@ -97,8 +118,6 @@ public class HealthFormController implements Serializable {
         }
         UtilityController.addSuccessMessage("Saved");
     }
-
-    
     @EJB
     ItemFacade itemFacade;
 
@@ -109,10 +128,7 @@ public class HealthFormController implements Serializable {
     public void setItemFacade(ItemFacade itemFacade) {
         this.itemFacade = itemFacade;
     }
-    
-    
-    
-    
+
     public List<HealthForm> getCatIxs() {
         if (catIxs == null) {
             if (category == null) {
@@ -418,8 +434,6 @@ public class HealthFormController implements Serializable {
     /**
      *
      */
-  
-
     @FacesConverter("ixcon")
     public static class InvestigationConverter implements Converter {
 

@@ -4,7 +4,7 @@
  */
 package com.divudi.facade;
 
-import com.divudi.entity.form.PatientHealthForm;
+import com.divudi.entity.form.FilledHealthForm;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Buddhika
  */
 @Stateless
-public class PatientInvestigationFacade extends AbstractFacade<PatientHealthForm> {
+public class PatientInvestigationFacade extends AbstractFacade<FilledHealthForm> {
     @PersistenceContext(unitName = "phgisPU")
     private EntityManager em;
 
@@ -24,7 +24,7 @@ public class PatientInvestigationFacade extends AbstractFacade<PatientHealthForm
     }
 
     public PatientInvestigationFacade() {
-        super(PatientHealthForm.class);
+        super(FilledHealthForm.class);
     }
     
 }

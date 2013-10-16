@@ -29,7 +29,7 @@ import com.divudi.entity.PaymentScheme;
 import com.divudi.entity.Person;
 import com.divudi.entity.Staff;
 import com.divudi.entity.form.HealthForm;
-import com.divudi.entity.form.PatientHealthForm;
+import com.divudi.entity.form.FilledHealthForm;
 import com.divudi.facade.BillComponentFacade;
 import com.divudi.facade.BillFeeFacade;
 import com.divudi.facade.BillItemFacade;
@@ -261,7 +261,7 @@ public  class LabBillCollectingController implements Serializable {
     }
 
     private void savePatientInvestigation(BillEntry e, BillComponent bc) {
-        PatientHealthForm ptIx = new PatientHealthForm();
+        FilledHealthForm ptIx = new FilledHealthForm();
         ptIx.setBillItem(e.getBillItem());
         ptIx.setBillComponent(bc);
         ptIx.setPackege(bc.getPackege());

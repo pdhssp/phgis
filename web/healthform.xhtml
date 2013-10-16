@@ -35,8 +35,6 @@
                                 </h:panelGrid>
                                 <h:panelGrid id="gpSelectButtons" columns="3"  >
                                     <p:commandButton id="btnAdd" ajax="false" value="Add"  action="#{healthFormController.prepareAdd()}" styleClass="buttons" >
-                                        <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail " execute="" >
-                                        </f:ajax>
                                     </p:commandButton>
                                     <p:commandButton id="btnDelete" ajax="false" onclick="if (!confirm('Are you sure you want to delete this record?'))
                                                 return false;" action="#{healthFormController.delete()}"  value="Delete"  >
@@ -100,6 +98,12 @@
 
                                     </p:selectOneMenu>
 
+                                    
+                                    <p:outputLabel value="Staff Role"/>
+                                    <p:selectOneMenu value="#{healthFormController.current.staffRole}">
+                                        <f:selectItem itemLabel="Select"/>
+                                        <f:selectItem itemValue="Phm" itemLabel="Public Health Midwife"/>
+                                    </p:selectOneMenu>
 
 
                                 </h:panelGrid>

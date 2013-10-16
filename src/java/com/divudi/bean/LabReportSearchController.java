@@ -13,7 +13,7 @@ import com.divudi.entity.CancelledBill;
 import com.divudi.entity.Department;
 import com.divudi.entity.Institution;
 import com.divudi.entity.RefundBill;
-import com.divudi.entity.form.PatientHealthForm;
+import com.divudi.entity.form.FilledHealthForm;
 import com.divudi.facade.BillFacade;
 import com.divudi.facade.PatientInvestigationFacade;
 import java.io.Serializable;
@@ -1051,7 +1051,7 @@ public class LabReportSearchController implements Serializable {
         labHandoverC = 0.0;
         labHandoverR = 0.0;
     }
-    List<PatientHealthForm> patientInvestigations;
+    List<FilledHealthForm> patientInvestigations;
     @EJB
     PatientInvestigationFacade piFacade;
 
@@ -1063,7 +1063,7 @@ public class LabReportSearchController implements Serializable {
         this.piFacade = piFacade;
     }
 
-    public List<PatientHealthForm> getPatientInvestigations() {
+    public List<FilledHealthForm> getPatientInvestigations() {
         String sql;
         if (patientInvestigations == null) {
             Map m = new HashMap();
@@ -1080,7 +1080,7 @@ public class LabReportSearchController implements Serializable {
         return patientInvestigations;
     }
 
-    public void setPatientInvestigations(List<PatientHealthForm> patientInvestigations) {
+    public void setPatientInvestigations(List<FilledHealthForm> patientInvestigations) {
         this.patientInvestigations = patientInvestigations;
     }
 

@@ -12,8 +12,8 @@ import com.divudi.ejb.CommonFunctions;
 import com.divudi.entity.Department;
 import com.divudi.entity.form.HealthForm;
 import com.divudi.entity.form.HealthFormItem;
-import com.divudi.entity.form.PatientHealthForm;
-import com.divudi.entity.form.PatientHealthFormReport;
+import com.divudi.entity.form.FilledHealthForm;
+import com.divudi.entity.form.FilledHealthFormReport;
 import com.divudi.entity.form.ReportItem;
 import com.divudi.facade.InvestigationFacade;
 import com.divudi.facade.InvestigationItemFacade;
@@ -53,16 +53,16 @@ public  class PatientInvestigationController implements Serializable {
     private PatientInvestigationFacade ejbFacade;
     @EJB
     PatientReportFacade prFacade;
-    List<PatientHealthForm> selectedItems;
-    private PatientHealthForm current;
+    List<FilledHealthForm> selectedItems;
+    private FilledHealthForm current;
     HealthForm currentInvestigation;
     List<HealthFormItem> currentInvestigationItems;
-    private List<PatientHealthForm> items = null;
-    private List<PatientHealthForm> lstToSamle = null;
-    private List<PatientHealthForm> lstToReceive = null;
-    private List<PatientHealthForm> lstToEnterData = null;
-    private List<PatientHealthFormReport> lstToApprove = null;
-    private List<PatientHealthFormReport> lstToPrint = null;
+    private List<FilledHealthForm> items = null;
+    private List<FilledHealthForm> lstToSamle = null;
+    private List<FilledHealthForm> lstToReceive = null;
+    private List<FilledHealthForm> lstToEnterData = null;
+    private List<FilledHealthFormReport> lstToApprove = null;
+    private List<FilledHealthFormReport> lstToPrint = null;
     String selectText = "";
     private Department department;
     @Temporal(TemporalType.TIME)
@@ -81,7 +81,7 @@ public  class PatientInvestigationController implements Serializable {
     boolean listIncludingEnteredData;
     private boolean listIncludingSampled;
     boolean listIncludingApproved;
-    List<PatientHealthForm> selectedToReceive;
+    List<FilledHealthForm> selectedToReceive;
 
     public void resetLists() {
         items = null;
@@ -122,10 +122,10 @@ public  class PatientInvestigationController implements Serializable {
         lstToReceive = null;
     }
 
-    public List<PatientHealthForm> getSelectedToReceive() {
+    public List<FilledHealthForm> getSelectedToReceive() {
         System.out.println("selected to receive");
         if (selectedToReceive != null) {
-            for (PatientHealthForm pi : selectedToReceive) {
+            for (FilledHealthForm pi : selectedToReceive) {
                 for (ReportItem ri : pi.getInvestigation().getReportItems()) {
                     System.out.println("ri is " + ri.getName());
                 }
@@ -134,7 +134,7 @@ public  class PatientInvestigationController implements Serializable {
         return selectedToReceive;
     }
 
-    public void setSelectedToReceive(List<PatientHealthForm> selectedToReceive) {
+    public void setSelectedToReceive(List<FilledHealthForm> selectedToReceive) {
         this.selectedToReceive = selectedToReceive;
     }
 
@@ -244,16 +244,16 @@ public  class PatientInvestigationController implements Serializable {
         this.currentInvestigationItems = currentInvestigationItems;
     }
 
-    public List<PatientHealthForm> getSelectedItems() {
+    public List<FilledHealthForm> getSelectedItems() {
         selectedItems = getFacade().findBySQL("select c from PatientInvestigation c where c.retired=false and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' order by c.name");
         return selectedItems;
     }
 
     public void prepareAdd() {
-        current = new PatientHealthForm();
+        current = new FilledHealthForm();
     }
 
-    public void setSelectedItems(List<PatientHealthForm> selectedItems) {
+    public void setSelectedItems(List<FilledHealthForm> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
@@ -308,14 +308,14 @@ public  class PatientInvestigationController implements Serializable {
     public PatientInvestigationController() {
     }
 
-    public PatientHealthForm getCurrent() {
+    public FilledHealthForm getCurrent() {
         if (current == null) {
-            current = new PatientHealthForm();
+            current = new FilledHealthForm();
         }
         return current;
     }
 
-    public void setCurrent(PatientHealthForm current) {
+    public void setCurrent(FilledHealthForm current) {
         if (current != null) {
             setCurrentInvestigation(current.getInvestigation());
         } else {
@@ -328,20 +328,20 @@ public  class PatientInvestigationController implements Serializable {
         return ejbFacade;
     }
 
-    public List<PatientHealthForm> getItems() {
+    public List<FilledHealthForm> getItems() {
         if (items == null) {
             String temSql;
             temSql = "SELECT i FROM PatientInvestigation i where i.retired=false ";
             items = getFacade().findBySQL(temSql);
             if (items == null) {
-                items = new ArrayList<PatientHealthForm>();
+                items = new ArrayList<FilledHealthForm>();
             }
 
         }
         return items;
     }
 
-    public List<PatientHealthForm> getLstToSamle() {
+    public List<FilledHealthForm> getLstToSamle() {
         if (lstToSamle == null) {
             String temSql;
             getCurrent().getSampledAt();
@@ -358,7 +358,7 @@ public  class PatientInvestigationController implements Serializable {
             lstToSamle = getFacade().findBySQL(temSql, temMap, TemporalType.TIMESTAMP);
         }
         if (lstToSamle == null) {
-            lstToSamle = new ArrayList<PatientHealthForm>();
+            lstToSamle = new ArrayList<FilledHealthForm>();
         }
 
         return lstToSamle;
@@ -388,11 +388,11 @@ public  class PatientInvestigationController implements Serializable {
         setSampledOutsideDate(Calendar.getInstance().getTime());
     }
 
-    public void setLstToSamle(List<PatientHealthForm> lstToSamle) {
+    public void setLstToSamle(List<FilledHealthForm> lstToSamle) {
         this.lstToSamle = lstToSamle;
     }
 
-    public List<PatientHealthForm> getLstToReceive() {
+    public List<FilledHealthForm> getLstToReceive() {
         if (lstToReceive == null) {
             String temSql;
             getCurrent().getSampledAt();
@@ -410,13 +410,13 @@ public  class PatientInvestigationController implements Serializable {
             lstToReceive = getFacade().findBySQL(temSql, temMap, TemporalType.TIMESTAMP);
         }
         if (lstToReceive == null) {
-            lstToReceive = new ArrayList<PatientHealthForm>();
+            lstToReceive = new ArrayList<FilledHealthForm>();
         }
         return lstToReceive;
     }
-    List<PatientHealthForm> lstToReceiveSearch;
+    List<FilledHealthForm> lstToReceiveSearch;
 
-    public List<PatientHealthForm> getLstToReceiveSearch() {
+    public List<FilledHealthForm> getLstToReceiveSearch() {
         if (lstToReceiveSearch == null) {
             System.out.println("getting lst to receive search");
             String temSql;
@@ -438,15 +438,15 @@ public  class PatientInvestigationController implements Serializable {
         }
         if (lstToReceiveSearch == null) {
 //            System.out.println("lstToReceiveSearch is null");
-            lstToReceiveSearch = new ArrayList<PatientHealthForm>();
+            lstToReceiveSearch = new ArrayList<FilledHealthForm>();
         }
 //        System.out.println("size is " + lstToReceiveSearch.size());
         return lstToReceiveSearch;
     }
 
     public void markYetToReceiveOnes() {
-        selectedToReceive = new ArrayList<PatientHealthForm>();
-        for (PatientHealthForm pi : lstToReceiveSearch) {
+        selectedToReceive = new ArrayList<FilledHealthForm>();
+        for (FilledHealthForm pi : lstToReceiveSearch) {
             if (pi.getReceived() != true) {
                 selectedToReceive.add(pi);
             }
@@ -464,22 +464,22 @@ public  class PatientInvestigationController implements Serializable {
 
     public void markSelectedAsReceived() {
         System.out.println("going to mark as received");
-        for (PatientHealthForm pi : selectedToReceive) {
+        for (FilledHealthForm pi : selectedToReceive) {
             pi.setReceived(Boolean.TRUE);
             pi.setReceivedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             pi.setReceivedCollecter(sessionController.getLoggedUser());
             getEjbFacade().edit(pi);
         }
-        selectedToReceive = new ArrayList<PatientHealthForm>();
+        selectedToReceive = new ArrayList<FilledHealthForm>();
         listIncludingReceived = false;
         System.out.println("marked as received");
     }
 
-    public void setLstToReceive(List<PatientHealthForm> lstToReceive) {
+    public void setLstToReceive(List<FilledHealthForm> lstToReceive) {
         this.lstToReceive = lstToReceive;
     }
 
-    public List<PatientHealthForm> getLstToEnterData() {
+    public List<FilledHealthForm> getLstToEnterData() {
         if (lstToEnterData == null) {
             String temSql;
             Map temMap = new HashMap();
@@ -494,7 +494,7 @@ public  class PatientInvestigationController implements Serializable {
             lstToEnterData = getFacade().findBySQL(temSql, temMap, TemporalType.TIMESTAMP);
         }
         if (lstToEnterData == null) {
-            lstToEnterData = new ArrayList<PatientHealthForm>();
+            lstToEnterData = new ArrayList<FilledHealthForm>();
         }
         return lstToEnterData;
     }
@@ -508,11 +508,11 @@ public  class PatientInvestigationController implements Serializable {
         }
     }
 
-    public void setLstToEnterData(List<PatientHealthForm> lstToEnterData) {
+    public void setLstToEnterData(List<FilledHealthForm> lstToEnterData) {
         this.lstToEnterData = lstToEnterData;
     }
 
-    public List<PatientHealthFormReport> getLstToApprove() {
+    public List<FilledHealthFormReport> getLstToApprove() {
         if (lstToApprove == null) {
             String temSql;
             if (listIncludingApproved == true) {
@@ -526,7 +526,7 @@ public  class PatientInvestigationController implements Serializable {
             lstToApprove = getPrFacade().findBySQL(temSql, temMap, TemporalType.TIMESTAMP);
         }
         if (lstToApprove == null) {
-            lstToApprove = new ArrayList<PatientHealthFormReport>();
+            lstToApprove = new ArrayList<FilledHealthFormReport>();
         }
         return lstToApprove;
     }
@@ -540,11 +540,11 @@ public  class PatientInvestigationController implements Serializable {
         }
     }
 
-    public void setLstToApprove(List<PatientHealthFormReport> lstToApprove) {
+    public void setLstToApprove(List<FilledHealthFormReport> lstToApprove) {
         this.lstToApprove = lstToApprove;
     }
 
-    public List<PatientHealthFormReport> getLstToPrint() {
+    public List<FilledHealthFormReport> getLstToPrint() {
         System.out.println("getting lst to print");
 
         String temSql;
@@ -552,7 +552,7 @@ public  class PatientInvestigationController implements Serializable {
         lstToPrint = getPrFacade().findBySQL(temSql);
 
         if (lstToPrint == null) {
-            lstToPrint = new ArrayList<PatientHealthFormReport>();
+            lstToPrint = new ArrayList<FilledHealthFormReport>();
         }
         return lstToPrint;
     }
@@ -583,7 +583,7 @@ public  class PatientInvestigationController implements Serializable {
         getCurrent();
     }
 
-    public void setLstToPrint(List<PatientHealthFormReport> lstToPrint) {
+    public void setLstToPrint(List<FilledHealthFormReport> lstToPrint) {
         this.lstToPrint = lstToPrint;
     }
 
@@ -616,7 +616,7 @@ public  class PatientInvestigationController implements Serializable {
     /**
      *
      */
-    @FacesConverter(forClass = PatientHealthForm.class)
+    @FacesConverter(forClass = FilledHealthForm.class)
     public static class PatientInvestigationControllerConverter implements Converter {
 
         @Override
@@ -646,8 +646,8 @@ public  class PatientInvestigationController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof PatientHealthForm) {
-                PatientHealthForm o = (PatientHealthForm) object;
+            if (object instanceof FilledHealthForm) {
+                FilledHealthForm o = (FilledHealthForm) object;
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "

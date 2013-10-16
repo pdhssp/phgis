@@ -29,7 +29,7 @@ import javax.persistence.Transient;
  * @author Buddhika
  */
 @Entity
-public class PatientHealthForm implements Serializable {
+public class FilledHealthForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -163,13 +163,13 @@ public class PatientHealthForm implements Serializable {
     @ManyToOne
     private Institution outsourcedInstitution;
     @OneToMany(mappedBy="patientInvestigation")
-    List<PatientHealthFormReport> patientReports;
+    List<FilledHealthFormReport> patientReports;
 
-    public List<PatientHealthFormReport> getPatientReports() {
+    public List<FilledHealthFormReport> getPatientReports() {
         return patientReports;
     }
 
-    public void setPatientReports(List<PatientHealthFormReport> patientReports) {
+    public void setPatientReports(List<FilledHealthFormReport> patientReports) {
         this.patientReports = patientReports;
     }
     
@@ -193,10 +193,10 @@ public class PatientHealthForm implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PatientHealthForm)) {
+        if (!(object instanceof FilledHealthForm)) {
             return false;
         }
-        PatientHealthForm other = (PatientHealthForm) object;
+        FilledHealthForm other = (FilledHealthForm) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

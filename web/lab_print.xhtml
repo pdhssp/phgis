@@ -61,7 +61,7 @@
                         </p:column>
                         <p:column >
                             <h:commandButton value="Print Sample" action="lab_patient_report_print" >
-                                <f:setPropertyActionListener value="#{smpIx}" target="#{patientReportController.currentPatientReport}"></f:setPropertyActionListener>
+                                <f:setPropertyActionListener value="#{smpIx}" target="#{filledReportController.currentPatientReport}"></f:setPropertyActionListener>
                             </h:commandButton>
                         </p:column>
                     </p:dataTable>

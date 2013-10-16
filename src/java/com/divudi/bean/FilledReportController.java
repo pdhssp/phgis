@@ -14,9 +14,9 @@ import com.divudi.ejb.PatientReportBean;
 import com.divudi.entity.form.HealthForm;
 import com.divudi.entity.form.HealthFormItem;
 import com.divudi.entity.form.FormCal;
-import com.divudi.entity.form.PatientHealthForm;
-import com.divudi.entity.form.PatientHealthFormReport;
-import com.divudi.entity.form.PatientHealthFormReportItemValue;
+import com.divudi.entity.form.FilledHealthForm;
+import com.divudi.entity.form.FilledHealthFormReport;
+import com.divudi.entity.form.FilledHealthFormReportItemValue;
 import com.divudi.facade.IxCalFacade;
 import com.divudi.facade.PatientInvestigationFacade;
 import com.divudi.facade.PatientInvestigationItemValueFacade;
@@ -43,7 +43,7 @@ import org.primefaces.event.CellEditEvent;
  */
 @Named
 @SessionScoped
-public class PatientReportController implements Serializable {
+public class FilledReportController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -63,8 +63,8 @@ public class PatientReportController implements Serializable {
     @EJB
     IxCalFacade ixCalFacade;
     String selectText = "";
-    private PatientHealthForm currentPtIx;
-    private PatientHealthFormReport currentPatientReport;
+    private FilledHealthForm currentPtIx;
+    private FilledHealthFormReport currentPatientReport;
     HealthForm currentReportInvestigation;
     HealthForm alternativeInvestigation;
 
@@ -90,7 +90,7 @@ public class PatientReportController implements Serializable {
             UtilityController.addErrorMessage("Report Items values is empty");
             return 0;
         }
-        for (PatientHealthFormReportItemValue priv : currentPatientReport.getPatientReportItemValues()) {
+        for (FilledHealthFormReportItemValue priv : currentPatientReport.getPatientReportItemValues()) {
             System.out.println("priv in finding val is " + priv.getInvestigationItem().getName());
             System.out.println("XXXXXXXXXXX compairing are " + priv.getInvestigationItem().getId() + "  vs " + ii.getId());
             if (priv.getInvestigationItem().getId() == ii.getId()) {
@@ -116,7 +116,7 @@ public class PatientReportController implements Serializable {
             return;
         }
         System.out.println("Gong to calculate");
-        for (PatientHealthFormReportItemValue priv : currentPatientReport.getPatientReportItemValues()) {
+        for (FilledHealthFormReportItemValue priv : currentPatientReport.getPatientReportItemValues()) {
             System.out.println("priv " + priv.toString());
             if (priv.getInvestigationItem().getIxItemType() == InvestigationItemType.Calculation) {
                 System.out.println("priv ix " + priv.getInvestigationItem());
@@ -186,7 +186,7 @@ public class PatientReportController implements Serializable {
     }
 
     public void setAlternativeInvestigation(HealthForm alternativeInvestigation) {
-        PatientHealthForm pi = new PatientHealthForm();
+        FilledHealthForm pi = new FilledHealthForm();
         this.alternativeInvestigation = alternativeInvestigation;
     }
 
@@ -257,7 +257,7 @@ public class PatientReportController implements Serializable {
 //        } else {
 //            getFacade().edit(currentPatientReport);
 //        }
-//        for (PatientHealthFormReportItemValue v : currentPatientReport.getPatientReportItemValues()) {
+//        for (FilledHealthFormReportItemValue v : currentPatientReport.getPatientReportItemValues()) {
 //            v.setPatientReport(currentPatientReport);
 //            if (v.getId() == null || v.getId() == 0) {
 //                getPirivFacade().create(v);
@@ -300,7 +300,7 @@ public class PatientReportController implements Serializable {
 //        } else {
 //            getFacade().edit(currentPatientReport);
 //        }
-//        for (PatientHealthFormReportItemValue v : currentPatientReport.getPatientReportItemValues()) {
+//        for (FilledHealthFormReportItemValue v : currentPatientReport.getPatientReportItemValues()) {
 //            v.setPatientReport(currentPatientReport);
 //            if (v.getId() == null || v.getId() == 0) {
 //                getPirivFacade().create(v);
@@ -361,14 +361,14 @@ public class PatientReportController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    public PatientReportController() {
+    public FilledReportController() {
     }
 
     private PatientReportFacade getFacade() {
         return ejbFacade;
     }
 
-    public PatientHealthForm getCurrentPtIx() {
+    public FilledHealthForm getCurrentPtIx() {
         if (currentPtIx == null) {
             if (currentPatientReport != null) {
                 currentPtIx = currentPatientReport.getPatientInvestigation();
@@ -379,11 +379,11 @@ public class PatientReportController implements Serializable {
 
     public void createNewPatientReport() {
         System.out.println("creating a new patient report");
-        PatientHealthFormReport r;
+        FilledHealthFormReport r;
         if (currentPtIx != null && currentPtIx.getId() != null && currentReportInvestigation != null) {
 //          
 //            getItemForItemController().setParentItem(currentPtIx.getInvestigation());
-            r = new PatientHealthFormReport();
+            r = new FilledHealthFormReport();
             r.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             r.setCreater(getSessionController().getLoggedUser());
             r.setItem(currentReportInvestigation);
@@ -405,7 +405,7 @@ public class PatientReportController implements Serializable {
         }
     }
 
-    public void setCurrentPtIx(PatientHealthForm currentPtIx) {
+    public void setCurrentPtIx(FilledHealthForm currentPtIx) {
         this.currentPtIx = currentPtIx;
     }
 
@@ -437,8 +437,8 @@ public class PatientReportController implements Serializable {
         this.commonReportItemController = commonReportItemController;
     }
 
-    public PatientHealthFormReport getCurrentPatientReport() {
-//        for (PatientHealthFormReportItemValue ppiv : currentPatientReport.getPatientReportItemValues()) {
+    public FilledHealthFormReport getCurrentPatientReport() {
+//        for (FilledHealthFormReportItemValue ppiv : currentPatientReport.getPatientReportItemValues()) {
 //            System.out.println("ppiv ix is  " + ppiv.getPatientReport().getItem().getName());
 //            System.out.println("ppiv value is  " + ppiv.getStrValue());
 //        }
@@ -481,7 +481,7 @@ public class PatientReportController implements Serializable {
         }
     }
 
-    public void setCurrentPatientReport(PatientHealthFormReport currentPatientReport) {
+    public void setCurrentPatientReport(FilledHealthFormReport currentPatientReport) {
         this.currentPatientReport = currentPatientReport;
         if (currentPtIx != null) {
             currentPtIx = currentPatientReport.getPatientInvestigation();
@@ -498,7 +498,7 @@ public class PatientReportController implements Serializable {
         }
     }
 
-    @FacesConverter(forClass = PatientHealthFormReport.class)
+    @FacesConverter(forClass = FilledHealthFormReport.class)
     public static class PatientReportControllerConverter implements Converter {
 
         @Override
@@ -506,7 +506,7 @@ public class PatientReportController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PatientReportController controller = (PatientReportController) facesContext.getApplication().getELResolver().
+            FilledReportController controller = (FilledReportController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "patientReportController");
             return controller.getEjbFacade().find(getKey(value));
         }
@@ -528,12 +528,12 @@ public class PatientReportController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof PatientHealthFormReport) {
-                PatientHealthFormReport o = (PatientHealthFormReport) object;
+            if (object instanceof FilledHealthFormReport) {
+                FilledHealthFormReport o = (FilledHealthFormReport) object;
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + PatientReportController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + FilledReportController.class.getName());
             }
         }
     }

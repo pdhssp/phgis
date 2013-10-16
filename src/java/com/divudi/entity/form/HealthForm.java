@@ -7,6 +7,7 @@ package com.divudi.entity.form;
 import com.divudi.data.AreaType;
 import com.divudi.data.DurationType;
 import com.divudi.data.InstitutionType;
+import com.divudi.data.StaffRole;
 import com.divudi.entity.Area;
 import com.divudi.entity.Item;
 import java.io.Serializable;
@@ -37,20 +38,25 @@ public class HealthForm extends Item implements Serializable {
     @Enumerated(EnumType.STRING)
     InstitutionType institutionType;
     
+    @Enumerated(EnumType.STRING)
+    StaffRole staffRole;
     
     
     @ManyToOne
     private HealthFormCategory formCategory;
     @ManyToOne
-    
-    
-    
-    
-    
-    
-    
     private HealthReportOtherCategory investigationTube;
 
+    public StaffRole getStaffRole() {
+        return staffRole;
+    }
+
+    public void setStaffRole(StaffRole staffRole) {
+        this.staffRole = staffRole;
+    }
+
+    
+    
     public AreaType getAreaType() {
         return areaType;
     }

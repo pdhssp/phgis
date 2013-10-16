@@ -23,7 +23,7 @@ import com.divudi.entity.PackageFee;
 import com.divudi.entity.Packege;
 import com.divudi.entity.WebUser;
 import com.divudi.entity.form.HealthForm;
-import com.divudi.entity.form.PatientHealthForm;
+import com.divudi.entity.form.FilledHealthForm;
 import com.divudi.facade.BillComponentFacade;
 import com.divudi.facade.BillFacade;
 import com.divudi.facade.BillFeeFacade;
@@ -404,7 +404,7 @@ public class BillBean {
     }
 
     private void savePatientInvestigation(BillEntry e, BillComponent bc, WebUser wu) {
-        PatientHealthForm ptIx = new PatientHealthForm();
+        FilledHealthForm ptIx = new FilledHealthForm();
 
         ptIx.setCreatedAt(Calendar.getInstance().getTime());
         ptIx.setCreater(wu);

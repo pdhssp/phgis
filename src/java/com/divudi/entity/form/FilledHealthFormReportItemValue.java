@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
  * @author Buddhika
  */
 @Entity
-public class PatientHealthFormReportItemValue implements Serializable {
+public class FilledHealthFormReportItemValue implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,7 +34,7 @@ public class PatientHealthFormReportItemValue implements Serializable {
     @ManyToOne
     HealthFormItem investigationItem;
     @ManyToOne(cascade= CascadeType.ALL,fetch= FetchType.EAGER)
-    PatientHealthFormReport patientReport;
+    FilledHealthFormReport patientReport;
     String strValue;
     @Lob
     private String lobValue;
@@ -119,11 +119,11 @@ public class PatientHealthFormReportItemValue implements Serializable {
         this.investigationItem = investigationItem;
     }
 
-    public PatientHealthFormReport getPatientReport() {
+    public FilledHealthFormReport getPatientReport() {
         return patientReport;
     }
 
-    public void setPatientReport(PatientHealthFormReport patientReport) {
+    public void setPatientReport(FilledHealthFormReport patientReport) {
         this.patientReport = patientReport;
     }
 
@@ -145,10 +145,10 @@ public class PatientHealthFormReportItemValue implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PatientHealthFormReportItemValue)) {
+        if (!(object instanceof FilledHealthFormReportItemValue)) {
             return false;
         }
-        PatientHealthFormReportItemValue other = (PatientHealthFormReportItemValue) object;
+        FilledHealthFormReportItemValue other = (FilledHealthFormReportItemValue) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

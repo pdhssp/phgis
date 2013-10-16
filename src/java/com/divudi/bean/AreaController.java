@@ -137,6 +137,17 @@ public  class AreaController implements Serializable {
         current = null;
         getCurrent();
     }
+    
+    public Boolean checkCurrent(){
+        if (current == null){
+            UtilityController.addSuccessMessage("Nothing To Delete");
+             return false;
+        }            
+           
+        else
+            return true;       
+        
+    }
 
     private AreaFacade getFacade() {
         return ejbFacade;

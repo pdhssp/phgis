@@ -14,14 +14,14 @@
 
                 <h:panelGroup>
                     <p:panel header="Investigation">
-                        <p:autoComplete widgetVar="aPt" id="acPt" forceSelection="true" converter="ixcon"
+                        <p:autoComplete widgetVar="aPt" id="acPt" forceSelection="true" converter="hfcon"
                                         value="#{investigationItemController.currentInvestigation}" 
                                         completeMethod="#{healthFormController.completeInvest}" 
                                         var="apt" itemLabel="#{apt.name}" 
                                         itemValue="#{apt}" size="30"  style="width: 400px;">
                             <p:ajax event="itemSelect" process="acPt" update=":#{p:component('pPreview')} :#{p:component('pDetails')} :#{p:component('pIx')} "/>
                         </p:autoComplete> 
-                        <!--ixConverter-->
+                        <!--hfconverter-->
                         <p:panel header="Add New ..." >
                             <h:commandButton value="Label" action="#{investigationItemController.addNewLabel()}"/>
                             <h:commandButton value="Value" action="#{investigationItemController.addNewValue()}"/>

@@ -82,15 +82,15 @@ public class FilledReportController implements Serializable {
             UtilityController.addErrorMessage("No Report to calculate");
             return 0;
         }
-        if (currentPatientReport.getPatientReportItemValues() == null) {
+        if (currentPatientReport.getFilledHealthFormReportItemValue() == null) {
             UtilityController.addErrorMessage("Report Items values is null");
             return 0;
         }
-        if (currentPatientReport.getPatientReportItemValues().isEmpty()) {
+        if (currentPatientReport.getFilledHealthFormReportItemValue().isEmpty()) {
             UtilityController.addErrorMessage("Report Items values is empty");
             return 0;
         }
-        for (FilledHealthFormReportItemValue priv : currentPatientReport.getPatientReportItemValues()) {
+        for (FilledHealthFormReportItemValue priv : currentPatientReport.getFilledHealthFormReportItemValue()) {
             System.out.println("priv in finding val is " + priv.getInvestigationItem().getName());
             System.out.println("XXXXXXXXXXX compairing are " + priv.getInvestigationItem().getId() + "  vs " + ii.getId());
             if (priv.getInvestigationItem().getId() == ii.getId()) {
@@ -107,16 +107,16 @@ public class FilledReportController implements Serializable {
             UtilityController.addErrorMessage("No Report to calculate");
             return;
         }
-        if (currentPatientReport.getPatientReportItemValues() == null) {
+        if (currentPatientReport.getFilledHealthFormReportItemValue() == null) {
             UtilityController.addErrorMessage("Report Items values is null");
             return;
         }
-        if (currentPatientReport.getPatientReportItemValues().isEmpty()) {
+        if (currentPatientReport.getFilledHealthFormReportItemValue().isEmpty()) {
             UtilityController.addErrorMessage("Report Items values is empty");
             return;
         }
         System.out.println("Gong to calculate");
-        for (FilledHealthFormReportItemValue priv : currentPatientReport.getPatientReportItemValues()) {
+        for (FilledHealthFormReportItemValue priv : currentPatientReport.getFilledHealthFormReportItemValue()) {
             System.out.println("priv " + priv.toString());
             if (priv.getInvestigationItem().getIxItemType() == InvestigationItemType.Calculation) {
                 System.out.println("priv ix " + priv.getInvestigationItem());

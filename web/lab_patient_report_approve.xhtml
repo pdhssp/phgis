@@ -46,7 +46,7 @@
                                 </f:facet>
 
 
-                                    <ui:repeat value="#{filledReportController.currentPatientReport.patientReportItemValues}" var="pv" >
+                                    <ui:repeat value="#{filledReportController.currentPatientReport.filledHealthFormReportItemValue}" var="pv" >
 
                                         <p:panelGrid columns="2" style="width: 800px;">
                                             <h:panelGroup rendered="#{pv.investigationItem.ixItemType eq 'Value' and pv.investigationItem.retired eq false}"  style="min-width: 300px" >

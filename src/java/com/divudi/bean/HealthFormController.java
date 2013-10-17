@@ -71,9 +71,9 @@ public class HealthFormController implements Serializable {
     private List<HealthForm> midvifesForms;
 
     public List<HealthForm> getMidvifesForms() {
-        if (midvifesForms == null) {
+//        if (midvifesForms == null) {
             midvifesForms = getStaffRoleForms(StaffRole.Phm);
-        }
+//        }
         return midvifesForms;
     }
 
@@ -434,7 +434,7 @@ public class HealthFormController implements Serializable {
     /**
      *
      */
-    @FacesConverter("ixcon")
+    @FacesConverter("hfcon")
     public static class InvestigationConverter implements Converter {
 
         public InvestigationConverter() {

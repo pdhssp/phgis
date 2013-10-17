@@ -34,8 +34,8 @@ import javax.persistence.Temporal;
 @Entity
 public class FilledHealthFormReport implements Serializable {
 
-    @OneToMany(mappedBy = "patientReport", cascade = CascadeType.ALL,fetch= FetchType.EAGER)
-    private List<FilledHealthFormReportItemValue> patientReportItemValues;
+    @OneToMany(mappedBy = "filledHealthFormReport", cascade = CascadeType.ALL,fetch= FetchType.EAGER)
+    private List<FilledHealthFormReportItemValue> filledHealthFormReportItemValue;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -211,18 +211,18 @@ public class FilledHealthFormReport implements Serializable {
     
     
     
-    public List<FilledHealthFormReportItemValue> getPatientReportItemValues() {
+    public List<FilledHealthFormReportItemValue> getFilledHealthFormReportItemValue() {
         
-        if (patientReportItemValues != null) {
-            Collections.sort(patientReportItemValues, new PatientReportItemValueComparator());
+        if (filledHealthFormReportItemValue != null) {
+            Collections.sort(filledHealthFormReportItemValue, new PatientReportItemValueComparator());
         }else{
-            patientReportItemValues = new ArrayList<FilledHealthFormReportItemValue>();
+            filledHealthFormReportItemValue = new ArrayList<FilledHealthFormReportItemValue>();
         }
-        return patientReportItemValues;
+        return filledHealthFormReportItemValue;
     }
 
-    public void setPatientReportItemValues(List<FilledHealthFormReportItemValue> patientReportItemValues) {
-        this.patientReportItemValues = patientReportItemValues;
+    public void setFilledHealthFormReportItemValue(List<FilledHealthFormReportItemValue> filledHealthFormReportItemValue) {
+        this.filledHealthFormReportItemValue = filledHealthFormReportItemValue;
     }
 
     public Boolean getDataEntered() {

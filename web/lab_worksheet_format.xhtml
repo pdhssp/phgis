@@ -17,7 +17,7 @@
                         <p:panelGrid columns="2" >
 
                             <h:outputLabel value="Investigation"      />
-                            <p:autoComplete widgetVar="aPt" id="acPt" forceSelection="true" converter="ixcon"
+                            <p:autoComplete widgetVar="aPt" id="acPt" forceSelection="true" converter="hfcon"
                                             value="#{labWorksheetController.investigation}" 
                                             completeMethod="#{healthFormController.completeInvest}" 
                                             var="apt" itemLabel="#{apt.name}" 

@@ -36,6 +36,9 @@ public class Staff implements Serializable {
     String code;
     @ManyToOne
     Person person;
+    
+    @ManyToOne
+    Area area;
     @ManyToOne
     Speciality speciality;
     @ManyToOne
@@ -71,6 +74,15 @@ public class Staff implements Serializable {
     public void setStaffRole(StaffRole staffRole) {
         this.staffRole = staffRole;
     }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+    
     
     
     

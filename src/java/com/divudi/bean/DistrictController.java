@@ -40,7 +40,7 @@ import org.primefaces.model.map.Polygon;
  */
 @Named
 @SessionScoped
-public class MohController implements Serializable {
+public class DistrictController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -48,11 +48,13 @@ public class MohController implements Serializable {
     @EJB
     private AreaFacade ejbFacade;
     List<Area> selectedItems;
+    private List<Area> selectProvince;
     private Area current;
     private List<Area> items = null;
     String selectText = "";
     GisCoordinate coordinate;
     MapModel mapModel;
+    
 
     public MapModel getMapModel() {
         mapModel = new DefaultMapModel();
@@ -114,10 +116,12 @@ public class MohController implements Serializable {
 
     public List<Area> getSelectedItems() {
         Map m = new HashMap();
-        m.put("t", AreaType.MohArea);
+        m.put("t", AreaType.District);
         selectedItems = getFacade().findBySQL("select c from Area c where c.retired=false and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' and c.areaType =:t order by c.name", m);
         return selectedItems;
     }
+    
+    
 
     public List<Area> completeArea(String qry) {
         List<Area> a = null;
@@ -187,7 +191,7 @@ public class MohController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    public MohController() {
+    public DistrictController() {
     }
 
     public Area getCurrent() {
@@ -231,19 +235,30 @@ public class MohController implements Serializable {
         return items;
     }
 
+    public List<Area> getSelectProvince() {
+        Map m = new HashMap();
+        m.put("t", AreaType.Province);
+        selectProvince = getFacade().findBySQL("select c from Area c where c.retired=false and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' and c.areaType =:t order by c.name", m);    
+        return selectProvince;
+    }
+
+    public void setSelectProvince(List<Area> selectProvince) {
+        this.selectProvince = selectProvince;
+    }
+
     /**
      *
      */
-    @FacesConverter("mohCon")
-    public static class MohConverter implements Converter {
+    @FacesConverter("districtCon")
+    public static class DistrictConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MohController controller = (MohController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "mohController");
+            DistrictController controller = (DistrictController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "districtController");
             return controller.getEjbFacade().find(getKey(value));
         }
 
@@ -269,7 +284,7 @@ public class MohController implements Serializable {
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + MohController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + DistrictController.class.getName());
             }
         }
     }

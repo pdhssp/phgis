@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 
 /**
  *
@@ -76,17 +77,33 @@ public class FormDataentryController {
         this.quarter = quarter;
     }
 
+    @Inject
+    SessionController sessionController;
+
+    public SessionController getSessionController() {
+        return sessionController;
+    }
+
+    public void setSessionController(SessionController sessionController) {
+        this.sessionController = sessionController;
+    }
+    
+    
+    
     public void startPhmDataEntry() {
         if (healthForm == null) {
             UtilityController.addErrorMessage("Please select a form");
         }
         Map m = new HashMap();
+        m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+        
         FilledHealthFormReport f = new FilledHealthFormReport();
-        f.getArea();
+        
+        f.getYearVal();
         String jpql;
         switch (healthForm.getDurationType()) {
             case Annually:
-                jpql = "select f from FilledHealthFormReport f where f.area=:a";
+                jpql = "select f from FilledHealthFormReport f where f.area=:a and a.yearVal = " + getYear() ;
                 
 
             case Daily:

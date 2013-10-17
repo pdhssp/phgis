@@ -35,8 +35,8 @@
                                         <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail detailFocus" execute="" >
                                         </f:ajax>
                                     </h:commandButton>
-                                    <h:commandButton id="btnDelete" onclick="if (!confirm('Are you sure you want to delete this record?'))
-                                                return false;" action="#{areaController.delete()}"  value="Delete"  >
+                                    <h:commandButton id="btnDelete" onclick=" {if (!confirm('Are you sure you want to delete this record?'))
+                                                return false;}" action="#{areaController.delete()}"  value="Delete"  >
                                     </h:commandButton>
                                 </h:panelGrid>
                             </p:panel>
@@ -46,7 +46,7 @@
                             <h:panelGrid id="gpDetail" columns="1">
                                 <h:panelGrid id="gpDetailText" columns="2">
                                     <h:outputText id="lblName" value="Name" ></h:outputText>
-                                    <h:inputText id="txtName" value="#{areaController.current.name}"  ></h:inputText>
+                                    <h:inputText id="txtName" value="#{areaController.current.name}" required="true" requiredMessage="Please enter valid name" ></h:inputText>
                                     
                                 </h:panelGrid>
                                 <h:panelGrid id="gpDetailButtons" columns="2">

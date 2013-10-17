@@ -12,61 +12,86 @@
 
             <ui:define name="content">
 
-                <p:panel  header="Public Heath Midwife's Dashboard">
+                <h:form>
 
-                    <p:panelGrid columns="3" >
-                        <p:panel header="Data entry" >
-                            <p:selectOneMenu id="cmbHf" >
-                                <f:selectItem itemLabel="Please select a form" />
-                                <f:selectItems value="#{healthFormController.midvifesForms}" var="f" itemLabel="#{f.code} - #{f.name}" itemValue="#{f}" >
-                                    <f:ajax event="change" execute="cmbHf" rendered="gpTimes" />
-                                
-                                </f:selectItems>
-                                
+                    <p:panel  header="Public Heath Midwife's Dashboard">
+
+                        <p:panelGrid columns="3" >
+                            <p:panel header="Data entry" >
+                                <p:selectOneMenu converter="hfcon" id="cmbHf" value="#{formDataentryController.healthForm}"  >
+                                    <f:selectItem itemLabel="Please select a form" />
+                                    <f:selectItems value="#{healthFormController.midvifesForms}" var="f" itemLabel="#{f.code} - #{f.name}" itemValue="#{f}" >
+                                    </f:selectItems>
+                                    <f:ajax event="change" execute ="cmbHf" render="gpTimes" />
+                                </p:selectOneMenu>
+
                                 <h:panelGroup id="gpTimes" >
-                                    
-                                    <h:panelGroup id="gpDaily" >
+                                    <h:panelGroup id="gpDaily" rendered="#{formDataentryController.healthForm.durationType eq 'Daily'}" >
                                         <p:calendar >
-                                            
                                         </p:calendar>
                                     </h:panelGroup>
 
-                                    <h:panelGroup id="gpMonthly" >
-                                        <p:selectOneMenu >
+                                    <h:panelGroup id="gpMonthly" rendered="#{formDataentryController.healthForm.durationType eq 'Monthly'}">
+                                        <p:selectOneMenu value="#{formDataentryController.year}" >
+                                            <f:selectItem itemLabel="Select Year" />
+                                            <f:selectItem itemLabel="2010" itemValue="2011" />
+                                            <f:selectItem itemLabel="2011" itemValue="2012" />
+                                        </p:selectOneMenu>
+                                        <p:selectOneMenu  value="#{formDataentryController.month}">
                                             <f:selectItem itemLabel="Select Month" />
-                                            
+                                            <f:selectItem itemLabel="January" itemValue="1" />
+                                            <f:selectItem itemLabel="February" itemValue="2" />
+
                                         </p:selectOneMenu>
                                     </h:panelGroup>
 
-                                    
-                                    <h:panelGroup id="gpQuarterly" >
-                                        <p:selectOneMenu >
-                                            <f:selectItem itemLabel="Select Month" />
-                                            
+
+                                    <h:panelGroup id="gpQuarterly" rendered="#{formDataentryController.healthForm.durationType eq 'Quarterly'}">
+                                        <p:selectOneMenu value="#{formDataentryController.year}">
+                                            <f:selectItem itemLabel="Select Year" />
+                                            <f:selectItem itemLabel="2010" itemValue="2011" />
+                                            <f:selectItem itemLabel="2011" itemValue="2012" />
+                                        </p:selectOneMenu>
+                                        <p:selectOneMenu  value="#{formDataentryController.quarter}">
+                                            <f:selectItem itemLabel="Select Quarter" />
+                                            <f:selectItem itemLabel="First" itemValue="1" />
+                                            <f:selectItem itemLabel="Secoond" itemValue="2" />
                                         </p:selectOneMenu>
                                     </h:panelGroup>
-                                    
-                                    
+
+
+                                    <h:panelGroup id="gpYearly" rendered="#{formDataentryController.healthForm.durationType eq 'Annually'}">
+                                        <p:selectOneMenu  value="#{formDataentryController.year}">
+                                            <f:selectItem itemLabel="Select Year" />
+                                            <f:selectItem itemLabel="2010" itemValue="2011" />
+                                            <f:selectItem itemLabel="2011" itemValue="2012" />
+                                        </p:selectOneMenu>
+                                    </h:panelGroup>
+
                                 </h:panelGroup>
 
-
-                            </p:selectOneMenu>
-
-                        </p:panel>
-                        <p:panel header="Submit" >
-
-                        </p:panel>
-                        <p:panel header="Recently Submitted" >
-
-                        </p:panel>
+                                <p:commandButton ajax="false" value="Enter Date" action="startPhmDataEntry" >
+                                    
+                                </p:commandButton>
 
 
-                    </p:panelGrid>
+                            </p:panel>
+                            <p:panel header="Submit" >
+
+                            </p:panel>
+                            <p:panel header="Recently Submitted" >
+
+                            </p:panel>
+
+
+                        </p:panelGrid>
 
 
 
-                </p:panel>
+                    </p:panel>
 
+
+                </h:form>
 
             </ui:define>
 

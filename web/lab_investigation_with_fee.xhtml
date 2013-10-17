@@ -25,7 +25,7 @@
                                         <f:ajax execute="txtSearch" render="lstSelect" event="keyup" />
                                     </h:inputText>
 
-                                    <p:selectOneListbox converter="ixcon"   id="lstSelect"   value="#{healthFormController.current}" style="min-width: 223px; height: 300px;">
+                                    <p:selectOneListbox converter="hfcon"   id="lstSelect"   value="#{healthFormController.current}" style="min-width: 223px; height: 300px;">
                                         <f:selectItems  value="#{healthFormController.selectedItems}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
                                         <p:ajax event="change"   update="gpDetail" process="lstSelect" >
                                         </p:ajax>
@@ -77,13 +77,13 @@
                                     <p:selectBooleanCheckbox   id="chkBilledAs" value="#{healthFormController.billedAs}" itemLabel="Billed as a seperate investigation"  >
                                         <p:ajax event="change" process="@this" update="billedAsIx" />
                                     </p:selectBooleanCheckbox>
-                                    <p:autoComplete converter="ixcon"  disabled="#{!healthFormController.billedAs}" widgetVar="aIx1" id="billedAsIx" forceSelection="true" value="#{healthFormController.current.billedAs}" completeMethod="#{healthFormController.completeItem}" var="ix1" itemLabel="#{ix1.name}" itemValue="#{ix1}" size="30"  style="width: 400px;">
+                                    <p:autoComplete converter="hfcon"  disabled="#{!healthFormController.billedAs}" widgetVar="aIx1" id="billedAsIx" forceSelection="true" value="#{healthFormController.current.billedAs}" completeMethod="#{healthFormController.completeItem}" var="ix1" itemLabel="#{ix1.name}" itemValue="#{ix1}" size="30"  style="width: 400px;">
                                     </p:autoComplete>
 
                                     <p:selectBooleanCheckbox  id="chkReportedAs" value="#{healthFormController.reportedAs}" itemLabel="Reported as a seperate investigation" >
                                         <p:ajax event="change" process="@this" update="reportedAsIx" />
                                     </p:selectBooleanCheckbox>
-                                    <p:autoComplete converter="ixcon" disabled="#{!healthFormController.reportedAs}" widgetVar="aIx2" id="reportedAsIx" forceSelection="true" value="#{healthFormController.current.reportedAs}" completeMethod="#{healthFormController.completeItem}" var="ix2" itemLabel="#{ix2.name}" itemValue="#{ix2}" size="30"  style="width: 400px;">
+                                    <p:autoComplete converter="hfcon" disabled="#{!healthFormController.reportedAs}" widgetVar="aIx2" id="reportedAsIx" forceSelection="true" value="#{healthFormController.current.reportedAs}" completeMethod="#{healthFormController.completeItem}" var="ix2" itemLabel="#{ix2.name}" itemValue="#{ix2}" size="30"  style="width: 400px;">
                                     </p:autoComplete>
 
 

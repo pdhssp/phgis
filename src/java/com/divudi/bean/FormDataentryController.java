@@ -4,9 +4,12 @@
  */
 package com.divudi.bean;
 
+import com.divudi.entity.form.FilledHealthFormReport;
 import com.divudi.entity.form.HealthForm;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 
@@ -19,10 +22,8 @@ import javax.enterprise.context.Dependent;
 public class FormDataentryController {
 
     HealthForm healthForm;
-    
     Date fromDate;
     Date toDate;
-    
     int year;
     int month;
     int quarter;
@@ -74,10 +75,34 @@ public class FormDataentryController {
     public void setQuarter(int quarter) {
         this.quarter = quarter;
     }
-    
-    
-    
-    
+
+    public void startPhmDataEntry() {
+        if (healthForm == null) {
+            UtilityController.addErrorMessage("Please select a form");
+        }
+        Map m = new HashMap();
+        FilledHealthFormReport f = new FilledHealthFormReport();
+        f.getArea();
+        String jpql;
+        switch (healthForm.getDurationType()) {
+            case Annually:
+                jpql = "select f from FilledHealthFormReport f where f.area=:a";
+                
+
+            case Daily:
+
+            case Monthly:
+
+            case Weekly:
+
+            case Variable:
+
+            case Quarterly:
+
+        }
+
+    }
+
     /**
      * Creates a new instance of FormDataentryController
      */

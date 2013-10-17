@@ -361,7 +361,7 @@ public  class InvestigationItemController implements Serializable {
      *
      */
     @FacesConverter("iiCon")
-//    @FacesConverter("ixConverter")
+//    @FacesConverter("hfconverter")
     public static class InvestigationItemConverter implements Converter {
 
         @Override
@@ -405,7 +405,7 @@ public  class InvestigationItemController implements Serializable {
      *
      */
     @FacesConverter(forClass = HealthFormItem.class)
-//    @FacesConverter("ixConverter")
+//    @FacesConverter("hfconverter")
     public static class InvestigationItemControllerConverter implements Converter {
 
         @Override

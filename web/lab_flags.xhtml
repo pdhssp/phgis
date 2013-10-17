@@ -15,7 +15,7 @@
                     <p:panelGrid columns="1" >
                         <p:panelGrid columns="2" >
                             <h:outputLabel value="Select Investigation" />
-                            <p:autoComplete converter="ixcon" widgetVar="aIx" id="acIx" forceSelection="true" value="#{testFlagController.investigation}" completeMethod="#{healthFormController.completeInvest}" var="ix" itemLabel="#{ix.name}" itemValue="#{ix}" size="30"  style="width: 400px;">
+                            <p:autoComplete converter="hfcon" widgetVar="aIx" id="acIx" forceSelection="true" value="#{testFlagController.investigation}" completeMethod="#{healthFormController.completeInvest}" var="ix" itemLabel="#{ix.name}" itemValue="#{ix}" size="30"  style="width: 400px;">
                                 <p:ajax event="itemSelect" process="acIx" update="iif iiv tbl" />
                             </p:autoComplete>
 

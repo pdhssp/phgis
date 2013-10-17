@@ -10,6 +10,8 @@ package com.divudi.bean;
 
 import java.util.TimeZone;
 import com.divudi.data.Privileges;
+import com.divudi.data.StaffRole;
+import com.divudi.entity.Area;
 import com.divudi.entity.Department;
 import com.divudi.entity.Institution;
 import com.divudi.entity.Person;
@@ -19,6 +21,7 @@ import com.divudi.facade.WebUserFacade;
 import com.divudi.facade.WebUserRoleFacade;
 import com.divudi.entity.WebUser;
 import com.divudi.entity.WebUserPrivilege;
+import com.divudi.facade.AreaFacade;
 import com.divudi.facade.DepartmentFacade;
 import com.divudi.facade.InstitutionFacade;
 import com.divudi.facade.PersonFacade;
@@ -68,6 +71,7 @@ public class WebUserController implements Serializable {
     private WebUser current;
     String selectText = "";
     List<Department> departments;
+    List<Area> areas;
     List<Institution> institutions;
     @EJB
     private DepartmentFacade departmentFacade;
@@ -75,12 +79,58 @@ public class WebUserController implements Serializable {
     private InstitutionFacade institutionFacade;
     private Institution institution;
     private Department department;
+    Area area;
     private Privileges[] privilegeses;
     private Privileges[] currentPrivilegeses;
     Speciality speciality;
     List<WebUserPrivilege> userPrivileges;
     WebUser removingUser;
+    @EJB
+    AreaFacade areaFacade;
 
+    StaffRole staffRole;
+
+    public StaffRole getStaffRole() {
+        return staffRole;
+    }
+
+    public void setStaffRole(StaffRole staffRole) {
+        this.staffRole = staffRole;
+    }
+    
+    
+    
+    
+    public AreaFacade getAreaFacade() {
+        return areaFacade;
+    }
+
+    public void setAreaFacade(AreaFacade areaFacade) {
+        this.areaFacade = areaFacade;
+    }
+    
+    
+    
+
+    public List<Area> getAreas() {
+        areas=getAreaFacade().findAll();
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    
+    
     public List<Department> getInstitutionDepatrments() {
         List<Department> d;
         System.out.println("gettin ins dep ");
@@ -371,6 +421,8 @@ public class WebUserController implements Serializable {
         staff.setCreatedAt(Calendar.getInstance().getTime());
         staff.setDepartment(department);
         staff.setInstitution(institution);
+        staff.setArea(area);
+        staff.setStaffRole(staffRole);
         staff.setCode(getCurrent().getCode());
         getStaffFacade().create(staff);
         //Save Web User

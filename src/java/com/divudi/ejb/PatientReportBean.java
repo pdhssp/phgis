@@ -160,8 +160,8 @@ public class PatientReportBean {
                     val.setInvestigationItem((HealthFormItem) ii);
                     val.setPatient(ptReport.getPatientInvestigation().getPatient());
                     val.setPatientEncounter(ptReport.getPatientInvestigation().getEncounter());
-                    val.setPatientReport(ptReport);
-                    ptReport.getPatientReportItemValues().add(val);
+                    val.setFilledHealthFormReport(ptReport);
+                    ptReport.getFilledHealthFormReportItemValue().add(val);
                     System.out.println("New value added to pr teport" + ptReport);
 
                 } else {
@@ -184,8 +184,8 @@ public class PatientReportBean {
                         val.setInvestigationItem((HealthFormItem) ii);
                         val.setPatient(ptReport.getPatientInvestigation().getPatient());
                         val.setPatientEncounter(ptReport.getPatientInvestigation().getEncounter());
-                        val.setPatientReport(ptReport);
-                        ptReport.getPatientReportItemValues().add(val);
+                        val.setFilledHealthFormReport(ptReport);
+                        ptReport.getFilledHealthFormReportItemValue().add(val);
                         System.out.println("value added to pr teport" + ptReport);
 
 
@@ -200,8 +200,8 @@ public class PatientReportBean {
                     val.setInvestigationItem((HealthFormItem) ii);
                     val.setPatient(ptReport.getPatientInvestigation().getPatient());
                     val.setPatientEncounter(ptReport.getPatientInvestigation().getEncounter());
-                    val.setPatientReport(ptReport);
-                    ptReport.getPatientReportItemValues().add(val);
+                    val.setFilledHealthFormReport(ptReport);
+                    ptReport.getFilledHealthFormReportItemValue().add(val);
                     System.out.println("New value added to pr teport" + ptReport);
 
                 } else {
@@ -215,8 +215,8 @@ public class PatientReportBean {
                         val.setInvestigationItem((HealthFormItem) ii);
                         val.setPatient(ptReport.getPatientInvestigation().getPatient());
                         val.setPatientEncounter(ptReport.getPatientInvestigation().getEncounter());
-                        val.setPatientReport(ptReport);
-                        ptReport.getPatientReportItemValues().add(val);
+                        val.setFilledHealthFormReport(ptReport);
+                        ptReport.getFilledHealthFormReportItemValue().add(val);
                         System.out.println("value added to pr teport" + ptReport);
 
 

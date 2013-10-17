@@ -34,7 +34,7 @@ public class FilledHealthFormReportItemValue implements Serializable {
     @ManyToOne
     HealthFormItem investigationItem;
     @ManyToOne(cascade= CascadeType.ALL,fetch= FetchType.EAGER)
-    FilledHealthFormReport patientReport;
+    FilledHealthFormReport filledHealthFormReport;
     String strValue;
     @Lob
     private String lobValue;
@@ -119,12 +119,12 @@ public class FilledHealthFormReportItemValue implements Serializable {
         this.investigationItem = investigationItem;
     }
 
-    public FilledHealthFormReport getPatientReport() {
-        return patientReport;
+    public FilledHealthFormReport getFilledHealthFormReport() {
+        return filledHealthFormReport;
     }
 
-    public void setPatientReport(FilledHealthFormReport patientReport) {
-        this.patientReport = patientReport;
+    public void setFilledHealthFormReport(FilledHealthFormReport filledHealthFormReport) {
+        this.filledHealthFormReport = filledHealthFormReport;
     }
 
     public Long getId() {

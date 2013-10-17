@@ -45,17 +45,24 @@
                                             <h:outputText value="Password" ></h:outputText>
                                             <p:password feedback="true" required="true" maxlength="15" value="#{webUserController.current.webUserPassword}" />
 
+                                            <h:outputText value="Role" ></h:outputText>
+                                            <p:selectOneMenu required="true" value="#{webUserController.staffRole}" id="sr"  >
+                                                <f:selectItem itemLabel="Please select an institutie"/>
+                                                <f:selectItem itemLabel="Midwife" itemValue="Phm" />
+                                                
+                                            </p:selectOneMenu>
+                                            
                                             <h:outputText value="Institution" ></h:outputText>
                                             <p:selectOneMenu required="true" value="#{webUserController.institution}" id="ins"  >
                                                 <f:selectItem itemLabel="Please select an institutie"/>
                                                 <f:selectItems value="#{institutionController.company}" var="i" itemLabel="#{i.name}" itemValue="#{i}" />
-                                                <f:ajax  execute="ins" render="dept" event="change"/>                                                
+                                                <f:ajax  execute="ins" render="area" event="change"/>                                                
                                             </p:selectOneMenu>
 
-                                            <h:outputText value="Department" ></h:outputText>
-                                            <p:selectOneMenu id="dept" value="#{webUserController.department}" >
-                                                <f:selectItem itemLabel="Please select a Department"/>
-                                                <f:selectItems value="#{webUserController.institutionDepatrments}" var="d" itemLabel="#{d.name}" itemValue="#{d}" />
+                                            <h:outputText value="Area" ></h:outputText>
+                                            <p:selectOneMenu id="area" value="#{webUserController.area}" >
+                                                <f:selectItem itemLabel="Please select a Area"/>
+                                                <f:selectItems value="#{webUserController.areas}" var="d" itemLabel="#{d.name}" itemValue="#{d}" />
                                             </p:selectOneMenu>
 
                                             <h:outputLabel value="Code" ></h:outputLabel>

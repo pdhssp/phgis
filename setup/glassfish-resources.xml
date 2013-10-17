@@ -10,5 +10,5 @@
         <property name="URL" value="jdbc:derby://localhost:1527/phgis"/>
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="dsP1" object-type="user" pool-name="derby_net_phgis_phgisPool"/>
+    <jdbc-resource enabled="true" jndi-name="dsPhgis" object-type="user" pool-name="derby_net_phgis_phgisPool"/>
 </resources>

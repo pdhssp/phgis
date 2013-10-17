@@ -55,16 +55,6 @@ public class MohController implements Serializable {
     MapModel mapModel;
 
     public MapModel getMapModel() {
-        mapModel = new DefaultMapModel();
-        Polygon polygon = new Polygon();
-
-        if (current != null && current.getCordinates() != null) {
-            for (GisCoordinate c : current.getCordinates()) {
-                LatLng l = new LatLng(c.getLatitude(), c.getLongtide());
-                polygon.getPaths().add(l);
-            }
-        }
-        mapModel.addOverlay(polygon);
         return mapModel;
     }
 
@@ -72,12 +62,28 @@ public class MohController implements Serializable {
         if (coordinate == null) {
             coordinate = new GisCoordinate();
         }
-
+        System.out.println("");
         return coordinate;
     }
 
     public void setCoordinate(GisCoordinate coordinate) {
         this.coordinate = coordinate;
+    }
+
+    public void drawModal() {
+        mapModel = new DefaultMapModel();
+        Polygon polygon = new Polygon();
+        if (current != null && current.getCordinates() != null) {
+            for (GisCoordinate c : current.getCordinates()) {
+                LatLng l = new LatLng(c.getLatitude(), c.getLongtide());
+                
+                System.out.println("long " + c.getLongtide());
+                System.out.println("lat " + c.getLatitude() );
+                
+                polygon.getPaths().add(l);
+            }
+        }
+        mapModel.addOverlay(polygon);
     }
 
     public void addCoordinate() {
@@ -89,6 +95,7 @@ public class MohController implements Serializable {
         }
         current.getCordinates().add(coordinate);
         getFacade().edit(current);
+        drawModal();
         coordinate = null;
     }
 
@@ -100,6 +107,7 @@ public class MohController implements Serializable {
             return;
         }
         current.getCordinates().remove(coordinate);
+        drawModal();
         coordinate = null;
     }
 
@@ -186,11 +194,13 @@ public class MohController implements Serializable {
             current = new Area();
             current.setAreaType(AreaType.MohArea);
         }
+        drawModal();
         return current;
     }
 
     public void setCurrent(Area current) {
         this.current = current;
+        drawModal();
     }
 
     public void delete() {

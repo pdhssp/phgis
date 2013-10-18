@@ -46,9 +46,9 @@
                             <h:panelGrid id="gpDetail" columns="1">
                                 <h:panelGrid id="gpDetailText" columns="2">
                                     <h:outputText id="lblprovince" value="Province" ></h:outputText>
-                                    <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{provinceController.items}"  >
+                                    <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{provinceController.current}"  >
                                     <f:selectItem itemLabel="Please select a province" />
-                                    
+                                    <f:selectItems  value="#{provinceController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
                                     
                                 </p:selectOneMenu>
 

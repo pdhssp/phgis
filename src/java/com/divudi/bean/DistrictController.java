@@ -48,7 +48,7 @@ public class DistrictController implements Serializable {
     @EJB
     private AreaFacade ejbFacade;
     List<Area> selectedItems;
-    private List<Area> selectProvince;
+    private List<Area> selectDistrict;
     private Area current;
     private List<Area> items = null;
     String selectText = "";
@@ -126,7 +126,7 @@ public class DistrictController implements Serializable {
     public List<Area> completeArea(String qry) {
         List<Area> a = null;
         Map m = new HashMap();
-        m.put("t", AreaType.MohArea);
+        m.put("t", AreaType.District);
 
         if (qry != null) {
             a = getFacade().findBySQL("select c from Area c where c.retired=false and upper(c.name) like '%" + qry.toUpperCase() + "%' and c.areaType = :t order by c.name");
@@ -139,7 +139,7 @@ public class DistrictController implements Serializable {
 
     public void prepareAdd() {
         current = new Area();
-        current.setAreaType(AreaType.MohArea);
+        current.setAreaType(AreaType.District);
     }
 
     public void setSelectedItems(List<Area> selectedItems) {
@@ -157,11 +157,11 @@ public class DistrictController implements Serializable {
     public void saveSelected() {
 
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
-            current.setAreaType(AreaType.MohArea);
+            current.setAreaType(AreaType.District);
             getFacade().edit(current);
             UtilityController.addSuccessMessage("savedOldSuccessfully");
         } else {
-            current.setAreaType(AreaType.MohArea);
+            current.setAreaType(AreaType.District);
             current.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             current.setCreater(sessionController.getLoggedUser());
             getFacade().create(current);
@@ -197,7 +197,7 @@ public class DistrictController implements Serializable {
     public Area getCurrent() {
         if (current == null) {
             current = new Area();
-            current.setAreaType(AreaType.MohArea);
+            current.setAreaType(AreaType.District);
         }
         return current;
     }
@@ -229,21 +229,21 @@ public class DistrictController implements Serializable {
 
     public List<Area> getItems() {
         Map m = new HashMap();
-        m.put("t", AreaType.MohArea);
+        m.put("t", AreaType.District);
         items = getFacade().findBySQL("select c from Area c where c.retired=false  and c.areaType =:t order by c.name", m);
      
         return items;
     }
 
-    public List<Area> getSelectProvince() {
+    public List<Area> getSelectDistrict() {
         Map m = new HashMap();
-        m.put("t", AreaType.Province);
-        selectProvince = getFacade().findBySQL("select c from Area c where c.retired=false and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' and c.areaType =:t order by c.name", m);    
-        return selectProvince;
+        m.put("t", AreaType.District);
+        selectDistrict = getFacade().findBySQL("select c from Area c where c.retired=false and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' and c.areaType =:t order by c.name", m);    
+        return selectDistrict;
     }
 
-    public void setSelectProvince(List<Area> selectProvince) {
-        this.selectProvince = selectProvince;
+    public void setSelectDistrict(List<Area> selectDistrict) {
+        this.selectDistrict = selectDistrict;
     }
 
     /**

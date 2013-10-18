@@ -215,7 +215,9 @@ public class ProvinceController implements Serializable {
     }
 
     public List<Area> getItems() {
-        items = getFacade().findAll("name", true);
+        Map m = new HashMap();
+        m.put("t", AreaType.Province);
+        items = getFacade().findBySQL("select c from Area c where c.retired=false  and c.areaType =:t order by c.name", m);
         return items;
     }
 

@@ -157,7 +157,7 @@ public class PatientReportBean {
                         val.setBaImage(getDefaultImageValue((HealthFormItem) ii, ptReport.getPatientInvestigation().getPatient()));
                     } else {
                     }
-                    val.setInvestigationItem((HealthFormItem) ii);
+                    val.setHealthFormItem((HealthFormItem) ii);
                     val.setPatient(ptReport.getPatientInvestigation().getPatient());
                     val.setPatientEncounter(ptReport.getPatientInvestigation().getEncounter());
                     val.setFilledHealthFormReport(ptReport);
@@ -181,7 +181,7 @@ public class PatientReportBean {
                             val.setBaImage(getDefaultImageValue((HealthFormItem) ii, ptReport.getPatientInvestigation().getPatient()));
                         } else {
                         }
-                        val.setInvestigationItem((HealthFormItem) ii);
+                        val.setHealthFormItem((HealthFormItem) ii);
                         val.setPatient(ptReport.getPatientInvestigation().getPatient());
                         val.setPatientEncounter(ptReport.getPatientInvestigation().getEncounter());
                         val.setFilledHealthFormReport(ptReport);
@@ -197,7 +197,7 @@ public class PatientReportBean {
                     FilledHealthFormReportItemValue val;
                     val = new FilledHealthFormReportItemValue();
                     val.setStrValue(getPatientDynamicLabel((HealthFormItem) ii, ptReport.getPatientInvestigation().getPatient()));
-                    val.setInvestigationItem((HealthFormItem) ii);
+                    val.setHealthFormItem((HealthFormItem) ii);
                     val.setPatient(ptReport.getPatientInvestigation().getPatient());
                     val.setPatientEncounter(ptReport.getPatientInvestigation().getEncounter());
                     val.setFilledHealthFormReport(ptReport);
@@ -212,7 +212,7 @@ public class PatientReportBean {
                         System.out.println("val is null");
                         val = new FilledHealthFormReportItemValue();
                         val.setStrValue(getPatientDynamicLabel((HealthFormItem) ii, ptReport.getPatientInvestigation().getPatient()));
-                        val.setInvestigationItem((HealthFormItem) ii);
+                        val.setHealthFormItem((HealthFormItem) ii);
                         val.setPatient(ptReport.getPatientInvestigation().getPatient());
                         val.setPatientEncounter(ptReport.getPatientInvestigation().getEncounter());
                         val.setFilledHealthFormReport(ptReport);

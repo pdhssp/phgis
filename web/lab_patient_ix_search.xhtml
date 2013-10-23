@@ -104,10 +104,10 @@
                                                 <f:setPropertyActionListener value="#{pi}" target="#{patientInvestigationController.current}" ></f:setPropertyActionListener>
                                             </p:commandButton>
                                             <p:commandButton ajax="false" rendered="#{pi.received}" value="New Result Entry"  action="#{filledReportController.enterNewData}" >
-                                                <f:setPropertyActionListener value="#{pi}" target="#{filledReportController.currentPtIx}"></f:setPropertyActionListener>
+                                                <f:setPropertyActionListener value="#{pi}" target="#{filledReportController.currentFilledHealthForm}"></f:setPropertyActionListener>
                                             </p:commandButton>
                                             <p:commandButton ajax="false" rendered="#{pi.received}" value="New Report Format"  action="lab_ix_for_ix" >
-                                                <f:setPropertyActionListener value="#{pi}" target="#{filledReportController.currentPtIx}"></f:setPropertyActionListener>
+                                                <f:setPropertyActionListener value="#{pi}" target="#{filledReportController.currentFilledHealthForm}"></f:setPropertyActionListener>
                                                 <f:setPropertyActionListener value="#{pi}" target="#{itemForItemController.patientIx}"></f:setPropertyActionListener>
                                             </p:commandButton>
                                         </h:panelGrid>

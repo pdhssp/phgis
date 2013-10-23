@@ -566,7 +566,7 @@ public class FilledHealthFormReport implements Serializable {
 
         @Override
         public int compare(FilledHealthFormReportItemValue o1, FilledHealthFormReportItemValue o2) {
-            return o1.getInvestigationItem().getCssTop().compareTo(o2.getInvestigationItem().getCssTop());  //To change body of generated methods, choose Tools | Templates.
+            return o1.getHealthFormItem().getCssTop().compareTo(o2.getHealthFormItem().getCssTop());  //To change body of generated methods, choose Tools | Templates.
         }
     }
 }

@@ -253,6 +253,29 @@ public abstract class AbstractFacade<T> {
         }
     }
 
+    public T findFirstBySQL(String temSQL, Map<String, Object> parameters) {
+        TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
+        Set s = parameters.entrySet();
+        Iterator it = s.iterator();
+        while (it.hasNext()) {
+            Map.Entry m = (Map.Entry) it.next();
+            Object pVal = m.getValue();
+            String pPara = (String) m.getKey();
+            if (pVal instanceof Date) {
+                Date d = (Date) pVal;
+                qry.setParameter(pPara, d, TemporalType.DATE);
+            } else {
+                qry.setParameter(pPara, pVal);
+            }
+        }
+        try {
+            return qry.getResultList().get(0);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     public <U> List<T> testMethod(U[] a, Collection<U> all) {
         List<T> myList = new ArrayList<T>();
         return myList;

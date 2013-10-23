@@ -91,9 +91,9 @@ public class FilledReportController implements Serializable {
             return 0;
         }
         for (FilledHealthFormReportItemValue priv : currentPatientReport.getFilledHealthFormReportItemValue()) {
-            System.out.println("priv in finding val is " + priv.getInvestigationItem().getName());
-            System.out.println("XXXXXXXXXXX compairing are " + priv.getInvestigationItem().getId() + "  vs " + ii.getId());
-            if (priv.getInvestigationItem().getId() == ii.getId()) {
+            System.out.println("priv in finding val is " + priv.getHealthFormItem().getName());
+            System.out.println("XXXXXXXXXXX compairing are " + priv.getHealthFormItem().getId() + "  vs " + ii.getId());
+            if (priv.getHealthFormItem().getId() == ii.getId()) {
                 System.out.println("double val is " + priv.getDoubleValue());
                 return priv.getDoubleValue();
             }
@@ -118,9 +118,9 @@ public class FilledReportController implements Serializable {
         System.out.println("Gong to calculate");
         for (FilledHealthFormReportItemValue priv : currentPatientReport.getFilledHealthFormReportItemValue()) {
             System.out.println("priv " + priv.toString());
-            if (priv.getInvestigationItem().getIxItemType() == InvestigationItemType.Calculation) {
-                System.out.println("priv ix " + priv.getInvestigationItem());
-                String sql = "select i from IxCal i where i.calIxItem.id = " + priv.getInvestigationItem().getId();
+            if (priv.getHealthFormItem().getIxItemType() == InvestigationItemType.Calculation) {
+                System.out.println("priv ix " + priv.getHealthFormItem());
+                String sql = "select i from IxCal i where i.calIxItem.id = " + priv.getHealthFormItem().getId();
                 System.out.println("sql is " + sql);
                 List<FormCal> ixCals = getIxCalFacade().findBySQL(sql);
                 double result = 0;

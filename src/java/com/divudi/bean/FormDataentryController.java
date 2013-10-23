@@ -5,11 +5,17 @@
 package com.divudi.bean;
 
 import com.divudi.entity.form.FilledHealthFormReport;
+import com.divudi.entity.form.FilledHealthFormReportItemValue;
 import com.divudi.entity.form.HealthForm;
+import com.divudi.entity.form.HealthFormItem;
+import com.divudi.facade.FilledHealthFormReportFacade;
+import com.divudi.facade.FilledHealthFormReportItemValueFacade;
+import com.divudi.facade.HealthFormItemValueFacade;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -21,74 +27,113 @@ import javax.inject.Inject;
 @Named(value = "formDataentryController")
 @Dependent
 public class FormDataentryController {
-
+    
     HealthForm healthForm;
     Date fromDate;
     Date toDate;
     int year;
     int month;
     int quarter;
-
+    @EJB
+    FilledHealthFormReportFacade filledHealthFormReportFacade;
+    @EJB
+    HealthFormItemValueFacade healthFormItemValueFacade;
+    
+    public HealthFormItemValueFacade getHealthFormItemValueFacade() {
+        return healthFormItemValueFacade;
+    }
+    
+    public void setHealthFormItemValueFacade(HealthFormItemValueFacade healthFormItemValueFacade) {
+        this.healthFormItemValueFacade = healthFormItemValueFacade;
+    }
+    
+    public FilledHealthFormReportFacade getFilledHealthFormReportFacade() {
+        return filledHealthFormReportFacade;
+    }
+    
+    public void setFilledHealthFormReportFacade(FilledHealthFormReportFacade filledHealthFormReportFacade) {
+        this.filledHealthFormReportFacade = filledHealthFormReportFacade;
+    }
+    
     public HealthForm getHealthForm() {
         return healthForm;
     }
-
+    
     public void setHealthForm(HealthForm healthForm) {
         this.healthForm = healthForm;
     }
-
+    
     public Date getFromDate() {
         return fromDate;
     }
-
+    
     public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
-
+    
     public Date getToDate() {
         return toDate;
     }
-
+    
     public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
-
+    
     public int getYear() {
         return year;
     }
-
+    
     public void setYear(int year) {
         this.year = year;
     }
-
+    
     public int getMonth() {
         return month;
     }
-
+    
     public void setMonth(int month) {
         this.month = month;
     }
-
+    
     public int getQuarter() {
         return quarter;
     }
-
+    
     public void setQuarter(int quarter) {
         this.quarter = quarter;
     }
-
     @Inject
     SessionController sessionController;
-
+    
     public SessionController getSessionController() {
         return sessionController;
     }
-
+    
     public void setSessionController(SessionController sessionController) {
         this.sessionController = sessionController;
     }
+    @EJB
+    FilledHealthFormReportItemValueFacade filledHealthFormReportItemValueFacade;
     
+    public FilledHealthFormReportItemValueFacade getFilledHealthFormReportItemValueFacade() {
+        return filledHealthFormReportItemValueFacade;
+    }
     
+    public void setFilledHealthFormReportItemValueFacade(FilledHealthFormReportItemValueFacade filledHealthFormReportItemValueFacade) {
+        this.filledHealthFormReportItemValueFacade = filledHealthFormReportItemValueFacade;
+    }
+    
+    public void createFillefFormFromHealthForm(HealthForm form, FilledHealthFormReport report) {
+        for (HealthFormItem item : healthForm.getReportItems()) {
+            System.out.println("Adding New Item " + item.toString());
+            FilledHealthFormReportItemValue val = new FilledHealthFormReportItemValue();
+            val.setFilledHealthFormReport(report);
+            val.setHealthFormItem(item);
+            getFilledHealthFormReportItemValueFacade().create(val);
+            report.getFilledHealthFormReportItemValue().add(val);
+        }
+        getFilledHealthFormReportFacade().edit(report);
+    }
     
     public void startPhmDataEntry() {
         if (healthForm == null) {
@@ -103,21 +148,24 @@ public class FormDataentryController {
         String jpql;
         switch (healthForm.getDurationType()) {
             case Annually:
-                jpql = "select f from FilledHealthFormReport f where f.area=:a and a.yearVal = " + getYear() ;
-                
-
+                jpql = "select f from FilledHealthFormReport f where f.area=:a and a.yearVal = " + getYear();
+                FilledHealthFormReport ff = getFilledHealthFormReportFacade().findFirstBySQL(jpql, m);
+                if (ff == null) {
+                    ff = new FilledHealthFormReport();
+                    createFillefFormFromHealthForm(healthForm, ff);
+                }
             case Daily:
-
+            
             case Monthly:
-
+            
             case Weekly:
-
+            
             case Variable:
-
+            
             case Quarterly:
-
+            
         }
-
+        
     }
 
     /**

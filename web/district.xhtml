@@ -24,9 +24,9 @@
                         <h:panelGrid id="gpSelect" columns="1"  >
                             <p:panel >
                                 <h:panelGrid id="gpSelectText" >
-                                    <h:selectOneListbox converter="mohCon"  id="lstSelect"   size="10" value="#{districtController.current}" style="min-width: 223px">
-                                        <f:selectItems  value="#{districtController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
-                                        <f:ajax render="gpDetail" execute="lstSelect" >
+                                    <h:selectOneListbox converter="phiCon"  id="lstSelect"   size="10" value="#{districtController.current}" style="min-width: 223px">
+                                        <f:selectItems  value="#{districtController.items}" var="yItem" itemValue="#{yItem}" itemLabel="#{yItem.name}" ></f:selectItems>
+                                        <f:ajax render="gpDetail mp" execute="lstSelect" >
                                         </f:ajax>
                                     </h:selectOneListbox>
                                 </h:panelGrid>
@@ -52,7 +52,8 @@
                                     <h:outputText id="lblprovince" value="Province" ></h:outputText>
                                     <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{districtController.current.superArea}"  >
                                         <f:selectItem itemLabel="Please select a province" />
-                                        <f:selectItems  value="#{provinceController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
+                                        <f:selectItems  value="#{provinceController.items}" var="p" itemValue="#{p}" itemLabel="#{p.name}" ></f:selectItems>
+                                        
                                     </p:selectOneMenu>
 
                                 </h:panelGrid>
@@ -68,7 +69,7 @@
 
                         <p:panel rendered="#{districtController.current.id ne 0 or districtController.current.id ne null }" >
 
-                            <p:panel header="Coordinates" >
+                            <p:panel header="Coordinates" id="mp">
                                 <p:panelGrid >
                                     <p:row >
                                         <p:column >

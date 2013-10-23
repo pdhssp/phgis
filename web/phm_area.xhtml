@@ -18,25 +18,25 @@
 
 
 
-                <p:panel header="Manage MOH area" >
+                <p:panel header="Manage PHM area" >
                     <h:panelGrid id ="gpVeda" columns="3" >
 
                         <h:panelGrid id="gpSelect" columns="1"  >
                             <p:panel >
                                 <h:panelGrid id="gpSelectText" >
-                                    <h:selectOneListbox converter="mohCon"  id="lstSelect"   size="10" value="#{mohController.current}" style="min-width: 223px">
-                                        <f:selectItems  value="#{mohController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
-                                        <f:ajax render="gpDetail" execute="lstSelect" >
+                                    <h:selectOneListbox converter="phiCon"  id="lstSelect"   size="10" value="#{phmController.current}" style="min-width: 223px">
+                                        <f:selectItems  value="#{phmController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
+                                        <f:ajax render="gpDetail ph" execute="lstSelect" >
                                         </f:ajax>
                                     </h:selectOneListbox>
                                 </h:panelGrid>
                                 <h:panelGrid id="gpSelectButtons" columns="3"  >
-                                    <h:commandButton id="btnAdd" value="Add"  action="#{mohController.prepareAdd()}" styleClass="buttons" >
+                                    <h:commandButton id="btnAdd" value="Add"  action="#{phmController.prepareAdd()}" styleClass="buttons" >
                                         <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail detailFocus" execute="" >
                                         </f:ajax>
                                     </h:commandButton>
                                     <h:commandButton id="btnDelete" onclick="if (!confirm('Are you sure you want to delete this record?'))
-                                                return false;" action="#{mohController.delete()}"  value="Delete"  >
+                                                return false;" action="#{phmController.delete()}"  value="Delete"  >
                                     </h:commandButton>
                                 </h:panelGrid>
                             </p:panel>
@@ -45,18 +45,18 @@
                         <p:panel>
                             <h:panelGrid id="gpDetail" columns="1">
                                 <h:panelGrid id="gpDetailText" columns="2">
-                                     <h:outputText id="lblprovince" value="District" ></h:outputText>
-                                     <p:selectOneMenu converter="districtCon" id="cmbHf" value="#{mohController.current.superArea}"  >
-                                        <f:selectItem itemLabel="Please select a district" />
-                                        <f:selectItems  value="#{districtController.items}" var="d" itemValue="#{d}" itemLabel="#{d.name}" ></f:selectItems>
-                                        
+                                     <h:outputText id="lblphi" value="PHI area" ></h:outputText>
+                                     <p:selectOneMenu converter="phiCon" id="cmbHf" value="#{phmController.current.superArea}"  >
+                                        <f:selectItem itemLabel="Please select a PHI area" />
+                                        <f:selectItems  value="#{phiController.items}" var="po" itemValue="#{po}" itemLabel="#{po.name}" ></f:selectItems>
+                                       
                                     </p:selectOneMenu>
                                     <h:outputText id="lblName" value="Name" ></h:outputText>
-                                    <h:inputText id="txtName" value="#{mohController.current.name}"  ></h:inputText>
+                                    <h:inputText id="txtName" value="#{phmController.current.name}"  ></h:inputText>
 
                                 </h:panelGrid>
                                 <h:panelGrid id="gpDetailButtons" columns="2">
-                                    <h:commandButton id="btnSave" value="Save"  action="#{mohController.saveSelected()}" styleClass="buttons">
+                                    <h:commandButton id="btnSave" value="Save"  action="#{phmController.saveSelected()}" styleClass="buttons">
                                         <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail selectFocus"  execute="gpDetail" >
                                         </f:ajax>
                                     </h:commandButton>
@@ -65,16 +65,16 @@
                             </h:panelGrid>
                         </p:panel>
 
-                        <p:panel rendered="#{mohController.current.id ne 0 or mohController.current.id ne null }" >
+                        <p:panel rendered="#{phmController.current.id ne 0 or phmController.current.id ne null }" >
 
                             <p:panel header="Coordinates" >
-                                <p:panelGrid >
+                                <p:panelGrid id="ph">
                                     <p:row >
                                         <p:column >
                                             <h:outputLabel value="Longitude" />
                                         </p:column>
                                         <p:column >
-                                            <h:inputText value="#{mohController.coordinate.longtide}" ></h:inputText>
+                                            <h:inputText value="#{phmController.coordinate.longtide}" ></h:inputText>
                                         </p:column>
                                     </p:row>
                                     <p:row >
@@ -82,7 +82,7 @@
                                             <h:outputLabel value="Latitude" />
                                         </p:column>
                                         <p:column >
-                                            <h:inputText value="#{mohController.coordinate.latitude}" ></h:inputText>
+                                            <h:inputText value="#{phmController.coordinate.latitude}" ></h:inputText>
                                         </p:column>
                                     </p:row>
                                     <p:row >
@@ -90,12 +90,12 @@
                                             <h:outputLabel value="Order No" />
                                         </p:column>
                                         <p:column >
-                                            <h:inputText value="#{mohController.coordinate.orderNo}" ></h:inputText>
+                                            <h:inputText value="#{phmController.coordinate.orderNo}" ></h:inputText>
                                         </p:column>
                                     </p:row>
                                     <p:row >
                                         <p:column >
-                                            <p:commandButton ajax="false" value="Add" action="#{mohController.addCoordinate()}"  >
+                                            <p:commandButton ajax="false" value="Add" action="#{phmController.addCoordinate()}"  >
 
                                             </p:commandButton>
                                         </p:column>
@@ -103,7 +103,7 @@
 
                                     <p:row >
                                         <p:column >
-                                            <p:dataTable value="#{mohController.current.cordinates}" var="c" >
+                                            <p:dataTable value="#{phmController.current.cordinates}" var="c" >
                                                 <p:column >
                                                     #{c.latitude}
                                                 </p:column>
@@ -114,8 +114,8 @@
                                                     #{c.orderNo}
                                                 </p:column>
                                                 <p:column >
-                                                    <p:commandButton ajax="false" value="Remove" action="#{mohController.removeCoordinate() }" >
-                                                        <f:setPropertyActionListener value="#{c}" target="#{mohController.coordinate}" />
+                                                    <p:commandButton ajax="false" value="Remove" action="#{phmController.removeCoordinate() }" >
+                                                        <f:setPropertyActionListener value="#{c}" target="#{phmController.coordinate}" />
                                                     </p:commandButton>
                                                 </p:column>
                                             </p:dataTable>
@@ -123,8 +123,8 @@
                                     </p:row>
                                     <p:row>
                                         <p:column >
-                                            #{mohController.mapModel}
-                                            <p:gmap rendered="#{mohController.current.cordinates.size()>0}" center="#{mohController.current.cordinates.get(0).latitude}, #{mohController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{mohController.mapModel}">  
+                                            #{phmController.mapModel}
+                                            <p:gmap rendered="#{phmController.current.cordinates.size()>0}" center="#{phmController.current.cordinates.get(0).latitude}, #{phmController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{phmController.mapModel}">  
                                             </p:gmap>
                                         </p:column>
                                     </p:row>

@@ -66,9 +66,7 @@ public class HealthFormController implements Serializable {
     private List<HealthForm> midvifesForms;
 
     public List<HealthForm> getMidvifesForms() {
-//        if (midvifesForms == null) {
-            midvifesForms = getStaffRoleForms(StaffRole.Phm);
-//        }
+        midvifesForms = getStaffRoleForms(StaffRole.Phm);
         return midvifesForms;
     }
 
@@ -184,8 +182,6 @@ public class HealthFormController implements Serializable {
     public void setReportedAs(boolean reportedAs) {
         this.reportedAs = reportedAs;
     }
-
-    
 
     public void correctIx1() {
         List<HealthForm> allItems = getEjbFacade().findAll();
@@ -389,9 +385,9 @@ public class HealthFormController implements Serializable {
      *
      */
     @FacesConverter("hfcon")
-    public static class InvestigationConverter implements Converter {
+    public static class HealthFormConverter implements Converter {
 
-        public InvestigationConverter() {
+        public HealthFormConverter() {
         }
 
         @Override
@@ -430,4 +426,49 @@ public class HealthFormController implements Serializable {
             }
         }
     }
+    
+    
+    @FacesConverter(forClass = HealthForm.class)
+    public static class HealthFormControllerConverter implements Converter {
+
+        public HealthFormControllerConverter() {
+        }
+
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            HealthFormController controller = (HealthFormController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "healthFormController");
+            return controller.getEjbFacade().find(getKey(value));
+        }
+
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
+            return key;
+        }
+
+        String getStringKey(java.lang.Long value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value);
+            return sb.toString();
+        }
+
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof HealthForm) {
+                HealthForm o = (HealthForm) object;
+                return getStringKey(o.getId());
+            } else {
+                throw new IllegalArgumentException("object " + object + " is of type "
+                        + object.getClass().getName() + "; expected type: " + HealthFormController.class.getName());
+            }
+        }
+    }
+    
 }

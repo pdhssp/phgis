@@ -11,13 +11,14 @@ import gov.sp.health.entity.form.HealthFormItem;
 import gov.sp.health.facade.FilledHealthFormReportFacade;
 import gov.sp.health.facade.FilledHealthFormReportItemValueFacade;
 import gov.sp.health.facade.HealthFormItemValueFacade;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 /**
@@ -25,8 +26,8 @@ import javax.inject.Inject;
  * @author Buddhika
  */
 @Named(value = "formDataentryController")
-@Dependent
-public class FormDataentryController {
+@SessionScoped
+public class FormDataentryController implements Serializable{
     
     HealthForm healthForm;
     Date fromDate;
@@ -38,6 +39,8 @@ public class FormDataentryController {
     FilledHealthFormReportFacade filledHealthFormReportFacade;
     @EJB
     HealthFormItemValueFacade healthFormItemValueFacade;
+    
+    
     
     public HealthFormItemValueFacade getHealthFormItemValueFacade() {
         return healthFormItemValueFacade;
@@ -56,10 +59,12 @@ public class FormDataentryController {
     }
     
     public HealthForm getHealthForm() {
+        System.out.println("getting health form " + healthForm);
         return healthForm;
     }
     
     public void setHealthForm(HealthForm healthForm) {
+        System.out.println("Setting health form " + healthForm);
         this.healthForm = healthForm;
     }
     
@@ -138,6 +143,7 @@ public class FormDataentryController {
     public void startPhmDataEntry() {
         if (healthForm == null) {
             UtilityController.addErrorMessage("Please select a form");
+            return;
         }
         Map m = new HashMap();
         m.put("a", sessionController.getLoggedUser().getStaff().getArea());

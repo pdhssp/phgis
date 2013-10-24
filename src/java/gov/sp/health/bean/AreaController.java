@@ -23,6 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.omg.CORBA.Current;
 
 /**
  *
@@ -164,9 +165,10 @@ public  class AreaController implements Serializable {
     @FacesConverter("areaCon")
     public static class AreaControllerConverter implements Converter {
 
+
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
+            if (value == null || value.length() == 0 ) {
                 return null;
             }
             AreaController controller = (AreaController) facesContext.getApplication().getELResolver().
@@ -175,7 +177,10 @@ public  class AreaController implements Serializable {
         }
 
         java.lang.Long getKey(String value) {
-            java.lang.Long key;
+             if (value == null || value.length() == 0 ) {
+                return null;
+            }
+             java.lang.Long key;
             key = Long.valueOf(value);
             return key;
         }
@@ -200,4 +205,5 @@ public  class AreaController implements Serializable {
             }
         }
     }
-}
+    }
+

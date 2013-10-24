@@ -169,6 +169,7 @@ public class DistrictController implements Serializable {
         }
         recreateModel();
         getItems();
+       // current=null;
     }
 
     public void setSelectText(String selectText) {

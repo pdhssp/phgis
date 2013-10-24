@@ -16,23 +16,23 @@
                 <p:panel id="panIx"  >
 
                     <f:facet name="header" >
-                        <h:outputLabel value="List of Investigations"></h:outputLabel>
+                        <h:outputLabel value="List of Forms"></h:outputLabel>
                         <p:commandButton ajax="false" value="Print" styleClass="noPrintButton" >
                             <p:printer target="panIx" />
                         </p:commandButton>
                         <p:commandButton ajax="false" value="Excel" >
-                            <p:dataExporter target="tbl" type="xls" fileName="List of all Investigations"  />
+                            <p:dataExporter target="tbl" type="xls" fileName="List of all Forms"  />
                         </p:commandButton>
                     </f:facet>
 
 
 
                     <div id="printHeader" style="text-align: center; font-family: serif;">
-                        <h:outputLabel value="GIS Based Public Health Information System (Pvt) Ltd" style="font-size: 20px;"></h:outputLabel>
+                        <h:outputLabel value="GIS Based Public Health Information System " style="font-size: 20px;"></h:outputLabel>
                         <br> </br>
-                        <h:outputLabel value="Lab Investigation - Price List" style="font-family: serif;" ></h:outputLabel>
+                        <h:outputLabel value="Form List" style="font-family: serif;" ></h:outputLabel>
                         <br> </br>
-                        <h:outputLabel value="2013 / 2014"></h:outputLabel>
+                       
                     </div>
 
 
@@ -41,15 +41,20 @@
                         <p:column headerText="No." style="width: 10%;" >
                             <h:outputLabel value="#{rowIndex + 1}" ></h:outputLabel>
                         </p:column>  
-                        <p:column headerText="Investigation Name"  style="width: 45%;">
+                         <p:column headerText="Form ID"  style="width: 45%;">
                             <h:outputLabel value="#{ix.name}" ></h:outputLabel>
                         </p:column>
-                        <p:column headerText="Institution Name"  style="width: 20%;">
-                            <h:outputLabel value="#{ix.institution.name}" ></h:outputLabel>
+                        <p:column headerText="Form Name"  style="width: 45%;">
+                            <h:outputLabel value="#{ix.name}" ></h:outputLabel>
                         </p:column>
-                        <p:column headerText="Department Name"  style="width: 20%;">
-                            <h:outputLabel value="#{ix.department.name}" ></h:outputLabel>
+                        <p:column headerText="Roll"  style="width: 20%;">
+                            <h:outputLabel value="#{ix.staffRole}" ></h:outputLabel>
                         </p:column>
+                       <p:column headerText="Area type"  style="width: 20%;">
+                           <h:outputLabel value="#{ix.areaType}" ></h:outputLabel>
+                        </p:column>
+                         
+                        
 
                     </p:dataTable>
 

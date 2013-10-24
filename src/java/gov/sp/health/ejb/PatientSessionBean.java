@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Stateless
 public class PatientSessionBean {

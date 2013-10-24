@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author buddhika
+ * 
  */
 @Stateless
 public class ConsultantFacade extends AbstractFacade<Consultant> {

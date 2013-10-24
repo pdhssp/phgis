@@ -9,10 +9,8 @@
 package gov.sp.health.bean;
 
 import java.util.TimeZone;
-import gov.sp.health.data.Privileges;
 import gov.sp.health.data.StaffRole;
 import gov.sp.health.entity.Area;
-import gov.sp.health.entity.Department;
 import gov.sp.health.entity.Institution;
 import gov.sp.health.entity.Person;
 import gov.sp.health.entity.Speciality;
@@ -22,7 +20,6 @@ import gov.sp.health.facade.WebUserRoleFacade;
 import gov.sp.health.entity.WebUser;
 import gov.sp.health.entity.WebUserPrivilege;
 import gov.sp.health.facade.AreaFacade;
-import gov.sp.health.facade.DepartmentFacade;
 import gov.sp.health.facade.InstitutionFacade;
 import gov.sp.health.facade.PersonFacade;
 import gov.sp.health.facade.StaffFacade;
@@ -70,18 +67,12 @@ public class WebUserController implements Serializable {
     List<WebUser> searchItems;
     private WebUser current;
     String selectText = "";
-    List<Department> departments;
     List<Area> areas;
     List<Institution> institutions;
     @EJB
-    private DepartmentFacade departmentFacade;
-    @EJB
     private InstitutionFacade institutionFacade;
     private Institution institution;
-    private Department department;
     Area area;
-    private Privileges[] privilegeses;
-    private Privileges[] currentPrivilegeses;
     Speciality speciality;
     List<WebUserPrivilege> userPrivileges;
     WebUser removingUser;
@@ -131,19 +122,7 @@ public class WebUserController implements Serializable {
 
     
     
-    public List<Department> getInstitutionDepatrments() {
-        List<Department> d;
-        System.out.println("gettin ins dep ");
-        if (getInstitution() == null) {
-            return new ArrayList<Department>();
-        } else {
-            String sql = "Select d From Department d where d.retired=false and d.institution.id=" + getInstitution().getId();
-            d = getDepartmentFacade().findBySQL(sql);
-        }
-
-        return d;
-    }
-
+   
     public void saveUser() {
         if (current == null) {
             return;
@@ -208,23 +187,7 @@ public class WebUserController implements Serializable {
     }
 
     public boolean hasPrivilege(String privilege) {
-        boolean hasPri = false;
-        if (getSessionController().getLoggedUser() == null) {
-            return hasPri;
-        }
-
-        if (getSessionController().getLoggedUser().getId() == null) {
-            return hasPri;
-        }
-
-        for (WebUserPrivilege w : getSessionController().getUserPrivileges()) {
-            if (w.getPrivilege().equals(Privileges.valueOf(privilege))) {
-
-                hasPri = true;
-                return hasPri;
-            }
-        }
-        return hasPri;
+        return true;
     }
 
     public Speciality getSpeciality() {
@@ -235,23 +198,7 @@ public class WebUserController implements Serializable {
         this.speciality = speciality;
     }
 
-    public List<Department> getDepartments() {
-        if (departments == null) {
-            String sql;
-            if (getInstitution() != null && getInstitution().getId() != null) {
-                sql = "select d from Department d where d.retired=false and d.institution.id = " + getInstitution().getId();
-                departments = getDepartmentFacade().findBySQL(sql);
-            }
-        }
-        if (departments == null) {
-            departments = new ArrayList<Department>();
-        }
-        return departments;
-    }
-
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
-    }
+    
 
     public List<Institution> getInstitutions() {
         if (institutions == null) {
@@ -264,7 +211,6 @@ public class WebUserController implements Serializable {
 
     public void setInstitutions(List<Institution> institutions) {
         this.institutions = institutions;
-        departments = null; // This line is essential. Othervice departments will not be refreshed when institution is changed
 
     }
     boolean skip;
@@ -361,7 +307,7 @@ public class WebUserController implements Serializable {
         Person p = new Person();
         getCurrent().setWebUserPerson(p);
         setSpeciality(null);
-        currentPrivilegeses = null;
+       
         return "admin_add_new_user";
     }
 
@@ -419,7 +365,6 @@ public class WebUserController implements Serializable {
         //Save Staff
         staff.setPerson(getCurrent().getWebUserPerson());
         staff.setCreatedAt(Calendar.getInstance().getTime());
-        staff.setDepartment(department);
         staff.setInstitution(institution);
         staff.setArea(area);
         staff.setStaffRole(staffRole);
@@ -427,7 +372,6 @@ public class WebUserController implements Serializable {
         getStaffFacade().create(staff);
         //Save Web User
         getCurrent().setInstitution(getInstitution());
-        getCurrent().setDepartment(getDepartment());
         getCurrent().setName(getSecurityController().encrypt(getCurrent().getName()));
         getCurrent().setWebUserPassword(getSecurityController().hash(getCurrent().getWebUserPassword()));
         getCurrent().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
@@ -538,13 +482,7 @@ public class WebUserController implements Serializable {
         this.selectText = selectText;
     }
 
-    public DepartmentFacade getDepartmentFacade() {
-        return departmentFacade;
-    }
-
-    public void setDepartmentFacade(DepartmentFacade departmentFacade) {
-        this.departmentFacade = departmentFacade;
-    }
+    
 
     public InstitutionFacade getInstitutionFacade() {
         return institutionFacade;
@@ -558,22 +496,8 @@ public class WebUserController implements Serializable {
         return institution;
     }
 
-    public void setInstitution(Institution institution) {
-        departments = null;
-        this.institution = institution;
-    }
+   
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Privileges[] getPrivilegeses() {
-        return Privileges.values();
-    }
 
     public PersonFacade getPersonFacade() {
         return personFacade;
@@ -598,13 +522,7 @@ public class WebUserController implements Serializable {
         this.webUserPrevilageFacade = webUserPrevilageFacade;
     }
 
-    public Privileges[] getCurrentPrivilegeses() {
-        return currentPrivilegeses;
-    }
-
-    public void setCurrentPrivilegeses(Privileges[] currentPrivilegeses) {
-        this.currentPrivilegeses = currentPrivilegeses;
-    }
+    
 
     @FacesConverter("webUs")
     public static class WebUserControllerConverter implements Converter {

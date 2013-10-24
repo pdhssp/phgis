@@ -18,7 +18,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 public class HealthFormItemValue implements Serializable {

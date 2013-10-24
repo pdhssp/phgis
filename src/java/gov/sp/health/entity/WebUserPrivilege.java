@@ -4,7 +4,6 @@
  */
 package gov.sp.health.entity;
 
-import gov.sp.health.data.Privileges;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -31,8 +30,7 @@ public class WebUserPrivilege implements Serializable {
     private String description;
     @ManyToOne
     WebUser webUser;
-    @Enumerated(EnumType.STRING)
-    Privileges privilege;
+  
     //Created Properties
     @ManyToOne
     private WebUser creater;
@@ -80,13 +78,7 @@ public class WebUserPrivilege implements Serializable {
         this.webUser = webUser;
     }
 
-    public Privileges getPrivilege() {
-        return privilege;
-    }
 
-    public void setPrivilege(Privileges privilege) {
-        this.privilege = privilege;
-    }
 
     public WebUser getCreater() {
         return creater;

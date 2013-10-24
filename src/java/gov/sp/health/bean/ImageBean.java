@@ -16,7 +16,7 @@ import org.primefaces.model.StreamedContent;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Named
 @RequestScoped

@@ -9,7 +9,6 @@
 package gov.sp.health.bean;
 
 import gov.sp.health.data.InstitutionType;
-import gov.sp.health.entity.Department;
 import java.util.TimeZone;
 import gov.sp.health.facade.InstitutionFacade;
 import gov.sp.health.entity.Institution;

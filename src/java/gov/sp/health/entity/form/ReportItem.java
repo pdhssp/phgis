@@ -10,7 +10,7 @@ import gov.sp.health.data.CssPosition;
 import gov.sp.health.data.CssTextAlign;
 import gov.sp.health.data.CssVerticalAlign;
 import gov.sp.health.data.HealthFormItemType;
-import gov.sp.health.data.InvestigationItemValueType;
+import gov.sp.health.data.HealthFormItemValueType;
 import gov.sp.health.data.ReportItemType;
 import gov.sp.health.entity.Category;
 import gov.sp.health.entity.Item;
@@ -31,7 +31,7 @@ import javax.persistence.Transient;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 public class ReportItem implements Serializable {
@@ -65,7 +65,7 @@ public class ReportItem implements Serializable {
     @Enumerated(EnumType.STRING)
     HealthFormItemType healthFormItemType;
     @Enumerated(EnumType.STRING)
-    InvestigationItemValueType ixItemValueType;
+    HealthFormItemValueType ixItemValueType;
     //CSS Property
     @Enumerated(EnumType.STRING)
     CssPosition cssPosition;
@@ -255,11 +255,11 @@ public class ReportItem implements Serializable {
         this.healthFormItemType = healthFormItemType;
     }
 
-    public InvestigationItemValueType getIxItemValueType() {
+    public HealthFormItemValueType getIxItemValueType() {
         return ixItemValueType;
     }
 
-    public void setIxItemValueType(InvestigationItemValueType ixItemValueType) {
+    public void setIxItemValueType(HealthFormItemValueType ixItemValueType) {
         this.ixItemValueType = ixItemValueType;
     }
 

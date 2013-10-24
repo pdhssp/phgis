@@ -11,7 +11,7 @@ import gov.sp.health.entity.Staff;
 
 /**
  *
- * @author buddhika
+ * 
  */
 @Stateless
 public class StaffFacade extends AbstractFacade<Staff> {

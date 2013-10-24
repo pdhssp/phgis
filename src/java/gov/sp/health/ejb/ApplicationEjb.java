@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Singleton
 public class ApplicationEjb {

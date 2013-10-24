@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

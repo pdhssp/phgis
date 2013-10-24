@@ -5,8 +5,7 @@
  */
 package gov.sp.health.entity;
 
-import gov.sp.health.data.BillType;
-import gov.sp.health.data.InwardChargeType;
+
 import gov.sp.health.data.SessionNumberType;
 import gov.sp.health.entity.form.HealthFormItem;
 import gov.sp.health.entity.form.ReportItem;
@@ -27,7 +26,7 @@ import javax.persistence.Transient;
 
 /**
  *
- * @author buddhika
+ * 
  */
 @Entity
 public class Item implements Serializable {
@@ -50,17 +49,12 @@ public class Item implements Serializable {
     @ManyToOne
     Institution institution;
     @ManyToOne
-    Department department;
-    @ManyToOne
     Speciality speciality;
     @ManyToOne
     Staff staff;
     @ManyToOne
     Institution forInstitution;
-    @ManyToOne
-    Department forDepartment;
-    @Enumerated(EnumType.STRING)
-    BillType forBillType;
+ 
     @ManyToOne
     Item billedAs;
     @ManyToOne
@@ -87,8 +81,6 @@ public class Item implements Serializable {
     @ManyToOne
     Item parentItem;
     boolean userChangable;
-    @Enumerated(EnumType.STRING)
-    InwardChargeType inwardChargeType;
     private Double dblValue = 0.0;
     private SessionNumberType sessionNumberType;
     boolean priceByBatch;
@@ -157,13 +149,7 @@ public class Item implements Serializable {
         this.sessionNumberType = sessionNumberType;
     }
 
-    public InwardChargeType getInwardChargeType() {
-        return inwardChargeType;
-    }
 
-    public void setInwardChargeType(InwardChargeType inwardChargeType) {
-        this.inwardChargeType = inwardChargeType;
-    }
 
     public List<HealthFormItem> getReportItems() {
         return reportItems;
@@ -350,13 +336,6 @@ public class Item implements Serializable {
         this.institution = institution;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
 
     public Boolean getDiscountAllowed() {
         if (discountAllowed == null) {
@@ -393,21 +372,7 @@ public class Item implements Serializable {
         this.forInstitution = forInstitution;
     }
 
-    public Department getForDepartment() {
-        return forDepartment;
-    }
 
-    public void setForDepartment(Department forDepartment) {
-        this.forDepartment = forDepartment;
-    }
-
-    public BillType getForBillType() {
-        return forBillType;
-    }
-
-    public void setForBillType(BillType forBillType) {
-        this.forBillType = forBillType;
-    }
 
     public boolean isUserChangable() {
         return userChangable;

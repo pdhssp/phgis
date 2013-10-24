@@ -9,7 +9,7 @@ import javax.ejb.Stateful;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Stateful
 public class WebUserBean {

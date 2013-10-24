@@ -13,7 +13,7 @@ import javax.persistence.InheritanceType;
 
 /**
  *
- * @author buddhika
+ * 
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

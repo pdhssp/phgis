@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 public class FormCal implements Serializable {

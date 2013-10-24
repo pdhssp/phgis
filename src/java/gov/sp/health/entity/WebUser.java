@@ -59,8 +59,7 @@ public class WebUser implements Serializable {
     String telNo;
     @ManyToOne
     Institution institution;
-    @ManyToOne
-    Department department;
+
     @ManyToOne
     Staff staff;
    
@@ -101,14 +100,7 @@ public class WebUser implements Serializable {
     public void setInstitution(Institution institution) {
         this.institution = institution;
     }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
+   
 
     public String getEmail() {
         return email;

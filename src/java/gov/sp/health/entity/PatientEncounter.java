@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author buddhika
+ * 
  */
 @Entity
 public class PatientEncounter implements Serializable {

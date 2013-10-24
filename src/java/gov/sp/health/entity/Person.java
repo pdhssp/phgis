@@ -64,8 +64,7 @@ public class Person implements Serializable {
     private Area area;
     @ManyToOne
     private Institution institution;
-    @ManyToOne
-    private Department department;
+
     @Enumerated(EnumType.STRING)
     private Title title;
     @Enumerated(EnumType.STRING)
@@ -297,13 +296,7 @@ public class Person implements Serializable {
         this.institution = institution;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
 
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
 
     public Title getTitle() {
         return title;

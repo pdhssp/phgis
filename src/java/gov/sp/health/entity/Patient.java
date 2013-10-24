@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 
 /**
  *
- * @author buddhika
+ * 
  */
 @Entity
 public class Patient implements Serializable {

@@ -6,9 +6,9 @@ package gov.sp.health.data;
 
 /**
  *
- * @author Buddhika
+ * 
  */
-public enum InvestigationItemValueType {
+public enum HealthFormItemValueType {
     Varchar,
     Memo,
     Double,

@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 public class FilledHealthFormItemValue implements Serializable {

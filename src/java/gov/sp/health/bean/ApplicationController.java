@@ -16,7 +16,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Named
 @ApplicationScoped

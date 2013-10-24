@@ -165,12 +165,10 @@ public class FilledReportController implements Serializable {
         getCurrentFilledHealthForm().setDataEntered(true);
         currentFilledHealthForm.setDataEntryAt(Calendar.getInstance().getTime());
         currentFilledHealthForm.setDataEntryUser(getSessionController().getLoggedUser());
-        currentFilledHealthForm.setDataEntryDepartment(getSessionController().getDepartment());
 
 //        getPiFacade().edit(currentFilledHealthForm);
         currentFilledHealthForm.setDataEntered(Boolean.TRUE);
         currentFilledHealthForm.setDataEntryAt(Calendar.getInstance().getTime());
-        currentFilledHealthForm.setDataEntryDepartment(sessionController.getLoggedUser().getDepartment());
         currentFilledHealthForm.setDataEntryInstitution(sessionController.getLoggedUser().getInstitution());
         currentFilledHealthForm.setDataEntryUser(sessionController.getLoggedUser());
 //        getPiFacade().edit(currentFilledHealthForm);
@@ -209,12 +207,10 @@ public class FilledReportController implements Serializable {
         getCurrentFilledHealthForm().setApproved(true);
         currentFilledHealthForm.setApproveAt(Calendar.getInstance().getTime());
         currentFilledHealthForm.setApproveUser(getSessionController().getLoggedUser());
-        currentFilledHealthForm.setApproveDepartment(getSessionController().getDepartment());
 //        getPiFacade().edit(currentFilledHealthForm);
         currentFilledHealthForm.setApproved(Boolean.FALSE);
         currentFilledHealthForm.setApproved(Boolean.TRUE);
         currentFilledHealthForm.setApproveAt(Calendar.getInstance().getTime());
-        currentFilledHealthForm.setApproveDepartment(sessionController.getLoggedUser().getDepartment());
         currentFilledHealthForm.setApproveInstitution(sessionController.getLoggedUser().getInstitution());
         currentFilledHealthForm.setApproveUser(sessionController.getLoggedUser());
 //        if (currentFilledHealthForm.getId() == null || currentFilledHealthForm.getId() == 0) {
@@ -248,11 +244,9 @@ public class FilledReportController implements Serializable {
         currentFilledHealthForm.setPrinted(true);
         currentFilledHealthForm.setPrintingAt(Calendar.getInstance().getTime());
         currentFilledHealthForm.setPrintingUser(getSessionController().getLoggedUser());
-        currentFilledHealthForm.setPrintingDepartment(getSessionController().getDepartment());
 
         currentFilledHealthForm.setPrinted(Boolean.TRUE);
         currentFilledHealthForm.setPrintingAt(Calendar.getInstance().getTime());
-        currentFilledHealthForm.setPrintingDepartment(sessionController.getLoggedUser().getDepartment());
         currentFilledHealthForm.setPrintingInstitution(sessionController.getLoggedUser().getInstitution());
         currentFilledHealthForm.setPrintingUser(sessionController.getLoggedUser());
         getFacade().edit(currentFilledHealthForm);

@@ -5,7 +5,6 @@
 package gov.sp.health.entity.form;
 
 import gov.sp.health.entity.Area;
-import gov.sp.health.entity.Department;
 import gov.sp.health.entity.Family;
 import gov.sp.health.entity.Institution;
 import gov.sp.health.entity.Item;
@@ -29,7 +28,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 public class FilledHealthForm implements Serializable {
@@ -63,8 +62,7 @@ public class FilledHealthForm implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataEntryAt;
     private String dataEntryComments;
-    @ManyToOne
-    private Department dataEntryDepartment;
+
     @ManyToOne
     private Institution dataEntryInstitution;
     //Approve
@@ -74,8 +72,7 @@ public class FilledHealthForm implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date approveAt;
     private String approveComments;
-    @ManyToOne
-    private Department approveDepartment;
+
     @ManyToOne
     private Institution approveInstitution;
     //Printing
@@ -86,8 +83,6 @@ public class FilledHealthForm implements Serializable {
     private Date printingAt;
     private String printingComments;
     @ManyToOne
-    private Department printingDepartment;
-    @ManyToOne
     private Institution printingInstitution;
     //Cancellation
     private Boolean cancelled = false;
@@ -97,8 +92,6 @@ public class FilledHealthForm implements Serializable {
     private Date cancelledAt;
     private String cancellComments;
     @ManyToOne
-    private Department cancellDepartment;
-    @ManyToOne
     private Institution cancellInstitution;
     //Return
     private Boolean returned = false;
@@ -107,8 +100,6 @@ public class FilledHealthForm implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date returnedAt;
     private String returnComments;
-    @ManyToOne
-    private Department returnDepartment;
     @ManyToOne
     private Institution returnInstitution;
 
@@ -257,13 +248,7 @@ public class FilledHealthForm implements Serializable {
         this.dataEntryComments = dataEntryComments;
     }
 
-    public Department getDataEntryDepartment() {
-        return dataEntryDepartment;
-    }
 
-    public void setDataEntryDepartment(Department dataEntryDepartment) {
-        this.dataEntryDepartment = dataEntryDepartment;
-    }
 
     public Institution getDataEntryInstitution() {
         return dataEntryInstitution;
@@ -305,13 +290,7 @@ public class FilledHealthForm implements Serializable {
         this.approveComments = approveComments;
     }
 
-    public Department getApproveDepartment() {
-        return approveDepartment;
-    }
 
-    public void setApproveDepartment(Department approveDepartment) {
-        this.approveDepartment = approveDepartment;
-    }
 
     public Institution getApproveInstitution() {
         return approveInstitution;
@@ -353,13 +332,7 @@ public class FilledHealthForm implements Serializable {
         this.printingComments = printingComments;
     }
 
-    public Department getPrintingDepartment() {
-        return printingDepartment;
-    }
 
-    public void setPrintingDepartment(Department printingDepartment) {
-        this.printingDepartment = printingDepartment;
-    }
 
     public Institution getPrintingInstitution() {
         return printingInstitution;
@@ -401,13 +374,6 @@ public class FilledHealthForm implements Serializable {
         this.cancellComments = cancellComments;
     }
 
-    public Department getCancellDepartment() {
-        return cancellDepartment;
-    }
-
-    public void setCancellDepartment(Department cancellDepartment) {
-        this.cancellDepartment = cancellDepartment;
-    }
 
     public Institution getCancellInstitution() {
         return cancellInstitution;
@@ -447,14 +413,6 @@ public class FilledHealthForm implements Serializable {
 
     public void setReturnComments(String returnComments) {
         this.returnComments = returnComments;
-    }
-
-    public Department getReturnDepartment() {
-        return returnDepartment;
-    }
-
-    public void setReturnDepartment(Department returnDepartment) {
-        this.returnDepartment = returnDepartment;
     }
 
     public Institution getReturnInstitution() {

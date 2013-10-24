@@ -6,7 +6,7 @@ package gov.sp.health.data;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 public enum CssFontStyle {
     Normal,

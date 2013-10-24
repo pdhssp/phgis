@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author buddhika
+ * 
  */
 @Entity
 public class Institution implements Serializable {

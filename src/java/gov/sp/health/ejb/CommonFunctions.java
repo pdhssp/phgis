@@ -13,7 +13,7 @@ import java.util.TimeZone;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Singleton
 public class CommonFunctions {

@@ -21,7 +21,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author buddhika
+ * 
  */
 @Entity
 public class Staff implements Serializable {
@@ -43,8 +43,6 @@ public class Staff implements Serializable {
     Speciality speciality;
     @ManyToOne
     Institution institution;
-    @ManyToOne
-    Department department;
     //Created Properties
     @ManyToOne
     WebUser creater;
@@ -242,14 +240,7 @@ public class Staff implements Serializable {
         this.institution = institution;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
+    
     public String getStaffCode() {
         return staffCode;
     }

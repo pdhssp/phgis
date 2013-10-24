@@ -11,7 +11,7 @@ import javax.persistence.InheritanceType;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

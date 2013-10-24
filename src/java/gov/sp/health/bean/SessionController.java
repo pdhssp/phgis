@@ -8,11 +8,10 @@
 package gov.sp.health.bean;
 
 import static gov.sp.health.bean.SessionController.isValidEmailAddress;
-import gov.sp.health.data.Privileges;
+
 import gov.sp.health.ejb.ApplicationEjb;
 import gov.sp.health.ejb.WebUserBean;
 import gov.sp.health.entity.Area;
-import gov.sp.health.entity.Department;
 import gov.sp.health.entity.Institution;
 import gov.sp.health.entity.Logins;
 import gov.sp.health.entity.WebUser;
@@ -29,7 +28,6 @@ import gov.sp.health.entity.WebUserPrivilege;
 import gov.sp.health.entity.WebUserRole;
 import gov.sp.health.facade.LoginsFacade;
 import gov.sp.health.facade.PersonFacade;
-import gov.sp.health.facade.WebUserDepartmentFacade;
 import gov.sp.health.facade.WebUserFacade;
 import gov.sp.health.facade.WebUserPrivilegeFacade;
 import gov.sp.health.facade.WebUserRoleFacade;
@@ -53,9 +51,7 @@ public class SessionController implements Serializable, HttpSessionListener {
     
     @EJB
     WebUserBean webUserBean;
-    @EJB
-    private WebUserDepartmentFacade webUserDepartmentFacade;
-    private static final long serialVersionUID = 1L;
+     private static final long serialVersionUID = 1L;
     WebUser loggedUser = null;
     boolean logged = false;
     boolean activated = false;
@@ -63,10 +59,8 @@ public class SessionController implements Serializable, HttpSessionListener {
     String defLocale;
     @Inject
     private MessageController messageController;
-    private List<Privileges> privilegeses;
     @Inject
     SecurityController securityController;
-    Department department;
     Institution institution;
     Area area;
     
@@ -78,16 +72,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         this.area = area;
     }
     
-    public Department getDepartment() {
-        return department;
-    }
-    
-    public void setDepartment(Department department) {
-        if (department != null) {
-            institution = department.getInstitution();
-        }
-        this.department = department;
-    }
+   
     
     public Institution getInstitution() {
         return institution;
@@ -364,11 +349,8 @@ public class SessionController implements Serializable, HttpSessionListener {
                     if (getApplicationController().isLogged(u) != null) {
                         UtilityController.addErrorMessage("This user already logged. Other instances will be logged out now.");
                     }
-                    u.setDepartment(department);
                     u.setInstitution(institution);
                     getFacede().edit(u);
-                    setDepartment(u.getDepartment());
-                    setInstitution(u.getInstitution());
                     
                     setLoggedUser(u);
                     setLogged(Boolean.TRUE);
@@ -387,17 +369,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         return false;
     }
     
-    private boolean canLogToDept(WebUser e, Department d) {
-        String sql;
-        sql = "select wd from WebUserDepartment wd where wd.retired=false and wd.webUser.id=" + e.getId() + " and wd.department.id = " + d.getId();
-        
-        if (getWebUserDepartmentFacade().findBySQL(sql).isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
-        
-    }
+  
     @Inject
     ApplicationController applicationController;
     @EJB
@@ -625,12 +597,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         getWebUserBean().setLoggedUser(loggedUser);
     }
     
-    public List<Privileges> getPrivilegeses() {
-        if (privilegeses == null || privilegeses.isEmpty()) {
-            privilegeses.addAll(Arrays.asList(Privileges.values()));
-        }
-        return privilegeses;
-    }
+   
     private List<WebUserPrivilege> userPrivilages;
     @EJB
     private WebUserPrivilegeFacade webUserPrivilegeFacade;
@@ -648,17 +615,8 @@ public class SessionController implements Serializable, HttpSessionListener {
         return userPrivilages;
     }
     
-    public void setPrivilegeses(List<Privileges> privilegeses) {
-        this.privilegeses = privilegeses;
-    }
-    
-    public WebUserDepartmentFacade getWebUserDepartmentFacade() {
-        return webUserDepartmentFacade;
-    }
-    
-    public void setWebUserDepartmentFacade(WebUserDepartmentFacade webUserDepartmentFacade) {
-        this.webUserDepartmentFacade = webUserDepartmentFacade;
-    }
+   
+   
     
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
@@ -706,7 +664,6 @@ public class SessionController implements Serializable, HttpSessionListener {
         thisLogin = new Logins();
         thisLogin.setLogedAt(Calendar.getInstance().getTime());
         thisLogin.setInstitution(institution);
-        thisLogin.setDepartment(department);
         thisLogin.setWebUser(loggedUser);
         
         HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

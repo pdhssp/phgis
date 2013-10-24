@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Stateless
 public class FilledHealthFormReportFacade extends AbstractFacade<FilledHealthForm> {

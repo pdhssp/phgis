@@ -10,11 +10,9 @@ package gov.sp.health.bean;
 
 import gov.sp.health.data.HealthFormItemType;
 import gov.sp.health.data.StaffRole;
-import gov.sp.health.entity.Department;
 import gov.sp.health.entity.form.HealthForm;
 import gov.sp.health.entity.form.HealthFormCategory;
 import gov.sp.health.entity.form.ReportItem;
-import gov.sp.health.facade.DepartmentFacade;
 import gov.sp.health.facade.InvestigationFacade;
 import gov.sp.health.facade.ItemFacade;
 import gov.sp.health.facade.SpecialityFacade;
@@ -61,8 +59,7 @@ public class HealthFormController implements Serializable {
     boolean reportedAs;
     HealthFormCategory category;
     List<HealthForm> catIxs;
-    @EJB
-    private DepartmentFacade departmentFacade;
+   
     private List<HealthForm> midvifesForms;
 
     public List<HealthForm> getMidvifesForms() {
@@ -79,20 +76,6 @@ public class HealthFormController implements Serializable {
 
     public void setMidvifesForms(List<HealthForm> midvifesForms) {
         this.midvifesForms = midvifesForms;
-    }
-
-    public List<Department> getInstitutionDepatrments() {
-        List<Department> d;
-        System.out.println("gettin ins dep ");
-        if (getCurrent().getInstitution() == null) {
-            return new ArrayList<Department>();
-        } else {
-            String sql = "Select d From Department d where d.retired=false and d.institution.id=" + getCurrent().getInstitution().getId();
-            d = getDepartmentFacade().findBySQL(sql);
-        }
-
-
-        return d;
     }
 
     public HealthFormCategory getCategory() {
@@ -235,7 +218,6 @@ public class HealthFormController implements Serializable {
                 HealthForm tix = new HealthForm();
                 tix.setCode(code);
                 tix.setName(ix);
-                tix.setDepartment(null);
 
 
 
@@ -373,13 +355,7 @@ public class HealthFormController implements Serializable {
         this.specialityFacade = specialityFacade;
     }
 
-    public DepartmentFacade getDepartmentFacade() {
-        return departmentFacade;
-    }
-
-    public void setDepartmentFacade(DepartmentFacade departmentFacade) {
-        this.departmentFacade = departmentFacade;
-    }
+   
 
     /**
      *

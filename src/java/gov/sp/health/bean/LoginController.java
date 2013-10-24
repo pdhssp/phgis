@@ -4,7 +4,6 @@
  */
 package gov.sp.health.bean;
 
-import gov.sp.health.entity.Department;
 import gov.sp.health.entity.Institution;
 import gov.sp.health.entity.Logins;
 import gov.sp.health.facade.LoginsFacade;
@@ -20,13 +19,13 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Named(value = "loginController")
 @SessionScoped
 public class LoginController implements Serializable {
 
-    Department department;
+   
     Institution institution;
     Date fromDate;
     Date toDate;
@@ -96,14 +95,7 @@ public class LoginController implements Serializable {
         this.logins = logins;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        recreate();
-        this.department = department;
-    }
+    
 
     public Institution getInstitution() {
         return institution;

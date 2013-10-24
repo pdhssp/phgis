@@ -12,7 +12,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 public class GisCoordinate implements Serializable {

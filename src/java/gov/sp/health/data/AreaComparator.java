@@ -9,7 +9,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 public class AreaComparator implements Comparator<GisCoordinate> {
 

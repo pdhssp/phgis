@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Named
 @SessionScoped

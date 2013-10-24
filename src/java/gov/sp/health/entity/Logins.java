@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Buddhika
+ * 
  */
 @Entity
 public class Logins implements Serializable {
@@ -30,8 +30,7 @@ public class Logins implements Serializable {
     Date logedAt;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     Date logoutAt;
-    @ManyToOne
-    Department department;
+   
     @ManyToOne
     Institution institution;
     String ipaddress;
@@ -72,13 +71,7 @@ public class Logins implements Serializable {
         this.screenResolution = screenResolution;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
+   
 
     public Institution getInstitution() {
         return institution;

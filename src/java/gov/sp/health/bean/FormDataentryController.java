@@ -146,6 +146,10 @@ public class FormDataentryController {
         
         f.getYearVal();
         String jpql;
+        System.out.println("health form " + healthForm);
+        System.out.println("health form duration type " + healthForm.getDurationType());
+        
+        
         switch (healthForm.getDurationType()) {
             case Annually:
                 jpql = "select f from FilledHealthFormReport f where f.area=:a and a.yearVal = " + getYear();

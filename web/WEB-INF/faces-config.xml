@@ -13,7 +13,7 @@
             <supported-locale>ta</supported-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>com.divudi.data.Labels</base-name>
+            <base-name>gov.sp.health.data.Labels</base-name>
             <var>labels</var>
         </resource-bundle>
     </application>

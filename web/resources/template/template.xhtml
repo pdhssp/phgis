@@ -109,8 +109,7 @@
                     <h:panelGroup rendered="#{sessionController.logged}" >
                         <h:form>
                             User - #{sessionController.loggedUser.webUserPerson.name} ||
-                            Department  - #{sessionController.loggedUser.department.name} ||
-                            Institution  - #{sessionController.loggedUser.institution.name} ||
+                               Institution  - #{sessionController.loggedUser.institution.name} ||
                             <h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
                         </h:form>
                     </h:panelGroup>

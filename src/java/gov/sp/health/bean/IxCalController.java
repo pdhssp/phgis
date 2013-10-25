@@ -174,7 +174,7 @@ public  class IxCalController implements Serializable {
         if (ix != null) {
             Map m = new HashMap();
             m.put("iit", HealthFormItemType.Value);
-            vals = getIiFacade().findBySQL("select i from HealthFormItem i where i.retired=false and i.item.id = " + ix.getId() + " and i.ixItemType =:iit", m, TemporalType.TIMESTAMP);
+            vals = getIiFacade().findBySQL("select i from HealthFormItem i where i.retired=false and i.item.id = " + ix.getId() + " and i.healthFormItemType =:iit", m, TemporalType.TIMESTAMP);
         }
         if (vals == null) {
             vals = new ArrayList<HealthFormItem>();
@@ -182,7 +182,7 @@ public  class IxCalController implements Serializable {
 //        vals = new ArrayList<InvestigationItem>();
 //        if (ix != null) {
 //            for (ReportItem ii : ix.getReportItems()) {
-//                if (ii instanceof HealthFormItem && ii.getIxItemType() == HealthFormItemType.Value) {
+//                if (ii instanceof HealthFormItem && ii.gethealthFormItemType() == HealthFormItemType.Value) {
 //                    vals.add((HealthFormItem) ii);
 //                }
 //            }
@@ -193,7 +193,7 @@ public  class IxCalController implements Serializable {
     public List<HealthFormItem> getCals() {
         if (ix != null) {
             String jpql;
-            jpql = "select i from HealthFormItem i where i.retired=false and i.item.id = " + ix.getId() + " and i.ixItemType = :iit order by i.cssTop";
+            jpql = "select i from HealthFormItem i where i.retired=false and i.item.id = " + ix.getId() + " and i.healthFormItemType = :iit order by i.cssTop";
             Map m = new HashMap();
             m.put("iit", HealthFormItemType.Calculation);
             cals = getIiFacade().findBySQL(jpql, m, TemporalType.TIMESTAMP);

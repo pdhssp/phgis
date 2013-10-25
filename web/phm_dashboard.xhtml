@@ -19,7 +19,7 @@
                         <p:panelGrid columns="3" >
                             <p:panel header="Data entry" >
                                 <h:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
-                                    <!--<f:selectItem itemLabel="Please select a form" />-->
+                                    <f:selectItem itemLabel="Please select a form" />
                                     <f:selectItems value="#{healthFormController.midvifesForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
                                     </f:selectItems>
                                     <f:ajax event="change" execute ="cmbHf" render="gpTimes" />

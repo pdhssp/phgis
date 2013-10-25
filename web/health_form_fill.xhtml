@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <p:panel header="Fill Form - #{formDataentryController.filledHealthForm.item.code }" >
+                    <p:panelGrid columns="2" >
+                        <p:dataTable value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
+                            <p:column >
+                                <h:inputText value="#{iv.healthFormItem.name}" />
+                            </p:column>
+                            <p:column >
+                                <h:inputText value="#{iv.strValue}" />
+                            </p:column>
+                        </p:dataTable>
+                        <ui:repeat value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
+                            <h:outputLabel value="#{iv.healthFormItem.name}" />
+                            <h:inputText value="#{iv.strValue}" />
+                        </ui:repeat>
+
+                    </p:panelGrid>
+                </p:panel>
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -36,7 +36,7 @@ import javax.faces.convert.FacesConverter;
  */
 @Named
 @SessionScoped
-public  class InvestigationItemController implements Serializable {
+public  class HealthFormItemController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -76,7 +76,7 @@ public  class InvestigationItemController implements Serializable {
             return new ArrayList<HealthFormItem>();
         } else {
             String sql;
-            sql = "select i from HealthFormItem i where i.retired=false and i.ixItemType = com.divudi.data.InvestigationItemType.Value and upper(i.name) like '%" + qry.toUpperCase() + "%' and i.item.id = " + currentInvestigation.getId();
+            sql = "select i from HealthFormItem i where i.retired=false and i.healthFormItemType = com.divudi.data.InvestigationItemType.Value and upper(i.name) like '%" + qry.toUpperCase() + "%' and i.item.id = " + currentInvestigation.getId();
             iivs = getEjbFacade().findBySQL(sql);
         }
         if (iivs == null) {
@@ -91,7 +91,7 @@ public  class InvestigationItemController implements Serializable {
             return new ArrayList<HealthFormItem>();
         } else {
             String sql;
-            sql = "select i from HealthFormItem i where i.retired=false and i.ixItemType = com.divudi.data.InvestigationItemType.Value and i.item.id = " + currentInvestigation.getId();
+            sql = "select i from HealthFormItem i where i.retired=false and i.healthFormItemType = com.divudi.data.InvestigationItemType.Value and i.item.id = " + currentInvestigation.getId();
             iivs = getEjbFacade().findBySQL(sql);
         }
         if (iivs == null) {
@@ -313,7 +313,7 @@ public  class InvestigationItemController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    public InvestigationItemController() {
+    public HealthFormItemController() {
     }
 
     public HealthFormItem getCurrent() {
@@ -334,7 +334,7 @@ public  class InvestigationItemController implements Serializable {
     public List<HealthFormItem> getItems() {
         if (getCurrentInvestigation().getId() != null) {
             String temSql;
-            temSql = "SELECT i FROM HealthFormItem i where i.retired=false and i.item.id = " + getCurrentInvestigation().getId() + " order by i.ixItemType, i.cssTop , i.cssLeft";
+            temSql = "SELECT i FROM HealthFormItem i where i.retired=false and i.item.id = " + getCurrentInvestigation().getId() + " order by i.healthFormItemType, i.cssTop , i.cssLeft";
             items = getFacade().findBySQL(temSql);
         } else {
             items = new ArrayList<HealthFormItem>();
@@ -368,8 +368,8 @@ public  class InvestigationItemController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            InvestigationItemController controller = (InvestigationItemController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "investigationItemController");
+            HealthFormItemController controller = (HealthFormItemController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "healthFormItemController");
             return controller.getEjbFacade().find(getKey(value));
         }
 
@@ -395,7 +395,7 @@ public  class InvestigationItemController implements Serializable {
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + InvestigationItemController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + HealthFormItemController.class.getName());
             }
         }
     }
@@ -405,15 +405,15 @@ public  class InvestigationItemController implements Serializable {
      */
     @FacesConverter(forClass = HealthFormItem.class)
 //    @FacesConverter("hfconverter")
-    public static class InvestigationItemControllerConverter implements Converter {
+    public static class healthFormItemControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            InvestigationItemController controller = (InvestigationItemController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "investigationItemController");
+            HealthFormItemController controller = (HealthFormItemController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "healthFormItemController");
             return controller.getEjbFacade().find(getKey(value));
         }
 
@@ -439,7 +439,7 @@ public  class InvestigationItemController implements Serializable {
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + InvestigationItemController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + HealthFormItemController.class.getName());
             }
         }
     }

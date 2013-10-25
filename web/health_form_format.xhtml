@@ -15,7 +15,7 @@
                 <h:panelGroup>
                     <p:panel header="Investigation">
                         <p:autoComplete widgetVar="aPt" id="acPt" forceSelection="true" converter="hfcon"
-                                        value="#{investigationItemController.currentInvestigation}" 
+                                        value="#{healthFormItemController.currentInvestigation}" 
                                         completeMethod="#{healthFormController.completeInvest}" 
                                         var="apt" itemLabel="#{apt.name}" 
                                         itemValue="#{apt}" size="30"  style="width: 400px;">
@@ -23,54 +23,51 @@
                         </p:autoComplete> 
                         <!--hfconverter-->
                         <p:panel header="Add New ..." >
-                            <h:commandButton value="Label" action="#{investigationItemController.addNewLabel()}"/>
-                            <h:commandButton value="Value" action="#{investigationItemController.addNewValue()}"/>
-                            <h:commandButton value="Cal" action="#{investigationItemController.addNewCalculation()}"/>
-                            <h:commandButton value="Flag" action="#{investigationItemController.addNewFlag() }"/>
+                            <h:commandButton value="Label" action="#{healthFormItemController.addNewLabel()}"/>
+                            <h:commandButton value="Value" action="#{healthFormItemController.addNewValue()}"/>
+                            <h:commandButton value="Cal" action="#{healthFormItemController.addNewCalculation()}"/>
+                            <h:commandButton value="Flag" action="#{healthFormItemController.addNewFlag() }"/>
                         </p:panel>
 
                     </p:panel>
                     <p:panel  header="Investigation Items List" id="pIx">
-                        <p:selectOneMenu  id="dtbItem" value="#{investigationItemController.current}" style="width: 270px;" >
+                        <p:selectOneMenu  id="dtbItem" value="#{healthFormItemController.current}" style="width: 270px;" >
                             <f:selectItem itemLabel="Select" />
-                            <f:selectItems value="#{investigationItemController.items}" var="ii" itemLabel="#{ii.name} - #{ii.ixItemType }" itemValue="#{ii}" />
+                            <f:selectItems value="#{healthFormItemController.items}" var="ii" itemLabel="#{ii.name} - #{ii.healthFormItemType }" itemValue="#{ii}" />
                             <p:ajax event="change" process="dtbItem" update=":#{p:component('pPreview')} :#{p:component('pDetails')} "/>
                             <p:ajax event="click" process="dtbItem" update=":#{p:component('pPreview')} :#{p:component('pDetails')} "/>
 
                         </p:selectOneMenu>
-                        <h:commandButton action="#{investigationItemController.removeItem()}" value="Remove"/>
+                        <h:commandButton action="#{healthFormItemController.removeItem()}" value="Remove"/>
                     </p:panel>
 
                     <p:panel  id="pDetails" >
 
                         <f:facet name="header" >
                             Item Details
-                            <h:commandButton value="Save" action="#{investigationItemController.saveSelected()}" >
+                            <h:commandButton value="Save" action="#{healthFormItemController.saveSelected()}" >
                             </h:commandButton>
 
                         </f:facet>
 
                         <h:panelGrid  columns="2">
                             <h:outputText value="Name"   />
-                            <h:inputText id="lblIiName" value="#{investigationItemController.current.name}" >
+                            <h:inputText id="lblIiName" value="#{healthFormItemController.current.name}" >
                                 <f:ajax event="keyup" execute="lblIiName" render=":#{p:component('pPreview')}"/>
                             </h:inputText>
 
 
 
                             <h:outputText value="Type"/>
-                            <h:selectOneListbox id="cmbItemType" value="#{investigationItemController.current.ixItemType}" size="1" >
+                            <h:selectOneListbox id="cmbItemType" value="#{healthFormItemController.current.healthFormItemType}" size="1" >
                                 <f:selectItem itemLabel="Label" itemValue="Label"/>
                                 <f:selectItem itemLabel="Value" itemValue="Value"/>
                                 <f:selectItem itemLabel="Calculation" itemValue="Calculation"/>
-                                <f:selectItem itemLabel="Flag" itemValue="Flag"/>
-                                <f:selectItem itemLabel="List" itemValue="List"/>
-                                <f:selectItem itemLabel="Dynamic Label" itemValue="DynamicLabel"/>
                             </h:selectOneListbox>
 
 
                             <h:outputText value="Align"/>
-                            <h:selectOneListbox  id="cmbTxtAlign" value="#{investigationItemController.current.cssTextAlign}" size="1" >
+                            <h:selectOneListbox  id="cmbTxtAlign" value="#{healthFormItemController.current.cssTextAlign}" size="1" >
                                 <f:selectItem itemLabel="Left" itemValue="Left"/>
                                 <f:selectItem itemLabel="Right" itemValue="Right"/>
                                 <f:selectItem itemLabel="Center" itemValue="Center"/>
@@ -80,27 +77,27 @@
 
 
                             <h:outputText value="Left" />
-                            <p:inputText id="txtLeft" value="#{investigationItemController.current.cssLeft}"/>
+                            <p:inputText id="txtLeft" value="#{healthFormItemController.current.cssLeft}"/>
 
                             <h:outputText value="Top"/>
-                            <p:inputText id="txtTop" value="#{investigationItemController.current.cssTop}"/>
+                            <p:inputText id="txtTop" value="#{healthFormItemController.current.cssTop}"/>
 
 
 
                             <h:outputText value="Font Size"/>
-                            <p:inputText id="txtFontSize" value="#{investigationItemController.current.cssFontSize}"/>
+                            <p:inputText id="txtFontSize" value="#{healthFormItemController.current.cssFontSize}"/>
 
 
                             <h:outputText value="Width"/>
-                            <p:inputText id="txtWidth" value="#{investigationItemController.current.cssWidth}" />
+                            <p:inputText id="txtWidth" value="#{healthFormItemController.current.cssWidth}" />
 
                             <h:outputText value="Height"/>
-                            <p:inputText id="txtHeight" value="#{investigationItemController.current.cssHeight}"/>
+                            <p:inputText id="txtHeight" value="#{healthFormItemController.current.cssHeight}"/>
 
 
 
                             <h:outputText value="Value Type"/>
-                            <h:selectOneListbox id="cmbValueType" value="#{investigationItemController.current.ixItemValueType}" size="1" >
+                            <h:selectOneListbox id="cmbValueType" value="#{healthFormItemController.current.healthFormItemValueType}" size="1" >
                                 <f:selectItem itemLabel="Varchar" itemValue="Varchar"/>
                                 <f:selectItem itemLabel="Memo" itemValue="Memo"/>
                                 <f:selectItem itemLabel="Double" itemValue="Double"/>
@@ -113,7 +110,7 @@
                             </h:selectOneListbox>
 
                             <h:outputText value="Position Type"/>
-                            <h:selectOneListbox id="cmbPosition" value="#{investigationItemController.current.cssPosition}" size="1" >
+                            <h:selectOneListbox id="cmbPosition" value="#{healthFormItemController.current.cssPosition}" size="1" >
                                 <f:selectItem itemLabel="Static" itemValue="Static"/>
                                 <f:selectItem itemLabel="Absolute" itemValue="Absolute"/>
                                 <f:selectItem itemLabel="Fixed" itemValue="Fixed"/>
@@ -121,7 +118,7 @@
                                 <f:selectItem itemLabel="Inherit" itemValue="Inherit"/>
                             </h:selectOneListbox>
                             <h:outputText value="Vertical Align"/>
-                            <h:selectOneListbox id="cmbVertical" value="#{investigationItemController.current.cssVerticalAlign}" size="1" >
+                            <h:selectOneListbox id="cmbVertical" value="#{healthFormItemController.current.cssVerticalAlign}" size="1" >
                                 <f:selectItem itemLabel="Baseline" itemValue="Baseline"/>
                                 <f:selectItem itemLabel="Sub" itemValue="Sub"/>
                                 <f:selectItem itemLabel="Super" itemValue="Super"/>
@@ -134,7 +131,7 @@
                             </h:selectOneListbox>
 
                             <h:outputText value="Over Flow"/>
-                            <h:selectOneListbox id="cmbType" value="#{investigationItemController.current.cssOverflow}" size="1" >
+                            <h:selectOneListbox id="cmbType" value="#{healthFormItemController.current.cssOverflow}" size="1" >
                                 <f:selectItem itemLabel="Auto" itemValue="auto"/>
                                 <f:selectItem itemLabel="Hidden" itemValue="hidden"/>
                                 <f:selectItem itemLabel="Scroll" itemValue="scroll"/>
@@ -142,7 +139,7 @@
                                 <f:selectItem itemLabel="Inherit" itemValue="Inherit"/>
                             </h:selectOneListbox>
                             <h:outputText value="Font Style"/>
-                            <h:selectOneListbox  id="cmbPos" value="#{investigationItemController.current.cssFontStyle}" size="1" >
+                            <h:selectOneListbox  id="cmbPos" value="#{healthFormItemController.current.cssFontStyle}" size="1" >
                                 <f:selectItem itemLabel="Normal" itemValue="Normal"/>
                                 <f:selectItem itemLabel="Italic" itemValue="Italic"/>
                                 <f:selectItem itemLabel="Oblique" itemValue="Oblique"/>               
@@ -151,50 +148,50 @@
 
 
                             <h:outputText value="Z Order" />
-                            <p:inputText id="txtZOrder" value="#{investigationItemController.current.cssZorder}"/>
+                            <p:inputText id="txtZOrder" value="#{healthFormItemController.current.cssZorder}"/>
 
                             <h:outputText value="Clip"/>
-                            <p:inputText id="txtClip" value="#{investigationItemController.current.cssClip}"/>
+                            <p:inputText id="txtClip" value="#{healthFormItemController.current.cssClip}"/>
 
                             <h:outputText value="Font Family"/>
-                            <p:inputText id="txtFontFamily" value="#{investigationItemController.current.cssFontFamily}"/>
+                            <p:inputText id="txtFontFamily" value="#{healthFormItemController.current.cssFontFamily}"/>
 
                             <h:outputText value="Font Variant"/>
-                            <p:inputText id="txtFontVariant" value="#{investigationItemController.current.cssFontVariant}"/>
+                            <p:inputText id="txtFontVariant" value="#{healthFormItemController.current.cssFontVariant}"/>
 
                             <h:outputText value="Font Weight"/>
-                            <p:inputText id="txtFontWeight" value="#{investigationItemController.current.cssFontWeight}"/>
+                            <p:inputText id="txtFontWeight" value="#{healthFormItemController.current.cssFontWeight}"/>
 
                             <h:outputText value="Border Radius"/>
-                            <p:inputText id="txtBorderRadius" value="#{investigationItemController.current.cssBorderRadius}"/>
+                            <p:inputText id="txtBorderRadius" value="#{healthFormItemController.current.cssBorderRadius}"/>
 
                             <h:outputText value="Line Hegiht"/>
-                            <p:inputText id="txtLineHeight" value="#{investigationItemController.current.cssLineHeight}"/>
+                            <p:inputText id="txtLineHeight" value="#{healthFormItemController.current.cssLineHeight}"/>
 
                             <h:outputText value="Margin"/>
-                            <p:inputText id="txtMargin" value="#{investigationItemController.current.cssMargin}"/>
+                            <p:inputText id="txtMargin" value="#{healthFormItemController.current.cssMargin}"/>
 
                             <h:outputText value="Padding"/>
-                            <p:inputText id="txtPadding" value="#{investigationItemController.current.cssPadding}"/>
+                            <p:inputText id="txtPadding" value="#{healthFormItemController.current.cssPadding}"/>
 
                             <h:outputText value="Border"/>
-                            <p:inputText id="txtBorder" value="#{investigationItemController.current.cssBorder}"/>
+                            <p:inputText id="txtBorder" value="#{healthFormItemController.current.cssBorder}"/>
 
                             <h:outputText value="Color"/>
-                            <p:inputText id="txtColor" value="#{investigationItemController.current.cssColor}"/>
+                            <p:inputText id="txtColor" value="#{healthFormItemController.current.cssColor}"/>
 
                             <h:outputText value="Back Color"/>
-                            <p:inputText id="txtBackColor" value="#{investigationItemController.current.cssBackColor}"/>
+                            <p:inputText id="txtBackColor" value="#{healthFormItemController.current.cssBackColor}"/>
 
                              <h:outputText value="Format String"/>
-                             <p:inputText id="txtFormat" value="#{investigationItemController.current.formatString}"/>
+                             <p:inputText id="txtFormat" value="#{healthFormItemController.current.formatString}"/>
 
                             
                             <h:outputText value="Perfix"/>
-                            <p:inputText id="txtPrefix" value="#{investigationItemController.current.formatPrefix}"/>
+                            <p:inputText id="txtPrefix" value="#{healthFormItemController.current.formatPrefix}"/>
 
                             <h:outputText value="Suffix"/>
-                            <p:inputText id="txtSuffix" value="#{investigationItemController.current.formatSuffix}"/>
+                            <p:inputText id="txtSuffix" value="#{healthFormItemController.current.formatSuffix}"/>
 
                         </h:panelGrid>
                     </p:panel>
@@ -217,7 +214,7 @@
                                 </div>
                             </ui:repeat>
 
-                            <ui:repeat value="#{investigationItemController.items}" var="myIi" >
+                            <ui:repeat value="#{healthFormItemController.items}" var="myIi" >
                                 <div style="#{myIi.cssStyle}; position:absolute;">
                                     <h:outputText rendered="#{myIi.retired ne true}"  value="#{myIi.name}" style="color: #{myIi.cssColor}" escape="false" ></h:outputText>
                                 </div>

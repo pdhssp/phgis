@@ -33,7 +33,7 @@
                     <p:panel  header="Investigation Items List" id="pIx">
                         <p:selectOneMenu  id="dtbItem" value="#{investigationItemController.current}" style="width: 270px;" >
                             <f:selectItem itemLabel="Select" />
-                            <f:selectItems value="#{investigationItemController.items}" var="ii" itemLabel="#{ii.name} - #{ii.ixItemType }" itemValue="#{ii}" />
+                            <f:selectItems value="#{investigationItemController.items}" var="ii" itemLabel="#{ii.name} - #{ii.ixItemValueType}" itemValue="#{ii}" />
                             <p:ajax event="change" process="dtbItem" update=":#{p:component('pPreview')} :#{p:component('pDetails')} "/>
                             <p:ajax event="click" process="dtbItem" update=":#{p:component('pPreview')} :#{p:component('pDetails')} "/>
 
@@ -59,7 +59,7 @@
 
 
                             <h:outputText value="Type"/>
-                            <h:selectOneListbox id="cmbItemType" value="#{investigationItemController.current.ixItemType}" size="1" >
+                            <h:selectOneListbox id="cmbItemType" value="#{investigationItemController.current.ixItemValueType}" size="1" >
                                 <f:selectItem itemLabel="Label" itemValue="Label"/>
                                 <f:selectItem itemLabel="Value" itemValue="Value"/>
                                 <f:selectItem itemLabel="Calculation" itemValue="Calculation"/>

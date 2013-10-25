@@ -18,13 +18,13 @@
 
                         <p:panelGrid columns="3" >
                             <p:panel header="Data entry" >
-                                <p:selectOneMenu converter="hfcon" id="cmbHf" value="#{formDataentryController.healthForm}"  >
+                                <h:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
                                     <f:selectItem itemLabel="Please select a form" />
-                                    <f:selectItems value="#{healthFormController.midvifesForms}" var="f" itemLabel="#{f.code} - #{f.name}" itemValue="#{f}" >
+                                    <f:selectItems value="#{healthFormController.midvifesForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
                                     </f:selectItems>
                                     <f:ajax event="change" execute ="cmbHf" render="gpTimes" />
-                                </p:selectOneMenu>
-
+                                </h:selectOneMenu>
+    
                                 <h:panelGroup id="gpTimes" >
                                     <h:panelGroup id="gpDaily" rendered="#{formDataentryController.healthForm.durationType eq 'Daily'}" >
                                         <p:calendar >
@@ -41,7 +41,6 @@
                                             <f:selectItem itemLabel="Select Month" />
                                             <f:selectItem itemLabel="January" itemValue="1" />
                                             <f:selectItem itemLabel="February" itemValue="2" />
-
                                         </p:selectOneMenu>
                                     </h:panelGroup>
 

@@ -124,7 +124,7 @@ public  class InvestigationItemDynamicLabelController implements Serializable {
 
     public List<HealthFormItem> getInvestigationItemsOfDynamicLabelType() {
         if (investigation != null) {
-            investigationItemsOfDynamicLabelType = getInvestigationItemFacade().findBySQL("select i from HealthFormItem i where i.retired=false and i.item.id = " + investigation.getId() + " and i.ixItemType = com.divudi.data.InvestigationItemType.DynamicLabel");
+            investigationItemsOfDynamicLabelType = getInvestigationItemFacade().findBySQL("select i from HealthFormItem i where i.retired=false and i.item.id = " + investigation.getId() + " and i.healthFormItemType = com.divudi.data.InvestigationItemType.DynamicLabel");
         }
         if (investigationItemsOfDynamicLabelType == null) {
             investigationItemsOfDynamicLabelType = new ArrayList<HealthFormItem>();
@@ -229,7 +229,7 @@ public  class InvestigationItemDynamicLabelController implements Serializable {
         if (investigation != null) {
             Map m = new HashMap();
             m.put("iit", HealthFormItemType.Value);
-            investigationItemsOfValueType = getInvestigationItemFacade().findBySQL("select i from HealthFormItem i where i.retired=false and i.item.id = " + investigation.getId() + " and i.ixItemType =:iit", m, TemporalType.TIMESTAMP);
+            investigationItemsOfValueType = getInvestigationItemFacade().findBySQL("select i from HealthFormItem i where i.retired=false and i.item.id = " + investigation.getId() + " and i.healthFormItemType =:iit", m, TemporalType.TIMESTAMP);
         }
         if (investigationItemsOfValueType == null) {
             investigationItemsOfValueType = new ArrayList<HealthFormItem>();

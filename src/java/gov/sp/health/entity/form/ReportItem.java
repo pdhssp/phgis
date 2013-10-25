@@ -65,7 +65,7 @@ public class ReportItem implements Serializable {
     @Enumerated(EnumType.STRING)
     HealthFormItemType healthFormItemType;
     @Enumerated(EnumType.STRING)
-    HealthFormItemValueType ixItemValueType;
+    HealthFormItemValueType healthFormItemValueType;
     //CSS Property
     @Enumerated(EnumType.STRING)
     CssPosition cssPosition;
@@ -255,12 +255,12 @@ public class ReportItem implements Serializable {
         this.healthFormItemType = healthFormItemType;
     }
 
-    public HealthFormItemValueType getIxItemValueType() {
-        return ixItemValueType;
+    public HealthFormItemValueType getHealthFormItemValueType() {
+        return healthFormItemValueType;
     }
 
-    public void setIxItemValueType(HealthFormItemValueType ixItemValueType) {
-        this.ixItemValueType = ixItemValueType;
+    public void setHealthFormItemValueType(HealthFormItemValueType healthFormItemValueType) {
+        this.healthFormItemValueType = healthFormItemValueType;
     }
 
     public CssPosition getCssPosition() {

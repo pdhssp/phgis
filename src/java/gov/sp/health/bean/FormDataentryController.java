@@ -11,13 +11,14 @@ import gov.sp.health.entity.form.HealthFormItem;
 import gov.sp.health.facade.FilledHealthFormReportFacade;
 import gov.sp.health.facade.FilledHealthFormReportItemValueFacade;
 import gov.sp.health.facade.HealthFormItemValueFacade;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 /**
@@ -25,9 +26,10 @@ import javax.inject.Inject;
  * 
  */
 @Named(value = "formDataentryController")
-@Dependent
-public class FormDataentryController {
-    
+@SessionScoped
+public class FormDataentryController implements Serializable{
+
+    FilledHealthForm filledHealthForm;
     HealthForm healthForm;
     Date fromDate;
     Date toDate;
@@ -38,6 +40,16 @@ public class FormDataentryController {
     FilledHealthFormReportFacade filledHealthFormReportFacade;
     @EJB
     HealthFormItemValueFacade healthFormItemValueFacade;
+
+    public FilledHealthForm getFilledHealthForm() {
+        return filledHealthForm;
+    }
+
+    public void setFilledHealthForm(FilledHealthForm filledHealthForm) {
+        this.filledHealthForm = filledHealthForm;
+    }
+    
+    
     
     public HealthFormItemValueFacade getHealthFormItemValueFacade() {
         return healthFormItemValueFacade;
@@ -56,10 +68,12 @@ public class FormDataentryController {
     }
     
     public HealthForm getHealthForm() {
+        System.out.println("getting health form " + healthForm);
         return healthForm;
     }
     
     public void setHealthForm(HealthForm healthForm) {
+        System.out.println("Setting health form " + healthForm);
         this.healthForm = healthForm;
     }
     
@@ -123,41 +137,48 @@ public class FormDataentryController {
         this.filledHealthFormReportItemValueFacade = filledHealthFormReportItemValueFacade;
     }
     
-    public void createFillefFormFromHealthForm(HealthForm form, FilledHealthForm report) {
-        for (HealthFormItem item : healthForm.getReportItems()) {
+    public void createFillefFormFromHealthForm(FilledHealthForm fhf) {
+        HealthForm form;
+        form = (HealthForm)fhf.getItem();
+        System.out.println("creating filled health form");
+        for (HealthFormItem item : form.getReportItems()) {
             System.out.println("Adding New Item " + item.toString());
             FilledHealthFormItemValue val = new FilledHealthFormItemValue();
-            val.setFilledHealthFormReport(report);
+            val.setFilledHealthFormReport(fhf);
             val.setHealthFormItem(item);
             getFilledHealthFormReportItemValueFacade().create(val);
-            report.getFilledHealthFormReportItemValue().add(val);
+            fhf.getFilledHealthFormReportItemValue().add(val);
         }
-        getFilledHealthFormReportFacade().edit(report);
+        getFilledHealthFormReportFacade().edit(fhf);
+        System.out.println("all items after creation is " + fhf.getFilledHealthFormReportItemValue().toString());
     }
     
-    public void startPhmDataEntry() {
+    public String startPhmDataEntry() {
         if (healthForm == null) {
             UtilityController.addErrorMessage("Please select a form");
+            return "";
         }
         Map m = new HashMap();
         m.put("a", sessionController.getLoggedUser().getStaff().getArea());
         
-        FilledHealthForm f = new FilledHealthForm();
         
-        f.getYearVal();
         String jpql;
-        System.out.println("health form " + healthForm);
-        System.out.println("health form duration type " + healthForm.getDurationType());
         
         
         switch (healthForm.getDurationType()) {
             case Annually:
-                jpql = "select f from FilledHealthFormReport f where f.area=:a and a.yearVal = " + getYear();
-                FilledHealthForm ff = getFilledHealthFormReportFacade().findFirstBySQL(jpql, m);
-                if (ff == null) {
-                    ff = new FilledHealthForm();
-                    createFillefFormFromHealthForm(healthForm, ff);
+                System.out.println("anual report");
+                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYear();
+                filledHealthForm = getFilledHealthFormReportFacade().findFirstBySQL(jpql, m);
+                System.out.println("filled health form is " + filledHealthForm);
+                if (filledHealthForm == null) {
+                    System.out.println("filled health form is null");
+                    filledHealthForm = new FilledHealthForm();
+                    filledHealthForm.setItem(healthForm);
+                    createFillefFormFromHealthForm(filledHealthForm);
+                    System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
                 }
+                
             case Daily:
             
             case Monthly:
@@ -169,7 +190,7 @@ public class FormDataentryController {
             case Quarterly:
             
         }
-        
+        return "health_form_fill" ;
     }
 
     /**

@@ -24,9 +24,8 @@
                         <p:inputText value="#{familyController.current.langitude}" required="True"></p:inputText>
                         <p:inputText value="#{familyController.current.latitude}" required="True" validatorMessage="Invalid Number"></p:inputText>
 
-                        <p:selectOneMenu value="#{familyController.current.phmArea}" >
+                        <p:selectOneMenu value="#{phmController.items}" >
                             <f:selectItem itemLabel="Please select PHM area" />
-
                         </p:selectOneMenu>
 
                         <p:commandButton ajax="false" value="Add" action="#{familyController.addDirectly}" />

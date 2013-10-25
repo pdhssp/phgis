@@ -19,26 +19,26 @@
                             <p:panel >
                                 <h:panelGrid columns="2" >
                                     <h:outputText value="Name" ></h:outputText>
-                                    <p:inputText required="true" value="#{webUserController.current.webUserPerson.name}" ></p:inputText>
+                                    <p:inputText required="true" value="#{webUserController.current.webUserPerson.name}" requiredMessage="Please enter valide name" ></p:inputText>
                                     <h:outputText value="Address" ></h:outputText>
-                                    <p:inputText required="true" value="#{webUserController.current.webUserPerson.address}" ></p:inputText>
+                                    <p:inputText required="true" value="#{webUserController.current.webUserPerson.address}" requiredMessage="Please enter valide address"></p:inputText>
                                     <h:outputText value="Mobile" ></h:outputText>
-                                    <p:inputMask mask="999-9999999"  value="#{webUserController.current.webUserPerson.mobile}" ></p:inputMask>
+                                    <p:inputMask required="true"  mask="999-9999999"  value="#{webUserController.current.webUserPerson.mobile}" requiredMessage="Please enter valide mobile"></p:inputMask>
                                     <h:outputText value="User Name"   ></h:outputText>
-                                    <p:inputText required="true" maxlength="50" value="#{webUserController.current.name }" ></p:inputText>
+                                    <p:inputText required="true" maxlength="50" value="#{webUserController.current.name }" requiredMessage="Please enter valide user name"></p:inputText>
                                     <h:outputText value="Password" ></h:outputText>
-                                    <p:password feedback="true" required="true" maxlength="15" value="#{webUserController.current.webUserPassword}" />
+                                    <p:password feedback="true" required="true" maxlength="15" value="#{webUserController.current.webUserPassword}" requiredMessage="Please enter valide password"/>
 
                                     <h:outputText value="Role" ></h:outputText>
                                     <p:selectOneMenu required="true" value="#{webUserController.staffRole}" id="sr"  >
-                                        <f:selectItem itemLabel="Please select an institutie"/>
+                                        <f:selectItem itemLabel="Please select an institutie"  noSelectionOption="false" />
                                         <f:selectItem itemLabel="Midwife" itemValue="Phm" />
                                     </p:selectOneMenu>
 
                                     
 
                                     <h:outputText value="Area" ></h:outputText>
-                                    <p:selectOneMenu converter="areaCon" id="area" value="#{webUserController.area}" >
+                                    <p:selectOneMenu converter="areaCon" id="area" required="true"   value="#{webUserController.area}" >
                                         <f:selectItem itemLabel="Please select a Area"/>
                                         <f:selectItems value="#{webUserController.areas}" var="d" itemLabel="#{d.name}" itemValue="#{d}" />
                                     </p:selectOneMenu>

@@ -49,7 +49,7 @@
                                      <p:selectOneMenu converter="mohCon" id="cmbHf" value="#{phiController.current.superArea}"  >
                                         <f:selectItem itemLabel="Please select a MOH area" />
                                         <f:selectItems  value="#{mohController.items}" var="mo" itemValue="#{mo}" itemLabel="#{mo.name}" ></f:selectItems>
-                                        #{mohController.items}
+
                                     </p:selectOneMenu>
                                     <h:outputText id="lblName" value="Name" ></h:outputText>
                                     <h:inputText id="txtName" value="#{phiController.current.name}"  ></h:inputText>

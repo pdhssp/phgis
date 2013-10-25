@@ -68,11 +68,7 @@
                                         <f:selectItem itemLabel="Please select a institution"/>
                                         <f:selectItems value="#{institutionController.items}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat}" />
                                     </h:selectOneListbox>
-                                    <h:outputText value="Department" ></h:outputText>                                     
-                                    <h:selectOneListbox id="cmbDep" size="1" value="#{staffController.current.department}" >
-                                        <f:selectItem itemLabel="Please select a Department"/>
-                                        <f:selectItems value="#{departmentController.items}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat}" />
-                                    </h:selectOneListbox>
+                                   
                                 </h:panelGrid>
                                 <h:panelGrid id="gpDetailButtons" columns="2">
                                     <h:commandButton id="btnSave" value="Save"  action="#{staffController.saveSelected()}" styleClass="buttons">

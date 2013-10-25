@@ -30,7 +30,7 @@ import javax.faces.convert.FacesConverter;
  */
 @Named
 @SessionScoped
-public  class InvestigationCategoryController implements Serializable {
+public  class HealthFormCategoryController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -43,7 +43,7 @@ public  class InvestigationCategoryController implements Serializable {
     String selectText = "";
 
     public List<HealthFormCategory> getSelectedItems() {
-        selectedItems = getFacade().findBySQL("select c from InvestigationCategory c where c.retired=false and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' order by c.name");
+        selectedItems = getFacade().findBySQL("select c from HealthFormCategory c where c.retired=false and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' order by c.name");
         return selectedItems;
     }
 
@@ -98,7 +98,7 @@ public  class InvestigationCategoryController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    public InvestigationCategoryController() {
+    public HealthFormCategoryController() {
     }
 
     public HealthFormCategory getCurrent() {
@@ -139,15 +139,15 @@ public  class InvestigationCategoryController implements Serializable {
      *
      */
     @FacesConverter(forClass = HealthFormCategory.class)
-    public static class InvestigationCategoryControllerConverter implements Converter {
+    public static class HealthFormCategoryControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            InvestigationCategoryController controller = (InvestigationCategoryController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "investigationCategoryController");
+            HealthFormCategoryController controller = (HealthFormCategoryController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "healthFormCategoryController");
             return controller.getEjbFacade().find(getKey(value));
         }
 
@@ -173,7 +173,7 @@ public  class InvestigationCategoryController implements Serializable {
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + InvestigationCategoryController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + HealthFormCategoryController.class.getName());
             }
         }
     }

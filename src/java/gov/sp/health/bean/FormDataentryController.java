@@ -158,7 +158,7 @@ public class FormDataentryController implements Serializable{
         
         switch (healthForm.getDurationType()) {
             case Annually:
-                jpql = "select f from FilledHealthFormReport f where f.area=:a and a.yearVal = " + getYear();
+                jpql = "select f from FilledHealthForm f where f.area=:a and a.yearVal = " + getYear();
                 FilledHealthForm ff = getFilledHealthFormReportFacade().findFirstBySQL(jpql, m);
                 if (ff == null) {
                     ff = new FilledHealthForm();

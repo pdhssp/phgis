@@ -17,9 +17,8 @@
     <h:body style="border:0px; min-height: 100%; " >
         <p:panel style="margin: 0px; padding: 0px; border: 0px; min-height: 100%!important;" >
 
-            <h:panelGrid columns="2" style="width: 100%;" >
-                <h:outputLabel value="#{labels.topic}" style="float: left; " styleClass="heading1"/> 
-                <h:outputLabel value="#{labels.subtopic}" style="float: right;"  styleClass="heading2"/> 
+            <h:panelGrid columns="1" style="width: 100%;margin: 0px; padding: 0px;" >
+                <h:outputLabel value="#{labels.topic}" style="margin:" styleClass="heading1" /> 
             </h:panelGrid>
 
             <p:growl id="publicGrowl" autoUpdate="true" />
@@ -132,6 +131,7 @@
 
             </div>
 
+                <h:outputLabel value="#{labels.subtopic}" style="alignment-adjust: middle;"  styleClass="heading2"/> 
 
         </p:panel>
 

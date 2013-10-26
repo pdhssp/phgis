@@ -21,8 +21,16 @@
                             </p:column>
                         </p:dataTable>
                         <ui:repeat value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
-                            <h:outputLabel value="#{iv.healthFormItem.name}" />
-                            <h:inputText value="#{iv.strValue}" />
+
+                            <h:outputLabel value="#{iv.healthFormItem.name}" rendered="#{iv.healthFormItem.healthFormItemType = 'Value'}" />
+                            <h:panelGrid rendered="#{iv.healthFormItem.healthFormItemType = 'Value'}" >
+                                <h:inputText value="#{iv.strValue}"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Varchar' }" />
+                                <h:inputText value="#{iv.doubleValue}"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Double'}" />
+                                <h:inputTextarea value="#{iv.lobValue }"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Memo'}" />
+                            </h:panelGrid>
+
+
+
                         </ui:repeat>
 
                     </p:panelGrid>

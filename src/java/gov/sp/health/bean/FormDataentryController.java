@@ -9,7 +9,7 @@ import gov.sp.health.entity.form.FilledHealthForm;
 import gov.sp.health.entity.form.FilledHealthFormItemValue;
 import gov.sp.health.entity.form.HealthForm;
 import gov.sp.health.entity.form.HealthFormItem;
-import gov.sp.health.facade.FilledHealthFormReportFacade;
+import gov.sp.health.facade.FilledHealthFormFacade;
 import gov.sp.health.facade.FilledHealthFormReportItemValueFacade;
 import gov.sp.health.facade.HealthFormItemValueFacade;
 import java.io.Serializable;
@@ -38,10 +38,24 @@ public class FormDataentryController implements Serializable {
     int month;
     int quarter;
     @EJB
-    FilledHealthFormReportFacade filledHealthFormReportFacade;
+    FilledHealthFormFacade filledHealthFormFacade;
     @EJB
     HealthFormItemValueFacade healthFormItemValueFacade;
 
+    
+    public void saveFilledForm(){
+        if(filledHealthForm==null){
+            UtilityController.addErrorMessage("Nothing to save");
+            return;
+        }
+        if(filledHealthForm.getId()==null || filledHealthForm.getId()==0){
+            getFilledHealthFormFacade().create(filledHealthForm);
+        }else{
+            getFilledHealthFormFacade().edit(filledHealthForm);
+        }
+        UtilityController.addSuccessMessage("Saved");
+    }
+    
     public FilledHealthForm getFilledHealthForm() {
         return filledHealthForm;
     }
@@ -58,14 +72,17 @@ public class FormDataentryController implements Serializable {
         this.healthFormItemValueFacade = healthFormItemValueFacade;
     }
 
-    public FilledHealthFormReportFacade getFilledHealthFormReportFacade() {
-        return filledHealthFormReportFacade;
+    public FilledHealthFormFacade getFilledHealthFormFacade() {
+        return filledHealthFormFacade;
     }
 
-    public void setFilledHealthFormReportFacade(FilledHealthFormReportFacade filledHealthFormReportFacade) {
-        this.filledHealthFormReportFacade = filledHealthFormReportFacade;
+    public void setFilledHealthFormFacade(FilledHealthFormFacade filledHealthFormFacade) {
+        this.filledHealthFormFacade = filledHealthFormFacade;
     }
 
+   
+    
+    
     public HealthForm getHealthForm() {
         System.out.println("getting health form " + healthForm);
         return healthForm;
@@ -149,7 +166,7 @@ public class FormDataentryController implements Serializable {
                 fhf.getFilledHealthFormReportItemValue().add(val);
             }
         }
-        getFilledHealthFormReportFacade().edit(fhf);
+        getFilledHealthFormFacade().edit(fhf);
         System.out.println("all items after creation is " + fhf.getFilledHealthFormReportItemValue().toString());
     }
 
@@ -169,7 +186,7 @@ public class FormDataentryController implements Serializable {
             case Annually:
                 System.out.println("anual report");
                 jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYear();
-                filledHealthForm = getFilledHealthFormReportFacade().findFirstBySQL(jpql, m);
+                filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
                 if (filledHealthForm == null) {
                     System.out.println("filled health form is null");

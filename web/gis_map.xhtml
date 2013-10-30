@@ -14,19 +14,11 @@
             <h:form  >
                 <p:growl autoUpdate="true" />
                 <p:focus id="detailFocus" context="gpDetail" />
-
-
-
                 <p:panel header="Manage District" >
                     <h:panelGrid id ="gpVeda" columns="3" >
-
-
-
                         <p:panel>
                             <h:panelGrid id="gpDetail" columns="1">
                                 <h:panelGrid id="gpDetailText" columns="2">
-
-
                                     <h:outputText id="lblprovince" value="Province" ></h:outputText>
                                     <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{gisController.province}"  >
                                         <f:selectItem itemLabel="Please select a province" />
@@ -34,7 +26,6 @@
                                         <f:ajax event="change" render="gpDetail  cmbHp" execute="cmbHf" >
                                         </f:ajax>
                                     </p:selectOneMenu>
-
                                 </h:panelGrid>
                                 <h:panelGrid id="gpDetailTextD" columns="2">
                                     <h:outputText id="lblDistrict" value="District" ></h:outputText>
@@ -62,77 +53,11 @@
                             </h:panelGrid>
                         </p:panel>
 
-                        <p:panel rendered="#{districtController.current.id ne 0 or districtController.current.id ne null }" >
+                        <p:panel >
 
-                            <p:panel header="Coordinates" id="mp">
-                                <p:panelGrid >
-                                    <p:row >
-                                        <p:column >
-                                            <h:outputLabel value="Longitude" />
-                                        </p:column>
-                                        <p:column >
-                                            <h:inputText value="#{districtController.coordinate.longtide}" ></h:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row >
-                                        <p:column >
-                                            <h:outputLabel value="Latitude" />
-                                        </p:column>
-                                        <p:column >
-                                            <h:inputText value="#{districtController.coordinate.latitude}" ></h:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row >
-                                        <p:column >
-                                            <h:outputLabel value="Order No" />
-                                        </p:column>
-                                        <p:column >
-                                            <h:inputText value="#{districtController.coordinate.orderNo}" ></h:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row >
-                                        <p:column >
-                                            <p:commandButton ajax="false" value="Add" action="#{districtController.addCoordinate()}"  >
+                            <p:gmap rendered="#{gisController.districts.size()>0}" center="#{gisController.province.cordinates.get(0).latitude}, #{gisController.province.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{gisController.provinceMapModel}">  
+                            </p:gmap>
 
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:row>
-
-                                    <p:row >
-                                        <p:column >
-                                            <p:dataTable value="#{districtController.current.cordinates}" var="c" >
-                                                <p:column >
-                                                    #{c.latitude}
-                                                </p:column>
-                                                <p:column >
-                                                    #{c.longtide}
-                                                </p:column>
-                                                <p:column >
-                                                    #{c.orderNo}
-                                                </p:column>
-                                                <p:column >
-                                                    <p:commandButton ajax="false" value="Remove" action="#{districtController.removeCoordinate() }" >
-                                                        <f:setPropertyActionListener value="#{c}" target="#{districtController.coordinate}" />
-                                                    </p:commandButton>
-                                                </p:column>
-                                            </p:dataTable>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column >
-                                            #{districtController.mapModel}
-                                            <p:gmap rendered="#{districtController.current.cordinates.size()>0}" center="#{districtController.current.cordinates.get(0).latitude}, #{districtController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{districtController.mapModel}">  
-                                            </p:gmap>
-                                        </p:column>
-                                    </p:row>
-
-                                </p:panelGrid>
-                            </p:panel>
-
-                            <p:panel header="Map" >
-
-
-                            </p:panel>
                         </p:panel>
 
 

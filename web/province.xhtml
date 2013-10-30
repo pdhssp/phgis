@@ -51,89 +51,95 @@
                                 </h:panelGrid>
                                 <h:panelGrid id="gpDetailButtons" columns="2">
                                     <h:commandButton id="btnSave" value="Save"  action="#{provinceController.saveSelected()}" styleClass="buttons">
-                                        <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail selectFocus"  execute="" >
-                                        </f:ajax>
                                     </h:commandButton>
-
                                 </h:panelGrid>
                             </h:panelGrid>
                         </p:panel>
 
-                        <p:panel rendered="#{provinceController.current.id ne 0 or provinceController.current.id ne null }" >
-
-                            <p:panel header="Coordinates" >
-                                <p:panelGrid >
-                                    <p:row >
-                                        <p:column >
-                                            <h:outputLabel value="Longitude" />
-                                        </p:column>
-                                        <p:column >
-                                            <h:inputText value="#{provinceController.coordinate.longtide}" ></h:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row >
-                                        <p:column >
-                                            <h:outputLabel value="Longitude" />
-                                        </p:column>
-                                        <p:column >
-                                            <h:inputText value="#{provinceController.coordinate.latitude}" ></h:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row >
-                                        <p:column >
-                                            <h:outputLabel value="Order No" />
-                                        </p:column>
-                                        <p:column >
-                                            <h:inputText value="#{provinceController.coordinate.orderNo}" ></h:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row >
-                                        <p:column >
-                                            <p:commandButton ajax="false" value="Add" action="#{provinceController.addCoordinate()}"  >
-
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:row>
-
-                                    <p:row >
-                                        <p:column >
-                                            <p:dataTable value="#{provinceController.current.cordinates}" var="c" >
-                                                <p:column >
-                                                    #{c.latitude}
-                                                </p:column>
-                                                <p:column >
-                                                    #{c.longtide}
-                                                </p:column>
-                                                <p:column >
-                                                    #{c.orderNo}
-                                                </p:column>
-                                                <p:column >
-                                                    <p:commandButton ajax="false" value="Remove" action="#{provinceController.removeCoordinate() }" >
-                                                        <f:setPropertyActionListener value="#{c}" target="#{provinceController.coordinate}" />
-                                                    </p:commandButton>
-                                                </p:column>
-                                            </p:dataTable>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column >
-                                            <p:gmap center="6.1667,80.75" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{provinceController.mapModel}">  
-                                            </p:gmap>
-                                        </p:column>
-                                    </p:row>
-
-                                </p:panelGrid>
-                            </p:panel>
-
-                            <p:panel header="Map" >
-
-
-                            </p:panel>
-                        </p:panel>
-
-
                     </h:panelGrid>
                 </p:panel>
+
+
+
+
+
+            </h:form>
+
+            <h:form >
+
+                <p:panel rendered="#{provinceController.current.id ne 0 or provinceController.current.id ne null }" >
+
+                    <p:panel header="Coordinates" >
+                        <p:panelGrid >
+                            <p:row >
+                                <p:column >
+                                    <h:outputLabel value="Longitude" />
+                                </p:column>
+                                <p:column >
+                                    <h:inputText value="#{provinceController.coordinate.longtide}" ></h:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column >
+                                    <h:outputLabel value="Longitude" />
+                                </p:column>
+                                <p:column >
+                                    <h:inputText value="#{provinceController.coordinate.latitude}" ></h:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column >
+                                    <h:outputLabel value="Order No" />
+                                </p:column>
+                                <p:column >
+                                    <h:inputText value="#{provinceController.coordinate.orderNo}" ></h:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column >
+                                    <p:commandButton ajax="false" value="Add" action="#{provinceController.addCoordinate()}"  >
+
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+
+                            <p:row >
+                                <p:column >
+                                    <p:dataTable value="#{provinceController.current.cordinates}" var="c" >
+                                        <p:column >
+                                            #{c.latitude}
+                                        </p:column>
+                                        <p:column >
+                                            #{c.longtide}
+                                        </p:column>
+                                        <p:column >
+                                            #{c.orderNo}
+                                        </p:column>
+                                        <p:column >
+                                            <p:commandButton ajax="false" value="Remove" action="#{provinceController.removeCoordinate() }" >
+                                                <f:setPropertyActionListener value="#{c}" target="#{provinceController.coordinate}" />
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column >
+                                    <p:gmap center="6.1667,80.75" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{provinceController.mapModel}">  
+                                    </p:gmap>
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>
+                    </p:panel>
+
+                    <p:panel header="Map" >
+
+
+                    </p:panel>
+                </p:panel>
+
+
             </h:form>
 
         </h:panelGroup>

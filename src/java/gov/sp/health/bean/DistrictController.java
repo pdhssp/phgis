@@ -51,6 +51,8 @@ public class DistrictController implements Serializable {
     private List<Area> selectDistrict;
     private Area current;
     private List<Area> items = null;
+    
+    private List<Area> itemsByProvince = null;
     String selectText = "";
     GisCoordinate coordinate;
     MapModel mapModel;

@@ -50,6 +50,7 @@ public class MohController implements Serializable {
     List<Area> selectedItems;
     private Area current;
     private List<Area> items = null;
+    private List<Area> districtItems = null;
     String selectText = "";
     GisCoordinate coordinate;
     MapModel mapModel;
@@ -226,11 +227,21 @@ public class MohController implements Serializable {
     public List<Area> getItems() {
         Map m = new HashMap();
         m.put("t", AreaType.MohArea);
+        
         items = getFacade().findBySQL("select c from Area c where c.retired=false  and c.areaType =:t order by c.name", m);
      
         return items;
     }
 
+    public List<Area> getDistrictItems() {
+        Map m = new HashMap();
+              
+        m.put("t", AreaType.District);
+        
+        districtItems = getFacade().findBySQL("select c from Area c where c.retired=false  and c.superArea =:t order by c.name", m);
+     
+        return districtItems ;
+    }
     /**
      *
      */

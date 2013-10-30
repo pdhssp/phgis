@@ -125,6 +125,7 @@ public class ProvinceController implements Serializable {
     }
 
     public void prepareAdd() {
+         System.out.println("a");
         current = new Area();
         current.setAreaType(AreaType.Province);
     }
@@ -142,8 +143,9 @@ public class ProvinceController implements Serializable {
     }
 
     public void saveSelected() {
-
+ System.out.println("a");
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
+           
             current.setAreaType(AreaType.Province);
             getFacade().edit(current);
             UtilityController.addSuccessMessage("savedOldSuccessfully");

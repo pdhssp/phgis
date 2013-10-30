@@ -9,9 +9,11 @@ import gov.sp.health.facade.AreaFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 
 /**
  *
@@ -33,6 +35,8 @@ public class GisController implements Serializable {
     List<Area> districts;
     List<Area> mohs;
     List<Area> phis;
+    
+    @EJB
     AreaFacade areaFacade;
 
     public AreaFacade getAreaFacade() {
@@ -76,10 +80,14 @@ public class GisController implements Serializable {
     }
 
     public List<Area> getDistricts() {
-        if (province==null) return null;
+        if (province==null) return new ArrayList<Area>();
         String jql = "select a from Area a where a.superArea = :s order by a.name";
         Map m = new HashMap();
         m.put("s", province);
+        System.out.println("jpql " + jql);
+        System.out.println("m " + m);
+        System.out.println("districts " + districts);
+        System.out.println("facade " + getAreaFacade().toString());
         districts = getAreaFacade().findBySQL(jql, m);
         return districts;
     }
@@ -89,7 +97,7 @@ public class GisController implements Serializable {
     }
 
     public List<Area> getMohs() {
-        if (district==null) return null;
+        if (district==null) return  new ArrayList<Area>();
         String jql = "select a from Area a where a.superArea = :s order by a.name";
         Map m = new HashMap();
         m.put("s", district);
@@ -102,7 +110,7 @@ public class GisController implements Serializable {
     }
 
     public List<Area> getPhis() {
-        if (moh==null) return null;
+        if (moh==null) return  new ArrayList<Area>();
         String jql = "select a from Area a where a.superArea = :s order by a.name";
         Map m = new HashMap();
         m.put("s", moh);

@@ -28,7 +28,7 @@
 
                                     
                                     <h:outputText id="lblprovince" value="Province" ></h:outputText>
-                                    <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{districtController.current.superArea}"  >
+                                    <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{gisController.province}"  >
                                         <f:selectItem itemLabel="Please select a province" />
                                         <f:selectItems  value="#{provinceController.items}" var="p" itemValue="#{p}" itemLabel="#{p.name}" ></f:selectItems>
                                         <f:ajax render="gpDetail  cmbHp" execute="" >
@@ -38,24 +38,24 @@
                                 </h:panelGrid>
                                 <h:panelGrid id="gpDetailTextD" columns="2">
                                      <h:outputText id="lblDistrict" value="District" ></h:outputText>
-                                     <p:selectOneMenu converter="districtCon" id="cmbHp" value="#{districtController.current}"  >
+                                     <p:selectOneMenu converter="districtCon" id="cmbHp" value="#{gisController.district}"  >
                                         <f:selectItem itemLabel="Please select a district" />
-                                        <f:selectItems  value="#{districtController.items}" var="d" itemValue="#{d}" itemLabel="#{d.name}" ></f:selectItems>
+                                        <f:selectItems  value="#{gisController.districts}" var="d" itemValue="#{d}" itemLabel="#{d.name}" ></f:selectItems>
                                         <f:ajax render="gpDetail  cmbMoh" execute="cmbMoh" >
                                         </f:ajax>
                                     </p:selectOneMenu>
                                      </h:panelGrid> 
                                 <h:panelGrid id="gpDetailTextM" columns="2">
                                      <h:outputText id="lblmoh" value="MOH area" ></h:outputText>
-                                     <p:selectOneMenu converter="mohCon" id="cmbMoh" value="#{phiController.current.superArea}"  >
+                                     <p:selectOneMenu converter="mohCon" id="cmbMoh" value="#{gisController.moh}"  >
                                         <f:selectItem itemLabel="Please select a MOH area" />
-                                        <f:selectItems  value="#{mohController.items}" var="mo" itemValue="#{mo}" itemLabel="#{mo.name}" ></f:selectItems>
+                                        <f:selectItems  value="#{gisController.mohs}" var="mo" itemValue="#{mo}" itemLabel="#{mo.name}" ></f:selectItems>
 
                                     </p:selectOneMenu>
                                    <h:outputText id="lblphi" value="PHI area" ></h:outputText>
-                                     <p:selectOneMenu converter="phiCon" id="cmbPhi" value="#{phmController.current.superArea}"  >
+                                   <p:selectOneMenu converter="phiCon" id="cmbPhi" value="#{gisController.phi}"  >
                                         <f:selectItem itemLabel="Please select a PHI area" />
-                                        <f:selectItems  value="#{phiController.items}" var="po" itemValue="#{po}" itemLabel="#{po.name}" ></f:selectItems>
+                                        <f:selectItems  value="#{gisController.phis}" var="po" itemValue="#{po}" itemLabel="#{po.name}" ></f:selectItems>
                                        
                                     </p:selectOneMenu>
                                 </h:panelGrid>

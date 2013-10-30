@@ -44,6 +44,7 @@ public class FormDataentryController implements Serializable {
 
     
     public void saveFilledForm(){
+        System.out.println("going to save");
         if(filledHealthForm==null){
             UtilityController.addErrorMessage("Nothing to save");
             return;
@@ -54,6 +55,7 @@ public class FormDataentryController implements Serializable {
             getFilledHealthFormFacade().edit(filledHealthForm);
         }
         UtilityController.addSuccessMessage("Saved");
+        System.out.println("saved filled form " + filledHealthForm);
     }
     
     public FilledHealthForm getFilledHealthForm() {

@@ -23,7 +23,7 @@
                                     <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{gisController.province}"  >
                                         <f:selectItem itemLabel="Please select a province" />
                                         <f:selectItems  value="#{provinceController.items}" var="p" itemValue="#{p}" itemLabel="#{p.name}" ></f:selectItems>
-                                        <f:ajax event="change" render="gpDetail  cmbHp" execute="cmbHf" >
+                                        <f:ajax event="change" render="gpDetail  cmbHp pMap" execute="cmbHf" >
                                         </f:ajax>
                                     </p:selectOneMenu>
                                 </h:panelGrid>
@@ -53,7 +53,7 @@
                             </h:panelGrid>
                         </p:panel>
 
-                        <p:panel >
+                        <p:panel id="pMap" >
 
                             <p:gmap rendered="#{gisController.districts.size()>0}" center="#{gisController.province.cordinates.get(0).latitude}, #{gisController.province.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{gisController.provinceMapModel}">  
                             </p:gmap>

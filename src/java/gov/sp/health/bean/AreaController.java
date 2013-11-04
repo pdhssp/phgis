@@ -25,11 +25,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.omg.CORBA.Current;
 
-/**
- *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
- */
+
 @Named
 @SessionScoped
 public  class AreaController implements Serializable {

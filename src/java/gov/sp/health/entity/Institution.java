@@ -37,16 +37,7 @@ public class Institution implements Serializable {
     String phone;
     String mobile;
     String web;
-    @Lob
-    String labBillHeading;
-    @Lob
-    String pharmacyBillHeading;
-    @Lob
-    String radiologyBillHeading;
-    @Lob
-    String opdBillHeading;
-    @Lob
-    String cashierBillHeading;
+    
     @Enumerated(EnumType.STRING)
     InstitutionType institutionType;
     //Created Properties
@@ -61,35 +52,11 @@ public class Institution implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     Date retiredAt;
     String retireComments;
-    double labBillDiscount;
-    double opdBillDiscount;
-    double inwardDiscount;
-    private double ballance;
-    private double allowedCredit;
+    
 
-    public double getLabBillDiscount() {
-        return labBillDiscount;
-    }
+    
 
-    public void setLabBillDiscount(double labBillDiscount) {
-        this.labBillDiscount = labBillDiscount;
-    }
-
-    public double getOpdBillDiscount() {
-        return opdBillDiscount;
-    }
-
-    public void setOpdBillDiscount(double opdBillDiscount) {
-        this.opdBillDiscount = opdBillDiscount;
-    }
-
-    public double getInwardDiscount() {
-        return inwardDiscount;
-    }
-
-    public void setInwardDiscount(double inwardDiscount) {
-        this.inwardDiscount = inwardDiscount;
-    }
+    
 
     public Long getId() {
         return id;
@@ -172,45 +139,7 @@ public class Institution implements Serializable {
         this.retireComments = retireComments;
     }
 
-    public String getLabBillHeading() {
-        return labBillHeading;
-    }
-
-    public void setLabBillHeading(String labBillHeading) {
-        this.labBillHeading = labBillHeading;
-    }
-
-    public String getPharmacyBillHeading() {
-        return pharmacyBillHeading;
-    }
-
-    public void setPharmacyBillHeading(String pharmacyBillHeading) {
-        this.pharmacyBillHeading = pharmacyBillHeading;
-    }
-
-    public String getRadiologyBillHeading() {
-        return radiologyBillHeading;
-    }
-
-    public void setRadiologyBillHeading(String radiologyBillHeading) {
-        this.radiologyBillHeading = radiologyBillHeading;
-    }
-
-    public String getOpdBillHeading() {
-        return opdBillHeading;
-    }
-
-    public void setOpdBillHeading(String opdBillHeading) {
-        this.opdBillHeading = opdBillHeading;
-    }
-
-    public String getCashierBillHeading() {
-        return cashierBillHeading;
-    }
-
-    public void setCashierBillHeading(String cashierBillHeading) {
-        this.cashierBillHeading = cashierBillHeading;
-    }
+   
 
     public String getName() {
         return name;
@@ -284,19 +213,5 @@ public class Institution implements Serializable {
         this.institutionCode = institutionCode;
     }
 
-    public double getBallance() {
-        return ballance;
-    }
-
-    public void setBallance(double ballance) {
-        this.ballance = ballance;
-    }
-
-    public double getAllowedCredit() {
-        return allowedCredit;
-    }
-
-    public void setAllowedCredit(double allowedCredit) {
-        this.allowedCredit = allowedCredit;
-    }
+ 
 }

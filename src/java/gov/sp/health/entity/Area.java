@@ -23,14 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author Dr. M H B Ariyaratne <buddhika.ari at gmail.com>
- * Dr. M H B Ariyaratne, MBBS, MSc(Biomedical Informatics) MO (Health
- * Information) Department of Health Services, Southern Province
- * buddhika.ari@gmail.com +94 71 58 123 99
- *
- */
+
 @Entity
 public class Area implements Serializable {
 

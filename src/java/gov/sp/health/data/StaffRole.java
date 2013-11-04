@@ -10,16 +10,11 @@ package gov.sp.health.data;
  */
 public enum StaffRole {
     Pdhs,
-    Rdhs,
-    Momch,
-    Moncd,
-    Mohi,
-    Moh,
-    Sphi,
-    Psphi,
-    Phns,
-    Sphns,
+    Rdhs,   
+    Moh,   
     Phi,
     Phm,
+    Eu,
+    Fhb,
     Gn,
 }

@@ -1,7 +1,4 @@
-/*
- * Author
- * Dr. M H B Ariyaratne, MO(Health Information), email : buddhika.ari@gmail.com
- */
+
 package gov.sp.health.facade;
 
 import java.util.ArrayList;

@@ -23,7 +23,7 @@
                                     <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{gisController.province}"  >
                                         <f:selectItem itemLabel="Please select a province" />
                                         <f:selectItems  value="#{provinceController.items}" var="p" itemValue="#{p}" itemLabel="#{p.name}" ></f:selectItems>
-                                        <f:ajax event="change" render="gpDetail  cmbHp pMap" execute="cmbHf" >
+                                        <f:ajax event="change" render="gpDetail  cmbHp " execute="cmbHf" >
                                         </f:ajax>
                                     </p:selectOneMenu>
                                 </h:panelGrid>
@@ -32,7 +32,7 @@
                                     <p:selectOneMenu converter="districtCon" id="cmbHp" value="#{gisController.district}"  >
                                         <f:selectItem itemLabel="Please select a district" />
                                         <f:selectItems  value="#{gisController.districts}" var="d" itemValue="#{d}" itemLabel="#{d.name}" ></f:selectItems>
-                                        <f:ajax render="gpDetail  cmbMoh" execute="cmbMoh" >
+                                        <f:ajax event="change" render="gpDetail  cmbMoh pMap" execute="cmbMoh" >
                                         </f:ajax>
                                     </p:selectOneMenu>
                                 </h:panelGrid> 

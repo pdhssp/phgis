@@ -8,9 +8,11 @@
  */
 package gov.sp.health.bean;
 
+import gov.sp.health.data.DefaultsBean;
 import java.util.TimeZone;
 import gov.sp.health.facade.FamilyFacade;
 import gov.sp.health.entity.Family;
+import gov.sp.health.entity.GisCoordinate;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,6 +22,11 @@ import javax.inject.Named;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -39,7 +46,21 @@ public class FamilyController implements Serializable {
     private Family current;
     private List<Family> items = null;
     String selectText = "";
+    
+    
+    MapModel familyMapModel;
 
+    public MapModel getFamilyMapModel() {
+        return familyMapModel;
+    }
+
+    public void setFamilyMapModel(MapModel familyMapModel) {
+        this.familyMapModel = familyMapModel;
+    }
+    
+    
+    
+    
     public void prepareAdd() {
         current = new Family();
     }
@@ -92,11 +113,21 @@ public class FamilyController implements Serializable {
     }
 
     public FamilyController() {
+        familyMapModel = new DefaultMapModel();
     }
 
+    public void addMarker(ActionEvent actionEvent) {  
+        Marker marker = new Marker(new LatLng(getCurrent().getCoordinate().getLatitude(), getCurrent().getCoordinate().getLatitude()), getCurrent().getAddress());  
+        familyMapModel.addOverlay(marker);   
+    }  
+    
     public Family getCurrent() {
         if (current == null) {
             current = new Family();
+            GisCoordinate c = new GisCoordinate();
+            c.setLatitude(6.0350);
+            c.setLongtide(80.2158);
+            current.setCoordinate(c);
         }
         return current;
     }

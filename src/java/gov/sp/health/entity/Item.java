@@ -44,8 +44,6 @@ public class Item implements Serializable {
     
     @ManyToOne
     Category category;
-    Double total = 0.0;
-    Boolean discountAllowed = false;
     @ManyToOne
     Institution institution;
     @ManyToOne
@@ -83,10 +81,6 @@ public class Item implements Serializable {
     boolean userChangable;
     private Double dblValue = 0.0;
     private SessionNumberType sessionNumberType;
-    boolean priceByBatch;
-    
-    @ManyToOne
-    Category worksheet;
     @ManyToOne
     Category reportFormat;
     boolean billable;
@@ -101,14 +95,6 @@ public class Item implements Serializable {
     }
 
     
-    
-    public Category getWorksheet() {
-        return worksheet;
-    }
-
-    public void setWorksheet(Category worksheet) {
-        this.worksheet = worksheet;
-    }
 
     public Category getReportFormat() {
         return reportFormat;
@@ -127,13 +113,6 @@ public class Item implements Serializable {
     }
 
 
-    public boolean isPriceByBatch() {
-        return priceByBatch;
-    }
-
-    public void setPriceByBatch(boolean priceByBatch) {
-        this.priceByBatch = priceByBatch;
-    }
 
     public Item() {
         
@@ -337,17 +316,6 @@ public class Item implements Serializable {
     }
 
 
-    public Boolean getDiscountAllowed() {
-        if (discountAllowed == null) {
-            discountAllowed = false;
-        }
-        return discountAllowed;
-    }
-
-    public void setDiscountAllowed(Boolean discountAllowed) {
-        this.discountAllowed = discountAllowed;
-    }
-
     public Speciality getSpeciality() {
         return speciality;
     }
@@ -382,13 +350,6 @@ public class Item implements Serializable {
         this.userChangable = userChangable;
     }
 
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
 
     public Double getDblValue() {
         return dblValue;
@@ -398,44 +359,5 @@ public class Item implements Serializable {
         this.dblValue = dblValue;
     }
     
-    @Transient
-    private double hospitalFee;
-    @Transient
-    private double professionalFee;
-    @Transient
-    private double hospitalFfee;
-    @Transient
-    private double professionalFfee;
 
-    public double getHospitalFee() {
-        return hospitalFee;
-    }
-
-    public void setHospitalFee(double hospitalFee) {
-        this.hospitalFee = hospitalFee;
-    }
-
-    public double getProfessionalFee() {
-        return professionalFee;
-    }
-
-    public void setProfessionalFee(double professionalFee) {
-        this.professionalFee = professionalFee;
-    }
-
-    public double getHospitalFfee() {
-        return hospitalFfee;
-    }
-
-    public void setHospitalFfee(double hospitalFfee) {
-        this.hospitalFfee = hospitalFfee;
-    }
-
-    public double getProfessionalFfee() {
-        return professionalFfee;
-    }
-
-    public void setProfessionalFfee(double professionalFfee) {
-        this.professionalFfee = professionalFfee;
-    }
 }

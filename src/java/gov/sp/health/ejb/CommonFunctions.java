@@ -13,12 +13,12 @@ import java.util.TimeZone;
 
 /**
  *
- * 
+ *
  */
 @Singleton
 public class CommonFunctions {
 
-    public Date guessDob(String docStr) {
+    public static Date guessDob(String docStr) {
         System.out.println("year string is " + docStr);
         try {
             int years = Integer.valueOf(docStr);
@@ -34,6 +34,26 @@ public class CommonFunctions {
             return Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime();
 
         }
+    }
+
+    public static Date firstDateOfYear(Date dateConcern) {
+        Calendar oc = Calendar.getInstance();
+        Calendar ic = Calendar.getInstance();
+        ic.setTime(dateConcern);
+        oc.set(Calendar.YEAR, ic.get(Calendar.YEAR));
+        oc.set(Calendar.MONTH , 0);
+        oc.set(Calendar.DAY_OF_MONTH  , 1);
+        return getStartOfDay(oc.getTime());
+    }
+    
+      public static Date lastDateOfYear(Date dateConcern) {
+        Calendar oc = Calendar.getInstance();
+        Calendar ic = Calendar.getInstance();
+        ic.setTime(dateConcern);
+        oc.set(Calendar.YEAR, ic.get(Calendar.YEAR));
+        oc.set(Calendar.MONTH , 11);
+        oc.set(Calendar.DAY_OF_MONTH  , 31);
+        return getEndOfDay(oc.getTime());
     }
 
     public String calculateAge(Date dob, Date toDate) {
@@ -79,7 +99,7 @@ public class CommonFunctions {
         return durationHours;
     }
 
-    public Date getStartOfDay(Date date) {
+    public static Date getStartOfDay(Date date) {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("IST"));
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -88,7 +108,7 @@ public class CommonFunctions {
         return calendar.getTime();
     }
 
-    public Date getEndOfDay(Date date) {
+    public static Date getEndOfDay(Date date) {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("IST"));
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -110,7 +130,7 @@ public class CommonFunctions {
         cal.set(Calendar.MILLISECOND, 0);
         return cal.getTime();
     }
-    
+
     public Boolean checkAgeSex(Date dob, Sex sex, Title title) {
         Boolean result = true;
         Date toDate = Calendar.getInstance().getTime();
@@ -127,8 +147,8 @@ public class CommonFunctions {
             if (age > 12) {
                 result = false;
             }
-        } 
-        
+        }
+
 
         if (title.toString().equals("Mrs")
                 || title.toString().equals("Ms")

@@ -12,20 +12,30 @@
 
             <ui:define name="content">
 
+
+
                 <h:form >
+
+                    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
                     <p:panel header="Manage Families" >
 
-                        <p:commandButton ajax="false" value="Add New" action="#{familyController.prepareAdd()}">
-                            
+                        <p:commandButton onclick="handlePointClick(event);" ajax="false" value="Add New" action="#{familyController.prepareAdd()}">
+
                         </p:commandButton>
-
+                        <p:outputLabel> Address </p:outputLabel> 
                         <p:inputText value="#{familyController.current.address}" required="True" ></p:inputText>
-                        <p:inputText value="#{familyController.current.langitude}" required="True"></p:inputText>
-                        <p:inputText value="#{familyController.current.latitude}" required="True" validatorMessage="Invalid Number"></p:inputText>
 
-                        <p:selectOneMenu value="#{phmController.items}" >
+                        <p:outputLabel> Longitude </p:outputLabel> 
+                        <p:inputText  value="#{familyController.current.coordinate.longtide}" required="True"></p:inputText>
+
+                        <p:outputLabel> Latitude </p:outputLabel> 
+                        <p:inputText value="#{familyController.current.coordinate.latitude}" required="True" validatorMessage="Invalid Number"></p:inputText>
+
+                        <p:selectOneMenu value="#{familyController.current.phmArea}" >
                             <f:selectItem itemLabel="Please select PHM area" />
+                            <f:selectItems value="#{phmController.items}" var="phm" itemLabel="#{phm.name}" itemValue="#{phm}" />
                         </p:selectOneMenu>
 
                         <p:commandButton ajax="false" value="Add" action="#{familyController.addDirectly}" />
@@ -49,22 +59,85 @@
                                 </f:facet>
                                 <h:outputText value="#{ff.latitude }" />
                             </p:column>
-                            
+
                             <p:column >
                                 <p:commandButton ajax="false" value="Show in Map" >
                                     <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
                                 </p:commandButton>
                             </p:column>
-                            
+
                         </p:dataTable>
 
                     </p:panel>
 
-                    <p:panel>
 
-                        <p:gmap center="#{familyController.current.langitude}, #{familyController.current.latitude}" zoom="15" type="hybrid"
-style="width:600px;height:400px" />
+
+                    <script type="text/javascript">
+                        var currentMarker = null;
+
+                        function handlePointClick(event) {
+                            if (currentMarker === null) {
+                                document.getElementById('lat').value = event.latLng.lat();
+                                document.getElementById('lng').value = event.latLng.lng();
+
+                                currentMarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+                                });
+
+                                PF('map').addOverlay(currentMarker);
+
+                                PF('dlg').show();
+                            }
+                        }
+
+                        function markerAddComplete() {
+                            var title = document.getElementById('title');
+                            currentMarker.setTitle(title.value);
+                            title.value = "";
+
+                            currentMarker = null;
+                            PF('dlg').hide();
+                        }
+
+                        function cancel() {
+                            PF('dlg').hide();
+                            currentMarker.setMap(null);
+                            currentMarker = null;
+
+                            return false;
+                        }
+                    </script>  
+
+
+                    <p:gmap onPointClick="handlePointClick(event);"   widgetVar="map" center="#{familyController.current.coordinate.latitude}, #{familyController.current.coordinate.longtide}" zoom="15" type="hybrid"
+                            style="width:600px;height:400px" model="#{familyController.familyMapModel}" />
+
+
+
+                    <p:panel header="Mark New Location">
+                        <p:gmap widgetVar="w_gmap" center="#{familyController.current.coordinate.longtide}, #{familyController.current.coordinate.latitude}" zoom="15" type="hybrid"
+                                style="width:600px;height:400px" />
                     </p:panel>
+
+                    <p:dialog widgetVar="dlg" showEffect="fade">  
+                        <h:form prependId="false">  
+                            <h:panelGrid columns="2">  
+                                <h:outputLabel for="title" value="Title:" />  
+                                <p:inputText id="title" value="Map" />  
+
+                                <f:facet name="footer">  
+                                    <p:commandButton value="Add"   
+                                                     actionListener="#{familyController.addMarker}"   
+
+                                                     oncomplete="markerAddComplete()"/>  
+                                    <p:commandButton value="Cancel" onclick="return cancel()"/>  
+                                </f:facet>  
+                            </h:panelGrid>  
+
+                            <h:inputHidden id="lat" value="#{familyController.current.coordinate.latitude}" />  
+                            <h:inputHidden id="lng" value="#{familyController.current.coordinate.longtide}" />  
+                        </h:form>  
+                    </p:dialog>  
 
                 </h:form>
 

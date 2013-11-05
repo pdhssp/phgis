@@ -37,10 +37,19 @@ public class Family implements Serializable {
     double latitude;
   
     
-    
+    @ManyToOne
+    GisCoordinate coordinate;
     
     @ManyToOne
     Area phmArea;
+
+    public GisCoordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(GisCoordinate coordinate) {
+        this.coordinate = coordinate;
+    }
 
     
     //Created Properties

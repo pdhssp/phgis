@@ -44,13 +44,12 @@
                                 <p:menuitem  ajax="false"  action="lab_sample" value="Forward Forms"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="lab_receive" value="Analysis"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="family" value="Families"  ></p:menuitem>
-
                             </p:submenu>
-
+                            <p:submenu label="GISMap"  >
+                                <p:menuitem  ajax="false"  action="gis_map" value="GIS Map"  ></p:menuitem>
+                            </p:submenu>
                              <p:submenu label="User"  >
-                                <p:menuitem  ajax="false"  action="phm_dashboard" value="Phm Dashboard"  ></p:menuitem>
-                              </p:submenu>
-                            <p:submenu label="User"  >
+                                <p:menuitem  ajax="false"  action="user_change_language" value="Phm Dashboard"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="user_change_password" value="Change Password"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="user_preferances" value="Change Preferances"  ></p:menuitem>
                             </p:submenu>
@@ -62,10 +61,6 @@
                                 <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
                             </p:submenu>
                             
-                            <p:submenu label="GISMap"  >
-                                <p:menuitem  ajax="false"  action="gis_map" value="GIS Map"  ></p:menuitem>
-                            </p:submenu>
-
 
                         </p:menubar>
                         <p:dashboard model="#{bean.model}">

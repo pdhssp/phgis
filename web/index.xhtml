@@ -9,15 +9,45 @@
         <script src="http://maps.google.com/maps/api/js?sensor=true"
         type="text/javascript"></script>
     </head>
-    
+
     <body>
-
         <ui:composition template="./resources/template/template.xhtml">
-          
-          
+            <ui:define name="content">
+                <p:panelGrid columns="2" >
+                    <p:panelGrid columns="1" >
+                        
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" >
+                        <p:panel header="Forms to Enter Date" >
+                            <h:form>    
+                            
+                            <p:dataTable value="#{formDataentryController.formsToFill}" var="ftf" >
+                                <p:column headerText="Form No." >
+                                    <h:outputLabel value="#{ftf.code}" />
+                                </p:column>
+                                <p:column headerText="Form Name" >
+                                    <h:outputLabel value="#{ftf.code}" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Start Entering Data" ajax="false" action="#{formDataentryController.startDataEntry() }" >
+                                        <f:setPropertyActionListener value="#{ftf}" target="#{formDataentryController.healthForm}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        
+                            </h:form>
+                        
+                        </p:panel>
+                        <p:panel header="Forms to Forward" >
+                            
+                        </p:panel>
+                        <p:panel header="Recently Submitted Forms" >
+                            
+                        </p:panel>
+                        
+                    </p:panelGrid>
+                </p:panelGrid>
+            </ui:define>
         </ui:composition>
-        <p:gmap center="41.381542, 2.122893" zoom="15" type="hybrid"
-style="width:600px;height:400px" />
-
     </body>
 </html>

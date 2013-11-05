@@ -4,39 +4,33 @@
  */
 package gov.sp.health.entity;
 
-import gov.sp.health.data.AreaComparator;
-import gov.sp.health.data.AreaType;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
-
+/**
+ *
+ * @author Etreame IT
+ */
 @Entity
-public class Area implements Serializable {
-
+public class Disease implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String description;
+
+    
     //Created Properties
     @ManyToOne
     private WebUser creater;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)//
     private Date createdAt;
     //Retairing properties
     private boolean retired;
@@ -45,33 +39,6 @@ public class Area implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date retiredAt;
     private String retireComments;
-    @ManyToOne
-    private Area superArea;
-    private String sname;
-    private String tname;
-    @Enumerated(EnumType.STRING)
-    AreaType areaType;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    List<GisCoordinate> cordinates;
-
-    public List<GisCoordinate> getCordinates() {
-        if (cordinates != null) {
-            Collections.sort(cordinates, new AreaComparator());
-        }
-        return cordinates;
-    }
-
-    public void setCordinates(List<GisCoordinate> cordinates) {
-        this.cordinates = cordinates;
-    }
-
-    public AreaType getAreaType() {
-        return areaType;
-    }
-
-    public void setAreaType(AreaType areaType) {
-        this.areaType = areaType;
-    }
 
     public Long getId() {
         return id;
@@ -91,10 +58,10 @@ public class Area implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Area)) {
+        if (!(object instanceof Disease)) {
             return false;
         }
-        Area other = (Area) object;
+        Disease other = (Disease) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -103,7 +70,7 @@ public class Area implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.Area[ id=" + id + " ]";
+        return "gov.sp.health.entity.Disease[ id=" + id + " ]";
     }
 
     public String getName() {
@@ -169,30 +136,7 @@ public class Area implements Serializable {
     public void setRetireComments(String retireComments) {
         this.retireComments = retireComments;
     }
-
-    public Area getSuperArea() {
-        return superArea;
-    }
-
-    public void setSuperArea(Area superArea) {
-        this.superArea = superArea;
-    }
-
-    public String getSname() {
-        return sname;
-    }
-
-    public void setSname(String sname) {
-        this.sname = sname;
-    }
-
-    public String getTname() {
-        return tname;
-    }
-
-    public void setTname(String tname) {
-        this.tname = tname;
-    }
-
-
+    
+    
+    
 }

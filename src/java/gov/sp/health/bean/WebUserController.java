@@ -356,7 +356,7 @@ public class WebUserController implements Serializable {
         getCurrent().setActivatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
         getCurrent().setActivator(sessionController.getLoggedUser());
 
-        System.out.println("Start");
+        //System.out.println("Start");
         //Save Person
         getCurrent().getWebUserPerson().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
         getCurrent().getWebUserPerson().setCreater(sessionController.getLoggedUser());

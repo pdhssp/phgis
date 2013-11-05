@@ -37,9 +37,11 @@ public class GisController implements Serializable {
     Area district;
     Area moh;
     Area phi;
+    Area phm;
     List<Area> districts;
     List<Area> mohs;
     List<Area> phis;
+    List<Area> phms;
     @EJB
     AreaFacade areaFacade;
     MapModel mapModel;

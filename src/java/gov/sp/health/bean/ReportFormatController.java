@@ -20,11 +20,6 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.enterprise.context.SessionScoped;
 
-/**
- *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
- */
 @Named
 @SessionScoped
 public class ReportFormatController implements Serializable {

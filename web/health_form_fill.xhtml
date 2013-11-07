@@ -15,15 +15,17 @@
                     <p:panel >
                         <f:facet name="header" >
                             <h:outputLabel value="Fill Form - #{formDataentryController.filledHealthForm.item.code }" />
-                            <p:commandButton value="Save" action="#{formDataentryController.saveFilledForm()}" ajax="false" />
+                            <p:commandButton value="Save" action="#{formDataentryController.saveFilledForm()}" ajax="false" disabled="#{formDataentryController.filledHealthForm.approved}" />
+                            <p:commandButton value="Submit" action="#{formDataentryController.submitFilledForm()}" ajax="false" disabled="#{formDataentryController.filledHealthForm.approved}" />
                         </f:facet>
                         <p:panelGrid columns="2" >
                             <p:dataTable value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
                                 <p:column >
-                                    <h:inputText value="#{iv.healthFormItem.name}" />
+                                    <h:outputLabel value="#{iv.healthFormItem.name}" />
                                 </p:column>
                                 <p:column >
-                                    <h:inputText value="#{iv.strValue}" />
+                                    <h:inputText rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Varchar'}" value="#{iv.strValue}" disabled="#{formDataentryController.filledHealthForm.approved}"  />
+                                    <h:inputText rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Double'}"  value="#{iv.doubleValue }" disabled="#{formDataentryController.filledHealthForm.approved}"  />
                                 </p:column>
                             </p:dataTable>
                             <ui:repeat value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >

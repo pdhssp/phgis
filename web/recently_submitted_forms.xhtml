@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+     <head>
+        <script src="http://maps.google.com/maps/api/js?sensor=true"
+        type="text/javascript"></script>
+    </head>
+    <body>
+        <ui:composition template="./resources/template/template.xhtml">
+            
+            <ui:define name="content">
+                 
+                    
+                    <p:panelGrid columns="2" >
+                          <p:panel header="Forms to Forward" >
+                            <h:form>
+                                <p:dataTable value="#{formDataentryController.filledForms}" var="fhf" >
+                                    <p:column headerText="Form" >
+                                        <h:outputLabel value="#{fhf.item.name}" />
+                                    </p:column>
+                                    <p:column headerText="Time Period" >
+                                        to do cording to find time period
+                                    </p:column>
+                                    <p:column headerText="View/Edit" >
+                                        <p:commandButton value="View/Edit" action="health_form_fill" ajax="false" >
+                                            <f:setPropertyActionListener value="#{fhf}" target="#{formDataentryController.filledHealthForm}" />
+                                        </p:commandButton>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </h:form>
+                        </p:panel>
+                        <p:panel header="Recently Submitted Forms" >
+                            <h:form>
+                                <p:dataTable value="#{formDataentryController.submittedForms}" var="shf" >
+                                    <p:column headerText="Form" >
+                                        <h:outputLabel value="#{shf.item.name}" />
+                                    </p:column>
+                                    <p:column headerText="Time Period" >
+                                        to do cording to find time period
+                                    </p:column>
+                                    <p:column headerText="View" >
+                                        <p:commandButton value="View" action="health_form_fill" ajax="false" >
+                                            <f:setPropertyActionListener value="#{shf}" target="#{formDataentryController.filledHealthForm}" />
+                                        </p:commandButton>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </h:form>
+                        </p:panel>
+                    
+           
+</p:panelGrid>
+            </ui:define>
+        </ui:composition>
+        
+    </body>
+</html>

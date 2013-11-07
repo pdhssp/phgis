@@ -32,7 +32,7 @@
                                     </h:panelGroup>
 
                                     <h:panelGroup id="gpMonthly" rendered="#{formDataentryController.healthForm.durationType eq 'Monthly'}">
-                                        <p:selectOneMenu value="#{formDataentryController.year}" >
+                                        <p:selectOneMenu value="#{formDataentryController.yearVal}" >
                                             <f:selectItem itemLabel="Select Year" />
                                             <f:selectItem itemLabel="2010" itemValue="2011" />
                                             <f:selectItem itemLabel="2011" itemValue="2012" />
@@ -40,7 +40,7 @@
                                             <f:selectItem itemLabel="2013" itemValue="2014" />
                                             
                                         </p:selectOneMenu>
-                                        <p:selectOneMenu  value="#{formDataentryController.month}">
+                                        <p:selectOneMenu  value="#{formDataentryController.monthVal}">
                                             <f:selectItem itemLabel="Select Month" />
                                             <f:selectItem itemLabel="January" itemValue="1" />
                                             <f:selectItem itemLabel="February" itemValue="2" />
@@ -49,7 +49,7 @@
 
 
                                     <h:panelGroup id="gpQuarterly" rendered="#{formDataentryController.healthForm.durationType eq 'Quarterly'}">
-                                        <p:selectOneMenu value="#{formDataentryController.year}">
+                                        <p:selectOneMenu value="#{formDataentryController.yearVal}">
                                             <f:selectItem itemLabel="Select Year" />
                                             <f:selectItem itemLabel="2010" itemValue="2011" />
                                             <f:selectItem itemLabel="2011" itemValue="2012" />
@@ -57,7 +57,7 @@
                                             <f:selectItem itemLabel="2013" itemValue="2014" />
                                             
                                         </p:selectOneMenu>
-                                        <p:selectOneMenu  value="#{formDataentryController.quarter}">
+                                        <p:selectOneMenu  value="#{formDataentryController.quarterVal}">
                                             <f:selectItem itemLabel="Select Quarter" />
                                             <f:selectItem itemLabel="First" itemValue="1" />
                                             <f:selectItem itemLabel="Secoond" itemValue="2" />
@@ -66,7 +66,7 @@
 
 
                                     <h:panelGroup id="gpYearly" rendered="#{formDataentryController.healthForm.durationType eq 'Annually'}">
-                                        <p:selectOneMenu  value="#{formDataentryController.year}">
+                                        <p:selectOneMenu  value="#{formDataentryController.yearVal}">
                                             <f:selectItem itemLabel="Select Year" />
                                             <f:selectItem itemLabel="2010" itemValue="2011" />
                                             <f:selectItem itemLabel="2011" itemValue="2012" />

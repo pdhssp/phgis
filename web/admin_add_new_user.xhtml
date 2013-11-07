@@ -30,7 +30,7 @@
                                     <p:password feedback="true" required="true" maxlength="15" value="#{webUserController.current.webUserPassword}" requiredMessage="Please enter valide password"/>
 
                                     <h:outputText value="Role" ></h:outputText>
-                                    <p:selectOneMenu required="true" value="#{webUserController.staffRole}" id="sr"  >
+                                    <p:selectOneMenu  required="true" value="#{webUserController.staffRole}" id="sr"  >
                                         <f:selectItem itemLabel="Please select a Role"  noSelectionOption="false" />
                                         <f:selectItem itemLabel="Mid wife" itemValue="Phm" />
                                         <f:selectItem itemLabel="Public Health Inspector " itemValue="Phi" />
@@ -39,7 +39,7 @@
                                         <f:selectItem itemLabel="Provincial Director of Health Services" itemValue="Pdhs" />
                                         <f:selectItem itemLabel="Family Health Bureau" itemValue="Fhb" />
                                         <f:selectItem itemLabel="Edpid Unit" itemValue="Eu" />
-                                        
+                                        <f:ajax event="change" execute="sr" render="area" />
                                     </p:selectOneMenu>
 
                                     

@@ -8,6 +8,7 @@
  */
 package gov.sp.health.bean;
 
+import gov.sp.health.data.AreaType;
 import java.util.TimeZone;
 import gov.sp.health.data.StaffRole;
 import gov.sp.health.entity.Area;
@@ -28,7 +29,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ejb.EJB;
@@ -104,7 +107,20 @@ public class WebUserController implements Serializable {
     
 
     public List<Area> getAreas() {
-        areas=getAreaFacade().findAll();
+        if(staffRole==null){
+            areas = new ArrayList<Area>();
+            return areas;
+        }
+        Map m = new HashMap();
+        AreaType at= null;
+        switch (staffRole){
+            case Phm:at= AreaType.PhmArea;
+                break;
+            case Phi: at= AreaType.PhiArea;
+        }
+        String s = "Select a from Area a where a.retired=false and a.areaType=:at order by a.name" ;
+        m.put("at", at);
+        areas=getAreaFacade().findBySQL(s, m);
         return areas;
     }
 

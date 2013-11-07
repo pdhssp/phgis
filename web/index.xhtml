@@ -26,12 +26,41 @@
                                     <h:outputLabel value="#{ftf.code}" />
                                 </p:column>
                                 <p:column headerText="Form Name" >
-                                    <h:outputLabel value="#{ftf.code}" />
+                                    <h:outputLabel value="#{ftf.name}" />
+                                </p:column>
+                                <p:column headerText="Duration" >
+                                    <h:panelGroup rendered="#{ftf.durationType eq 'Annually'}">
+                                        <h:outputLabel  value="#{formDataentryController.yearVal}" ></h:outputLabel>>
+                               
+                                    </h:panelGroup>
+                                   <h:panelGroup rendered="#{ftf.durationType eq 'Daily'}">
+                                         <h:outputLabel   value="#{formDataentryController.yearVal}" ></h:outputLabel >
+                                         <h:outputLabel  > : </h:outputLabel>
+                                         <h:outputLabel   value="#{formDataentryController.monthVal}" ></h:outputLabel >
+                                         <h:outputLabel  > : </h:outputLabel>
+                                         <h:outputLabel   value="#{formDataentryController.dateVal}" ></h:outputLabel >
+                               
+                                    </h:panelGroup>
+                                    
+                                    <h:panelGroup rendered="#{ftf.durationType eq 'Monthly'}">
+                                           <h:outputLabel   value="#{formDataentryController.yearVal}" ></h:outputLabel >
+                                           <h:outputLabel  > : </h:outputLabel>
+                                           <h:outputLabel   value="#{formDataentryController.monthVal}" ></h:outputLabel >                                         
+                                    </h:panelGroup>
+                                    
+                                    
+                                       <h:panelGroup rendered="#{ftf.durationType eq 'Quarterly'}">
+                                           <h:outputLabel   value="#{formDataentryController.yearVal}" ></h:outputLabel >
+                                           <h:outputLabel  > : </h:outputLabel>
+                                           <h:outputLabel   value="#{formDataentryController.quarterVal}" ></h:outputLabel >                                         
+                                    </h:panelGroup>
+                                    
+                                
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Start Entering Data" ajax="false" action="#{formDataentryController.startDataEntry() }" >
+                                    <h:commandButton value="Start Entering Data"  action="#{formDataentryController.startDataEntry}" >
                                         <f:setPropertyActionListener value="#{ftf}" target="#{formDataentryController.healthForm}" />
-                                    </p:commandButton>
+                                    </h:commandButton>
                                 </p:column>
                             </p:dataTable>
                         

@@ -32,7 +32,7 @@
                                     <p:selectOneMenu converter="districtCon" id="cmbHp" value="#{gisController.district}"  >
                                         <f:selectItem itemLabel="Please select a district" />
                                         <f:selectItems  value="#{gisController.districts}" var="d" itemValue="#{d}" itemLabel="#{d.name}" ></f:selectItems>
-                                        <f:ajax event="change" render="gpDetail  cmbMoh pMap" execute="cmbMoh" >
+                                        <f:ajax event="change" render="gpDetail  cmbMoh pMap" execute="cmbHp" >
                                         </f:ajax>
                                     </p:selectOneMenu>
                                 </h:panelGrid> 
@@ -41,13 +41,15 @@
                                     <p:selectOneMenu converter="mohCon" id="cmbMoh" value="#{gisController.moh}"  >
                                         <f:selectItem itemLabel="Please select a MOH area" />
                                         <f:selectItems  value="#{gisController.mohs}" var="mo" itemValue="#{mo}" itemLabel="#{mo.name}" ></f:selectItems>
-
+                                            <f:ajax event="change" render="gpDetail  cmbPhi pMap" execute="cmbMoh" >
+                                            </f:ajax>
                                     </p:selectOneMenu>
                                     <h:outputText id="lblphi" value="PHI area" ></h:outputText>
                                     <p:selectOneMenu converter="phiCon" id="cmbPhi" value="#{gisController.phi}"  >
                                         <f:selectItem itemLabel="Please select a PHI area" />
                                         <f:selectItems  value="#{gisController.phis}" var="po" itemValue="#{po}" itemLabel="#{po.name}" ></f:selectItems>
-
+                                            <f:ajax event="change" render="gpDetail  pMap" execute="cmbPhi" >
+                                            </f:ajax>
                                     </p:selectOneMenu>
                                 </h:panelGrid>
                             </h:panelGrid>
@@ -57,8 +59,10 @@
 
                             <p:gmap rendered="#{gisController.districts.size()>0}" center="#{gisController.province.cordinates.get(0).latitude}, #{gisController.province.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{gisController.provinceMapModel}">  
                             </p:gmap>
-
+                            <p:gmap rendered="#{gisController.moh.size()>0}" center="#{gisController.districts.cordinates.get(0).latitude}, #{gisController.districts.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{gisController.provinceMapModel}">  
+                            </p:gmap>
                         </p:panel>
+                        
 
 
                     </h:panelGrid>

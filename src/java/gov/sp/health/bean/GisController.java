@@ -115,11 +115,7 @@ public class GisController implements Serializable {
         }
         String jql = "select a from Area a where a.superArea = :s order by a.name";
         Map m = new HashMap();
-        m.put("s", province);
-        System.out.println("jpql " + jql);
-        System.out.println("m " + m);
-        System.out.println("districts " + districts);
-        System.out.println("facade " + getAreaFacade().toString());
+        m.put("s", province);       
         districts = getAreaFacade().findBySQL(jql, m);
         return districts;
     }

@@ -16,24 +16,7 @@
                  
                     
                     <p:panelGrid columns="2" >
-                          <p:panel header="Forms to Forward" >
-                            <h:form>
-                                <p:dataTable value="#{formDataentryController.filledForms}" var="fhf" >
-                                    <p:column headerText="Form" >
-                                        <h:outputLabel value="#{fhf.item.name}" />
-                                    </p:column>
-                                    <p:column headerText="Time Period" >
-                                        to do cording to find time period
-                                    </p:column>
-                                    <p:column headerText="View/Edit" >
-                                        <p:commandButton value="View/Edit" action="health_form_fill" ajax="false" >
-                                            <f:setPropertyActionListener value="#{fhf}" target="#{formDataentryController.filledHealthForm}" />
-                                        </p:commandButton>
-                                    </p:column>
-
-                                </p:dataTable>
-                            </h:form>
-                        </p:panel>
+                        
                         <p:panel header="Recently Submitted Forms" >
                             <h:form>
                                 <p:dataTable value="#{formDataentryController.submittedForms}" var="shf" >

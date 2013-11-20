@@ -40,11 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-/**
- *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
- */
+
 @Named
 @SessionScoped
 public class SessionController implements Serializable, HttpSessionListener {

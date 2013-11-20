@@ -15,6 +15,7 @@
 
         <h:panelGroup rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" >
             <h:form  >
+                  <h:outputLabel value="Name" />
                 <h:inputText id="txtSearch" value="#{webUserController.selectText}" >
                     <f:ajax execute="txtSearch" render="lstSelect" event="keyup" />
                 </h:inputText>

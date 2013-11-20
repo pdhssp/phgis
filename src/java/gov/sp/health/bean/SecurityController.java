@@ -13,20 +13,12 @@ import javax.enterprise.context.SessionScoped;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 
-/**
- *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
- */
 @Named
 @SessionScoped
 public class SecurityController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Creates a new instance of HOSecurity
-     */
     public SecurityController() {
     }
 

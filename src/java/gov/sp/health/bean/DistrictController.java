@@ -65,7 +65,7 @@ public class DistrictController implements Serializable {
         if (current != null && current.getCordinates() != null) {
             for (GisCoordinate c : current.getCordinates()) {
                 LatLng l = new LatLng(c.getLatitude(), c.getLongtide());
-                System.out.println("map");
+             
                 polygon.getPaths().add(l);
 
             }

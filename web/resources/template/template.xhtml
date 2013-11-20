@@ -49,18 +49,22 @@
                                 <p:menuitem  ajax="false"  action="gis_map" value="GIS Map"  ></p:menuitem>
                             </p:submenu>
                              <p:submenu label="User"  >
-                                <p:menuitem  ajax="false"  action="user_change_language" value="Phm Dashboard"  ></p:menuitem>
+                                <p:menuitem  ajax="false"  action="user_change_language" value="Change language"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="user_change_password" value="Change Password"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="user_preferances" value="Change Preferances"  ></p:menuitem>
                             </p:submenu>
                             <p:submenu label="Administration"  >
                                 <p:menuitem  ajax="false"  action="admin_manage_users" value="Manage Users"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="lab_institution" value="Manage Institutions"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="admin_manage_staff_index" value="Manage Staff"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="demography_index" value="Manage Demography"  ></p:menuitem>
+                                 <p:menuitem  ajax="false"  action="demography_index" value="Manage Demography"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
                             </p:submenu>
-                            
+                             <p:submenu label="Manage disease details"  >
+                                <p:menuitem  ajax="false"  action="admin_manage_users" value="Manage Users"  ></p:menuitem>
+                                  </p:submenu>
+                             <p:submenu label="Manage Family details"  >
+                                <p:menuitem  ajax="false"  action="admin_manage_users" value="Manage Users"  ></p:menuitem>
+                               </p:submenu>
 
                         </p:menubar>
                         <p:dashboard model="#{bean.model}">

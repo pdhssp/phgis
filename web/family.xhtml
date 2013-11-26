@@ -12,8 +12,6 @@
 
             <ui:define name="content">
 
-
-
                 <h:form >
 
                     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -25,6 +23,13 @@
 
                         </p:commandButton>
                           <p:panelGrid columns="2">
+                               <p:outputLabel> Family ID </p:outputLabel> 
+                               <p:inputText value="#{familyController.current.id}" required="True" ></p:inputText>
+
+                               <p:outputLabel> Family Name</p:outputLabel> 
+                               <p:inputText value="#{familyController.current.address}" required="True" ></p:inputText>
+
+                               
                         <p:outputLabel> Address </p:outputLabel> 
                         <p:inputText value="#{familyController.current.address}" required="True" ></p:inputText>
 
@@ -34,14 +39,23 @@
                         <p:outputLabel> Latitude </p:outputLabel> 
                         <p:inputText value="#{familyController.current.coordinate.latitude}" required="True" validatorMessage="Invalid Number"></p:inputText>
 
-                        <p:selectOneMenu value="#{familyController.current.phmArea}" >
-                            <f:selectItem itemLabel="Please select PHM area" />
-                            <f:selectItems value="#{phmController.items}" var="phm" itemLabel="#{phm.name}" itemValue="#{phm}" />
-                        </p:selectOneMenu>
+                      
                         </p:panelGrid>
                         <p:commandButton ajax="false" value="Add" action="#{familyController.addDirectly}" />
 
                         <p:dataTable value="#{familyController.items}" var="ff" >
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Family ID" />
+                                </f:facet>
+                                <h:outputText value="#{ff.id}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Family Name" />
+                                </f:facet>
+                                <h:outputText value="#{ff.address}" />
+                            </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Address" />

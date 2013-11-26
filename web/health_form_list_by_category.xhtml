@@ -17,7 +17,7 @@
                 <p:panel id="panIx"  >
 
                     <f:facet name="header" >
-                        <h:outputLabel value="List of Investigations by category"></h:outputLabel>
+                        <h:outputLabel value="List of Forms by category"></h:outputLabel>
                         <p:commandButton ajax="false" value="Print" styleClass="noPrintButton" >
                             <p:printer target="panIx" />
                         </p:commandButton>
@@ -31,9 +31,9 @@
                         </p:selectOneMenu>
                     </f:facet>
                     <div id="printHeader" style="text-align: center; font-family: serif;">
-                        <h:outputLabel value="GIS Based Public Health Information System (Pvt) Ltd" style="font-size: 20px;"></h:outputLabel>
+                        <h:outputLabel value=" Public Health Information System " style="font-size: 20px;"></h:outputLabel>
                         <br> </br>
-                        <h:outputLabel value="Lab Investigation by category" style="font-family: serif;" ></h:outputLabel>
+                        <h:outputLabel value="Health Forms by category" style="font-family: serif;" ></h:outputLabel>
                     </div>
                     <p:dataTable id="tbl" rowIndexVar="rowIndex" value="#{healthFormController.catIxs}" var="ix"  >
                         <p:column headerText="No." >

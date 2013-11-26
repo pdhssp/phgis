@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panel >
+                        <f:facet name="header" >
+                            <h:outputLabel value="Fill Form - #{formDataentryController.filledHealthForm.item.code }" />
+                            <p:commandButton value="Print" action="#{formDataentryController.saveFilledForm()}" ajax="false" >
+                                <p:printer target="divPrint" />
+                            </p:commandButton>
+                            <p:commandButton value="Submit" action="#{formDataentryController.submitFilledForm()}" ajax="false" disabled="#{formDataentryController.filledHealthForm.approved}" />
+                        </f:facet>
+
+
+                        <p:panel styleClass="myDivToPrint" id="divPrint" style="border: 0px; margin: 0px; padding: 0px; position: relative;" >
+                            <div id="divReport"  style="min-width:800px;min-height: 1100px; position: relative; font-size: 150%;">
+
+                                <ui:repeat value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
+
+                                    <h:outputLabel value="#{iv.strValue}"  style="#{iv.healthFormItem.cssStyle}; position:absolute;" rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Varchar' }" />
+                                    <h:outputLabel value="#{iv.doubleValue}" style="#{iv.healthFormItem.cssStyle}; position:absolute;" rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Double'}" />
+                                    <h:outputLabel value="#{iv.lobValue }" style="#{iv.healthFormItem.cssStyle}; position:absolute;"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Memo'}" />
+
+                                </ui:repeat>
+
+                                <ui:repeat value="#{formDataentryController.healthForm.reportItems}" var="ivr" >
+                                    <div style="#{ivr.cssStyle}; position:absolute;" >
+                                        <h:outputLabel  value="#{ivr.name}" rendered="#{ivr.healthFormItemType eq 'Label'}" />
+                                    </div>
+                                </ui:repeat>
+
+                            </div>
+
+                        </p:panel>
+                    </p:panel>
+
+                </h:form>
+
+
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

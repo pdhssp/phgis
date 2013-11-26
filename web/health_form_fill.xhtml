@@ -11,12 +11,15 @@
         <ui:composition template="./resources/template/template.xhtml">
 
             <ui:define name="content">
+                
                 <h:form>
+                    
                     <p:panel >
                         <f:facet name="header" >
                             <h:outputLabel value="Fill Form - #{formDataentryController.filledHealthForm.item.code }" />
                             <p:commandButton value="Save" action="#{formDataentryController.saveFilledForm()}" ajax="false" disabled="#{formDataentryController.filledHealthForm.approved}" />
                             <p:commandButton value="Submit" action="#{formDataentryController.submitFilledForm()}" ajax="false" disabled="#{formDataentryController.filledHealthForm.approved}" />
+                            <p:commandButton ajax="false" value="View" action="health_form_fill_view"></p:commandButton>
                         </f:facet>
                         <p:panelGrid columns="2" >
                             <p:dataTable value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
@@ -45,6 +48,10 @@
                     </p:panel>
 
                 </h:form>
+                
+                
+                
+                
             </ui:define>
 
 

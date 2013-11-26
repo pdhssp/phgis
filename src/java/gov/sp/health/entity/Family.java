@@ -30,6 +30,7 @@ public class Family implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    String f_name;
     String address;
     
   
@@ -191,6 +192,14 @@ public class Family implements Serializable {
     @Override
     public String toString() {
         return "com.divudi.entity.Family[ id=" + id + " ]";
+    }
+
+    public String getfName() {
+        return f_name;
+    }
+
+    public void setfName(String fName) {
+        this.f_name = fName;
     }
     
 }

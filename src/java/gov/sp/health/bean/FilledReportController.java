@@ -16,7 +16,9 @@ import gov.sp.health.facade.PatientReportFacade;
 import gov.sp.health.facade.PatientReportItemValueFacade;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import javax.inject.Named;
 import javax.ejb.EJB;
@@ -26,6 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.persistence.TemporalType;
 import org.primefaces.event.CellEditEvent;
 
 /**
@@ -57,6 +60,23 @@ public class FilledReportController implements Serializable {
     HealthForm currentReportInvestigation;
     HealthForm alternativeInvestigation;
 
+    List<FilledHealthForm> myAlerts;
+
+    public List<FilledHealthForm> getMyAlerts() {
+        return myAlerts;
+    }
+
+    public void setMyAlerts(List<FilledHealthForm> myAlerts) {
+        this.myAlerts = myAlerts;
+    }
+    
+    public void loadMyAlerts(){
+        String sql = "select f from FilledHealthForm where (f.area=:a1 or f.area.superArea:a1 or f.area.superArea.superArea=:a1) ";
+        Map m = new HashMap();
+        m.put("a1", getSessionController().getArea());
+        myAlerts = getFacade().findBySQL(sql, m, TemporalType.DATE, 20);
+    }
+    
     public StaffController getStaffController() {
         return staffController;
     }

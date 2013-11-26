@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <p:dataTable value="#{filledReportController.myAlerts}" var="h" >
+                </p:dataTable>
+
+                <p:dataTable value="#{formDataentryController.myAlerts}" var="fhf" >
+                    <p:column headerText="Form" >
+                        <h:outputLabel value="#{fhf.item.name}" />
+                    </p:column>
+                    <p:column headerText="Time Period" >
+                        to do cording to find time period
+                    </p:column>
+                    <p:column headerText="View" >
+                        <p:commandButton value="View" action="health_form_fill" ajax="false" >
+                            <f:setPropertyActionListener value="#{fhf}" target="#{formDataentryController.filledHealthForm}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

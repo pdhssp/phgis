@@ -117,6 +117,12 @@ public class WebUserController implements Serializable {
             case Phm:at= AreaType.PhmArea;
                 break;
             case Phi: at= AreaType.PhiArea;
+                break;
+            case Moh: at=AreaType.MohArea;
+                break;
+            case Pdhs: at=AreaType.Province;
+            break;
+  
         }
         String s = "Select a from Area a where a.retired=false and a.areaType=:at order by a.name" ;
         m.put("at", at);

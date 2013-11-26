@@ -139,7 +139,7 @@ public  class PersonController implements Serializable {
     }
 
     public List<Person> getItems() {
-        items = getFacade().findAll("name", true);
+        items = getFacade().findAll();
         return items;
     }
 

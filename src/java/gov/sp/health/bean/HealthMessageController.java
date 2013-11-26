@@ -17,7 +17,9 @@ import gov.sp.health.facade.ItemFacade;
 import gov.sp.health.facade.SpecialityFacade;
 import com.google.common.collect.HashBiMap;
 import gov.sp.health.entity.Diagnosis;
+import gov.sp.health.entity.Message;
 import gov.sp.health.facade.DiagnosisFacade;
+import gov.sp.health.facade.MessageFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,157 +44,37 @@ import javax.faces.convert.FacesConverter;
  */
 @Named
 @SessionScoped
-public class DiagnosisController implements Serializable {
+public class HealthMessageController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
     SessionController sessionController;
     @EJB
-    private DiagnosisFacade ejbFacade;
+    private MessageFacade ejbFacade;
     @EJB
     private SpecialityFacade specialityFacade;
-    List<Diagnosis> selectedItems;
-    private Diagnosis current;
-    private List<Diagnosis> items = null;
+    List<Message> selectedItems;
+    private Message current;
+    
+    private List<Message> items = null;
+    
+    private List<Message> myItems = null;
     String selectText = "";
-    String bulkText = "";
-    boolean billedAs;
-    boolean reportedAs;
-    List<Diagnosis> catIxs;
-   
-   
   
-
-    public List<Diagnosis> getStaffRoleForms(StaffRole sr) {
-        Map m = new HashMap();
-        String jpql = "select f from Diagnosis f where f.staffRole =:sr order by f.code";
-        m.put("sr", sr);
-        return getEjbFacade().findBySQL(jpql, m);
-    }
+    @EJB
+    MessageFacade itemFacade;
 
     
-    @EJB
-    ItemFacade itemFacade;
-
-    public ItemFacade getItemFacade() {
+    public MessageFacade getItemFacade() {
         return itemFacade;
     }
 
-    public void setItemFacade(ItemFacade itemFacade) {
+    public void setItemFacade(MessageFacade itemFacade) {
         this.itemFacade = itemFacade;
     }
 
-    
-    public void setCatIxs(List<Diagnosis> catIxs) {
-        this.catIxs = catIxs;
-    }
-
-    public List<Diagnosis> completeInvest(String query) {
-        List<Diagnosis> suggestions;
-        String sql;
-        if (query == null) {
-            suggestions = new ArrayList<Diagnosis>();
-        } else {
-            sql = "select c from Diagnosis  c where c.retired=false and upper(c.name) like '%" + query.toUpperCase() + "%' order by c.name";
-            System.out.println(sql);
-            suggestions = getEjbFacade().findBySQL(sql);
-        }
-        return suggestions;
-    }
-
-    public List<Diagnosis> completeInvestWithout(String query) {
-        List<Diagnosis> suggestions;
-        String sql;
-        if (query == null) {
-            suggestions = new ArrayList<Diagnosis>();
-        } else {
-            // sql = "select c from Diagnosis c where c.retired=false and upper(c.name) like '%" + query.toUpperCase() + "%' order by c.name";
-            sql = "select c from Diagnosis  c where c.retired=false and type(c)!=Packege and upper(c.name) like '%" + query.toUpperCase() + "%' order by c.name";
-            System.out.println(sql);
-            suggestions = getEjbFacade().findBySQL(sql);
-        }
-        return suggestions;
-    }
-
-    public boolean isBilledAs() {
-        return billedAs;
-    }
-
-    public void setBilledAs(boolean billedAs) {
-        this.billedAs = billedAs;
-    }
-
-    public boolean isReportedAs() {
-        return reportedAs;
-    }
-
-    public void setReportedAs(boolean reportedAs) {
-        this.reportedAs = reportedAs;
-    }
-
-    public void correctIx1() {
-        List<Diagnosis> allItems = getEjbFacade().findAll();
-        for (Diagnosis i : allItems) {
-            i.setBilledAs(i);
-            i.setReportedAs(i);
-            getEjbFacade().edit(i);
-        }
-
-    }
-
-    public String getBulkText() {
-
-        return bulkText;
-    }
-
-    public void setBulkText(String bulkText) {
-        this.bulkText = bulkText;
-    }
-
-    public List<Diagnosis> getSelectedItems() {
-        if (selectText.trim().equals("")) {
-            selectedItems = getEjbFacade().findBySQL("select c from Diagnosis  c where c.retired=false order by c.name");
-        } else {
-            selectedItems = getEjbFacade().findBySQL("select c from Diagnosis  c where c.retired=false and upper(c.name) like '%" + getSelectText().toUpperCase() + "%' order by c.name");
-        }
-        return selectedItems;
-    }
-
-    public List<Diagnosis> completeItem(String qry) {
-        List<Diagnosis> completeItems = getEjbFacade().findBySQL("select c from Item c where ( type(c) = Investigation or type(c) = Packege ) and c.retired=false and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name");
-        return completeItems;
-    }
-
     public void prepareAdd() {
-        current = new Diagnosis();
-    }
-
-    public void bulkUpload() {
-        List<String> lstLines = Arrays.asList(getBulkText().split("\\r?\\n"));
-        for (String s : lstLines) {
-            List<String> w = Arrays.asList(s.split(","));
-            try {
-                String code = w.get(0);
-                String ix = w.get(1);
-                String ic = w.get(2);
-                String f = w.get(4);
-                System.out.println(code + " " + ix + " " + ic + " " + f);
-
-
-                Diagnosis tix = new Diagnosis();
-                tix.setCode(code);
-                tix.setName(ix);
-
-
-
-            } catch (Exception e) {
-            }
-
-        }
-    }
-
-    public void setSelectedItems(List<Diagnosis> selectedItems) {
-        this.selectedItems = selectedItems;
+        current = new Message();
     }
 
     public String getSelectText() {
@@ -208,30 +90,12 @@ public class DiagnosisController implements Serializable {
 
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             System.out.println("1");
-            if (billedAs == false) {
-                System.out.println("2");
-                getCurrent().setBilledAs(getCurrent());
-
-            }
-            if (reportedAs == false) {
-                System.out.println("3");
-                getCurrent().setReportedAs(getCurrent());
-            }
             getEjbFacade().edit(getCurrent());
             UtilityController.addSuccessMessage("savedOldSuccessfully");
         } else {
             System.out.println("4");
-            getCurrent().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
-            getCurrent().setCreater(sessionController.getLoggedUser());
-            getEjbFacade().create(getCurrent());
-            if (billedAs == false) {
-                System.out.println("5");
-                getCurrent().setBilledAs(getCurrent());
-            }
-            if (reportedAs == false) {
-                System.out.println("6");
-                getCurrent().setReportedAs(getCurrent());
-            }
+                       getEjbFacade().create(getCurrent());
+
             getEjbFacade().edit(getCurrent());
             UtilityController.addSuccessMessage("savedNewSuccessfully");
         }
@@ -243,11 +107,11 @@ public class DiagnosisController implements Serializable {
         this.selectText = selectText;
     }
 
-    public DiagnosisFacade getEjbFacade() {
+    public MessageFacade getEjbFacade() {
         return ejbFacade;
     }
 
-    public void setEjbFacade(DiagnosisFacade ejbFacade) {
+    public void setEjbFacade(MessageFacade ejbFacade) {
         this.ejbFacade = ejbFacade;
     }
 
@@ -259,74 +123,57 @@ public class DiagnosisController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    public DiagnosisController() {
+    public HealthMessageController() {
     }
 
-    public Diagnosis getCurrent() {
+    public Message getCurrent() {
         if (current == null) {
-            current = new Diagnosis();
+            current = new Message();
         }
         return current;
     }
 
-    public void setCurrent(Diagnosis current) {
+    public void setCurrent(Message current) {
         this.current = current;
         if (current != null) {
-            if (current.getBilledAs() == current) {
-                billedAs = false;
-            } else {
-                billedAs = true;
-            }
-            if (current.getReportedAs() == current) {
-                reportedAs = false;
-            } else {
-                reportedAs = true;
-            }
         }
     }
 
     public void delete() {
-
-        if (current != null) {
-            current.setRetired(true);
-            current.setRetiredAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
-            current.setRetirer(sessionController.getLoggedUser());
-            getEjbFacade().edit(current);
-            UtilityController.addSuccessMessage("DeleteSuccessfull");
-        } else {
-            UtilityController.addSuccessMessage("NothingToDelete");
-        }
+        getEjbFacade().remove(current);
         recreateModel();
         getItems();
         current = null;
         getCurrent();
     }
 
-   
-    
-
-    public List<Diagnosis> getItems() {
-        items = getEjbFacade().findAll("name", true);
+    public List<Message> getItems() {
+        items = getEjbFacade().findAll();
         return items;
     }
 
-    public SpecialityFacade getSpecialityFacade() {
-        return specialityFacade;
+    public List<Message> getMyItems() {
+        String sql;
+        sql="select m from Message m where m.toPerson=:p";
+        Map m = new HashMap();
+        m.put("p", getSessionController().getLoggedUser().getWebUserPerson());
+        myItems = getEjbFacade().findBySQL(sql, m);
+        return myItems;
     }
 
-    public void setSpecialityFacade(SpecialityFacade specialityFacade) {
-        this.specialityFacade = specialityFacade;
+    public void setMyItems(List<Message> myItems) {
+        this.myItems = myItems;
     }
 
-   
+    
 
     /**
      *
      */
-    @FacesConverter("hfcon")
-    public static class DiagnosisConverter implements Converter {
+    @FacesConverter("messagecon")
+    public static class MessageConverter implements Converter {
 
-        public DiagnosisConverter() {
+        public MessageConverter() {
         }
 
         @Override
@@ -334,8 +181,8 @@ public class DiagnosisController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DiagnosisController controller = (DiagnosisController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "diagnosisController");
+            HealthMessageController controller = (HealthMessageController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "healthMessageController");
             return controller.getEjbFacade().find(getKey(value));
         }
 
@@ -361,16 +208,15 @@ public class DiagnosisController implements Serializable {
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + DiagnosisController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + HealthMessageController.class.getName());
             }
         }
     }
-    
-    
+
     @FacesConverter(forClass = Diagnosis.class)
-    public static class DiagnosisControllerConverter implements Converter {
+    public static class HealthMessageControllerConverter implements Converter {
 
-        public DiagnosisControllerConverter() {
+        public HealthMessageControllerConverter() {
         }
 
         @Override
@@ -378,8 +224,8 @@ public class DiagnosisController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DiagnosisController controller = (DiagnosisController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "diagnosisController");
+            HealthMessageController controller = (HealthMessageController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "healthMessageController");
             return controller.getEjbFacade().find(getKey(value));
         }
 
@@ -405,9 +251,8 @@ public class DiagnosisController implements Serializable {
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + DiagnosisController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + HealthMessageController.class.getName());
             }
         }
     }
-    
 }

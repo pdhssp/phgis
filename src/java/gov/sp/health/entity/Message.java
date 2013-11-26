@@ -4,11 +4,14 @@
  */
 package gov.sp.health.entity;
 
+import gov.sp.health.data.StaffRole;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -20,6 +23,28 @@ public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    String topic;
+    @Lob
+    private String content;
+    @ManyToOne
+    private Person fromPerson;
+    @ManyToOne
+    private Area toArea;
+    @ManyToOne
+    private Person toPerson;
+    private StaffRole toStaff;
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+    
+    
+    
+    
 
     public Long getId() {
         return id;
@@ -52,6 +77,46 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         return "gov.sp.health.entity.Message[ id=" + id + " ]";
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Person getFromPerson() {
+        return fromPerson;
+    }
+
+    public void setFromPerson(Person fromPerson) {
+        this.fromPerson = fromPerson;
+    }
+
+    public Area getToArea() {
+        return toArea;
+    }
+
+    public void setToArea(Area toArea) {
+        this.toArea = toArea;
+    }
+
+    public Person getToPerson() {
+        return toPerson;
+    }
+
+    public void setToPerson(Person toPerson) {
+        this.toPerson = toPerson;
+    }
+
+    public StaffRole getToStaff() {
+        return toStaff;
+    }
+
+    public void setToStaff(StaffRole toStaff) {
+        this.toStaff = toStaff;
     }
     
 }

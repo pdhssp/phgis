@@ -57,6 +57,19 @@ public class FilledReportController implements Serializable {
     HealthForm currentReportInvestigation;
     HealthForm alternativeInvestigation;
 
+    
+    List<FilledHealthForm> formsForMe;
+
+    public List<FilledHealthForm> getFormsForMe() {
+        return formsForMe;
+    }
+
+    public void setFormsForMe(List<FilledHealthForm> formsForMe) {
+        this.formsForMe = formsForMe;
+    }
+    
+    
+    
     public StaffController getStaffController() {
         return staffController;
     }
@@ -106,6 +119,8 @@ public class FilledReportController implements Serializable {
         FilledHealthForm pi = new FilledHealthForm();
         this.alternativeInvestigation = alternativeInvestigation;
     }
+    
+    
 
     public void onCellEdit(CellEditEvent event) {
         try {

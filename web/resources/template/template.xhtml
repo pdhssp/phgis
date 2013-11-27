@@ -23,7 +23,7 @@
             <h:panelGrid columns="1" style="width: 100%;margin: 0px; padding: 0px;" >
                 <h:outputLabel value="#{labels.topic}" style="margin:" styleClass="heading1" /> 
             </h:panelGrid>
-    <h1>sdfsdfsdf</h1>
+    
             <p:growl id="publicGrowl" autoUpdate="true" />
 
             <h:panelGroup style="width: 100%;" >
@@ -84,21 +84,7 @@
 
                         </p:menubar>
 
-                        <p:menu>
-                            <p:submenu label="Messsage center"  >
-                                <p:submenu label="Messsage Inbox"  >
-                                    <p:menuitem  ajax="false"  action="admin_manage_users" value="Personal"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="lab_institution" value="Staff"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="demography_index" value="Area"  ></p:menuitem>
-                                </p:submenu>
-                                <p:submenu label="Create Messsage"  >
-                                    <p:menuitem  ajax="false"  action="admin_manage_users" value="Personal"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="lab_institution" value="Staff"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="demography_index" value="Area"  ></p:menuitem>
-                                </p:submenu>
-                                <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
-                            </p:submenu>
-                        </p:menu>
+                      
 
 
                         <p:dashboard model="#{bean.model}">
@@ -156,6 +142,7 @@
                         <h:form>
                             User - #{sessionController.loggedUser.webUserPerson.name} ||
                             Institution  - #{sessionController.loggedUser.institution.name} ||
+                            Area  - #{sessionController.area.name} ||
                             <h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
                         </h:form>
                     </h:panelGroup>

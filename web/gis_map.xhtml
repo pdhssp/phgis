@@ -14,11 +14,11 @@
             <h:form  >
                 <p:growl autoUpdate="true" />
                 <p:focus id="detailFocus" context="gpDetail" />
-                <p:panel header="Manage District" >
+                <p:panel header="GIS Map" >
                     <h:panelGrid id ="gpVeda" columns="3" >
                         <p:panel>
                             <h:panelGrid id="gpDetail" columns="1">
-                                <h:panelGrid id="gpDetailText" columns="2">
+                                <h:panelGrid id="gpDetailText" columns="1">
                                     <h:outputText id="lblprovince" value="Province" ></h:outputText>
                                     <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{gisController.province}"  >
                                         <f:selectItem itemLabel="Please select a province" />
@@ -27,8 +27,8 @@
                                         </f:ajax>
                                     </p:selectOneMenu>
                                 </h:panelGrid>
-                                <h:panelGrid id="gpDetailTextD" columns="2">
-                                    <h:outputText id="lblDistrict" value="District" ></h:outputText>
+                                <h:panelGrid id="gpDetailTextD" columns="1">
+                                    <h:outputText id="lblDistrict" value="District  " ></h:outputText>
                                     <p:selectOneMenu converter="districtCon" id="cmbHp" value="#{gisController.district}"  >
                                         <f:selectItem itemLabel="Please select a district" />
                                         <f:selectItems  value="#{gisController.districts}" var="d" itemValue="#{d}" itemLabel="#{d.name}" ></f:selectItems>
@@ -36,7 +36,7 @@
                                         </f:ajax>
                                     </p:selectOneMenu>
                                 </h:panelGrid> 
-                                <h:panelGrid id="gpDetailTextM" columns="2">
+                                <h:panelGrid id="gpDetailTextM" columns="1">
                                     <h:outputText id="lblmoh" value="MOH area" ></h:outputText>
                                     <p:selectOneMenu converter="mohCon" id="cmbMoh" value="#{gisController.moh}"  >
                                         <f:selectItem itemLabel="Please select a MOH area" />

@@ -25,13 +25,15 @@
                         <h:outputLabel value="Content" >
                         </h:outputLabel>
                         <h:inputTextarea value="#{healthMessageController.current.content }" ></h:inputTextarea>
-                        <h:outputLabel value="To Person" >
-                        </h:outputLabel>
-                        <p:selectOneMenu converter="personCon" value="#{healthMessageController.current.toPerson}" >
-                            <f:selectItem itemLabel="Select Person" ></f:selectItem>
-                            <f:selectItems value="#{personController.items}" var="p" itemLabel="#{p.name}" itemValue="#{p}" ></f:selectItems>
-                        </p:selectOneMenu>
+                     
                         
+                        
+                         <h:outputLabel value="To Staff" >
+                        </h:outputLabel>
+                        <p:selectOneMenu converter="stfcon" value="#{healthMessageController.current.toStaff}" >
+                            <f:selectItem itemLabel="Select Staff Role" ></f:selectItem>
+                            <f:selectItems value="#{staffController.items}" var="p" itemLabel="#{p.staffCode}" itemValue="#{p}" ></f:selectItems>
+                        </p:selectOneMenu>
                         
                          
                         <p:commandButton value="Send" ajax="false" action="#{healthMessageController.saveSelected()}" ></p:commandButton>

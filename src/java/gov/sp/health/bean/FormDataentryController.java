@@ -359,6 +359,18 @@ public class FormDataentryController implements Serializable {
                     System.out.println("filled health form is null");
                     filledHealthForm = new FilledHealthForm();
                     filledHealthForm.setItem(healthForm);
+                    Date temFrdomDate = Calendar.getInstance().getTime();
+                    Calendar c = Calendar.getInstance() ;
+                    c.set(Calendar.YEAR, yearVal);
+                    c.add(Calendar.MONTH ,1);
+                    c.set(Calendar.DATE,1);
+                    filledHealthForm.setFromDate(c.getTime());
+                    c = Calendar.getInstance() ;
+                    c.set(Calendar.YEAR, yearVal);
+                    c.add(Calendar.MONTH ,12);
+                    c.set(Calendar.DATE,31);
+                    filledHealthForm.setToDate(c.getTime());
+                    
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
                 }

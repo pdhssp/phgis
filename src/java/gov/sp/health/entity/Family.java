@@ -5,6 +5,7 @@
 package gov.sp.health.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -23,24 +24,19 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Family implements Serializable {
-    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Person> persons;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
     String f_name;
     String address;
-    
-  
     double langitude;
     double latitude;
-  
-    
     @ManyToOne
     GisCoordinate coordinate;
-    
     @ManyToOne
     Area phmArea;
 
@@ -51,8 +47,6 @@ public class Family implements Serializable {
     public void setCoordinate(GisCoordinate coordinate) {
         this.coordinate = coordinate;
     }
-
-    
     //Created Properties
     @ManyToOne
     WebUser creater;
@@ -105,10 +99,11 @@ public class Family implements Serializable {
     public void setRetireComments(String retireComments) {
         this.retireComments = retireComments;
     }
-    
-    
-    
+
     public List<Person> getPersons() {
+        if (persons == null) {
+            persons=new ArrayList<Person>();
+        }
         return persons;
     }
 
@@ -155,11 +150,6 @@ public class Family implements Serializable {
     public void setPhmArea(Area phmArea) {
         this.phmArea = phmArea;
     }
-    
-    
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -201,5 +191,4 @@ public class Family implements Serializable {
     public void setfName(String fName) {
         this.f_name = fName;
     }
-    
 }

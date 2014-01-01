@@ -21,14 +21,14 @@
         <p:panel style="margin: 0px; padding: 0px; border: 0px; min-height: 100%!important;" >
 
             <h:panelGrid columns="1" style="width: 100%;margin: 0px; padding: 0px;" >
-                <h:outputLabel value="#{labels.topic}" style="margin:" styleClass="heading1" /> 
+                <h:outputLabel value="#{labels.topic}" style="margin:" styleClass="nonPrintBlock" /> 
             </h:panelGrid>
     
             <p:growl id="publicGrowl" autoUpdate="true" />
 
             <h:panelGroup style="width: 100%;" >
                 <h:form>
-                    <h:panelGroup >
+                    <h:panelGroup class="nonPrintBlock" >
                         <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;top:5px">  
                             <f:facet name="start">  
                                 <p:graphicImage library="image" name="ajax-loader.gif" />  
@@ -46,8 +46,7 @@
                                 <p:menuitem  ajax="false"  action="approve_filled_forms" value="Approve Filled Forms"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="recently_submitted_forms.xhtml" value="Forward Forms"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="graph_health_form" value="Analysis"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="family" value="Families"  ></p:menuitem>
-                            </p:submenu>
+                                    </p:submenu>
                             <p:submenu label="GISMap"  >
                                 <p:menuitem  ajax="false"  action="gis_map" value="GIS Map"  ></p:menuitem>
                             </p:submenu>
@@ -64,22 +63,25 @@
                             </p:submenu>
                             <p:submenu label="Messsage center"  >
                                 <p:submenu label="Messsage Inbox"  >
-                                    <p:menuitem  ajax="false"  action="admin_manage_users" value="Personal"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="myMessage" value="Personal"  ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="lab_institution" value="Staff"  ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="demography_index" value="Area"  ></p:menuitem>
                                 </p:submenu>
                                 <p:submenu label="Create Messsage"  >
-                                    <p:menuitem  ajax="false"  action="admin_manage_users" value="Personal"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="lab_institution" value="Staff"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="demography_index" value="Area"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="new_message" value="To persoon"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="new_message_staff" value="To staff"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="new_message_area" value="To Area"  ></p:menuitem>
+                               
+                                   
                                 </p:submenu>
                                 <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
                             </p:submenu>
                             <p:submenu label="Manage Diagnosis"  >
-                                <p:menuitem  ajax="false"  action="admin_manage_users" value="Manage Users"  ></p:menuitem>
+                                <p:menuitem  ajax="false"  action="diagnosis" value="Manage diagnosis"  ></p:menuitem>
                             </p:submenu>
-                            <p:submenu label="Enter Diagnosis"  >
-                                <p:menuitem  ajax="false"  action="diagnosis" value="Manage Users"  ></p:menuitem>
+                            <p:submenu label="Manage Families"  >
+                                 <p:menuitem  ajax="false"  action="family" value="Families"  ></p:menuitem>
+                       
                             </p:submenu>
 
                         </p:menubar>
@@ -143,8 +145,20 @@
                             User - #{sessionController.loggedUser.webUserPerson.name} ||
                             Institution  - #{sessionController.loggedUser.institution.name} ||
                             Area  - #{sessionController.area.name} ||
+                          
+                           
                             <h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
                         </h:form>
+                    </h:panelGroup>
+                </p:panel>
+                <p:panel styleClass="nonPrintBlock" style="position: fixed; bottom: 10px; left: 40px; "  >
+                    <h:panelGroup rendered="#{!sessionController.logged}">
+                        <h:form>
+                                                    
+                            සිංහල ||
+                            English ||
+                            தமிழ்
+                             </h:form>
                     </h:panelGroup>
                 </p:panel>
 
@@ -155,7 +169,7 @@
 
             </div>
 
-            <h:outputLabel value="#{labels.subtopic}" style="alignment-adjust: middle;"  styleClass="heading2"/> 
+            <h:outputLabel value="#{labels.subtopic}" style="alignment-adjust: middle;"  styleClass="nonPrintBlock"/> 
 
         </p:panel>
 

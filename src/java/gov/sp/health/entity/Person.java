@@ -11,6 +11,7 @@ import gov.sp.health.data.Sex;
 import gov.sp.health.data.Title;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,6 +21,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
@@ -30,6 +32,7 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Person implements Serializable {
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,6 +78,15 @@ public class Person implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     Family family;
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+    
     
     
     

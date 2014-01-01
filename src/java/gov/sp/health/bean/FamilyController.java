@@ -13,6 +13,8 @@ import java.util.TimeZone;
 import gov.sp.health.facade.FamilyFacade;
 import gov.sp.health.entity.Family;
 import gov.sp.health.entity.GisCoordinate;
+import gov.sp.health.entity.Person;
+import gov.sp.health.facade.PersonFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,14 +44,29 @@ public class FamilyController implements Serializable {
     SessionController sessionController;
     @EJB
     private FamilyFacade ejbFacade;
+    @EJB
+            PersonFacade personFacade;
+    
     List<Family> selectedItems;
     private Family current;
     private List<Family> items = null;
     String selectText = "";
     
+    Person person;
+    
     
     MapModel familyMapModel;
 
+    public PersonFacade getPersonFacade() {
+        return personFacade;
+    }
+
+    public void setPersonFacade(PersonFacade personFacade) {
+        this.personFacade = personFacade;
+    }
+
+    
+    
     public MapModel getFamilyMapModel() {
         return familyMapModel;
     }
@@ -57,7 +74,31 @@ public class FamilyController implements Serializable {
     public void setFamilyMapModel(MapModel familyMapModel) {
         this.familyMapModel = familyMapModel;
     }
+
+    public Person getPerson() {
+        if(person==null){
+            person = new Person();
+        }
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
     
+    public void addPersonToFamily(){
+        if(person==null){
+            UtilityController.addErrorMessage("Select person");
+            return;
+        }
+//        getPerson().setFamily(current);
+//        getPersonFacade().edit(person);
+//        
+        getCurrent().getPersons().add(person);
+        getFacade().edit(current);
+        UtilityController.addSuccessMessage("Added");
+        person=null;
+    }
     
     
     

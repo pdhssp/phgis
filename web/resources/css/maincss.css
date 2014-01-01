@@ -603,10 +603,6 @@ a:hover {
 }
 
 @media print{
-
-
-
-
     .report{
         font-size: 8px!important;
         color: red;
@@ -617,7 +613,7 @@ a:hover {
     }
 
     .nonPrintBlock{
-        display: none;
+        display: none!important;
     }
 
     .noPrintButton{
@@ -637,7 +633,5 @@ a:hover {
         font-size: 100px;
         color: red;
     }
-
-
 }
 

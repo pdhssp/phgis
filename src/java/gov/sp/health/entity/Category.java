@@ -44,8 +44,7 @@ public class Category implements Serializable {
     Long longValue;
     @ManyToOne
     Category parentCategory;
-    private Double saleMargin = 0.0;
-    private Double wholeSaleMargin = 0.0;
+   
     @OneToMany(mappedBy = "category")
     private List<Item> items;
 
@@ -53,22 +52,13 @@ public class Category implements Serializable {
         System.out.println("category created");
     }
 
-    public Double getSaleMargin() {
-        return saleMargin;
-    }
+    
 
-    public void setSaleMargin(Double saleMargin) {
-        this.saleMargin = saleMargin;
-    }
+   
 
-    public Double getWholeSaleMargin() {
-        return wholeSaleMargin;
-    }
+   
 
-    public void setWholeSaleMargin(Double wholeSaleMargin) {
-        this.wholeSaleMargin = wholeSaleMargin;
-    }
-
+   
     public Double getDblValue() {
         return dblValue;
     }

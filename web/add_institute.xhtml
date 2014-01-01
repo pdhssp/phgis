@@ -12,7 +12,7 @@
         <p:growl autoUpdate="true"/>
 
         <h:form>
-            <p:panel header="Creating a new institute" >
+            <p:panel header="Manage Institute" >
                 <p:panelGrid columns="2" >
                     <h:outputLabel value="Institution Code" />
                     <h:inputText value="#{sessionController.newPersonName}" />
@@ -39,7 +39,12 @@
 
                     
                 </p:panelGrid>
-                <h:commandButton id="btnReg" class="pdButton" type="submit" value="Register" action="#{sessionController.registeUser}" />
+                <h:commandButton id="btnReg1" class="pdButton" type="submit" value="Save" action="#{sessionController.registeUser}" />
+                 <h:commandButton id="btnReg2" class="pdButton" type="submit" value="Edit" action="#{sessionController.registeUser}" />
+                <h:commandButton id="btnReg3" class="pdButton" type="submit" value="Delete" action="#{sessionController.registeUser}" />
+               
+                
+                
                 <p:messages globalOnly="true"  ></p:messages>
             </p:panel>
         </h:form>

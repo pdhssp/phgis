@@ -21,12 +21,7 @@
                         <p:panel header="Forms to Enter Date" >
                             <h:form>    
                                 
-                                <h1>
-                                    #{sessionController}<br/>
-                                    #{sessionController.loggedUser.staff.area.name}<br/>
-                                    #{sessionController.loggedUser.area.name}<br/>
-                                    #{sessionController.area.name}
-                                </h1>
+                               
 
                                 <p:dataTable value="#{formDataentryController.formsToFill}" var="ftf" >
                                     <p:column headerText="Form No." >

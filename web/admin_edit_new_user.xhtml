@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition template="./resources/template/template.xhtml">
+            <ui:define name="content">
+
+
+                <h:panelGroup  >
+
+                    <h:form>
+
+                        <p:panel >
+                            <p:panel header="Edit user" >
+                                <h:panelGrid columns="2" >
+                                    <h:outputText value="Name" ></h:outputText>
+                                    <p:inputText required="true" value="#{webUserController.current.webUserPerson.name}" requiredMessage="Please enter valide name" ></p:inputText>
+                                    <h:outputText value="Address" ></h:outputText>
+                                    <p:inputText required="true" value="#{webUserController.current.webUserPerson.address}" requiredMessage="Please enter valide address"></p:inputText>
+                                    <h:outputText value="Mobile" ></h:outputText>
+                                    <p:inputMask required="true"  mask="999-9999999"  value="#{webUserController.current.webUserPerson.mobile}" requiredMessage="Please enter valide mobile"></p:inputMask>
+                                    <h:outputText value="User Name"   ></h:outputText>
+                                    <p:inputText required="true" maxlength="50" value="#{webUserController.current.name }" requiredMessage="Please enter valide user name"></p:inputText>
+                                    <h:outputText value="Password" ></h:outputText>
+                                    <p:password feedback="true" required="true" maxlength="15" value="#{webUserController.current.webUserPassword}" requiredMessage="Please enter valide password"/>
+
+                                    <h:outputText value="Role" ></h:outputText>
+                                    <p:selectOneMenu  required="true" value="#{webUserController.staffRole}" id="sr"  >
+                                        <f:selectItem itemLabel="Please select a Role"  noSelectionOption="false" />
+                                        <f:selectItem itemLabel="Mid wife" itemValue="Phm" />
+                                        <f:selectItem itemLabel="Public Health Inspector " itemValue="Phi" />
+                                        <f:selectItem itemLabel="Medical Officer of Health" itemValue="Moh" />
+                                        <f:selectItem itemLabel="Reginal Director of Health Services " itemValue="Rdhs" />
+                                        <f:selectItem itemLabel="Provincial Director of Health Services" itemValue="Pdhs" />
+                                        <f:selectItem itemLabel="Family Health Bureau" itemValue="Fhb" />
+                                        <f:selectItem itemLabel="Edpid Unit" itemValue="Eu" />
+                                        <f:ajax event="change" execute="sr" render="area" />
+                                    </p:selectOneMenu>
+
+                                    
+
+                                    <h:outputText value="Area" ></h:outputText>
+                                    <p:selectOneMenu converter="areaCon" id="area" required="true"   value="#{webUserController.area}" >
+                                        <f:selectItem itemLabel="Please select a Area"/>
+                                        <f:selectItems value="#{webUserController.areas}" var="d" itemLabel="#{d.name}" itemValue="#{d}" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Code" ></h:outputLabel>
+                                    <p:inputText required="true" value="#{webUserController.current.code}" maxlength="10" ></p:inputText>
+
+
+                                    <p:commandButton value="Edit User" action="#{webUserController.saveNewUser()}" ajax="false" ></p:commandButton>
+                                </h:panelGrid>
+
+                            </p:panel>
+                        </p:panel>
+
+                    </h:form>
+                </h:panelGroup>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

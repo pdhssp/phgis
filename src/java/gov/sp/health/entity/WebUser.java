@@ -11,11 +11,6 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-/**
- *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
- */
 @Entity
 public class WebUser implements Serializable {
 

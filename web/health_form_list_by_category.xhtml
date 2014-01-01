@@ -21,13 +21,11 @@
                         <p:commandButton ajax="false" value="Print" styleClass="noPrintButton" >
                             <p:printer target="panIx" />
                         </p:commandButton>
-                        <p:commandButton id="excel"  ajax="false" value="Excel" >
-                            <p:dataExporter target="tbl" type="xls" fileName="List of Investigations of #{healthFormController.category}"  />
-                        </p:commandButton>
+                         <h:outputLabel value="Select category"></h:outputLabel>
                         <p:selectOneMenu id="cmbCat" value="#{healthFormController.category}" >
-                            <f:selectItem itemLabel="List all" />
+                            <f:selectItem itemLabel="List all ..................." />
                             <f:selectItems value="#{healthFormCategoryController.items}" var="c" itemLabel="#{c.name}" itemValue="#{c}" />
-                            <f:ajax event="change" execute="cmbCat" render="tbl excel" />
+                           
                         </p:selectOneMenu>
                     </f:facet>
                     <div id="printHeader" style="text-align: center; font-family: serif;">

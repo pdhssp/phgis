@@ -18,5 +18,6 @@ public enum HealthFormItemValueType {
     Line,
     Rectangle,
     Circle,
-    
+    Family,
+    Person,
 }

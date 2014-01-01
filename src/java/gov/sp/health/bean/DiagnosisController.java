@@ -1,11 +1,4 @@
-/*
- * MSc(Biomedical Informatics) Project
- *
- * Development and Implementation of a Web-based Combined Data Repository of
- Genealogical, Clinical, Laboratory and Genetic Data
- * and
- * a Set of Related Tools
- */
+
 package gov.sp.health.bean;
 
 import gov.sp.health.data.HealthFormItemType;
@@ -360,8 +353,9 @@ public class DiagnosisController implements Serializable {
                 Diagnosis o = (Diagnosis) object;
                 return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type "
+                System.out.println("object " + object + " is of type "
                         + object.getClass().getName() + "; expected type: " + DiagnosisController.class.getName());
+            return null;
             }
         }
     }

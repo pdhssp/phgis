@@ -11,11 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-/**
- *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
- */
+
 @Entity
 public class WebUserRole implements Serializable {
     private static final long serialVersionUID = 1L;

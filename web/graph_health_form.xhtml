@@ -11,6 +11,9 @@
         <ui:composition template="./resources/template/template.xhtml">
 
             <ui:define name="content">
+                <h:outputStylesheet library="css" name="maincss.css" />
+                <h:outputStylesheet library="css" name="css1.css" />
+
                 <h:panelGroup >
                     <h:form  >
                         <h:panelGrid id="gpc" columns="2"  >
@@ -23,15 +26,17 @@
                             <p:selectOneMenu id="cmbHfi" value="#{graphController.healthFormItem}"  >
                                 <f:selectItems value="#{graphController.healthForm.reportItems}" var="hfi" itemLabel="#{hfi.name}" itemValue="#{hfi}" />
                             </p:selectOneMenu>
-                            
+
                             <p:outputLabel> From </p:outputLabel>                             
                             <p:calendar id="cf" value="#{graphController.from}"></p:calendar>
                             <p:outputLabel> To </p:outputLabel>  
                             <p:calendar id="ct" value="#{graphController.to}"></p:calendar>
                         </h:panelGrid>
-                        <p:commandButton value="Draw" action="#{graphController.createChartBean()}" ></p:commandButton>
-                        <p:lineChart rendered="#{graphController.linearModel ne null}" id="linear" value="#{graphController.linearModel}" legendPosition="e"  
-                                     title="Linear Chart" minY="0" maxY="10" style="height:300px"/>  
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw" action="#{graphController.createChartBean()}" ></p:commandButton>
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Print" onclick="window.print();" >
+                        </p:commandButton>
+                        <p:lineChart  rendered="#{graphController.linearModel ne null}"  id="linear" value="#{graphController.linearModel}" legendPosition="e"  
+                                      title="Linear Chart"  style="height:500px"/>  
                     </h:form>
                 </h:panelGroup >  
 

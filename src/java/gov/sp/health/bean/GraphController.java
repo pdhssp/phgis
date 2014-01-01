@@ -71,17 +71,22 @@ public class GraphController implements Serializable {
     }
 
     private void createLinearModel() {
+        System.out.println("creating line modeal");
         linearModel = new CartesianChartModel();
         List<FilledHealthFormItemValue> ffivs;
         Map m = new HashMap();
         String jpql;
         jpql = "select v from FilledHealthFormItemValue v where v.filledHealthFormReport.fromDate between :fd and :td and v.healthFormItem =:hfi ";
-        jpql = "select v from FilledHealthFormItemValue v ";
+//        jpql = "select v from FilledHealthFormItemValue v ";
+        System.out.println("jpql is " + jpql);
         m.put("fd", from);
         m.put("td", to);
         m.put("hfi", healthFormItem);
-//        ffivs = getFhfivFacade().findBySQL(jpql, m);
-        ffivs = getFhfivFacade().findBySQL(jpql);
+        System.out.println("m = " + m);
+        
+        ffivs = getFhfivFacade().findBySQL(jpql, m);
+//        ffivs = getFhfivFacade().findBySQL(jpql);
+        System.out.println("ffivs = " + ffivs);
         LineChartSeries series1 = new LineChartSeries();
         series1.setLabel(healthFormItem.getName());
         int i = 0;

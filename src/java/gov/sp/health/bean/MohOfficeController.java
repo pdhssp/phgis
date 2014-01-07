@@ -126,7 +126,7 @@ public  class MohOfficeController implements Serializable {
 
     public List<Institution> getItems() {
        // items = getFacade().findAll("name", true);
-        String sql="SELECT i FROM Institution i where i.retired=false and i.institutionType = com.divudi.data.InstitutionType.Importer order by i.name";
+        String sql="SELECT i FROM Institution i where i.retired=false and i.institutionType = gov.sp.health.data.InstitutionType.Importer order by i.name";
         items=getEjbFacade().findBySQL(sql);
         if(items==null){
             items=new ArrayList<Institution>();

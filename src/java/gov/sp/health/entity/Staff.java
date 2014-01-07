@@ -138,7 +138,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.Staff[ id=" + id + " ]";
+        return "gov.sp.health.entity.Staff[ id=" + id + " ]";
     }
 
     public Person getPerson() {

@@ -181,7 +181,7 @@ public class Family implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.Family[ id=" + id + " ]";
+        return "gov.sp.health.entity.Family[ id=" + id + " ]";
     }
 
     public String getfName() {

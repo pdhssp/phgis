@@ -200,7 +200,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.Item[ id=" + id + " ]";
+        return "gov.sp.health.entity.Item[ id=" + id + " ]";
     }
 
     public WebUser getCreater() {

@@ -84,7 +84,7 @@ public class GisCoordinate implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.GisCoordinate[ id=" + id + " ]";
+        return "gov.sp.health.entity.GisCoordinate[ id=" + id + " ]";
     }
     
 }

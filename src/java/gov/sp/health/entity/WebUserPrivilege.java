@@ -168,6 +168,6 @@ public class WebUserPrivilege implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.data.WebUserPrivilege[ id=" + id + " ]";
+        return "gov.sp.health.data.WebUserPrivilege[ id=" + id + " ]";
     }
 }

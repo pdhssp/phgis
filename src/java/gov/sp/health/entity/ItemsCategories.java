@@ -74,7 +74,7 @@ public class ItemsCategories implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.ItemsCategories[ id=" + id + " ]";
+        return "gov.sp.health.entity.ItemsCategories[ id=" + id + " ]";
     }
 
     public Item getItem() {

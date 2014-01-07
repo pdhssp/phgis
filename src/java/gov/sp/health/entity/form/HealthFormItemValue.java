@@ -75,7 +75,7 @@ public class HealthFormItemValue implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.InvestigationItemValue[ id=" + id + " ]";
+        return "gov.sp.health.entity.InvestigationItemValue[ id=" + id + " ]";
     }
 
     public WebUser getCreater() {

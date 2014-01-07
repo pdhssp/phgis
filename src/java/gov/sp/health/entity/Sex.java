@@ -75,7 +75,7 @@ public class Sex implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.Sex[ id=" + id + " ]";
+        return "gov.sp.health.entity.Sex[ id=" + id + " ]";
     }
 
     public String getName() {

@@ -100,6 +100,6 @@ public class FormCal implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.lab.IxCal[ id=" + id + " ]";
+        return "gov.sp.health.entity.lab.IxCal[ id=" + id + " ]";
     }
 }

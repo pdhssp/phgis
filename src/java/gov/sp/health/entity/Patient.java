@@ -120,7 +120,7 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.Patient[ id=" + id + " ]";
+        return "gov.sp.health.entity.Patient[ id=" + id + " ]";
     }
 
     public Person getPerson() {

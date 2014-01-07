@@ -103,7 +103,7 @@ public class Area implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.Area[ id=" + id + " ]";
+        return "gov.sp.health.entity.Area[ id=" + id + " ]";
     }
 
     public String getName() {

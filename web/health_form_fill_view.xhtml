@@ -35,7 +35,18 @@
 
                                 <ui:repeat value="#{formDataentryController.healthForm.reportItems}" var="ivr" >
                                     <div style="#{ivr.cssStyle}; position:absolute;" >
-                                        <h:outputLabel  value="#{ivr.name}" rendered="#{ivr.healthFormItemType eq 'Label'}" />
+                                        
+                                        <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'si'}" >
+                                             <h:outputLabel  value="#{ivr.sname}" rendered="#{ivr.healthFormItemType eq 'Label'}" />
+                                        </h:panelGroup> 
+                                        
+                                        <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'ta'}" >
+                                            <h:outputLabel  value="#{ivr.tname}" rendered="#{ivr.healthFormItemType eq 'Label'}" />
+                                        </h:panelGroup> 
+                                        
+                                        <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'en'}">
+                                            <h:outputLabel  value="#{ivr.name}" rendered="#{ivr.healthFormItemType eq 'Label'}" />
+                                        </h:panelGroup> 
                                     </div>
                                 </ui:repeat>
 

@@ -164,7 +164,7 @@ public class ReportItem implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.ReportItem[ id=" + id + " ]";
+        return "gov.sp.health.entity.ReportItem[ id=" + id + " ]";
     }
 
     public String getName() {

@@ -96,7 +96,7 @@ public class PatientEncounter implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.PatientEncounter[ id=" + id + " ]";
+        return "gov.sp.health.entity.PatientEncounter[ id=" + id + " ]";
     }
 
     public WebUser getCreater() {

@@ -66,7 +66,7 @@ public class InstitutionController implements Serializable {
     
     public List<Institution> completeCompany(String qry) {
         String sql;
-        sql = "select c from Institution c where c.retired=false and c.institutionType=com.divudi.data.InstitutionType.Company and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name";
+        sql = "select c from Institution c where c.retired=false and c.institutionType=gov.sp.health.data.InstitutionType.Company and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name";
         return getFacade().findBySQL(sql);
     }
 
@@ -198,7 +198,7 @@ public class InstitutionController implements Serializable {
     }
 
      public List<Institution> getCompany() {
-        items = getFacade().findBySQL("select c from Institution c where c.retired=false and c.institutionType=com.divudi.data.InstitutionType.Company  order by c.name");
+        items = getFacade().findBySQL("select c from Institution c where c.retired=false and c.institutionType=gov.sp.health.data.InstitutionType.Company  order by c.name");
         if (items == null) {
             items = new ArrayList<Institution>();
         }
@@ -207,7 +207,7 @@ public class InstitutionController implements Serializable {
     }
     
     public List<Institution> getBanks() {
-        items = getFacade().findBySQL("select c from Institution c where c.retired=false and c.institutionType=com.divudi.data.InstitutionType.Bank  order by c.name");
+        items = getFacade().findBySQL("select c from Institution c where c.retired=false and c.institutionType=gov.sp.health.data.InstitutionType.Bank  order by c.name");
         if (items == null) {
             items = new ArrayList<Institution>();
         }

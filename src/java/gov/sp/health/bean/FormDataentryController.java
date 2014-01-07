@@ -71,125 +71,145 @@ public class FormDataentryController implements Serializable {
     List<FilledHealthForm> submittedForms;
 
     public List<HealthForm> getFormsToFill() {
-        String sql;
-        formsToFill = new ArrayList<HealthForm>();
+        try {
+            String sql;
+            formsToFill = new ArrayList<HealthForm>();
 
 
 //        healthForm.getStaffRole()
-        FilledHealthForm ff = new FilledHealthForm();
-        ff.getQuarterVal();
+            FilledHealthForm ff = new FilledHealthForm();
+            ff.getQuarterVal();
 
 
-        sql = "select f from HealthForm f where f.retired=false and f.staffRole=:r";
-        Map m = new HashMap();
-        m.put("r", sessionController.getLoggedUser().getStaff().getStaffRole());
-        List<HealthForm> fs = getHealthFormFacade().findBySQL(sql, m);
-        Calendar c = Calendar.getInstance();
+            sql = "select f from HealthForm f where f.retired=false and f.staffRole=:r";
+            Map m = new HashMap();
+            m.put("r", sessionController.getLoggedUser().getStaff().getStaffRole());
+            List<HealthForm> fs = getHealthFormFacade().findBySQL(sql, m);
+            Calendar c = Calendar.getInstance();
 
-        int yearVal = c.get(Calendar.YEAR);
-        int monthVal = c.get(Calendar.MONTH);
-        int dateVal = c.get(Calendar.DATE);
-        int quarterVal;
+            int yearVal = c.get(Calendar.YEAR);
+            int monthVal = c.get(Calendar.MONTH);
+            int dateVal = c.get(Calendar.DATE);
+            int quarterVal;
 
-        int weekVal = c.get(Calendar.WEEK_OF_MONTH);
+            int weekVal = c.get(Calendar.WEEK_OF_MONTH);
 
 
-        if (monthVal < 3) {
-            quarterVal = 1;
-        } else if (monthVal < 6) {
-            quarterVal = 2;
-        } else if (monthVal < 9) {
-            quarterVal = 3;
-        } else {
-            quarterVal = 4;
-        }
+            if (monthVal < 3) {
+                quarterVal = 1;
+            } else if (monthVal < 6) {
+                quarterVal = 2;
+            } else if (monthVal < 9) {
+                quarterVal = 3;
+            } else {
+                quarterVal = 4;
+            }
 
-        this.yearVal = yearVal;
-        this.monthVal = monthVal;
-        this.fromDate = c.getTime();
-        this.toDate = c.getTime();
-        this.quarterVal = quarterVal;
-        this.dateVal = dateVal;
+            this.yearVal = yearVal;
+            this.monthVal = monthVal;
+            this.fromDate = c.getTime();
+            this.toDate = c.getTime();
+            this.quarterVal = quarterVal;
+            this.dateVal = dateVal;
 
-        List<FilledHealthForm> tff;
-        for (HealthForm f : fs) {
-            m = new HashMap();
-            if (f.getDurationType() == DurationType.Annually) {
-                sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y ";
-                m.put("y", yearVal);
-                m.put("i", f);
-                m.put("a", sessionController.getLoggedUser().getStaff().getArea());
-                tff = getFilledHealthFormFacade().findBySQL(sql, m);
-                if (tff.isEmpty()) {
-                    formsToFill.add(f);
-                }
-            } else if (f.getDurationType() == DurationType.Daily) {
-                sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.monthVal=:m and ff.dateVal=:d ";
-                m.put("y", yearVal);
-                m.put("m", monthVal);
-                m.put("d", dateVal);
-                m.put("i", f);//********************************************
-                m.put("a", sessionController.getLoggedUser().getStaff().getArea());
-                tff = getFilledHealthFormFacade().findBySQL(sql, m);
-                if (tff.isEmpty()) {
-                    formsToFill.add(f);
-                }
-            } else if (f.getDurationType() == DurationType.Monthly) {
-                sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.monthVal=:m ";
-                m.put("y", yearVal);
-                m.put("m", monthVal);
-                m.put("i", f);
-                m.put("a", sessionController.getLoggedUser().getStaff().getArea());
-                tff = getFilledHealthFormFacade().findBySQL(sql, m);
-                if (tff.isEmpty()) {
-                    formsToFill.add(f);
-                }
-            } else if (f.getDurationType() == DurationType.Weekly) {
-                sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.weekVal=:w ";
-                m.put("y", yearVal);
+            List<FilledHealthForm> tff;
+            for (HealthForm f : fs) {
+                m = new HashMap();
+                if (f.getDurationType() == DurationType.Annually) {
+                    sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y ";
+                    m.put("y", yearVal);
+                    m.put("i", f);
+                    m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+                    tff = getFilledHealthFormFacade().findBySQL(sql, m);
+                    if (tff.isEmpty()) {
+                        formsToFill.add(f);
+                    }
+                } else if (f.getDurationType() == DurationType.Daily) {
+                    sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.monthVal=:m and ff.dateVal=:d ";
+                    m.put("y", yearVal);
+                    m.put("m", monthVal);
+                    m.put("d", dateVal);
+                    m.put("i", f);//********************************************
+                    m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+                    tff = getFilledHealthFormFacade().findBySQL(sql, m);
+                    if (tff.isEmpty()) {
+                        formsToFill.add(f);
+                    }
+                } else if (f.getDurationType() == DurationType.Monthly) {
+                    sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.monthVal=:m ";
+                    m.put("y", yearVal);
+                    m.put("m", monthVal);
+                    m.put("i", f);
+                    m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+                    tff = getFilledHealthFormFacade().findBySQL(sql, m);
+                    if (tff.isEmpty()) {
+                        formsToFill.add(f);
+                    }
+                } else if (f.getDurationType() == DurationType.Weekly) {
+                    sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.weekVal=:w ";
+                    m.put("y", yearVal);
 //                m.put("m", monthVal);
 //                m.put("d", dateVal);
-                m.put("w", weekVal);
-                m.put("i", f);
-                m.put("a", sessionController.getLoggedUser().getStaff().getArea());
-                tff = getFilledHealthFormFacade().findBySQL(sql, m);
-                if (tff.isEmpty()) {
-                    formsToFill.add(f);
-                }
-            } else if (f.getDurationType() == DurationType.Quarterly) {
-                sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and  ff.quarterVal=:q  ";
-                m.put("y", yearVal);
-                m.put("q", quarterVal);
+                    m.put("w", weekVal);
+                    m.put("i", f);
+                    m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+                    tff = getFilledHealthFormFacade().findBySQL(sql, m);
+                    if (tff.isEmpty()) {
+                        formsToFill.add(f);
+                    }
+                } else if (f.getDurationType() == DurationType.Quarterly) {
+                    sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and  ff.quarterVal=:q  ";
+                    m.put("y", yearVal);
+                    m.put("q", quarterVal);
 
-                m.put("i", f);
-                m.put("a", sessionController.getLoggedUser().getStaff().getArea());
-                tff = getFilledHealthFormFacade().findBySQL(sql, m);
-                if (tff.isEmpty()) {
-                    formsToFill.add(f);
+                    m.put("i", f);
+                    m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+                    tff = getFilledHealthFormFacade().findBySQL(sql, m);
+                    if (tff.isEmpty()) {
+                        formsToFill.add(f);
+                    }
                 }
             }
+        } catch (Exception ee) {
+            System.out.println(ee.getMessage());
+            formsToFill = null;
         }
+
+
 
         return formsToFill;
     }
 
     public List<FilledHealthForm> getFilledForms() {
-        String sql;
-        filledForms = new ArrayList<FilledHealthForm>();
-        Map m = new HashMap();
-        sql = "select ff from FilledHealthForm ff where ff.approved=false and ff.area=:a and ff.retired=false ";
-        m.put("a", sessionController.getLoggedUser().getStaff().getArea());
-        filledForms = getFilledHealthFormFacade().findBySQL(sql, m, 10);
+        try {
+            String sql;
+            filledForms = new ArrayList<FilledHealthForm>();
+            Map m = new HashMap();
+            sql = "select ff from FilledHealthForm ff where ff.approved=false and ff.area=:a and ff.retired=false ";
+            m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+            filledForms = getFilledHealthFormFacade().findBySQL(sql, m, 10);
+
+        } catch (Exception ee) {
+            System.out.println(ee.getMessage());
+            filledForms = null;
+        }
+
         return filledForms;
     }
 
     public List<FilledHealthForm> getSubmittedForms() {
-        String sql;
-        submittedForms = new ArrayList<FilledHealthForm>();
-        Map m = new HashMap();
-        sql = "select ff from FilledHealthForm ff where ff.approved=true and ff.area=:a and ff.retired=false ";
-        m.put("a", sessionController.getLoggedUser().getStaff().getArea());
-        submittedForms = getFilledHealthFormFacade().findBySQL(sql, m, 10);
+        try {
+            String sql;
+            submittedForms = new ArrayList<FilledHealthForm>();
+            Map m = new HashMap();
+            sql = "select ff from FilledHealthForm ff where ff.approved=true and ff.area=:a and ff.retired=false ";
+            m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+            submittedForms = getFilledHealthFormFacade().findBySQL(sql, m, 10);
+        } catch (Exception ee) {
+            System.out.println(ee.getMessage());
+            submittedForms = null;
+
+        }
         return submittedForms;
     }
 
@@ -338,21 +358,44 @@ public class FormDataentryController implements Serializable {
     }
 
     public String startPhmDataEntry() {
-        if (healthForm == null) {
+        if (healthForm == null || sessionController == null || sessionController.getLoggedUser() == null || sessionController.getLoggedUser().getStaff() == null) {
             UtilityController.addErrorMessage("Please select a form");
             return "";
         }
         Map m = new HashMap();
         m.put("a", sessionController.getLoggedUser().getStaff().getArea());
-
-
         String jpql;
-
-
         switch (healthForm.getDurationType()) {
             case Annually:
                 System.out.println("anual report");
                 jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal();
+                System.out.println("jpql = " + jpql);
+                filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
+                System.out.println("filled health form is " + filledHealthForm);
+                if (filledHealthForm == null) {
+                    System.out.println("filled health form is null");
+                    filledHealthForm = new FilledHealthForm();
+                    filledHealthForm.setItem(healthForm);
+                    //Date temFrdomDate = Calendar.getInstance().getTime();
+                    Calendar c = Calendar.getInstance();
+                    c.set(Calendar.YEAR, yearVal);
+                    c.set(Calendar.MONTH, 1);
+                    c.set(Calendar.DATE, 1);
+                    filledHealthForm.setFromDate(c.getTime());
+                    c = Calendar.getInstance();
+                    c.set(Calendar.YEAR, yearVal);
+                    c.set(Calendar.MONTH, 12);
+                    c.set(Calendar.DATE, 31);
+                    filledHealthForm.setToDate(c.getTime());
+                    filledHealthForm.setYearVal(yearVal);
+                    createFillefFormFromHealthForm(filledHealthForm);
+                    System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
+                }
+                break;
+
+            case Daily:
+                System.out.println("anual report");
+                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + " and f.dateVal=" + getDateVal() + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
                 if (filledHealthForm == null) {
@@ -360,31 +403,59 @@ public class FormDataentryController implements Serializable {
                     filledHealthForm = new FilledHealthForm();
                     filledHealthForm.setItem(healthForm);
                     Date temFrdomDate = Calendar.getInstance().getTime();
-                    Calendar c = Calendar.getInstance() ;
+                    Calendar c = Calendar.getInstance();
                     c.set(Calendar.YEAR, yearVal);
-                    c.add(Calendar.MONTH ,1);
-                    c.set(Calendar.DATE,1);
+                    c.add(Calendar.MONTH, monthVal);
+                    c.set(Calendar.DATE, dateVal);
                     filledHealthForm.setFromDate(c.getTime());
-                    c = Calendar.getInstance() ;
+                    c = Calendar.getInstance();
                     c.set(Calendar.YEAR, yearVal);
-                    c.add(Calendar.MONTH ,12);
-                    c.set(Calendar.DATE,31);
+                    c.add(Calendar.MONTH, 1);
+                    c.set(Calendar.DATE, 1);
                     filledHealthForm.setToDate(c.getTime());
-                    
+
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
                 }
 
-            case Daily:
+                break;
 
             case Monthly:
-
+                System.out.println("Monthly report");
+                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + "";
+                filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
+                System.out.println("filled health form is " + filledHealthForm);
+                if (filledHealthForm == null) {
+                    System.out.println("filled health form is null");
+                    filledHealthForm = new FilledHealthForm();
+                    filledHealthForm.setItem(healthForm);
+                    Date temFrdomDate = Calendar.getInstance().getTime();
+                    Calendar c = Calendar.getInstance();
+                    c.set(Calendar.YEAR, yearVal);//this year
+                    c.add(Calendar.MONTH, monthVal);//this month
+                    c.set(Calendar.DATE, 1);
+                    filledHealthForm.setFromDate(c.getTime());  // set the from date of the form like this year this month
+                    c = Calendar.getInstance();
+                    c.set(Calendar.YEAR, yearVal);
+                    c.set(Calendar.MONTH, monthVal);
+                    c.add(Calendar.MONTH, 1);
+                    c.set(Calendar.DATE, 1);
+                    c.add(Calendar.DATE, -1);  // -1 for get the end of the month
+                    filledHealthForm.setToDate(c.getTime()); // set the to date of the form
+                    filledHealthForm.setYearVal(yearVal);
+                    filledHealthForm.setMonthVal(monthVal);
+                    createFillefFormFromHealthForm(filledHealthForm);
+                    System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
+                }
+                break;
             case Weekly:
+                break;
 
             case Variable:
+                break;
 
             case Quarterly:
-
+                break;
         }
         return "health_form_fill";
     }

@@ -1,4 +1,3 @@
-
 package gov.sp.health.bean;
 
 import gov.sp.health.data.HealthFormItemType;
@@ -52,9 +51,6 @@ public class DiagnosisController implements Serializable {
     boolean billedAs;
     boolean reportedAs;
     List<Diagnosis> catIxs;
-   
-   
-  
 
     public List<Diagnosis> getStaffRoleForms(StaffRole sr) {
         Map m = new HashMap();
@@ -62,8 +58,6 @@ public class DiagnosisController implements Serializable {
         m.put("sr", sr);
         return getEjbFacade().findBySQL(jpql, m);
     }
-
-    
     @EJB
     ItemFacade itemFacade;
 
@@ -75,7 +69,6 @@ public class DiagnosisController implements Serializable {
         this.itemFacade = itemFacade;
     }
 
-    
     public void setCatIxs(List<Diagnosis> catIxs) {
         this.catIxs = catIxs;
     }
@@ -295,9 +288,6 @@ public class DiagnosisController implements Serializable {
         getCurrent();
     }
 
-   
-    
-
     public List<Diagnosis> getItems() {
         items = getEjbFacade().findAll("name", true);
         return items;
@@ -311,12 +301,10 @@ public class DiagnosisController implements Serializable {
         this.specialityFacade = specialityFacade;
     }
 
-   
-
     /**
      *
      */
-    @FacesConverter("hfcon")
+    @FacesConverter("dxcon")
     public static class DiagnosisConverter implements Converter {
 
         public DiagnosisConverter() {
@@ -334,7 +322,11 @@ public class DiagnosisController implements Serializable {
 
         java.lang.Long getKey(String value) {
             java.lang.Long key;
-            key = Long.valueOf(value);
+            try {
+                key = Long.valueOf(value);
+            } catch (Exception e) {
+                key = 0l;
+            }
             return key;
         }
 
@@ -355,12 +347,11 @@ public class DiagnosisController implements Serializable {
             } else {
                 System.out.println("object " + object + " is of type "
                         + object.getClass().getName() + "; expected type: " + DiagnosisController.class.getName());
-            return null;
+                return null;
             }
         }
     }
-    
-    
+
     @FacesConverter(forClass = Diagnosis.class)
     public static class DiagnosisControllerConverter implements Converter {
 
@@ -403,5 +394,4 @@ public class DiagnosisController implements Serializable {
             }
         }
     }
-    
 }

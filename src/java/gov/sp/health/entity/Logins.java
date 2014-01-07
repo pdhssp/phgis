@@ -143,6 +143,6 @@ public class Logins implements Serializable {
 
     @Override
     public String toString() {
-        return "com.divudi.entity.Logins[ id=" + id + " ]";
+        return "gov.sp.health.entity.Logins[ id=" + id + " ]";
     }
 }

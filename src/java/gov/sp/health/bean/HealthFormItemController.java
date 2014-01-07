@@ -76,7 +76,7 @@ public  class HealthFormItemController implements Serializable {
             return new ArrayList<HealthFormItem>();
         } else {
             String sql;
-            sql = "select i from HealthFormItem i where i.retired=false and i.healthFormItemType = com.divudi.data.InvestigationItemType.Value and upper(i.name) like '%" + qry.toUpperCase() + "%' and i.item.id = " + currentInvestigation.getId();
+            sql = "select i from HealthFormItem i where i.retired=false and i.healthFormItemType = gov.sp.health.data.InvestigationItemType.Value and upper(i.name) like '%" + qry.toUpperCase() + "%' and i.item.id = " + currentInvestigation.getId();
             iivs = getEjbFacade().findBySQL(sql);
         }
         if (iivs == null) {
@@ -91,7 +91,7 @@ public  class HealthFormItemController implements Serializable {
             return new ArrayList<HealthFormItem>();
         } else {
             String sql;
-            sql = "select i from HealthFormItem i where i.retired=false and i.healthFormItemType = com.divudi.data.InvestigationItemType.Value and i.item.id = " + currentInvestigation.getId();
+            sql = "select i from HealthFormItem i where i.retired=false and i.healthFormItemType = gov.sp.health.data.InvestigationItemType.Value and i.item.id = " + currentInvestigation.getId();
             iivs = getEjbFacade().findBySQL(sql);
         }
         if (iivs == null) {

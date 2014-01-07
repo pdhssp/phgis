@@ -4,19 +4,22 @@
  */
 package gov.sp.health.bean;
 
+import gov.sp.health.facade.WebUserFacade;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-import javax.inject.Named; import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.inject.Inject;
 
 /**
  *
- * 
+ *
  */
 @Named
 @SessionScoped
@@ -30,6 +33,66 @@ public class LanguageController implements Serializable {
     private static final long serialVersionUID = 1L;
     private String localeCode;
     private static Map<String, Object> countries;
+    String strLocale;
+    @EJB
+    WebUserFacade webUserFacade;
+    @Inject
+    SessionController sessionController;
+
+    public SessionController getSessionController() {
+        return sessionController;
+    }
+
+    public void setSessionController(SessionController sessionController) {
+        this.sessionController = sessionController;
+    }
+
+    public WebUserFacade getWebUserFacade() {
+        return webUserFacade;
+    }
+
+    public void setWebUserFacade(WebUserFacade webUserFacade) {
+        this.webUserFacade = webUserFacade;
+    }
+
+    public static Map<String, Object> getCountries() {
+        return countries;
+    }
+
+    public static void setCountries(Map<String, Object> countries) {
+        LanguageController.countries = countries;
+    }
+
+    public String getStrLocale() {
+        if (strLocale == null) {
+            strLocale = "si";
+        }
+        return strLocale;
+    }
+
+    public void setStrLocale(String strLocale) {
+        this.strLocale = strLocale;
+    }
+
+    public void makeSiDefault() {
+        strLocale = "si";
+        if (getSessionController()!=null && getSessionController().getLoggedUser() != null) {
+            getSessionController().getLoggedUser().setDefLocale("si");
+            getWebUserFacade().edit(getSessionController().getLoggedUser());
+        }
+    }
+
+    public void makeTaDefault() {
+        strLocale = "ta";
+        getSessionController().getLoggedUser().setDefLocale("ta");
+        getWebUserFacade().edit(getSessionController().getLoggedUser());
+    }
+
+    public void makeEnDefault() {
+        strLocale = "en";
+        getSessionController().getLoggedUser().setDefLocale("en");
+        getWebUserFacade().edit(getSessionController().getLoggedUser());
+    }
 
     static {
         Locale sinhalaLocale = new Locale("si", "LK");

@@ -51,8 +51,17 @@
 
                         <h:panelGrid  columns="2">
                             <h:outputText value="Name"   />
-                            <h:inputText id="lblIiName" value="#{healthFormItemController.current.name}" >
-                                <f:ajax event="keyup" execute="lblIiName" render=":#{p:component('pPreview')}"/>
+                            <h:inputText id="lblName" value="#{healthFormItemController.current.name}" >
+                                <f:ajax event="keyup" execute="lblName" render=":#{p:component('pPreview')}"/>
+                            </h:inputText>
+                            <h:outputText value="Name in Sinhala"   />
+                            <h:inputText id="lblSiName" value="#{healthFormItemController.current.sname}" >
+                                <f:ajax event="keyup" execute="lblSiName" render=":#{p:component('pPreview')}"/>
+                            </h:inputText>
+
+                            <h:outputText value="Name in Tamil"   />
+                            <h:inputText id="lblTaName" value="#{healthFormItemController.current.tname}" >
+                                <f:ajax event="keyup" execute="lblTaName" render=":#{p:component('pPreview')}"/>
                             </h:inputText>
 
 
@@ -182,10 +191,10 @@
                             <h:outputText value="Back Color"/>
                             <p:inputText id="txtBackColor" value="#{healthFormItemController.current.cssBackColor}"/>
 
-                             <h:outputText value="Format String"/>
-                             <p:inputText id="txtFormat" value="#{healthFormItemController.current.formatString}"/>
+                            <h:outputText value="Format String"/>
+                            <p:inputText id="txtFormat" value="#{healthFormItemController.current.formatString}"/>
 
-                            
+
                             <h:outputText value="Perfix"/>
                             <p:inputText id="txtPrefix" value="#{healthFormItemController.current.formatPrefix}"/>
 

@@ -44,8 +44,8 @@ public class ReportItem implements Serializable {
     Long id;
     //Main Properties
     String name;
-    String tName;
-    String sName;
+    String tname;
+    String sname;
     String description;
     int orderNo;
     //Created Properties
@@ -112,6 +112,7 @@ public class ReportItem implements Serializable {
         this.pageNo = pageNo;
     }
 
+    
     
     
     
@@ -463,22 +464,24 @@ public class ReportItem implements Serializable {
         this.formatString = formatString;
     }
 
-    public String gettName() {
-        return tName;
+    public String getTname() {
+        return tname;
     }
 
-    public void settName(String tName) {
-        this.tName = tName;
+    public void setTname(String tname) {
+        this.tname = tname;
     }
 
-    public String getsName() {
-        return sName;
+    public String getSname() {
+        return sname;
     }
 
-    public void setsName(String sName) {
-        this.sName = sName;
+    public void setSname(String sname) {
+        this.sname = sname;
     }
 
+    
+    
     public String getCssStyle() {
         cssStyle = "top:" + cssTop + "%; left:" + cssLeft
                 + "%; width:" + cssWidth + "; height:"

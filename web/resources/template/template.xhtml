@@ -10,13 +10,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <script src="http://maps.google.com/maps/api/js?sensor=true"
         type="text/javascript"></script>
+        
         <title>#{labels.topic}</title>
         <h:outputStylesheet library="css" name="maincss.css" />
         <h:outputStylesheet library="css" name="css1.css" />
     </h:head>
     <h:body style="border:0px; min-height: 100%; " >
         
-    
+        <f:view locale="#{languageController.strLocale}" >
         
         <p:panel style="margin: 0px; padding: 0px; border: 0px; min-height: 100%!important;" >
 
@@ -41,7 +42,7 @@
                             <p:menuitem ajax="false" action="index" value="#{labels.topic}"  ></p:menuitem>
                             <p:menuitem ajax="false" action="index" value="||"  ></p:menuitem>
                             <p:submenu label="Forms"  >
-                                <p:menuitem  ajax="false"  action="fill_new_form" value="Fill New Form"  ></p:menuitem>
+                                <p:menuitem  ajax="false"  action="fill_new_form" value="#{labels.home}"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="lab_bill_collecting_centre" value="Consolidate Forms"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="approve_filled_forms" value="Approve Filled Forms"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="recently_submitted_forms.xhtml" value="Forward Forms"  ></p:menuitem>
@@ -88,16 +89,7 @@
 
                       
 
-
-                        <p:dashboard model="#{bean.model}">
-                            <p:panel id="sports">
-                                //Sports Content
-                            </p:panel>
-                            <p:panel id="finance">
-                                //Finance Content
-                            </p:panel>
-                            //more panels like lifestyle, weather, politics...
-                        </p:dashboard>
+                  
                     </h:panelGroup>
 
                 </h:form>
@@ -126,9 +118,9 @@
                                     <h:form id="formLogin">
                                         <h:panelGrid columns="2">
                                             <h:outputLabel value="Username"  style="text-align: left; margin: 5px; padding: 5px;"  ></h:outputLabel>
-                                            <p:inputText autocomplete="off"  value="#{sessionController.userName}"  style="text-align: left; margin: 5px; padding: 5px;" ></p:inputText>
+                                            <p:inputText autocomplete="off"  value="#{sessionController.userName}" required="true" requiredMessage="Please enter a username" style="text-align: left; margin: 5px; padding: 5px; " ></p:inputText>
                                             <h:outputLabel value="Password"  style="text-align: left; margin: 5px; padding: 5px;" ></h:outputLabel>
-                                            <p:password value="#{sessionController.passord }"  style="text-align: left; margin: 5px; padding: 5px;" ></p:password>
+                                            <p:password value="#{sessionController.passord }" required="true" requiredMessage="Please enter a password"  style="text-align: left; margin: 5px; padding: 5px;" ></p:password>
                                             <h:outputLabel value=""  style="text-align: left; margin: 5px; padding: 5px;" ></h:outputLabel>
                                             <p:commandButton value="Login" action="#{sessionController.loginAction()}" ajax="false" ></p:commandButton>
                                         </h:panelGrid>
@@ -148,19 +140,17 @@
                           
                            
                             <h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
+                            ||
+                            <h:commandLink value="සිංහල" action="#{languageController.makeSiDefault() }" ></h:commandLink>
+                            ||
+                            <h:commandLink value="English" action="#{languageController.makeEnDefault()}" ></h:commandLink>
+                            ||
+                            <h:commandLink value="தமிழ்" action="#{languageController.makeTaDefault() }" ></h:commandLink>
+                          
                         </h:form>
                     </h:panelGroup>
                 </p:panel>
-                <p:panel styleClass="nonPrintBlock" style="position: fixed; bottom: 10px; left: 40px; "  >
-                    <h:panelGroup rendered="#{!sessionController.logged}">
-                        <h:form>
-                                                    
-                            සිංහල ||
-                            English ||
-                            தமிழ்
-                             </h:form>
-                    </h:panelGroup>
-                </p:panel>
+               
 
             </h:panelGrid>
 
@@ -173,7 +163,7 @@
 
         </p:panel>
 
-
+</f:view>
 
     </h:body>
 </html>

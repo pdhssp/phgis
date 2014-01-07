@@ -30,7 +30,7 @@
                                     <p:password feedback="true" required="true" maxlength="15" value="#{webUserController.current.webUserPassword}" requiredMessage="Please enter valide password"/>
 
                                     <h:outputText value="Role" ></h:outputText>
-                                    <p:selectOneMenu  required="true" value="#{webUserController.staffRole}" id="sr"  >
+                                    <p:selectOneMenu  required="true" value="#{webUserController.staffRole}" id="sr"  requiredMessage="Please select a staff Role"  >
                                         <f:selectItem itemLabel="Please select a Role"  noSelectionOption="false" />
                                         <f:selectItem itemLabel="Mid wife" itemValue="Phm" />
                                         <f:selectItem itemLabel="Public Health Inspector " itemValue="Phi" />
@@ -45,13 +45,13 @@
                                     
 
                                     <h:outputText value="Area" ></h:outputText>
-                                    <p:selectOneMenu converter="areaCon" id="area" required="true"   value="#{webUserController.area}" >
-                                        <f:selectItem itemLabel="Please select a Area"/>
+                                    <p:selectOneMenu converter="areaCon" id="area" required="true"   value="#{webUserController.area}" requiredMessage="Please select an Area">
+                                        <f:selectItem itemLabel="Please select an Area"/>
                                         <f:selectItems value="#{webUserController.areas}" var="d" itemLabel="#{d.name}" itemValue="#{d}" />
                                     </p:selectOneMenu>
 
                                     <h:outputLabel value="Code" ></h:outputLabel>
-                                    <p:inputText required="true" value="#{webUserController.current.code}" maxlength="10" ></p:inputText>
+                                    <p:inputText required="true" value="#{webUserController.current.code}" maxlength="10" requiredMessage="Please enter a code" ></p:inputText>
 
 
                                     <p:commandButton value="Create User" action="#{webUserController.saveNewUser()}" ajax="false" ></p:commandButton>

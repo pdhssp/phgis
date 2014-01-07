@@ -145,10 +145,10 @@ public class FormDataentryController implements Serializable {
                     formsToFill.add(f);
                 }
             } else if (f.getDurationType() == DurationType.Weekly) {
-                sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.monthVal=:m and ff.dateVal=:d ";
+                sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.weekVal=:w ";
                 m.put("y", yearVal);
-                m.put("m", monthVal);
-                m.put("d", dateVal);
+//                m.put("m", monthVal);
+//                m.put("d", dateVal);
                 m.put("w", weekVal);
                 m.put("i", f);
                 m.put("a", sessionController.getLoggedUser().getStaff().getArea());

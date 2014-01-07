@@ -25,7 +25,9 @@
                             <p:dataTable value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
                                 <p:column >
                                     <h:panelGroup rendered="#{iv.healthFormItem.retired ne true}" >
-                                        <h:outputLabel value="#{iv.healthFormItem.name}" />
+                                        <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'en' }" value="#{iv.healthFormItem.name}" />
+                                        <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'si'}" value="#{iv.healthFormItem.name}" />
+                                        <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'ta'}" value="#{iv.healthFormItem.tName}" />
                                     </h:panelGroup>
                                 </p:column>
                                 <p:column >

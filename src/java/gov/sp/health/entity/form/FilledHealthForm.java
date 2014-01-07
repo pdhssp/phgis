@@ -115,6 +115,7 @@ public class FilledHealthForm implements Serializable {
     int monthVal;
     int dateVal;
     int quarterVal;
+    int weekVal;
     @ManyToOne
     Family family;
     @ManyToOne
@@ -498,6 +499,14 @@ public class FilledHealthForm implements Serializable {
 
     public Date getRetiredAt() {
         return retiredAt;
+    }
+
+    public int getWeekVal() {
+        return weekVal;
+    }
+
+    public void setWeekVal(int weekVal) {
+        this.weekVal = weekVal;
     }
 
     public void setRetiredAt(Date retiredAt) {

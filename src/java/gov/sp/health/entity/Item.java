@@ -5,11 +5,11 @@
  */
 package gov.sp.health.entity;
 
-
 import gov.sp.health.data.SessionNumberType;
 import gov.sp.health.entity.form.HealthFormItem;
 import gov.sp.health.entity.form.ReportItem;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -27,22 +27,18 @@ import javax.persistence.Transient;
 
 /**
  *
- * 
+ *
  */
 @Entity
 public class Item implements Serializable {
 
     @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
     List<HealthFormItem> reportItems;
-    
-    
     static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     //Main Properties
     Long id;
-
-    
     @ManyToOne
     Category category;
     @ManyToOne
@@ -53,7 +49,6 @@ public class Item implements Serializable {
     Staff staff;
     @ManyToOne
     Institution forInstitution;
- 
     @ManyToOne
     Item billedAs;
     @ManyToOne
@@ -96,8 +91,6 @@ public class Item implements Serializable {
     public void setComments(String comments) {
         this.comments = comments;
     }
-    
-    
 
     public boolean isFormatable() {
         return formatable;
@@ -106,8 +99,6 @@ public class Item implements Serializable {
     public void setFormatable(boolean formatable) {
         this.formatable = formatable;
     }
-
-    
 
     public Category getReportFormat() {
         return reportFormat;
@@ -125,13 +116,8 @@ public class Item implements Serializable {
         this.billable = billable;
     }
 
-
-
     public Item() {
-        
     }
-    
-    
 
     public SessionNumberType getSessionNumberType() {
         return sessionNumberType;
@@ -141,9 +127,10 @@ public class Item implements Serializable {
         this.sessionNumberType = sessionNumberType;
     }
 
-
-
     public List<HealthFormItem> getReportItems() {
+        if (reportItems == null) {
+            reportItems = new ArrayList<HealthFormItem>();
+        }
         return reportItems;
     }
 
@@ -328,7 +315,6 @@ public class Item implements Serializable {
         this.institution = institution;
     }
 
-
     public Speciality getSpeciality() {
         return speciality;
     }
@@ -353,8 +339,6 @@ public class Item implements Serializable {
         this.forInstitution = forInstitution;
     }
 
-
-
     public boolean isUserChangable() {
         return userChangable;
     }
@@ -363,7 +347,6 @@ public class Item implements Serializable {
         this.userChangable = userChangable;
     }
 
-
     public Double getDblValue() {
         return dblValue;
     }
@@ -371,6 +354,4 @@ public class Item implements Serializable {
     public void setDblValue(Double dblValue) {
         this.dblValue = dblValue;
     }
-    
-
 }

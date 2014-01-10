@@ -76,7 +76,9 @@
                                         <h:outputLabel value="#{fhf.item.name}" />
                                     </p:column>
                                     <p:column headerText="Time Period" >
-                                        to do cording to find time period
+                                        <h:outputLabel value="#{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
+                                        <h:outputLabel value=" | #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
+                                        <h:outputLabel value=" | #{fhf.dateVal}"  rendered="#{fhf.dateVal>0}"/>
                                     </p:column>
                                     <p:column headerText="View/Edit" >
                                         <p:commandButton value="View/Edit" action="health_form_fill" ajax="false" >
@@ -119,7 +121,7 @@
 
                                 <h:panelGroup id="gpTimes" >
                                     <h:panelGroup id="gpDaily" rendered="#{formDataentryController.healthForm.durationType eq 'Daily'}" >
-                                        <p:calendar >
+                                        <p:calendar  value="#{formDataentryController.formDate}">
                                         </p:calendar>
                                     </h:panelGroup>
 
@@ -176,6 +178,7 @@
                                             <f:selectItem itemLabel="2011" itemValue="2011" />
                                             <f:selectItem itemLabel="2012" itemValue="2012" />
                                             <f:selectItem itemLabel="2013" itemValue="2013" />
+                                            <f:selectItem itemLabel="2014" itemValue="2014" />
                                             
 
                                         </p:selectOneMenu>

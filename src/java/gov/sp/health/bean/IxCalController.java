@@ -1,11 +1,4 @@
-/*
- * MSc(Biomedical Informatics) Project
- *
- * Development and Implementation of a Web-based Combined Data Repository of
- Genealogical, Clinical, Laboratory and Genetic Data
- * and
- * a Set of Related Tools
- */
+
 package gov.sp.health.bean;
 
 import gov.sp.health.data.CalculationType;
@@ -34,8 +27,8 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
+ *  
+ *  )
  */
 @Named
 @SessionScoped

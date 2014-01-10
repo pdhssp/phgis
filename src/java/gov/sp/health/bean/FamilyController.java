@@ -1,11 +1,4 @@
-/*
- * MSc(Biomedical Informatics) Project
- *
- * Development and Implementation of a Web-based Combined Data Repository of
- Genealogical, Clinical, Laboratory and Genetic Data
- * and
- * a Set of Related Tools
- */
+
 package gov.sp.health.bean;
 
 import gov.sp.health.data.DefaultsBean;
@@ -14,6 +7,7 @@ import gov.sp.health.facade.FamilyFacade;
 import gov.sp.health.entity.Family;
 import gov.sp.health.entity.GisCoordinate;
 import gov.sp.health.entity.Person;
+import gov.sp.health.facade.GisCoordinateFacade;
 import gov.sp.health.facade.PersonFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,11 +24,7 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
-/**
- *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
- */
+
 @Named
 @SessionScoped
 public class FamilyController implements Serializable {
@@ -45,16 +35,12 @@ public class FamilyController implements Serializable {
     @EJB
     private FamilyFacade ejbFacade;
     @EJB
-            PersonFacade personFacade;
-    
+    PersonFacade personFacade;
     List<Family> selectedItems;
     private Family current;
     private List<Family> items = null;
     String selectText = "";
-    
     Person person;
-    
-    
     MapModel familyMapModel;
 
     public PersonFacade getPersonFacade() {
@@ -64,9 +50,17 @@ public class FamilyController implements Serializable {
     public void setPersonFacade(PersonFacade personFacade) {
         this.personFacade = personFacade;
     }
+    @EJB
+    GisCoordinateFacade gisCoordinateFacade;
 
-    
-    
+    public GisCoordinateFacade getGisCoordinateFacade() {
+        return gisCoordinateFacade;
+    }
+
+    public void setGisCoordinateFacade(GisCoordinateFacade gisCoordinateFacade) {
+        this.gisCoordinateFacade = gisCoordinateFacade;
+    }
+
     public MapModel getFamilyMapModel() {
         return familyMapModel;
     }
@@ -76,7 +70,7 @@ public class FamilyController implements Serializable {
     }
 
     public Person getPerson() {
-        if(person==null){
+        if (person == null) {
             person = new Person();
         }
         return person;
@@ -85,9 +79,9 @@ public class FamilyController implements Serializable {
     public void setPerson(Person person) {
         this.person = person;
     }
-    
-    public void addPersonToFamily(){
-        if(person==null){
+
+    public void addPersonToFamily() {
+        if (person == null) {
             UtilityController.addErrorMessage("Select person");
             return;
         }
@@ -97,13 +91,12 @@ public class FamilyController implements Serializable {
         getCurrent().getPersons().add(person);
         getFacade().edit(current);
         UtilityController.addSuccessMessage("Added");
-        person=null;
+        person = null;
     }
-    
-    
-    
+
     public void prepareAdd() {
-        current = new Family();
+        current = null;
+        getCurrent();
     }
 
     public void setSelectedItems(List<Family> selectedItems) {
@@ -157,11 +150,19 @@ public class FamilyController implements Serializable {
         familyMapModel = new DefaultMapModel();
     }
 
-    public void addMarker(ActionEvent actionEvent) {  
-        Marker marker = new Marker(new LatLng(getCurrent().getCoordinate().getLatitude(), getCurrent().getCoordinate().getLatitude()), getCurrent().getAddress());  
-        familyMapModel.addOverlay(marker);   
-    }  
-    
+    public void addMarker(ActionEvent actionEvent) {
+        Marker marker = new Marker(new LatLng(getCurrent().getCoordinate().getLatitude(), getCurrent().getCoordinate().getLongtide()), getCurrent().getAddress());
+        familyMapModel = new DefaultMapModel();
+        familyMapModel.addOverlay(marker);
+        
+        if (current == null) {
+            UtilityController.addErrorMessage("Select family");
+            return;
+        }
+        getGisCoordinateFacade().edit(current.getCoordinate());//save coordinate
+        getEjbFacade().edit(current);//save family details
+    }
+
     public Family getCurrent() {
         if (current == null) {
             current = new Family();
@@ -203,17 +204,32 @@ public class FamilyController implements Serializable {
             UtilityController.addErrorMessage("Nothing to save");
             return;
         }
+        if (current.getCoordinate() != null) {
+            System.out.println("current = " + current);
+            System.out.println("current.getCoordinate() = " + current.getCoordinate());
+            System.out.println("getGisCoordinateFacade() = " + getGisCoordinateFacade());
+            getGisCoordinateFacade().create(current.getCoordinate());
+        }
         getFacade().create(current);
         current = new Family();
     }
 
-    public List<Family> getItems() {
-        // items = getFacade().findAll("name", true);
+    public void listFamilies() {
         String sql = "SELECT i FROM Family i where i.retired=false order by i.address";
         items = getEjbFacade().findBySQL(sql);
         if (items == null) {
             items = new ArrayList<Family>();
         }
+        familyMapModel = new DefaultMapModel();
+        for (Family f : items) {
+            if (f.getCoordinate() != null) {
+                Marker marker = new Marker(new LatLng(f.getCoordinate().getLatitude(), f.getCoordinate().getLongtide()), f.getAddress());
+                familyMapModel.addOverlay(marker);
+            }
+        }
+    }
+
+    public List<Family> getItems() {
         return items;
     }
     /**

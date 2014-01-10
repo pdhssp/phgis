@@ -15,10 +15,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 
-/**
- *
- * @author Dr. M H B Ariyaratne <buddhika.ari at gmail.com>
- */
+
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;

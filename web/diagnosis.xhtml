@@ -58,6 +58,10 @@
                                         <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail selectFocus"  execute="gpDetail" >
                                         </f:ajax>
                                     </h:commandButton>
+                                    
+                                    <p:commandButton ajax="false" value="Add GIS" action="disease_mark_new" >
+                                        <f:setPropertyActionListener target="#{diagnosisController.current}" value="#{ff}" />
+                                    </p:commandButton>
 
                                 </h:panelGrid>
                             </h:panelGrid>

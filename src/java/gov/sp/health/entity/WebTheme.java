@@ -1,10 +1,4 @@
-/*
- * Author : Dr. M H B Ariyaratne
- * 
- * MO(Health Information), Department of Health Services, Southern Province 
- * and
- * Email : buddhika.ari@gmail.com
- */
+
 package gov.sp.health.entity;
 
 import java.io.Serializable;
@@ -18,7 +12,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical Informatics)
+ *    )
  */
 @Entity
 public class WebTheme implements Serializable {

@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gov.sp.health.data;
 
-/**
- *
- * @author Dr. M H B Ariyaratne <buddhika.ari at gmail.com>
- */
+
 public enum Title {
     Mr,
     Mrs,

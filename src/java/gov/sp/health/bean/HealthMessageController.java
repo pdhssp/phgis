@@ -32,8 +32,8 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
+ *  
+ *  )
  */
 @Named
 @SessionScoped

@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gov.sp.health.entity;
 
 import java.io.Serializable;
@@ -13,14 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author Dr. M H B Ariyaratne <buddhika.ari at gmail.com>
- * Dr. M H B Ariyaratne, MBBS, MSc(Biomedical Informatics) MO (Health
- * Information) Department of Health Services, Southern Province
- * buddhika.ari@gmail.com +94 71 58 123 99
- *
- */
 @Entity
 public class Sex implements Serializable {
 

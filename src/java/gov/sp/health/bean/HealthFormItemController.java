@@ -1,11 +1,4 @@
-/*
- * MSc(Biomedical Informatics) Project
- *
- * Development and Implementation of a Web-based Combined Data Repository of
- Genealogical, Clinical, Laboratory and Genetic Data
- * and
- * a Set of Related Tools
- */
+
 package gov.sp.health.bean;
 
 import java.util.TimeZone;
@@ -31,8 +24,8 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
+ *  
+ *  )
  */
 @Named
 @SessionScoped
@@ -214,7 +207,7 @@ public  class HealthFormItemController implements Serializable {
 
     public void addNewCalculation() {
         if(currentInvestigation==null){
-            UtilityController.addErrorMessage("Please select an investigation");
+            UtilityController.addErrorMessage("Please select an healthform");
             return;
         }
         current = new HealthFormItem();
@@ -230,7 +223,7 @@ public  class HealthFormItemController implements Serializable {
 
     public void addNewFlag() {
         if(currentInvestigation==null){
-            UtilityController.addErrorMessage("Please select an investigation");
+            UtilityController.addErrorMessage("Please select an healthform");
             return;
         }
         current = new HealthFormItem();

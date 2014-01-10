@@ -33,8 +33,8 @@ import org.primefaces.event.CellEditEvent;
 
 /**
  *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
+ *  
+ *  )
  */
 @Named
 @SessionScoped

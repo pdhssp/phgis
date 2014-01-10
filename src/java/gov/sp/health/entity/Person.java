@@ -1,10 +1,4 @@
-/*
- * Author : Dr. M H B Ariyaratne
- *
- * MO(Health Information), Department of Health Services, Southern Province
- * and
- * Email : buddhika.ari@gmail.com
- */
+
 package gov.sp.health.entity;
 
 import gov.sp.health.data.Sex;
@@ -27,8 +21,8 @@ import javax.persistence.Transient;
 
 /**
  *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
+ *  
+ *  )
  */
 @Entity
 public class Person implements Serializable {

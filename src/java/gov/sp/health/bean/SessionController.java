@@ -1,10 +1,4 @@
-/*
- * Author : Dr. M H B Ariyaratne
- *
- * MO(Health Information), Department of Health Services, Southern Province
- * and
- * Email : buddhika.ari@gmail.com
- */
+
 package gov.sp.health.bean;
 
 import static gov.sp.health.bean.SessionController.isValidEmailAddress;

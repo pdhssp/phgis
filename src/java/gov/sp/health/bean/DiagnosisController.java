@@ -1,18 +1,16 @@
 package gov.sp.health.bean;
 
-import gov.sp.health.data.HealthFormItemType;
 import gov.sp.health.data.StaffRole;
-import gov.sp.health.entity.form.HealthForm;
-import gov.sp.health.entity.form.ReportItem;
-import gov.sp.health.facade.InvestigationFacade;
+
+
+import org.primefaces.model.map.MapModel;
+import gov.sp.health.facade.GisCoordinateFacade;
 import gov.sp.health.facade.ItemFacade;
 import gov.sp.health.facade.SpecialityFacade;
-import com.google.common.collect.HashBiMap;
 import gov.sp.health.entity.Diagnosis;
 import gov.sp.health.facade.DiagnosisFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-/**
- *
- * @author Dr. M. H. B. Ariyaratne, MBBS, PGIM Trainee for MSc(Biomedical
- * Informatics)
- */
+
 @Named
 @SessionScoped
 public class DiagnosisController implements Serializable {
@@ -48,9 +42,20 @@ public class DiagnosisController implements Serializable {
     private List<Diagnosis> items = null;
     String selectText = "";
     String bulkText = "";
-    boolean billedAs;
-    boolean reportedAs;
-    List<Diagnosis> catIxs;
+    
+    @EJB
+    GisCoordinateFacade gisCoordinateFacade;
+    MapModel familyMapModel;
+
+    public GisCoordinateFacade getGisCoordinateFacade() {
+        return gisCoordinateFacade;
+    }
+
+    public void setGisCoordinateFacade(GisCoordinateFacade gisCoordinateFacade) {
+        this.gisCoordinateFacade = gisCoordinateFacade;
+    }
+    
+    
 
     public List<Diagnosis> getStaffRoleForms(StaffRole sr) {
         Map m = new HashMap();
@@ -69,9 +74,7 @@ public class DiagnosisController implements Serializable {
         this.itemFacade = itemFacade;
     }
 
-    public void setCatIxs(List<Diagnosis> catIxs) {
-        this.catIxs = catIxs;
-    }
+    
 
     public List<Diagnosis> completeInvest(String query) {
         List<Diagnosis> suggestions;
@@ -100,41 +103,15 @@ public class DiagnosisController implements Serializable {
         return suggestions;
     }
 
-    public boolean isBilledAs() {
-        return billedAs;
-    }
 
-    public void setBilledAs(boolean billedAs) {
-        this.billedAs = billedAs;
-    }
 
-    public boolean isReportedAs() {
-        return reportedAs;
-    }
+   
 
-    public void setReportedAs(boolean reportedAs) {
-        this.reportedAs = reportedAs;
-    }
+  
 
-    public void correctIx1() {
-        List<Diagnosis> allItems = getEjbFacade().findAll();
-        for (Diagnosis i : allItems) {
-            i.setBilledAs(i);
-            i.setReportedAs(i);
-            getEjbFacade().edit(i);
-        }
+  
 
-    }
-
-    public String getBulkText() {
-
-        return bulkText;
-    }
-
-    public void setBulkText(String bulkText) {
-        this.bulkText = bulkText;
-    }
-
+  
     public List<Diagnosis> getSelectedItems() {
         if (selectText.trim().equals("")) {
             selectedItems = getEjbFacade().findBySQL("select c from Diagnosis  c where c.retired=false order by c.name");
@@ -144,39 +121,13 @@ public class DiagnosisController implements Serializable {
         return selectedItems;
     }
 
-    public List<Diagnosis> completeItem(String qry) {
-        List<Diagnosis> completeItems = getEjbFacade().findBySQL("select c from Item c where ( type(c) = Investigation or type(c) = Packege ) and c.retired=false and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name");
-        return completeItems;
-    }
+   
 
     public void prepareAdd() {
         current = new Diagnosis();
     }
 
-    public void bulkUpload() {
-        List<String> lstLines = Arrays.asList(getBulkText().split("\\r?\\n"));
-        for (String s : lstLines) {
-            List<String> w = Arrays.asList(s.split(","));
-            try {
-                String code = w.get(0);
-                String ix = w.get(1);
-                String ic = w.get(2);
-                String f = w.get(4);
-                System.out.println(code + " " + ix + " " + ic + " " + f);
-
-
-                Diagnosis tix = new Diagnosis();
-                tix.setCode(code);
-                tix.setName(ix);
-
-
-
-            } catch (Exception e) {
-            }
-
-        }
-    }
-
+    
     public void setSelectedItems(List<Diagnosis> selectedItems) {
         this.selectedItems = selectedItems;
     }
@@ -194,15 +145,8 @@ public class DiagnosisController implements Serializable {
 
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             System.out.println("1");
-            if (billedAs == false) {
-                System.out.println("2");
-                getCurrent().setBilledAs(getCurrent());
-
-            }
-            if (reportedAs == false) {
-                System.out.println("3");
-                getCurrent().setReportedAs(getCurrent());
-            }
+           
+           
             getEjbFacade().edit(getCurrent());
             UtilityController.addSuccessMessage("savedOldSuccessfully");
         } else {
@@ -210,14 +154,8 @@ public class DiagnosisController implements Serializable {
             getCurrent().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             getCurrent().setCreater(sessionController.getLoggedUser());
             getEjbFacade().create(getCurrent());
-            if (billedAs == false) {
-                System.out.println("5");
-                getCurrent().setBilledAs(getCurrent());
-            }
-            if (reportedAs == false) {
-                System.out.println("6");
-                getCurrent().setReportedAs(getCurrent());
-            }
+            
+            
             getEjbFacade().edit(getCurrent());
             UtilityController.addSuccessMessage("savedNewSuccessfully");
         }
@@ -258,16 +196,8 @@ public class DiagnosisController implements Serializable {
     public void setCurrent(Diagnosis current) {
         this.current = current;
         if (current != null) {
-            if (current.getBilledAs() == current) {
-                billedAs = false;
-            } else {
-                billedAs = true;
-            }
-            if (current.getReportedAs() == current) {
-                reportedAs = false;
-            } else {
-                reportedAs = true;
-            }
+            
+           
         }
     }
 

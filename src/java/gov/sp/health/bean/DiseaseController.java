@@ -5,8 +5,8 @@
 package gov.sp.health.bean;
 
 import gov.sp.health.entity.Disease;
-import gov.sp.health.entity.Patient;
 import gov.sp.health.facade.DiseaseFacade;
+import gov.sp.health.facade.GisCoordinateFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -15,6 +15,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 import javax.ejb.EJB;
+import javax.faces.event.ActionEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
+
 
 
 @Named(value = "diseaseController")
@@ -30,6 +36,26 @@ public class DiseaseController implements Serializable {
     private Disease current;
     private  List<Disease> disease;
     
+    @EJB
+    GisCoordinateFacade gisCoordinateFacade;
+    MapModel familyMapModel;
+
+    public GisCoordinateFacade getGisCoordinateFacade() {
+        return gisCoordinateFacade;
+    }
+
+    public void setGisCoordinateFacade(GisCoordinateFacade gisCoordinateFacade) {
+        this.gisCoordinateFacade = gisCoordinateFacade;
+    }
+
+    public MapModel getFamilyMapModel() {
+        return familyMapModel;
+    }
+
+    public void setFamilyMapModel(MapModel familyMapModel) {
+        this.familyMapModel = familyMapModel;
+    }
+    
     
     public DiseaseController() {
     }
@@ -44,10 +70,24 @@ public class DiseaseController implements Serializable {
 
     public Disease getCurrent() {
         if(current==null)
+        {
             current=new Disease();
+            
+        }
         return current;
     }
-
+ public void addMarker(ActionEvent actionEvent) {
+        Marker marker = new Marker(new LatLng(getCurrent().getCoordinate().getLatitude(), getCurrent().getCoordinate().getLongtide()),"");
+        familyMapModel = new DefaultMapModel();
+        familyMapModel.addOverlay(marker);
+        
+        if (current == null) {
+            UtilityController.addErrorMessage("Select disease");
+            return;
+        }
+        getGisCoordinateFacade().edit(current.getCoordinate());//save coordinate
+        
+    }
     public void setCurrent(Disease current) {
         this.current = current;
     }

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="content">
+        <h:panelGroup rendered="#{!webUserController.hasPrivilege('AdminManagingUsers')}" >
+            You are NOT authorized
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" >
+            <h:form  >
+                  <h:outputLabel value="Name" />
+                  <h:inputText id="txtSearch" value="#{institutionController.selectText}" >
+                    <f:ajax execute="txtSearch" render="lstSelect" event="keyup" />
+                </h:inputText>
+
+                  <p:dataTable id="lstSelect" value="#{institutionController.selectedItems}" var="u">
+                    <f:facet name="header" >
+                        <h:outputLabel value="List of All Institutes" />
+                    </f:facet>
+                    <p:column headerText="Institution Type">
+                        #{u.institutionCode}
+                    </p:column>
+               
+                    <p:column headerText="Name">
+                        #{u.name}
+                    </p:column>
+                   <p:column headerText="Address">
+                        #{u.address}
+                    </p:column>
+                      <p:column headerText="Phone">
+                        #{u.phone}
+                    </p:column>
+                      <p:column headerText="Fax">
+                        #{u.fax}
+                    </p:column>
+                      <p:column headerText="Mobil">
+                        #{u.mobile}
+                    </p:column>
+                      <p:column headerText="E-Mail">
+                        #{u.email}
+                    </p:column>
+                      <p:column headerText="Web">
+                        #{u.web}
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+        </h:panelGroup>
+
+    </ui:define>
+
+</ui:composition>

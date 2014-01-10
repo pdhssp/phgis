@@ -452,10 +452,10 @@ public class FilledHealthForm implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "gov.sp.health.entity.lab.PatientReport[ id=" + id + " ]";
-    }
+//    @Override
+//    public String toString() {
+//        return "gov.sp.health.entity.lab.PatientReport[ id=" + id + " ]";
+//    }
 
     public FilledHealthForm getPatientInvestigation() {
         return patientInvestigation;

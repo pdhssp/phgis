@@ -39,6 +39,16 @@ public class Disease implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date retiredAt;
     private String retireComments;
+    
+    
+    @ManyToOne
+    private GisCoordinate coordinate;
+    @ManyToOne
+    private Area phiArea;
+    
+    
+    
+    
 
     public Long getId() {
         return id;
@@ -135,6 +145,22 @@ public class Disease implements Serializable {
 
     public void setRetireComments(String retireComments) {
         this.retireComments = retireComments;
+    }
+
+    public GisCoordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(GisCoordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
+    public Area getPhiArea() {
+        return phiArea;
+    }
+
+    public void setPhiArea(Area phiArea) {
+        this.phiArea = phiArea;
     }
     
     

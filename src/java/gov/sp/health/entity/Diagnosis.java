@@ -6,17 +6,33 @@ package gov.sp.health.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.ManyToOne;
 
-/**
- *
- * @author Etreame IT
- */
+    
 @Entity
 @Inheritance
 public class Diagnosis extends Item implements Serializable {
+    @ManyToOne
+    private GisCoordinate coordinate;
+    @ManyToOne
+    private Area phiArea;
+
+    public GisCoordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(GisCoordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
+    public Area getPhiArea() {
+        return phiArea;
+    }
+
+    public void setPhiArea(Area phiArea) {
+        this.phiArea = phiArea;
+    }
+    
     
 }

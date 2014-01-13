@@ -29,6 +29,7 @@ public class Family implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     String f_name;
+    String name;
     String address;
     double langitude;
     double latitude;
@@ -188,4 +189,15 @@ public class Family implements Serializable {
     public void setfName(String fName) {
         this.f_name = fName;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
+    
 }

@@ -123,6 +123,11 @@ public class FormDataentryController implements Serializable {
                         formsToFill.add(f);
                     }
                 } else if (f.getDurationType() == DurationType.Daily) {
+                    
+                    yearVal=fromDate.getYear();
+                    monthVal=fromDate.getMonth();
+                    dateVal=fromDate.getDate();
+                    
                     sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.monthVal=:m and ff.dateVal=:d ";
                     m.put("y", yearVal);
                     m.put("m", monthVal);
@@ -395,6 +400,9 @@ public class FormDataentryController implements Serializable {
 
             case Daily:
                 System.out.println("Daily report");
+                 yearVal=fromDate.getYear();
+                    monthVal=fromDate.getMonth();
+                    dateVal=fromDate.getDate();
                 jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + " and f.dateVal=" + getDateVal() + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);

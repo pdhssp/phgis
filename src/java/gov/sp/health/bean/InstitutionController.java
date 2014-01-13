@@ -1,4 +1,3 @@
-
 package gov.sp.health.bean;
 
 import gov.sp.health.data.InstitutionType;
@@ -21,8 +20,8 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- *  
- *  )
+ *
+ * )
  */
 @Named
 @SessionScoped
@@ -56,13 +55,12 @@ public class InstitutionController implements Serializable {
         sql = "select c from Institution c where c.retired=false and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name";
         return getFacade().findBySQL(sql);
     }
-    
+
     public List<Institution> completeCompany(String qry) {
         String sql;
         sql = "select c from Institution c where c.retired=false and c.institutionType=gov.sp.health.data.InstitutionType.Company and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name";
         return getFacade().findBySQL(sql);
     }
-
 
     public void prepareAdd() {
         codeDisabled = false;
@@ -99,19 +97,61 @@ public class InstitutionController implements Serializable {
     }
 
     public void saveSelected() {
+        
+        if (getCurrent().getId() != null && getCurrent().getId() > 0) {
         if (getCurrent().getInstitutionType() == null) {
-            UtilityController.addErrorMessage("Select Instituion Type");
+            UtilityController.addErrorMessage("Select Instituion Type");                       
             return;
         }
-
-        if (getCurrent().getId() != null && getCurrent().getId() > 0) {
+        else
+             if (getCurrent().getName() == null) {
+            UtilityController.addErrorMessage("Enter Instituion Name");                       
+            return;
+        }
+        else
+             if (getCurrent().getInstitutionCode()== null || getCurrent().getId() > 0) {
+            UtilityController.addErrorMessage("Enter Valid Instituion Code");                       
+            return;
+        }else
+             if (getCurrent().getAddress()== null) {
+            UtilityController.addErrorMessage("Enter Instituion Address");                       
+            return;
+        }
+        
+        
+      
+//                 if(getCurrent().getEmail()!= null)
+//                 {
+//                     try {
+//          String lineIwant = getCurrent().getEmail();
+//                String emailreg = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+//                Boolean b = lineIwant.matches(emailreg);
+//
+//                if (b == false) {
+//                    UtilityController.addErrorMessage("Enter Valid E-Mail Address"); 
+//                }else if(b == true){
+//                    System.out.println("Address is Valid");
+//                }
+//
+//
+//
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//            System.out.println(e.getMessage());
+//        }
+//                 }
+                 
+                 
+                 {
 
             if (getCurrent().getInstitutionCode() != null) {
                 getCurrent().setInstitutionCode(getCurrent().getInstitutionCode());
             }
             getFacade().edit(getCurrent());
             UtilityController.addSuccessMessage("savedOldSuccessfully");
-        } else {
+        }
+
             if (getCurrent().getInstitutionCode() != null) {
                 if (!checkCodeExist()) {
                     getCurrent().setInstitutionCode(getCurrent().getInstitutionCode());
@@ -190,7 +230,7 @@ public class InstitutionController implements Serializable {
         return items;
     }
 
-     public List<Institution> getCompany() {
+    public List<Institution> getCompany() {
         items = getFacade().findBySQL("select c from Institution c where c.retired=false and c.institutionType=gov.sp.health.data.InstitutionType.Company  order by c.name");
         if (items == null) {
             items = new ArrayList<Institution>();
@@ -198,7 +238,7 @@ public class InstitutionController implements Serializable {
 
         return items;
     }
-    
+
     public List<Institution> getBanks() {
         items = getFacade().findBySQL("select c from Institution c where c.retired=false and c.institutionType=gov.sp.health.data.InstitutionType.Bank  order by c.name");
         if (items == null) {
@@ -227,7 +267,7 @@ public class InstitutionController implements Serializable {
     /**
      *
      */
-    @FacesConverter("institutionCon" )
+    @FacesConverter("InstitutionCon")
     public static class InstitutionControllerConverter implements Converter {
 
         @Override
@@ -236,8 +276,13 @@ public class InstitutionController implements Serializable {
                 return null;
             }
             InstitutionController controller = (InstitutionController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "institutionController");
-            return controller.getEjbFacade().find(getKey(value));
+                    getValue(facesContext.getELContext(), null, "InstitutionController");
+            try {
+                return controller.getEjbFacade().find(getKey(value));
+            } catch (Exception e) {
+                System.out.println("e = " + e);
+                return null;
+            }
         }
 
         java.lang.Long getKey(String value) {
@@ -266,4 +311,58 @@ public class InstitutionController implements Serializable {
             }
         }
     }
+    
+    
+    
+    
+    
+    @FacesConverter(forClass = Institution.class)
+    public static class InstitutionConverter implements Converter {
+
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            InstitutionController controller = (InstitutionController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "InstitutionController");
+            try {
+                return controller.getEjbFacade().find(getKey(value));
+            } catch (Exception e) {
+                System.out.println("e = " + e);
+                return null;
+            }
+        }
+
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
+            return key;
+        }
+
+        String getStringKey(java.lang.Long value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value);
+            return sb.toString();
+        }
+
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof Institution) {
+                Institution o = (Institution) object;
+                return getStringKey(o.getId());
+            } else {
+                throw new IllegalArgumentException("object " + object + " is of type "
+                        + object.getClass().getName() + "; expected type: " + InstitutionController.class.getName());
+            }
+        }
+    }
+    
+    
+    
+    
+    
 }

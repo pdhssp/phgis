@@ -16,37 +16,15 @@
 
                     <p:panelGrid columns="3">
                         <p:panel header="Manage Families" >
-                            
                             <p:commandButton  ajax="false" value="Add New" action="#{familyController.prepareAdd()}">
                             </p:commandButton>
-                            
-                            
-                            <p:panelGrid columns="2">
-                                
-                                <p:outputLabel> Family Name</p:outputLabel> 
-                                <p:inputText value="#{familyController.current.address}"  ></p:inputText>
-
-
-                                <p:outputLabel> Address </p:outputLabel> 
-                                <p:inputText value="#{familyController.current.address}"  ></p:inputText>
-
-                                <p:outputLabel> Longitude </p:outputLabel> 
-                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.longtide}" ></p:inputText>
-
-                                <p:outputLabel> Latitude </p:outputLabel> 
-                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.latitude}"></p:inputText>
-
-
-                            </p:panelGrid>
-                            <p:commandButton ajax="false" value="Add" action="#{familyController.addDirectly}" />
                             <p:commandButton ajax="false" value="List All Families" action="#{familyController.listFamilies()}" />
-
                             <p:dataTable value="#{familyController.items}" var="ff" >
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Family Name" />
                                     </f:facet>
-                                    <h:outputText value="#{ff.address}" />
+                                    <h:outputText value="#{ff.name}" />
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
@@ -68,13 +46,7 @@
                                 </p:column>
 
                                 <p:column >
-                                    <p:commandButton ajax="false" value="View GIS" action="map_view_location" >
-                                        <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
-                                    </p:commandButton>
-                                    <p:commandButton ajax="false" value="Add GIS" action="map_mark_new" >
-                                        <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
-                                    </p:commandButton>
-                                    <p:commandButton ajax="false" value="Edit" >
+                                    <p:commandButton ajax="false" value="Manage Families" action="family_members" >
                                         <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
                                     </p:commandButton>
                                     <h:commandButton  value="Delete" action="#{familyController.delete()}" >
@@ -85,54 +57,13 @@
                             </p:dataTable>
 
                         </p:panel>
-                        <p:panel header="Manage Family Members">
-
-                            <p:panelGrid columns="2" >
-                                <h:outputLabel value="Name" ></h:outputLabel>
-                                <p:inputText value="#{familyController.person.name}" ></p:inputText>
-                                <h:outputLabel value="Date of birth" ></h:outputLabel>
-                                <p:calendar value="#{familyController.person.dob}" ></p:calendar>
-                                <h:outputLabel value="Nic" ></h:outputLabel>
-                                <p:inputText value="#{familyController.person.nic}" ></p:inputText>
-                                <h:outputLabel value="Comments" ></h:outputLabel>
-                                <p:inputText value="#{familyController.person.description}" ></p:inputText>
-                                <p:commandButton ajax="false" value="Add to Family" action="#{familyController.addPersonToFamily()}" ></p:commandButton>
-                            </p:panelGrid>
-
-                            <p:dataTable value="#{familyController.current.persons}" var="fp" >
-                                <p:column >
-                                    <h:outputLabel value="#{fp.name}" ></h:outputLabel>
-                                </p:column>
-                                <p:column >
-                                    <h:outputLabel value="#{fp.dob}" ></h:outputLabel>
-                                </p:column>
-                                <p:column >
-                                    <h:outputLabel value="#{fp.nic}" ></h:outputLabel>
-                                </p:column>
-                                <p:column >
-                                    <h:outputLabel value="#{fp.description}" ></h:outputLabel>
-                                </p:column>
-                            </p:dataTable>
-
-
-                        </p:panel>
-
-
-
-
-
-                        <p:commandButton value="Sense and Mark New Location" action="map" ajax="false"></p:commandButton>
-
-
-
-
-
 
 
                         <p:panel header="Location">
                             <p:gmap widgetVar="w_gmap" center="#{familyController.current.coordinate.longtide}, #{familyController.current.coordinate.latitude}" zoom="15" type="hybrid" model="#{familyController.familyMapModel}"
                                     style="width:600px;height:400px" />
                         </p:panel>
+                        
                     </p:panelGrid>
 
 

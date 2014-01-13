@@ -81,8 +81,7 @@
                                 <p:menuitem  ajax="false"  action="diagnosis" value="Manage diagnosis"  ></p:menuitem>
                             </p:submenu>
                             <p:submenu label="Manage Families"  >
-                                 <p:menuitem  ajax="false"  action="family" value="Families"  ></p:menuitem>
-                       
+                                <p:menuitem  ajax="false"  action="#{familyController.listFamilies()}" value="Families"  ></p:menuitem>
                             </p:submenu>
 
                         </p:menubar>

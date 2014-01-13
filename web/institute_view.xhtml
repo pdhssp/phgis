@@ -15,6 +15,9 @@
 
         <h:panelGroup rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" >
             <h:form  >
+                                <p:wizard widgetVar="wiz"
+                                      flowListener="#{webUserController.onFlowProcess}" style="width: 600px; min-height: 300px;">
+                                <p:tab id="tabPerson" title="Institution Details">
                   <h:outputLabel value="Name" />
                   <h:inputText id="txtSearch" value="#{institutionController.selectText}" >
                     <f:ajax execute="txtSearch" render="lstSelect" event="keyup" />
@@ -50,6 +53,11 @@
                         #{u.web}
                     </p:column>
                 </p:dataTable>
+                  
+                   </p:tab>
+
+
+                            </p:wizard>
             </h:form>
 
         </h:panelGroup>

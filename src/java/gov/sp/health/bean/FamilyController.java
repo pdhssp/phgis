@@ -1,4 +1,3 @@
-
 package gov.sp.health.bean;
 
 import gov.sp.health.data.DefaultsBean;
@@ -24,7 +23,6 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
-
 @Named
 @SessionScoped
 public class FamilyController implements Serializable {
@@ -42,6 +40,32 @@ public class FamilyController implements Serializable {
     String selectText = "";
     Person person;
     MapModel familyMapModel;
+    MapModel allFamiliesModel;
+    GisCoordinate defaultCoordinate;
+
+    public GisCoordinate getDefaultCoordinate() {
+        if (defaultCoordinate == null) {
+            defaultCoordinate = new GisCoordinate();
+            defaultCoordinate.setLatitude(6);
+            defaultCoordinate.setLongtide(81);
+        }
+        return defaultCoordinate;
+    }
+
+    public void setDefaultCoordinate(GisCoordinate defaultCoordinate) {
+        this.defaultCoordinate = defaultCoordinate;
+    }
+
+    public MapModel getAllFamiliesModel() {
+        if (allFamiliesModel == null) {
+            allFamiliesModel = new DefaultMapModel();
+        }
+        return allFamiliesModel;
+    }
+
+    public void setAllFamiliesModel(MapModel allFamiliesModel) {
+        this.allFamiliesModel = allFamiliesModel;
+    }
 
     public PersonFacade getPersonFacade() {
         return personFacade;
@@ -94,9 +118,10 @@ public class FamilyController implements Serializable {
         person = null;
     }
 
-    public void prepareAdd() {
+    public String prepareAdd() {
         current = null;
         getCurrent();
+        return "family_members";
     }
 
     public void setSelectedItems(List<Family> selectedItems) {
@@ -154,7 +179,7 @@ public class FamilyController implements Serializable {
         Marker marker = new Marker(new LatLng(getCurrent().getCoordinate().getLatitude(), getCurrent().getCoordinate().getLongtide()), getCurrent().getAddress());
         familyMapModel = new DefaultMapModel();
         familyMapModel.addOverlay(marker);
-        
+
         if (current == null) {
             UtilityController.addErrorMessage("Select family");
             return;
@@ -176,6 +201,12 @@ public class FamilyController implements Serializable {
 
     public void setCurrent(Family current) {
         this.current = current;
+        if (current != null) {
+            familyMapModel = new DefaultMapModel();
+            Marker marker = new Marker(new LatLng(current.getCoordinate().getLatitude(), current.getCoordinate().getLongtide()), current.getAddress());
+            familyMapModel.addOverlay(marker);
+            defaultCoordinate = current.getCoordinate();
+        }
     }
 
     public void delete() {
@@ -214,19 +245,21 @@ public class FamilyController implements Serializable {
         current = new Family();
     }
 
-    public void listFamilies() {
+    public String listFamilies() {
         String sql = "SELECT i FROM Family i where i.retired=false order by i.address";
         items = getEjbFacade().findBySQL(sql);
         if (items == null) {
             items = new ArrayList<Family>();
         }
-        familyMapModel = new DefaultMapModel();
+        allFamiliesModel = new DefaultMapModel();
         for (Family f : items) {
             if (f.getCoordinate() != null) {
                 Marker marker = new Marker(new LatLng(f.getCoordinate().getLatitude(), f.getCoordinate().getLongtide()), f.getAddress());
-                familyMapModel.addOverlay(marker);
+                allFamiliesModel.addOverlay(marker);
+                defaultCoordinate = f.getCoordinate();
             }
         }
+        return "family";
     }
 
     public List<Family> getItems() {

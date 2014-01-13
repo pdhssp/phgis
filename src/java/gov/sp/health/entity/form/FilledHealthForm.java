@@ -28,12 +28,12 @@ import javax.persistence.Temporal;
 
 /**
  *
- * 
+ *
  */
 @Entity
 public class FilledHealthForm implements Serializable {
 
-    @OneToMany(mappedBy = "filledHealthFormReport", cascade = CascadeType.ALL,fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "filledHealthFormReport", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<FilledHealthFormItemValue> filledHealthFormReportItemValue;
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,7 +62,6 @@ public class FilledHealthForm implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataEntryAt;
     private String dataEntryComments;
-
     @ManyToOne
     private Institution dataEntryInstitution;
     //Approve
@@ -72,7 +71,6 @@ public class FilledHealthForm implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date approveAt;
     private String approveComments;
-
     @ManyToOne
     private Institution approveInstitution;
     //Printing
@@ -102,7 +100,6 @@ public class FilledHealthForm implements Serializable {
     private String returnComments;
     @ManyToOne
     private Institution returnInstitution;
-
     @ManyToOne
     Area area;
     @ManyToOne
@@ -200,14 +197,12 @@ public class FilledHealthForm implements Serializable {
     public void setPerson(Person person) {
         this.person = person;
     }
-    
-    
-    
+
     public List<FilledHealthFormItemValue> getFilledHealthFormReportItemValue() {
-        
+
         if (filledHealthFormReportItemValue != null) {
             Collections.sort(filledHealthFormReportItemValue, new PatientReportItemValueComparator());
-        }else{
+        } else {
             filledHealthFormReportItemValue = new ArrayList<FilledHealthFormItemValue>();
         }
         return filledHealthFormReportItemValue;
@@ -249,8 +244,6 @@ public class FilledHealthForm implements Serializable {
         this.dataEntryComments = dataEntryComments;
     }
 
-
-
     public Institution getDataEntryInstitution() {
         return dataEntryInstitution;
     }
@@ -290,8 +283,6 @@ public class FilledHealthForm implements Serializable {
     public void setApproveComments(String approveComments) {
         this.approveComments = approveComments;
     }
-
-
 
     public Institution getApproveInstitution() {
         return approveInstitution;
@@ -333,8 +324,6 @@ public class FilledHealthForm implements Serializable {
         this.printingComments = printingComments;
     }
 
-
-
     public Institution getPrintingInstitution() {
         return printingInstitution;
     }
@@ -374,7 +363,6 @@ public class FilledHealthForm implements Serializable {
     public void setCancellComments(String cancellComments) {
         this.cancellComments = cancellComments;
     }
-
 
     public Institution getCancellInstitution() {
         return cancellInstitution;
@@ -456,7 +444,6 @@ public class FilledHealthForm implements Serializable {
 //    public String toString() {
 //        return "gov.sp.health.entity.lab.PatientReport[ id=" + id + " ]";
 //    }
-
     public FilledHealthForm getPatientInvestigation() {
         return patientInvestigation;
     }
@@ -533,6 +520,9 @@ public class FilledHealthForm implements Serializable {
 
         @Override
         public int compare(FilledHealthFormItemValue o1, FilledHealthFormItemValue o2) {
+            if (o1 == null || o2 == null || o1.getHealthFormItem() ==null || o1.getHealthFormItem().getCssTop() == null || o2.getHealthFormItem() ==null || o2.getHealthFormItem().getCssTop() == null  ) {
+                return 1;
+            }
             return o1.getHealthFormItem().getCssTop().compareTo(o2.getHealthFormItem().getCssTop());  //To change body of generated methods, choose Tools | Templates.
         }
     }

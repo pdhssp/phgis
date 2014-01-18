@@ -370,12 +370,13 @@ public class FormDataentryController implements Serializable {
         }
         Map m = new HashMap();
         m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+        m.put("i", healthForm);
         String jpql;
         switch (healthForm.getDurationType()) {
             case Annually:
                 
                 System.out.println("anual report");
-                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal();
+                jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + getYearVal();
                 System.out.println("jpql = " + jpql);
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
@@ -402,29 +403,23 @@ public class FormDataentryController implements Serializable {
                 break;
 
             case Daily:
+                Calendar c = Calendar.getInstance();
                 System.out.println("Daily report");
-                 yearVal=fromDate.getYear();
-                    monthVal=fromDate.getMonth();
-                    dateVal=fromDate.getDate();
-                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + " and f.dateVal=" + getDateVal() + "";
+                jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + c.get(Calendar.YEAR) + " and f.monthVal=" + c.get(Calendar.MONTH) + " and f.dateVal=" + c.get(Calendar.DATE) + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
                 if (filledHealthForm == null) {
                     System.out.println("filled health form is null");
                     filledHealthForm = new FilledHealthForm();
                     filledHealthForm.setItem(healthForm);
-                    Date temFrdomDate = Calendar.getInstance().getTime();
-                    Calendar c = Calendar.getInstance();
-                    c.set(Calendar.YEAR, yearVal);
-                    c.add(Calendar.MONTH, monthVal);
-                    c.add(Calendar.DATE, dateVal);
-                    filledHealthForm.setFromDate(c.getTime());
-                    c = Calendar.getInstance();
-                    c.set(Calendar.YEAR, yearVal);
-                    c.add(Calendar.MONTH, 1);
-                    c.set(Calendar.DATE, 1);
-                    filledHealthForm.setToDate(c.getTime());
-
+                    filledHealthForm.setFromDate(getFormDate());
+                    filledHealthForm.setToDate(getFormDate());
+                    
+                    
+                    filledHealthForm.setYearVal(c.get(Calendar.YEAR));
+                    filledHealthForm.setMonthVal(c.get(Calendar.MONTH));
+                    filledHealthForm.setDateVal(c.get(Calendar.DATE));
+                    
                     filledHealthForm.setArea(sessionController.getLoggedUser().getStaff().getArea());
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());

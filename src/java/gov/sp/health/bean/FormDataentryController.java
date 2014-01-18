@@ -4,22 +4,17 @@
  */
 package gov.sp.health.bean;
 
-import gov.sp.health.data.CalculationType;
 import gov.sp.health.data.DurationType;
 import gov.sp.health.data.HealthFormItemType;
 import gov.sp.health.ejb.CommonFunctions;
-import gov.sp.health.entity.Area;
 import gov.sp.health.entity.form.FilledHealthForm;
 import gov.sp.health.entity.form.FilledHealthFormItemValue;
-import gov.sp.health.entity.form.FormCal;
 import gov.sp.health.entity.form.HealthForm;
 import gov.sp.health.entity.form.HealthFormItem;
-import gov.sp.health.entity.form.HealthFormItemValue;
 import gov.sp.health.facade.FilledHealthFormFacade;
 import gov.sp.health.facade.FilledHealthFormReportItemValueFacade;
 import gov.sp.health.facade.HealthFormFacade;
 import gov.sp.health.facade.HealthFormItemValueFacade;
-import gov.sp.health.facade.IxCalFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +26,6 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -41,6 +35,9 @@ import javax.persistence.TemporalType;
 @SessionScoped
 public class FormDataentryController implements Serializable {
 
+    
+    
+    
     FilledHealthForm filledHealthForm;
     HealthForm healthForm;
     Date fromDate;
@@ -50,14 +47,13 @@ public class FormDataentryController implements Serializable {
     int monthVal;
     int quarterVal;
     int dateVal;
+    
     @EJB
     FilledHealthFormFacade filledHealthFormFacade;
     @EJB
     HealthFormItemValueFacade healthFormItemValueFacade;
     @EJB
     HealthFormFacade healthFormFacade;
-    @EJB
-    private IxCalFacade ixCalFacade;
 
     public int getDateVal() {
         return dateVal;
@@ -113,7 +109,7 @@ public class FormDataentryController implements Serializable {
                 quarterVal = 4;
             }
 
-
+           
             this.fromDate = c.getTime();
             this.toDate = c.getTime();
 
@@ -130,11 +126,11 @@ public class FormDataentryController implements Serializable {
                         formsToFill.add(f);
                     }
                 } else if (f.getDurationType() == DurationType.Daily) {
-
-                    yearVal = fromDate.getYear();
-                    monthVal = fromDate.getMonth();
-                    dateVal = fromDate.getDate();
-
+                    
+                    yearVal=fromDate.getYear();
+                    monthVal=fromDate.getMonth();
+                    dateVal=fromDate.getDate();
+                    
                     sql = "select ff from FilledHealthForm ff where ff.area=:a and ff.retired=false and ff.item=:i and ff.yearVal=:y and ff.monthVal=:m and ff.dateVal=:d ";
                     m.put("y", yearVal);
                     m.put("m", monthVal);
@@ -240,88 +236,6 @@ public class FormDataentryController implements Serializable {
         getFilledHealthFormFacade().edit(filledHealthForm);
         UtilityController.addSuccessMessage("Saved");
         System.out.println("saved filled form " + filledHealthForm);
-    }
-
-    public void performCals() {
-        System.out.println("going to save");
-        if (filledHealthForm == null) {
-            UtilityController.addErrorMessage("Nothing to save");
-            return;
-        }
-        System.out.println("filledHealthForm = " + filledHealthForm);
-        
-        for (FilledHealthFormItemValue fhfiv : filledHealthForm.getFilledHealthFormReportItemValue()) {
-            
-            System.out.println("fhfiv = " + fhfiv);
-            
-            if (fhfiv.getHealthFormItem().getHealthFormItemType() == HealthFormItemType.Calculation) {
-                String sql;
-                System.out.println("is a cal = ");
-                if (fhfiv.getHealthFormItem() != null) {
-                    System.out.println("fhfiv = " + fhfiv);
-                    sql = "select i from FormCal i where i.calIxItem.id = " + fhfiv.getHealthFormItem().getId();
-
-                    List<FormCal> items = getIxCalFacade().findBySQL(sql);
-                    CalculationType ct = null;
-                    
-                    for (FormCal f : items) {
-                        System.out.println("f = " + f);
-                        if (f.getCalculationType() == CalculationType.Sum) {
-                            System.out.println("sum");
-                            ct = CalculationType.Sum;
-                        }
-                        if (f.getCalculationType() == CalculationType.Value) {
-                            System.out.println("cal");
-                            if (ct == CalculationType.Sum) {
-                                System.out.println("calculating sum");
-                                fhfiv.setDoubleValue(findSumOfFfiv(f.getValIxItem(), fhfiv.getFilledHealthFormReport().getFromDate() , fhfiv.getFilledHealthFormReport().getToDate(), fhfiv.getFilledHealthFormReport().getArea() ));
-                            } else if (ct == CalculationType.Average) {
-                                System.out.println("calculating ave");
-                                
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public double findSumOfFfiv(HealthFormItem hfi, Date fromDate, Date toDate, Area a) {
-        System.out.println("findSumOfFfiv");
-        System.out.println("hfi = " + hfi);
-        System.out.println("fromDate = " + fromDate);
-        System.out.println("toDate = " + toDate);
-        System.out.println("a = " + a);
-        if (hfi == null) {
-            System.out.println("hfi not null");
-            FilledHealthFormItemValue hfiv = new FilledHealthFormItemValue();
-            System.out.println("hfiv = " + hfiv);
-            hfiv.getDoubleValue();
-            System.out.println("value = " );
-            hfiv.getHealthFormItem();
-            System.out.println("item = " );
-            hfiv.getFilledHealthFormReport().getFromDate();
-            System.out.println("FromDate");
-            hfiv.getFilledHealthFormReport().getToDate();
-            System.out.println("To date");
-            hfiv.getFilledHealthFormReport().getArea().getSuperArea();
-            System.out.println("area");
-            Map m = new HashMap();
-            m.put("fd", fromDate);
-            m.put("td", toDate);
-            m.put("hfi", hfi);
-            m.put("ar", a);
-            String sql = "select sum(hfiv.doubleValue) from FilledHealthFormItemValue hfiv where hfiv.healthFormItem=:hfi and "
-                    + " hfiv.filledHealthFormReport.fromDate >=:fd and "
-                    + " hfiv.filledHealthFormReport.toDate<=:td and "
-                    + " (hfiv.filledHealthFormReport.area=:a or hfiv.filledHealthFormReport.area.superArea=:a or hfiv.filledHealthFormReport.area.superArea.superArea=:a or hfiv.filledHealthFormReport.area.superArea.superArea.superArea=:a) ";
-            System.out.println("sql = " + sql);
-            return getFilledHealthFormFacade().findDoubleByJpql(sql, m, TemporalType.DATE);
-        } else {
-            return 0;
-        }
-
-
     }
 
     public void submitFilledForm() {
@@ -443,12 +357,6 @@ public class FormDataentryController implements Serializable {
                 val.setFilledHealthFormReport(fhf);
                 val.setHealthFormItem(item);
                 fhf.getFilledHealthFormReportItemValue().add(val);
-            }else if (item.getHealthFormItemType() == HealthFormItemType.Calculation) {
-                System.out.println("Adding New Calculation " + item.toString());
-                FilledHealthFormItemValue val = new FilledHealthFormItemValue();
-                val.setFilledHealthFormReport(fhf);
-                val.setHealthFormItem(item);
-                fhf.getFilledHealthFormReportItemValue().add(val);
             }
         }
         getFilledHealthFormFacade().edit(fhf);
@@ -462,12 +370,13 @@ public class FormDataentryController implements Serializable {
         }
         Map m = new HashMap();
         m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+        m.put("i", healthForm);
         String jpql;
         switch (healthForm.getDurationType()) {
             case Annually:
-
+                
                 System.out.println("anual report");
-                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal();
+                jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + getYearVal();
                 System.out.println("jpql = " + jpql);
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
@@ -482,7 +391,7 @@ public class FormDataentryController implements Serializable {
                     c.set(Calendar.DATE, 1);
                     filledHealthForm.setFromDate(c.getTime());
                     c = Calendar.getInstance();
-                    c.set(Calendar.YEAR, getYearVal());
+                    c.set(Calendar.YEAR,  getYearVal());
                     c.set(Calendar.MONTH, 12);
                     c.set(Calendar.DATE, 31);
                     filledHealthForm.setToDate(c.getTime());
@@ -494,32 +403,23 @@ public class FormDataentryController implements Serializable {
                 break;
 
             case Daily:
+                Calendar c = Calendar.getInstance();
                 System.out.println("Daily report");
-                yearVal = fromDate.getYear();
-                System.out.println(yearVal);
-                monthVal = fromDate.getMonth();
-                System.out.println(monthVal);
-                dateVal = fromDate.getDate();
-                System.out.println(dateVal);
-                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + " and f.dateVal=" + getDateVal() + "";
+                jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + c.get(Calendar.YEAR) + " and f.monthVal=" + c.get(Calendar.MONTH) + " and f.dateVal=" + c.get(Calendar.DATE) + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
                 if (filledHealthForm == null) {
                     System.out.println("filled health form is null");
                     filledHealthForm = new FilledHealthForm();
                     filledHealthForm.setItem(healthForm);
-                    Date temFrdomDate = Calendar.getInstance().getTime();
-                    Calendar c = Calendar.getInstance();
-                    c.set(Calendar.YEAR, yearVal);
-                    c.add(Calendar.MONTH, monthVal);
-                    c.add(Calendar.DATE, dateVal);
-                    filledHealthForm.setFromDate(c.getTime());
-                    c = Calendar.getInstance();
-                    c.set(Calendar.YEAR, yearVal);
-                    c.add(Calendar.MONTH, 1);
-                    c.set(Calendar.DATE, 1);
-                    filledHealthForm.setToDate(c.getTime());
-
+                    filledHealthForm.setFromDate(getFormDate());
+                    filledHealthForm.setToDate(getFormDate());
+                    
+                    
+                    filledHealthForm.setYearVal(c.get(Calendar.YEAR));
+                    filledHealthForm.setMonthVal(c.get(Calendar.MONTH));
+                    filledHealthForm.setDateVal(c.get(Calendar.DATE));
+                    
                     filledHealthForm.setArea(sessionController.getLoggedUser().getStaff().getArea());
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
@@ -551,7 +451,7 @@ public class FormDataentryController implements Serializable {
                     filledHealthForm.setToDate(c.getTime()); // set the to date of the form
                     filledHealthForm.setYearVal(yearVal);
                     filledHealthForm.setMonthVal(monthVal);
-
+                    
                     filledHealthForm.setArea(sessionController.getLoggedUser().getStaff().getArea());
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
@@ -652,13 +552,5 @@ public class FormDataentryController implements Serializable {
 
     public void setFormDate(Date formDate) {
         this.formDate = formDate;
-    }
-
-    public IxCalFacade getIxCalFacade() {
-        return ixCalFacade;
-    }
-
-    public void setIxCalFacade(IxCalFacade ixCalFacade) {
-        this.ixCalFacade = ixCalFacade;
     }
 }

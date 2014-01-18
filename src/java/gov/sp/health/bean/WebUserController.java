@@ -164,6 +164,10 @@ public class WebUserController implements Serializable {
             UtilityController.addErrorMessage("Select a user to remove");
             return;
         }
+        if(removingUser.equals(getSessionController().getLoggedUser())){
+            UtilityController.addErrorMessage("You can not delete own user");
+            return;
+        }
         removingUser.getWebUserPerson().setRetired(true);
         removingUser.getWebUserPerson().setRetirer(getSessionController().getLoggedUser());
         removingUser.getWebUserPerson().setRetiredAt(Calendar.getInstance().getTime());

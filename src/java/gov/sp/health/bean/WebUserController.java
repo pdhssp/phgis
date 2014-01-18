@@ -4,6 +4,8 @@ package gov.sp.health.bean;
 import gov.sp.health.data.AreaType;
 import java.util.TimeZone;
 import gov.sp.health.data.StaffRole;
+import static gov.sp.health.data.StaffRole.Pdhs;
+import static gov.sp.health.data.StaffRole.Rdhs;
 import gov.sp.health.entity.Area;
 import gov.sp.health.entity.Institution;
 import gov.sp.health.entity.Person;
@@ -68,12 +70,13 @@ public class WebUserController implements Serializable {
     @EJB
     private InstitutionFacade institutionFacade;
     private Institution institution;
+    @EJB
+    AreaFacade areaFacade;
     Area area;
     Speciality speciality;
     List<WebUserPrivilege> userPrivileges;
     WebUser removingUser;
-    @EJB
-    AreaFacade areaFacade;
+    
 
     StaffRole staffRole;
 
@@ -114,7 +117,15 @@ public class WebUserController implements Serializable {
             case Moh: at=AreaType.MohArea;
                 break;
             case Pdhs: at=AreaType.Province;
-            break;
+                 break;
+            case Rdhs: at=AreaType.District;
+                break;
+            case Eu: at=AreaType.District;
+                break;
+            case Fhb: at=AreaType.District;
+                break;
+            case Admin: at=AreaType.District;
+                break;
   
         }
         String s = "Select a from Area a where a.retired=false and a.areaType=:at order by a.name" ;
@@ -164,6 +175,14 @@ public class WebUserController implements Serializable {
             UtilityController.addErrorMessage("Select a user to remove");
             return;
         }
+        
+        System.out.println(getSessionController().loggedUser.getWebUserPerson().getId());
+        System.out.println(removingUser.getId());
+        if(getSessionController().loggedUser.getWebUserPerson().getId().equals(removingUser.getWebUserPerson().getId()))
+        {
+            return;
+        }
+        
         removingUser.getWebUserPerson().setRetired(true);
         removingUser.getWebUserPerson().setRetirer(getSessionController().getLoggedUser());
         removingUser.getWebUserPerson().setRetiredAt(Calendar.getInstance().getTime());
@@ -366,6 +385,12 @@ public class WebUserController implements Serializable {
             UtilityController.addErrorMessage("User name already exists. Plese enter another user name");
             return "";
         }
+//        if(getCurrent().getArea().getId()==null){
+//                UtilityController.addErrorMessage("Please Select an Area");
+//        return "" ;
+      //  }
+        
+        
         Staff staff = new Staff();
         getCurrent().setActivated(true);
         getCurrent().setActivatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());

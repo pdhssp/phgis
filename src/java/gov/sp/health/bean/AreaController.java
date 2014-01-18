@@ -170,7 +170,15 @@ public  class AreaController implements Serializable {
                 return null;
             }
              java.lang.Long key;
+             
+             try
+             {
             key = Long.valueOf(value);
+             }
+             catch(Exception ee){
+                 key=0l;
+             }
+            
             return key;
         }
 

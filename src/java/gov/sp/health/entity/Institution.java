@@ -37,6 +37,13 @@ public class Institution implements Serializable {
     String phone;
     String mobile;
     String web;
+    @ManyToOne
+    private Area province;
+    @ManyToOne
+    private Area distric;
+    
+    
+    
     
     @Enumerated(EnumType.STRING)
     InstitutionType institutionType;
@@ -211,6 +218,22 @@ public class Institution implements Serializable {
 
     public void setInstitutionCode(String institutionCode) {
         this.institutionCode = institutionCode;
+    }
+
+    public Area getProvince() {
+        return province;
+    }
+
+    public void setProvince(Area province) {
+        this.province = province;
+    }
+
+    public Area getDistric() {
+        return distric;
+    }
+
+    public void setDistric(Area distric) {
+        this.distric = distric;
     }
 
  

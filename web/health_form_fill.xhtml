@@ -17,6 +17,7 @@
                     <p:panel >
                         <f:facet name="header" >
                             <h:outputLabel value="Fill Form - #{formDataentryController.filledHealthForm.item.code }" />
+                            <p:commandButton value="Calculate" action="#{formDataentryController.performCals()}" ajax="false" disabled="#{formDataentryController.filledHealthForm.approved}" />
                             <p:commandButton value="Save" action="#{formDataentryController.saveFilledForm()}" ajax="false" disabled="#{formDataentryController.filledHealthForm.approved}" />
                             <p:commandButton value="Submit" action="#{formDataentryController.submitFilledForm()}" ajax="false" disabled="#{formDataentryController.filledHealthForm.approved}" />
                             <p:commandButton ajax="false" value="View" action="health_form_fill_view"></p:commandButton>
@@ -45,6 +46,9 @@
                                         <h:inputText value="#{iv.strValue}"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Varchar' }" />
                                         <h:inputText value="#{iv.doubleValue}"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Double'}" />
                                         <h:inputTextarea value="#{iv.lobValue }"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Memo'}" />
+                                    </h:panelGrid>
+                                     <h:panelGrid rendered="#{iv.healthFormItem.healthFormItemType = 'Calculation'}" >
+                                        <h:inputText value="#{iv.doubleValue}"   />
                                     </h:panelGrid>
                                 </h:panelGroup>
 

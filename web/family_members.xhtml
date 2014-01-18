@@ -14,18 +14,20 @@
 
                 <h:form>
 
-                    <p:panelGrid columns="3" styleClass="alignTop">
+                    <p:panelGrid columns="3" id="gpDetail" styleClass="alignTop">
                         <p:panel header="Family Details" >
                             <p:panelGrid columns="2">
                                 <p:outputLabel> Family Name</p:outputLabel> 
-                                <p:inputText value="#{familyController.current.name}"  ></p:inputText>
+                                <p:inputText value="#{familyController.current.name}"  required="true" requiredMessage="Please Enter Family Name"></p:inputText>
                                 <p:outputLabel> Address </p:outputLabel> 
-                                <p:inputText value="#{familyController.current.address}"  ></p:inputText>
-                                <p:outputLabel> Longitude </p:outputLabel> 
-                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.longtide}" ></p:inputText>
-                                <p:outputLabel> Latitude </p:outputLabel> 
-                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.latitude}"></p:inputText>
+                                <p:inputText value="#{familyController.current.address}" required="true" requiredMessage="Please Enter Address" ></p:inputText>
+                                 
+                           
+                            
+                            
                             </p:panelGrid>
+                                
+                               
                             <p:commandButton ajax="false" value="Update" action="#{familyController.saveSelected()}" />
                             <p:commandButton ajax="false" value="View GIS" action="map_view_location" >
                             </p:commandButton>
@@ -38,8 +40,6 @@
                                 <p:inputText value="#{familyController.person.name}" ></p:inputText>
                                 <h:outputLabel value="Date of birth" ></h:outputLabel>
                                 <p:calendar value="#{familyController.person.dob}" ></p:calendar>
-                                <h:outputLabel value="Nic" ></h:outputLabel>
-                                <p:inputText value="#{familyController.person.nic}" ></p:inputText>
                                 <h:outputLabel value="Comments" ></h:outputLabel>
                                 <p:inputText value="#{familyController.person.description}" ></p:inputText>
                                 <p:commandButton ajax="false" value="Add to Family" action="#{familyController.addPersonToFamily()}" ></p:commandButton>

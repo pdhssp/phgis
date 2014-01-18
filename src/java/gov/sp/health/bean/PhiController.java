@@ -45,6 +45,11 @@ public class PhiController implements Serializable {
     String selectText = "";
     GisCoordinate coordinate;
     MapModel mapModel;
+    
+    
+     public void displayMap(){
+        getMapModel();
+     }
 
     public MapModel getMapModel() {
         mapModel = new DefaultMapModel();
@@ -142,18 +147,27 @@ public class PhiController implements Serializable {
         items = null;
     }
 
-    public void saveSelected() {
-
+    public void saveSelected() {    
+        if(getCurrent().getName().equals(""))
+        {
+            UtilityController.addErrorMessage("Please Enter PHI area Name");
+            return; 
+        }
+        if(getCurrent().getSuperArea()==null)
+        {
+            UtilityController.addErrorMessage("Please Select a MOH area");
+            return; 
+        }
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             current.setAreaType(AreaType.PhiArea);
             getFacade().edit(current);
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("Updated Successfully");
         } else {
             current.setAreaType(AreaType.PhiArea);
             current.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             current.setCreater(sessionController.getLoggedUser());
             getFacade().create(current);
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved New PHI Area Successfully");
         }
         recreateModel();
         getItems();
@@ -241,7 +255,14 @@ public class PhiController implements Serializable {
 
         java.lang.Long getKey(String value) {
             java.lang.Long key;
+            try
+            {
+                
             key = Long.valueOf(value);
+            }
+            catch(Exception ee){
+                key= 0l;
+            }
             return key;
         }
 

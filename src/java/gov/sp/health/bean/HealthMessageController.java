@@ -52,10 +52,27 @@ public class HealthMessageController implements Serializable {
     private List<Message> items = null;
     
     private List<Message> myItems = null;
+    
+    
+    private List<Message> staffItems = null;
+    
     String selectText = "";
   
     @EJB
     MessageFacade itemFacade;
+
+    public List<Message> getStaffItems() {
+        String sql;
+        sql="select m from Message m where m.toStaff=:p";
+        Map m = new HashMap();
+        m.put("p", getSessionController().getLoggedUser().getStaff().getStaffRole());
+        staffItems = getEjbFacade().findBySQL(sql, m);
+        return staffItems;
+    }
+
+    public void setStaffItems(List<Message> staffItems) {
+        this.staffItems = staffItems;
+    }
 
     
     public MessageFacade getItemFacade() {

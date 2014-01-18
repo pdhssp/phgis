@@ -28,7 +28,7 @@ public class Family implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    String f_name;
+   
     String name;
     String address;
     double langitude;
@@ -37,6 +37,8 @@ public class Family implements Serializable {
     GisCoordinate coordinate;
     @ManyToOne
     Area phmArea;
+    
+    
 
     public GisCoordinate getCoordinate() {
         return coordinate;
@@ -56,7 +58,7 @@ public class Family implements Serializable {
     WebUser retirer;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     Date retiredAt;
-    String retireComments;
+    
 
     public WebUser getCreater() {
         return creater;
@@ -90,13 +92,7 @@ public class Family implements Serializable {
         this.retiredAt = retiredAt;
     }
 
-    public String getRetireComments() {
-        return retireComments;
-    }
-
-    public void setRetireComments(String retireComments) {
-        this.retireComments = retireComments;
-    }
+   
 
     public List<Person> getPersons() {
         if (persons == null) {
@@ -182,13 +178,7 @@ public class Family implements Serializable {
         return "gov.sp.health.entity.Family[ id=" + id + " ]";
     }
 
-    public String getfName() {
-        return f_name;
-    }
-
-    public void setfName(String fName) {
-        this.f_name = fName;
-    }
+    
 
     public String getName() {
         return name;

@@ -18,7 +18,7 @@
 
                     </p:panelGrid>
                     <p:panelGrid columns="2" >
-                        <p:panel header="Forms to Enter Date" >
+                        <p:panel header="Forms to Enter Data" >
                             <h:form>    
 
 
@@ -96,7 +96,9 @@
                                         <h:outputLabel value="#{shf.item.name}" />
                                     </p:column>
                                     <p:column headerText="Time Period" >
-                                        to do cording to find time period
+                                       <h:outputLabel value="#{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                        <h:outputLabel value=" | #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
+                                        <h:outputLabel value=" | #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
                                     </p:column>
                                     <p:column headerText="View" >
                                         <p:commandButton value="View" action="health_form_fill" ajax="false" >
@@ -111,17 +113,24 @@
                         <p:panel header="Fill New Form" >
 
                             <h:form>
-
+                                
+                                    
+                                    <h:panelGroup id="gpTis" >
+                                        
+                                    
+                             
                                 <h:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
                                     <f:selectItem itemLabel="Please select a form" />
                                     <f:selectItems value="#{healthFormController.midvifesForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
                                     </f:selectItems>
                                     <f:ajax event="change" execute ="cmbHf" render="gpTimes" />
                                 </h:selectOneMenu>
+                                        
+                                         </h:panelGroup> 
 
                                 <h:panelGroup id="gpTimes" >
                                     <h:panelGroup id="gpDaily" rendered="#{formDataentryController.healthForm.durationType eq 'Daily'}" >
-                                        <p:calendar  value="#{formDataentryController.formDate}">
+                                        <p:calendar yearRange="#{formDataentryController.yearVal}"  value="#{formDataentryController.formDate}">
                                         </p:calendar>
                                     </h:panelGroup>
 
@@ -189,8 +198,7 @@
                                 <p:commandButton ajax="false" value="Enter Data" action="#{formDataentryController.startPhmDataEntry()}" >
 
                                 </p:commandButton>
-
-                            </h:form>
+                         </h:form>
                         </p:panel>
 
 

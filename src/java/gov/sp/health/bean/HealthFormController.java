@@ -188,7 +188,7 @@ public class HealthFormController implements Serializable {
     }
 
     public List<HealthForm> completeItem(String qry) {
-        List<HealthForm> completeItems = getFacade().findBySQL("select c from Item c where ( type(c) = Investigation or type(c) = Packege ) and c.retired=false and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name");
+        List<HealthForm> completeItems = getFacade().findBySQL("select c from Item c where type(c) = HealthForm and c.retired=false and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name");
         return completeItems;
     }
 

@@ -30,9 +30,18 @@
                         
                          <h:outputLabel value="To Staff" >
                         </h:outputLabel>
-                        <p:selectOneMenu converter="stfcon" value="#{healthMessageController.current.toStaff}" >
+                        <p:selectOneMenu  value="#{healthMessageController.current.toStaff}" id='sr'>
                             <f:selectItem itemLabel="Select Staff Role" ></f:selectItem>
-                            <f:selectItems value="#{staffController.items}" var="p" itemLabel="#{p.staffCode}" itemValue="#{p}" ></f:selectItems>
+                           <f:selectItem itemLabel="Please select a Role"  noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Mid wife" itemValue="Phm" />
+                                        <f:selectItem itemLabel="Public Health Inspector " itemValue="Phi" />
+                                        <f:selectItem itemLabel="Medical Officer of Health" itemValue="Moh" />
+                                        <f:selectItem itemLabel="Reginal Director of Health Services " itemValue="Rdhs" />
+                                        <f:selectItem itemLabel="Provincial Director of Health Services" itemValue="Pdhs" />
+                                        <f:selectItem itemLabel="Family Health Bureau" itemValue="Fhb" />
+                                        <f:selectItem itemLabel="Edpid Unit" itemValue="Eu" />
+                                        <f:selectItem itemLabel="Administrator" itemValue="Admin" />
+                                        <f:ajax event="change" execute="sr"  />
                         </p:selectOneMenu>
                         
                          

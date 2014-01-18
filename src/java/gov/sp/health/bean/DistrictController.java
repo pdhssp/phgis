@@ -51,7 +51,11 @@ public class DistrictController implements Serializable {
     GisCoordinate coordinate;
     MapModel mapModel;
     
-
+    public void displayMap(){
+        getMapModel();
+    }
+ 
+ 
     public MapModel getMapModel() {
         mapModel = new DefaultMapModel();
         Polygon polygon = new Polygon();
@@ -151,7 +155,16 @@ public class DistrictController implements Serializable {
     }
 
     public void saveSelected() {
-
+        if(getCurrent().getName().equals(""))
+        {
+            UtilityController.addErrorMessage("Please Enter District");
+            return; 
+        }
+        if(getCurrent().getSuperArea()==null)
+        {
+            UtilityController.addErrorMessage("Please Select a Province");
+            return; 
+        }
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             current.setAreaType(AreaType.District);
             getFacade().edit(current);
@@ -210,9 +223,9 @@ public class DistrictController implements Serializable {
             current.setRetiredAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             current.setRetirer(sessionController.getLoggedUser());
             getFacade().edit(current);
-            UtilityController.addSuccessMessage("DeleteSuccessfull");
+            UtilityController.addSuccessMessage("Delete Successfull");
         } else {
-            UtilityController.addSuccessMessage("NothingToDelete");
+            UtilityController.addSuccessMessage("Nothing To Delete");
         }
         recreateModel();
         getItems();
@@ -261,7 +274,14 @@ public class DistrictController implements Serializable {
 
         java.lang.Long getKey(String value) {
             java.lang.Long key;
+            try
+            {
+                
             key = Long.valueOf(value);
+            }
+            catch(Exception ee){
+                key= 0l;
+            }
             return key;
         }
 

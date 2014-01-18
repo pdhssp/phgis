@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
  */
 @Named
 @SessionScoped
-public  class IxCalController implements Serializable {
+public  class HealthFormCalController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -198,7 +198,6 @@ public  class IxCalController implements Serializable {
         if (ix != null) {
             System.out.println("ii count is " + ix.getReportItems().size());
             for (ReportItem ii : ix.getReportItems()) {
-                
                 if (ii instanceof HealthFormItem && ii.getHealthFormItemType() == HealthFormItemType.Calculation) {
                     System.out.println("ii is " + ii);
                 }
@@ -227,7 +226,7 @@ public  class IxCalController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    public IxCalController() {
+    public HealthFormCalController() {
     }
 
     private IxCalFacade getFacade() {
@@ -237,9 +236,9 @@ public  class IxCalController implements Serializable {
     public List<FormCal> getItems() {
         String sql;
         if (ix != null && cal != null) {
-            sql = "select i from IxCal i where i.calIxItem.id = " + cal.getId();
+            sql = "select i from FormCal i where i.calIxItem.id = " + cal.getId();
             items = getFacade().findBySQL(sql);
-        }
+        };
         if (items == null) {
             items = new ArrayList<FormCal>();
         }
@@ -257,7 +256,7 @@ public  class IxCalController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            IxCalController controller = (IxCalController) facesContext.getApplication().getELResolver().
+            HealthFormCalController controller = (HealthFormCalController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "ixCalController");
             return controller.ixCalFacade.find(getKey(value));
         }
@@ -284,7 +283,7 @@ public  class IxCalController implements Serializable {
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + IxCalController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + HealthFormCalController.class.getName());
             }
         }
     }

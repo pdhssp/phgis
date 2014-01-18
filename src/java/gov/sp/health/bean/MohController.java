@@ -48,6 +48,11 @@ public class MohController implements Serializable {
     GisCoordinate coordinate;
     MapModel mapModel;
 
+     public void displayMap(){
+        getMapModel();
+     }
+     
+     
     public MapModel getMapModel() {
         mapModel = new DefaultMapModel();
         Polygon polygon = new Polygon();
@@ -145,7 +150,16 @@ public class MohController implements Serializable {
     }
 
     public void saveSelected() {
-
+        if(getCurrent().getName().equals(""))
+        {
+            UtilityController.addErrorMessage("Please Enter MOH area Name");
+            return; 
+        }
+        if(getCurrent().getSuperArea()==null)
+        {
+            UtilityController.addErrorMessage("Please Select a District");
+            return; 
+        }
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             current.setAreaType(AreaType.MohArea);
             getFacade().edit(current);
@@ -253,7 +267,14 @@ public class MohController implements Serializable {
 
         java.lang.Long getKey(String value) {
             java.lang.Long key;
+            try
+            {
+                
             key = Long.valueOf(value);
+            }
+            catch(Exception ee){
+                key= 0l;
+            }
             return key;
         }
 

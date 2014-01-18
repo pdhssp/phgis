@@ -47,6 +47,10 @@ public class ProvinceController implements Serializable {
     GisCoordinate coordinate;
     MapModel mapModel;
 
+    public void displayMap(){
+        getMapModel();
+    }
+    
     public MapModel getMapModel() {
         mapModel = new DefaultMapModel();
         Polygon polygon = new Polygon();
@@ -137,6 +141,16 @@ public class ProvinceController implements Serializable {
 
     public void saveSelected() {
         System.out.println("a");
+        if(getCurrent()==null){
+             UtilityController.addErrorMessage("Please Click Add Button ");
+            return;
+        }
+        if(getCurrent().getName().equals(""))
+        {
+            UtilityController.addErrorMessage("Please Select Province Name");
+            return;
+        
+        }
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
 
             current.setAreaType(AreaType.Province);
@@ -234,7 +248,14 @@ public class ProvinceController implements Serializable {
 
         java.lang.Long getKey(String value) {
             java.lang.Long key;
+            try
+            {
+                
             key = Long.valueOf(value);
+            }
+            catch(Exception ee){
+                key= 0l;
+            }
             return key;
         }
 

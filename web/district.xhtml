@@ -26,10 +26,16 @@
                                 <h:panelGrid id="gpSelectText" >
                                     <h:selectOneListbox converter="phiCon"  id="lstSelect"   size="10" value="#{districtController.current}" style="min-width: 223px">
                                         <f:selectItems  value="#{districtController.items}" var="yItem" itemValue="#{yItem}" itemLabel="#{yItem.name}" ></f:selectItems>
-                                        <f:ajax render="gpDetail mp" execute="lstSelect" >
+                                        <f:ajax render="gpDetail mp " execute="lstSelect" >
                                         </f:ajax>
                                     </h:selectOneListbox>
+                                    <h:commandButton id="butViewMap" value="View in Map" styleClass="buttons">
+                                    </h:commandButton>
                                 </h:panelGrid>
+
+                            </p:panel>
+                            <p:panel id="Map" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
+
                                 <h:panelGrid id="gpSelectButtons" columns="3"  >
                                     <h:commandButton id="btnAdd" value="Add"  action="#{districtController.prepareAdd()}" styleClass="buttons" >
                                         <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail detailFocus" execute="" >
@@ -42,9 +48,9 @@
                             </p:panel>
                         </h:panelGrid  >
 
-                        <p:panel>
+                        <p:panel rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
                             <h:panelGrid id="gpDetail" columns="1">
-                                <h:panelGrid id="gpDetailText" columns="2">
+                                <h:panelGrid id="gpDetailText" columns="2" >
 
                                     <h:outputText id="lblName" value="Name" ></h:outputText>
                                     <h:inputText id="txtName" value="#{districtController.current.name}"  ></h:inputText>
@@ -53,7 +59,7 @@
                                     <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{districtController.current.superArea}"  >
                                         <f:selectItem itemLabel="Please select a province" />
                                         <f:selectItems  value="#{provinceController.items}" var="p" itemValue="#{p}" itemLabel="#{p.name}" ></f:selectItems>
-                                        
+
                                     </p:selectOneMenu>
 
                                 </h:panelGrid>
@@ -66,10 +72,14 @@
                                 </h:panelGrid>
                             </h:panelGrid>
                         </p:panel>
-
+                      
                         <p:panel rendered="#{districtController.current.id ne 0 or districtController.current.id ne null }" >
 
-                            <p:panel header="Coordinates" id="mp">
+  <p:gmap id="gmap" rendered="#{districtController.current.cordinates.size()>0}" center="#{districtController.current.cordinates.get(0).latitude}, #{districtController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{districtController.mapModel}">  
+                        </p:gmap>
+
+                            <p:panel header="Coordinates" id="mp" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
+
                                 <p:panelGrid >
                                     <p:row >
                                         <p:column >
@@ -123,21 +133,12 @@
                                             </p:dataTable>
                                         </p:column>
                                     </p:row>
-                                    <p:row>
-                                        <p:column >
-                                            #{districtController.mapModel}
-                                            <p:gmap rendered="#{districtController.current.cordinates.size()>0}" center="#{districtController.current.cordinates.get(0).latitude}, #{districtController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{districtController.mapModel}">  
-                                            </p:gmap>
-                                        </p:column>
-                                    </p:row>
+
 
                                 </p:panelGrid>
                             </p:panel>
 
-                            <p:panel header="Map" >
 
-
-                            </p:panel>
                         </p:panel>
 
 

@@ -10,7 +10,7 @@
 
     <ui:define name="content">
 
-        <h:panelGroup >
+        <h:panelGroup  >
             <h:form  >
                 <p:growl autoUpdate="true" />
                 <p:focus id="selectFocus" context="gpSelect" />
@@ -26,10 +26,15 @@
                                 <h:panelGrid id="gpSelectText" >
                                     <h:selectOneListbox converter="provinceCon"  id="lstSelect"   size="10" value="#{provinceController.current}" style="min-width: 223px">
                                         <f:selectItems  value="#{provinceController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
-                                        <f:ajax render="gpDetail" execute="lstSelect" >
+                                        <f:ajax render="gpDetail " execute="lstSelect" >
                                         </f:ajax>
                                     </h:selectOneListbox>
                                 </h:panelGrid>
+                                <h:commandButton id="butMap" value="View in Map" action="#{provinceController.displayMap()}">
+                                   
+                                </h:commandButton>
+                                </p:panel>
+                            <p:panel id="opt" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
                                 <h:panelGrid id="gpSelectButtons" columns="3"  >
                                     <h:commandButton id="btnAdd" value="Add"  action="#{provinceController.prepareAdd()}" styleClass="buttons" >
                                         <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail detailFocus" execute="gpDetail" >
@@ -42,14 +47,14 @@
                             </p:panel>
                         </h:panelGrid  >
 
-                        <p:panel>
+                        <p:panel id="nw" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
                             <h:panelGrid id="gpDetail" columns="1">
                                 <h:panelGrid id="gpDetailText" columns="2">
                                     <h:outputText id="lblName" value="Name" ></h:outputText>
                                     <h:inputText id="txtName" value="#{provinceController.current.name}"  ></h:inputText>
 
                                 </h:panelGrid>
-                                <h:panelGrid id="gpDetailButtons" columns="2">
+                                <h:panelGrid id="gpDetailButtons" columns="2" >
                                     <h:commandButton id="btnSave" value="Save"  action="#{provinceController.saveSelected()}" styleClass="buttons">
                                     </h:commandButton>
                                 </h:panelGrid>
@@ -64,12 +69,15 @@
 
 
             </h:form>
-
-            <h:form >
-
-                <p:panel rendered="#{provinceController.current.id ne 0 or provinceController.current.id ne null }" >
-
-                    <p:panel header="Coordinates" >
+            
+                
+                            
+           
+            <h:form   id='gmap'>
+                <p:panel rendered="#{provinceController.current.id ne 0 or provinceController.current.id ne null }"  >
+ <p:gmap id="map" rendered="#{provinceController.current ne null and provinceController.current.cordinates.size() > 0 }" center="#{provinceController.current.cordinates.get(0).latitude},#{provinceController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{provinceController.mapModel}">  
+                                    </p:gmap>
+                    <p:panel header="Coordinates" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }" >
                         <p:panelGrid >
                             <p:row >
                                 <p:column >
@@ -123,25 +131,16 @@
                                     </p:dataTable>
                                 </p:column>
                             </p:row>
-                            <p:row>
-                                <p:column >
-                                    <p:gmap rendered="#{provinceController.current ne null and provinceController.current.cordinates.size() > 0 }" center="#{provinceController.current.cordinates.get(0).latitude},#{provinceController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{provinceController.mapModel}">  
-                                    </p:gmap>
-                                </p:column>
-                            </p:row>
+                           
 
                         </p:panelGrid>
                     </p:panel>
 
-                    <p:panel header="Map" >
-
-
-                    </p:panel>
+                    
                 </p:panel>
-
-
+                
             </h:form>
-
+  
         </h:panelGroup>
 
     </ui:define>

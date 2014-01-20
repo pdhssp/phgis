@@ -19,7 +19,7 @@
                         
                         <p:panel header="Recently Submitted Forms" >
                             <h:form>
-                                <p:dataTable value="#{formDataentryController.submittedForms}" var="shf" >
+                                <p:dataTable value="#{formDataentryController.submittedFormsTopTen}" var="shf" >
                                     <p:column headerText="Form" >
                                         <h:outputLabel value="#{shf.item.name}" />
                                     </p:column>

@@ -177,7 +177,7 @@ public class FormDataentryController implements Serializable {
         return formsToFill;
     }
 
-    public List<FilledHealthForm> getFilledForms() {
+    public List<FilledHealthForm> getFilledFormsTopTen() {
         try {
             String sql;
             filledForms = new ArrayList<FilledHealthForm>();
@@ -193,13 +193,29 @@ public class FormDataentryController implements Serializable {
         return filledForms;
     }
 
-    public List<FilledHealthForm> getSubmittedForms() {
+    public List<FilledHealthForm> getFilledFormsAll() {
+        try {
+            String sql;
+            filledForms = new ArrayList<FilledHealthForm>();
+            Map m = new HashMap();
+            sql = "select ff from FilledHealthForm ff where ff.approved=false and ff.area=:a and ff.retired=false ";
+            m.put("a", sessionController.getArea());
+            filledForms = getFilledHealthFormFacade().findBySQL(sql, m);
+        } catch (Exception ee) {
+            System.out.println(ee.getMessage());
+            filledForms = null;
+        }
+
+        return filledForms;
+    }
+
+    public List<FilledHealthForm> getSubmittedFormsTopTen() {
         try {
             String sql;
             submittedForms = new ArrayList<FilledHealthForm>();
             Map m = new HashMap();
             sql = "select ff from FilledHealthForm ff where ff.approved=true and ff.area=:a and ff.retired=false ";
-            m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+            m.put("a", sessionController.getArea());
             submittedForms = getFilledHealthFormFacade().findBySQL(sql, m, 10);
         } catch (Exception ee) {
             System.out.println(ee.getMessage());
@@ -208,6 +224,23 @@ public class FormDataentryController implements Serializable {
         }
         return submittedForms;
     }
+    
+    public List<FilledHealthForm> getSubmittedFormsAll() {
+        try {
+            String sql;
+            submittedForms = new ArrayList<FilledHealthForm>();
+            Map m = new HashMap();
+            sql = "select ff from FilledHealthForm ff where ff.approved=true and ff.area=:a and ff.retired=false ";
+            m.put("a", sessionController.getArea());
+            submittedForms = getFilledHealthFormFacade().findBySQL(sql, m);
+        } catch (Exception ee) {
+            System.out.println(ee.getMessage());
+            submittedForms = null;
+
+        }
+        return submittedForms;
+    }
+    
 
     public void setSubmittedForms(List<FilledHealthForm> submittedForms) {
         this.submittedForms = submittedForms;
@@ -372,7 +405,7 @@ public class FormDataentryController implements Serializable {
         System.out.println("all items after creation is " + fhf.getFilledHealthFormReportItemValue().toString());
     }
 
-    public String startPhmDataEntry() {
+    public String startRoleDataEntry() {
         if (healthForm == null || sessionController == null || sessionController.getLoggedUser() == null || sessionController.getLoggedUser().getStaff() == null) {
             UtilityController.addErrorMessage("Please select a form");
             return "";

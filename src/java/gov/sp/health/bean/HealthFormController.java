@@ -51,22 +51,22 @@ public class HealthFormController implements Serializable {
     boolean reportedAs;
     HealthFormCategory category;
     List<HealthForm> catIxs;
-    private List<HealthForm> midvifesForms;
+    private List<HealthForm> fillableForms;
 
-    public List<HealthForm> getMidvifesForms() {
-        midvifesForms = getStaffRoleForms(StaffRole.Phm);
-        return midvifesForms;
+    public List<HealthForm> getFillableForms() {
+        fillableForms = getStaffRoleForms(sessionController.getLoggedUser().getStaff().getStaffRole());
+        return fillableForms;
     }
 
     public List<HealthForm> getStaffRoleForms(StaffRole sr) {
         Map m = new HashMap();
-        String jpql = "select f from HealthForm f where f.staffRole =:sr order by f.code";
+        String jpql = "select f from HealthForm f where f.retired=false and  f.staffRole =:sr order by f.code";
         m.put("sr", sr);
         return getFacade().findBySQL(jpql, m);
     }
 
-    public void setMidvifesForms(List<HealthForm> midvifesForms) {
-        this.midvifesForms = midvifesForms;
+    public void setFillableForms(List<HealthForm> fillableForms) {
+        this.fillableForms = fillableForms;
     }
 
     public HealthFormCategory getCategory() {

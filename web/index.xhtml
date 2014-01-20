@@ -13,8 +13,8 @@
     <body>
         <ui:composition template="./resources/template/template.xhtml">
             <ui:define name="content">
-                <p:panelGrid columns="2" >
-                    <p:panelGrid columns="2" >
+                <p:panelGrid columns="2" styleClass="alignTop" >
+                    <p:panelGrid columns="2"  styleClass="alignTop" >
                         <p:panel header="Forms to Enter Data" >
                             <h:form>    
                                 <p:dataTable value="#{formDataentryController.formsToFill}" var="ftf" rendered="#{formDataentryController.formsToFill ne null}">
@@ -24,37 +24,8 @@
                                     <p:column headerText="Form Name" >
                                         <h:outputLabel value="#{ftf.name}" />
                                     </p:column>
-                                    <p:column headerText="Duration" >
-                                        <h:panelGroup rendered="#{ftf.durationType eq 'Annually'}">
-                                            <h:outputLabel  value="Year #{formDataentryController.yearVal}" ></h:outputLabel>>
-
-                                        </h:panelGroup>
-                                        <h:panelGroup rendered="#{ftf.durationType eq 'Daily'}">
-                                            <h:outputLabel   value="#{formDataentryController.yearVal}" ></h:outputLabel >
-                                            <h:outputLabel  > : </h:outputLabel>
-                                            <h:outputLabel   value="#{formDataentryController.monthVal}" ></h:outputLabel >
-                                            <h:outputLabel  > : </h:outputLabel>
-                                            <h:outputLabel   value="#{formDataentryController.dateVal}" ></h:outputLabel >
-
-                                        </h:panelGroup>
-
-                                        <h:panelGroup rendered="#{ftf.durationType eq 'Monthly'}">
-                                            <h:outputLabel   value="#{formDataentryController.yearVal}" ></h:outputLabel >
-                                            <h:outputLabel  > : </h:outputLabel>
-                                            <h:outputLabel   value="#{formDataentryController.monthVal}" ></h:outputLabel >                                         
-                                        </h:panelGroup>
-
-
-                                        <h:panelGroup rendered="#{ftf.durationType eq 'Quarterly'}">
-                                            <h:outputLabel   value="#{formDataentryController.yearVal}" ></h:outputLabel >
-                                            <h:outputLabel  > : </h:outputLabel>
-                                            <h:outputLabel   value="#{formDataentryController.quarterVal}" ></h:outputLabel >                                         
-                                        </h:panelGroup>
-
-
-                                    </p:column>
                                     <p:column>
-                                        <h:commandButton value="Start Entering Data"  action="#{formDataentryController.startDataEntry}" >
+                                        <h:commandButton value="Start Entering Data"  action="#{formDataentryController.startRoleDataEntry}" >
                                             <f:setPropertyActionListener value="#{ftf}" target="#{formDataentryController.healthForm}" />
                                         </h:commandButton>
                                     </p:column>
@@ -63,9 +34,10 @@
                             </h:form>
 
                         </p:panel>
+
                         <p:panel header="Forms to Forward" >
                             <h:form>
-                                <p:dataTable value="#{formDataentryController.filledForms}" var="fhf" >
+                                <p:dataTable value="#{formDataentryController.filledFormsTopTen}" var="fhf" >
                                     <p:column headerText="Form" >
                                         <h:outputLabel value="#{fhf.item.name}" />
                                     </p:column>
@@ -81,11 +53,12 @@
                                     </p:column>
 
                                 </p:dataTable>
+                                <h:commandLink value="List all forms awaiting forward" action="all_forms_to_submit" ></h:commandLink>
                             </h:form>
                         </p:panel>
                         <p:panel header="Recently Submitted Forms" >
                             <h:form>
-                                <p:dataTable value="#{formDataentryController.submittedForms}" var="shf" >
+                                <p:dataTable value="#{formDataentryController.submittedFormsTopTen}" var="shf" >
                                     <p:column headerText="Form" >
                                         <h:outputLabel value="#{shf.item.name}" />
                                     </p:column>
@@ -99,7 +72,7 @@
                                             <f:setPropertyActionListener value="#{shf}" target="#{formDataentryController.filledHealthForm}" />
                                         </p:commandButton>
                                     </p:column>
-
+                                    <h:commandLink value="List all forms awaiting forward" action="all_forms_submitted" ></h:commandLink>
                                 </p:dataTable>
                             </h:form>
                         </p:panel>
@@ -110,7 +83,7 @@
                                 <h:panelGroup id="gpTis" >
                                     <h:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
                                         <f:selectItem itemLabel="Please select a form" />
-                                        <f:selectItems value="#{healthFormController.midvifesForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
+                                        <f:selectItems value="#{healthFormController.fillableForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
                                         </f:selectItems>
                                         <f:ajax event="change" execute ="cmbHf" render="gpTimes" />
                                     </h:selectOneMenu>
@@ -179,7 +152,7 @@
 
                                 </h:panelGroup>
 
-                                <p:commandButton ajax="false" value="Enter Data" action="#{formDataentryController.startPhmDataEntry()}" >
+                                <p:commandButton ajax="false" value="Enter Data" action="#{formDataentryController.startRoleDataEntry()}" >
                                 </p:commandButton>
                             </h:form>
                         </p:panel>

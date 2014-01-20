@@ -22,12 +22,17 @@
                                 <p:outputLabel> Address </p:outputLabel> 
                                 <p:inputText value="#{familyController.current.address}" required="true" requiredMessage="Please Enter Address" ></p:inputText>
                                  
-                           
+                                <p:outputLabel> Longitude </p:outputLabel> 
+                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.longtide}" ></p:inputText>
+                                <p:outputLabel> Latitude </p:outputLabel> 
+                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.latitude}"></p:inputText>
+
+                                
                             
                             
                             </p:panelGrid>
                                 
-                               
+                                
                             <p:commandButton ajax="false" value="Update" action="#{familyController.saveSelected()}" />
                             <p:commandButton ajax="false" value="View GIS" action="map_view_location" >
                             </p:commandButton>

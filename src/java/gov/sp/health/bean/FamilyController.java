@@ -1,6 +1,7 @@
 package gov.sp.health.bean;
 
 import gov.sp.health.data.DefaultsBean;
+import gov.sp.health.ejb.GisEjb;
 import gov.sp.health.entity.Area;
 import java.util.TimeZone;
 import gov.sp.health.facade.FamilyFacade;
@@ -170,8 +171,17 @@ public class FamilyController implements Serializable {
            
             current.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             current.setCreater(sessionController.getLoggedUser());
-            current.setPhmArea(sessionController.getLoggedUser().getArea());
-      
+            System.out.println("this = " + sessionController.getLoggedUser().getArea());
+            System.out.println("this = " + sessionController.getArea());
+            current.setPhmArea(sessionController.getArea());
+            if(current.getCoordinate()!=null){
+                if(current.getCoordinate().getId()==null || current.getCoordinate().getId()==0){
+                    getGisCoordinateFacade().create(current.getCoordinate());
+                }else{
+                    getGisCoordinateFacade().edit(current.getCoordinate());
+                }
+            }
+            
             getFacade().create(current);
             UtilityController.addSuccessMessage("saved New Successfully");
         }
@@ -274,8 +284,11 @@ public class FamilyController implements Serializable {
     }
 
     public String listFamilies() {
-        String sql = "SELECT i FROM Family i where i.retired=false order by i.address";
-        items = getEjbFacade().findBySQL(sql);
+        String sql = "SELECT i FROM Family i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a) order by i.address";
+        Map m = new HashMap();
+        m.put("a", getSessionController().getArea());
+        items = getEjbFacade().findBySQL(sql,m);
+        
         if (items == null) {
             items = new ArrayList<Family>();
         }
@@ -284,12 +297,24 @@ public class FamilyController implements Serializable {
             if (f.getCoordinate() != null) {
                 Marker marker = new Marker(new LatLng(f.getCoordinate().getLatitude(), f.getCoordinate().getLongtide()), f.getAddress());
                 allFamiliesModel.addOverlay(marker);
-                defaultCoordinate = f.getCoordinate();
+                
             }
         }
+        defaultCoordinate= getGisEjb().getCentre(allFamiliesModel);
         return "family";
     }
 
+    
+    @EJB
+    GisEjb gisEjb;
+
+    public GisEjb getGisEjb() {
+        return gisEjb;
+    }
+
+    public void setGisEjb(GisEjb gisEjb) {
+        this.gisEjb = gisEjb;
+    }
     public List<Family> getItems() {
         return items;
     }

@@ -1,4 +1,3 @@
-
 package gov.sp.health.bean;
 
 import gov.sp.health.data.AreaType;
@@ -39,8 +38,8 @@ import org.primefaces.event.FlowEvent;
 
 /**
  *
- *  
- *  )
+ *
+ * )
  */
 @Named
 @SessionScoped
@@ -75,7 +74,6 @@ public class WebUserController implements Serializable {
     WebUser removingUser;
     @EJB
     AreaFacade areaFacade;
-
     StaffRole staffRole;
 
     public StaffRole getStaffRole() {
@@ -85,10 +83,7 @@ public class WebUserController implements Serializable {
     public void setStaffRole(StaffRole staffRole) {
         this.staffRole = staffRole;
     }
-    
-    
-    
-    
+
     public AreaFacade getAreaFacade() {
         return areaFacade;
     }
@@ -96,40 +91,45 @@ public class WebUserController implements Serializable {
     public void setAreaFacade(AreaFacade areaFacade) {
         this.areaFacade = areaFacade;
     }
-    
-    
-    
 
     public List<Area> getAreas() {
-        if(staffRole==null){
+        if (staffRole == null) {
             areas = new ArrayList<Area>();
             return areas;
         }
         Map m = new HashMap();
-        AreaType at= null;
-        switch (staffRole){
-            case Phm:at= AreaType.PhmArea;
+        AreaType at = null;
+        switch (staffRole) {
+            case Phm:
+                at = AreaType.PhmArea;
                 break;
-            case Phi: at= AreaType.PhiArea;
+            case Phi:
+                at = AreaType.PhiArea;
                 break;
-            case Moh: at=AreaType.MohArea;
+            case Moh:
+                at = AreaType.MohArea;
                 break;
-            case Pdhs: at=AreaType.Province;
-            break;
-                case Rdhs: at=AreaType.District;
-            break;
-                    case Admin: at=AreaType.Province;
-            break;
-                        case Eu: at=AreaType.District;
-            break;  
-                            case Fhb: at=AreaType.District;
-            break;
-  
-  
+            case Pdhs:
+                at = AreaType.Province;
+                break;
+            case Rdhs:
+                at = AreaType.District;
+                break;
+            case Admin:
+                at = AreaType.Province;
+                break;
+            case Eu:
+                at = AreaType.District;
+                break;
+            case Fhb:
+                at = AreaType.District;
+                break;
+
+
         }
-        String s = "Select a from Area a where a.retired=false and a.areaType=:at order by a.name" ;
+        String s = "Select a from Area a where a.retired=false and a.areaType=:at order by a.name";
         m.put("at", at);
-        areas=getAreaFacade().findBySQL(s, m);
+        areas = getAreaFacade().findBySQL(s, m);
         return areas;
     }
 
@@ -145,9 +145,6 @@ public class WebUserController implements Serializable {
         this.area = area;
     }
 
-    
-    
-   
     public void saveUser() {
         if (current == null) {
             return;
@@ -174,7 +171,7 @@ public class WebUserController implements Serializable {
             UtilityController.addErrorMessage("Select a user to remove");
             return;
         }
-        if(removingUser.equals(getSessionController().getLoggedUser())){
+        if (removingUser.equals(getSessionController().getLoggedUser())) {
             UtilityController.addErrorMessage("You can not delete own user");
             return;
         }
@@ -226,8 +223,6 @@ public class WebUserController implements Serializable {
     public void setSpeciality(Speciality speciality) {
         this.speciality = speciality;
     }
-
-    
 
     public List<Institution> getInstitutions() {
         if (institutions == null) {
@@ -336,7 +331,7 @@ public class WebUserController implements Serializable {
         Person p = new Person();
         getCurrent().setWebUserPerson(p);
         setSpeciality(null);
-       
+
         return "admin_add_new_user";
     }
 
@@ -376,6 +371,8 @@ public class WebUserController implements Serializable {
             return "";
         }
 
+        area = getCurrent().getWebUserPerson().getArea();
+
         if (userNameAvailable(getCurrent().getName())) {
             UtilityController.addErrorMessage("User name already exists. Plese enter another user name");
             return "";
@@ -406,6 +403,7 @@ public class WebUserController implements Serializable {
         getCurrent().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
         getCurrent().setCreater(sessionController.loggedUser);
         getCurrent().setStaff(staff);
+        getCurrent().setArea(area);
         getFacade().create(getCurrent());
         System.out.println("Web User Saved");
         //SetPrivilage
@@ -511,8 +509,6 @@ public class WebUserController implements Serializable {
         this.selectText = selectText;
     }
 
-    
-
     public InstitutionFacade getInstitutionFacade() {
         return institutionFacade;
     }
@@ -524,9 +520,6 @@ public class WebUserController implements Serializable {
     public Institution getInstitution() {
         return institution;
     }
-
-   
-
 
     public PersonFacade getPersonFacade() {
         return personFacade;
@@ -550,8 +543,6 @@ public class WebUserController implements Serializable {
     public void setWebUserPrevilageFacade(WebUserPrivilegeFacade webUserPrevilageFacade) {
         this.webUserPrevilageFacade = webUserPrevilageFacade;
     }
-
-    
 
     @FacesConverter("webUs")
     public static class WebUserControllerConverter implements Converter {

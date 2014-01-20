@@ -8,6 +8,7 @@ import gov.sp.health.facade.GisCoordinateFacade;
 import gov.sp.health.facade.ItemFacade;
 import gov.sp.health.facade.SpecialityFacade;
 import gov.sp.health.entity.Diagnosis;
+import gov.sp.health.entity.GisCoordinate;
 import gov.sp.health.facade.DiagnosisFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,6 +47,8 @@ public class DiagnosisController implements Serializable {
     @EJB
     GisCoordinateFacade gisCoordinateFacade;
     MapModel familyMapModel;
+    MapModel allFamiliesModel;
+    GisCoordinate defaultCoordinate;
 
     public GisCoordinateFacade getGisCoordinateFacade() {
         return gisCoordinateFacade;

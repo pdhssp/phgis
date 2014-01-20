@@ -32,7 +32,7 @@
                                     </p:column>
                                     <p:column headerText="Duration" >
                                         <h:panelGroup rendered="#{ftf.durationType eq 'Annually'}">
-                                            <h:outputLabel  value="#{formDataentryController.yearVal}" ></h:outputLabel>>
+                                            <h:outputLabel  value="Year #{formDataentryController.yearVal}" ></h:outputLabel>>
 
                                         </h:panelGroup>
                                         <h:panelGroup rendered="#{ftf.durationType eq 'Daily'}">
@@ -76,7 +76,7 @@
                                         <h:outputLabel value="#{fhf.item.name}" />
                                     </p:column>
                                     <p:column headerText="Time Period" >
-                                        <h:outputLabel value="#{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
+                                        <h:outputLabel value=" Year : #{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
                                         <h:outputLabel value=" | #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
                                         <h:outputLabel value=" | #{fhf.dateVal}"  rendered="#{fhf.dateVal>0}"/>
                                     </p:column>

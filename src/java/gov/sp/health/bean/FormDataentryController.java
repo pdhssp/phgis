@@ -369,11 +369,17 @@ public class FormDataentryController implements Serializable {
             return "";
         }
         Map m = new HashMap();
-        m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+        m.put("a", sessionController.getArea());
         m.put("i", healthForm);
         String jpql;
+        
+       // System.out.println(sessionController.getLoggedUser().getArea());
+        
+       // System.out.println(sessionController.getLoggedUser().getStaff().getArea());
+        
         switch (healthForm.getDurationType()) {
             case Annually:
+               
                 
                 System.out.println("anual report");
                 jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + getYearVal();
@@ -396,7 +402,7 @@ public class FormDataentryController implements Serializable {
                     c.set(Calendar.DATE, 31);
                     filledHealthForm.setToDate(c.getTime());
                     filledHealthForm.setYearVal(yearVal);
-                    filledHealthForm.setArea(sessionController.getLoggedUser().getStaff().getArea());
+                    filledHealthForm.setArea(sessionController.getLoggedUser().getArea());
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
                 }
@@ -405,6 +411,7 @@ public class FormDataentryController implements Serializable {
             case Daily:
                 Calendar c = Calendar.getInstance();
                 System.out.println("Daily report");
+                
                 jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + c.get(Calendar.YEAR) + " and f.monthVal=" + c.get(Calendar.MONTH) + " and f.dateVal=" + c.get(Calendar.DATE) + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
@@ -429,7 +436,7 @@ public class FormDataentryController implements Serializable {
 
             case Monthly:
                 System.out.println("Monthly report");
-                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + "";
+                jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
                 if (filledHealthForm == null) {
@@ -437,18 +444,18 @@ public class FormDataentryController implements Serializable {
                     filledHealthForm = new FilledHealthForm();
                     filledHealthForm.setItem(healthForm);
                     Date temFrdomDate = Calendar.getInstance().getTime();
-                    Calendar c = Calendar.getInstance();
-                    c.set(Calendar.YEAR, yearVal);//this year
-                    c.add(Calendar.MONTH, monthVal);//this month
-                    c.set(Calendar.DATE, 1);
-                    filledHealthForm.setFromDate(c.getTime());  // set the from date of the form like this year this month
-                    c = Calendar.getInstance();
-                    c.set(Calendar.YEAR, yearVal);
-                    c.set(Calendar.MONTH, monthVal);
-                    c.add(Calendar.MONTH, 1);
-                    c.set(Calendar.DATE, 1);
-                    c.add(Calendar.DATE, -1);  // -1 for get the end of the month
-                    filledHealthForm.setToDate(c.getTime()); // set the to date of the form
+                    Calendar cc = Calendar.getInstance();
+                    cc.set(Calendar.YEAR, yearVal);//this year
+                    cc.add(Calendar.MONTH, monthVal);//this month
+                    cc.set(Calendar.DATE, 1);
+                    filledHealthForm.setFromDate(cc.getTime());  // set the from date of the form like this year this month
+                    cc = Calendar.getInstance();
+                    cc.set(Calendar.YEAR, yearVal);
+                    cc.set(Calendar.MONTH, monthVal);
+                    cc.add(Calendar.MONTH, 1);
+                    cc.set(Calendar.DATE, 1);
+                    cc.add(Calendar.DATE, -1);  // -1 for get the end of the month
+                    filledHealthForm.setToDate(cc.getTime()); // set the to date of the form
                     filledHealthForm.setYearVal(yearVal);
                     filledHealthForm.setMonthVal(monthVal);
                     

@@ -10,159 +10,164 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <script src="http://maps.google.com/maps/api/js?sensor=true"
         type="text/javascript"></script>
-        
+
         <title>#{labels.topic}</title>
         <h:outputStylesheet library="css" name="maincss.css" />
         <h:outputStylesheet library="css" name="css1.css" />
     </h:head>
     <h:body style="border:0px; min-height: 100%; " >
-        
+
         <f:view locale="#{languageController.strLocale}" >
-        
-        <p:panel style="margin: 0px; padding: 0px; border: 0px; min-height: 100%!important;" >
 
-            <h:panelGrid columns="1" style="width: 100%;margin: 0px; padding: 0px;" >
-                <h:outputLabel value="#{labels.topic}" style="margin:" styleClass="heading1" /> 
-            </h:panelGrid>
-    
-            <p:growl id="publicGrowl" autoUpdate="true" />
+            <p:panel style="margin: 0px; padding: 0px; border: 0px; min-height: 100%!important;" >
 
-            <h:panelGroup style="width: 100%;" >
-                <h:form>
-                    <h:panelGroup class="nonPrintBlock" >
-                        <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;top:5px">  
-                            <f:facet name="start">  
-                                <p:graphicImage library="image" name="ajax-loader.gif" />  
-                            </f:facet>  
-                            <f:facet name="complete">  
-                                <h:outputText value="" />  
-                            </f:facet>  
-                        </p:ajaxStatus>
-                        <p:menubar styleClass="nonPrintBlock" style=" border: 0px;" rendered="#{sessionController.logged}" >
-                            <p:menuitem ajax="false" action="index" value="#{labels.topic}"  ></p:menuitem>
-                            <p:menuitem ajax="false" action="index" value="||"  ></p:menuitem>
-                            <p:submenu label="Forms"  >
-                                <p:menuitem  ajax="false"  action="fill_new_form" value="#{labels.home}"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="lab_bill_collecting_centre" value="Consolidate Forms"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="approve_filled_forms" value="Approve Filled Forms"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="recently_submitted_forms.xhtml" value="Forward Forms"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="graph_health_form" value="Analysis"  ></p:menuitem>
+                <h:panelGrid columns="1" style="width: 100%;margin: 0px; padding: 0px;" >
+                    <h:outputLabel value="#{labels.topic}" style="margin:" styleClass="heading1" /> 
+                </h:panelGrid>
+
+                <p:growl id="publicGrowl" autoUpdate="true" />
+
+                <h:panelGroup style="width: 100%;" >
+                    <h:form>
+                        <h:panelGroup class="nonPrintBlock" >
+                            <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;top:5px">  
+                                <f:facet name="start">  
+                                    <p:graphicImage library="image" name="ajax-loader.gif" />  
+                                </f:facet>  
+                                <f:facet name="complete">  
+                                    <h:outputText value="" />  
+                                </f:facet>  
+                            </p:ajaxStatus>
+                            <p:menubar styleClass="nonPrintBlock" style=" border: 0px;" rendered="#{sessionController.logged}" >
+                                <p:menuitem ajax="false" action="index" value="#{labels.topic}"  ></p:menuitem>
+                                <p:menuitem ajax="false" action="index" value="||"  ></p:menuitem>
+                                <p:submenu label="Health Forms ||"  >
+                                    <p:menuitem  ajax="false"  action="fill_new_form" value="#{labels.home}"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="lab_bill_collecting_centre" value="Consolidate Forms"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="approve_filled_forms" value="Approve Filled Forms"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="recently_submitted_forms.xhtml" value="Forward Forms"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="graph_health_form" value="Analysis"  ></p:menuitem>
+                                </p:submenu>
+
+                                <p:menuitem  ajax="false"  action="demography_index" value="#{labels.demog} ||"  ></p:menuitem>
+
+                                
+                                    <p:menuitem  ajax="false"  action="#{familyController.listFamilies()}" value="Manage Families ||"  ></p:menuitem>
+                               
+
+
+                                    <p:menuitem  ajax="false"  action="diagnosis" value="Manage diagnosis ||"  ></p:menuitem>
+                                
+
+
+                                <p:submenu label="Messsage center ||"  >
+                                    <p:submenu label="Messsage Inbox"  >
+                                        <p:menuitem  ajax="false"  action="myMessage" value="Personal"  ></p:menuitem>
+                                        <p:menuitem  ajax="false"  action="staffMessage" value="Staff"  ></p:menuitem>
+                                        <p:menuitem  ajax="false"  action="areaMessage" value="Area"  ></p:menuitem>
                                     </p:submenu>
-                            <p:submenu label="GISMap"  >
-                                <p:menuitem  ajax="false"  action="gis_map" value="GIS Map"  ></p:menuitem>
-                            </p:submenu>
-                            <p:submenu label="User"  >
-                                <p:menuitem  ajax="false"  action="user_change_language" value="Change language"  ></p:menuitem>
+                                    <p:submenu label="Create Messsage"  >
+                                        <p:menuitem  ajax="false"  action="new_message" value="To persoon"  ></p:menuitem>
+                                        <p:menuitem  ajax="false"  action="new_message_staff" value="To staff"  ></p:menuitem>
+                                        <p:menuitem  ajax="false"  action="new_message_area" value="To Area"  ></p:menuitem>
+
+
+                                    </p:submenu>
+                                </p:submenu>
+
+                                <p:submenu label="GISMap"  >
+                                    <p:menuitem  ajax="false"  action="gis_map" value="GIS Map"  ></p:menuitem>
+                                </p:submenu>
+                            
+
+                            <p:submenu label="User ||"  >
                                 <p:menuitem  ajax="false"  action="user_change_password" value="Change Password"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="user_preferances" value="Change Preferances"  ></p:menuitem>
                             </p:submenu>
-                            <p:submenu label="Administration"  >
+
+                            <p:menuitem  ajax="false"  action="instituteMenu" value="Manage Institutions ||"  ></p:menuitem>
+
+                            <p:submenu label="Administration ||"  >
                                 <p:menuitem  ajax="false"  action="admin_manage_users" value="Manage Users"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="instituteMenu" value="Manage Institutions"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="demography_index" value="Manage Demography"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
                             </p:submenu>
-                            <p:submenu label="Messsage center"  >
-                                <p:submenu label="Messsage Inbox"  >
-                                    <p:menuitem  ajax="false"  action="myMessage" value="Personal"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="lab_institution" value="Staff"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="demography_index" value="Area"  ></p:menuitem>
-                                </p:submenu>
-                                <p:submenu label="Create Messsage"  >
-                                    <p:menuitem  ajax="false"  action="new_message" value="To persoon"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="new_message_staff" value="To staff"  ></p:menuitem>
-                                    <p:menuitem  ajax="false"  action="new_message_area" value="To Area"  ></p:menuitem>
-                               
-                                   
-                                </p:submenu>
-                                <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
-                            </p:submenu>
-                            <p:submenu label="Manage Diagnosis"  >
-                                <p:menuitem  ajax="false"  action="diagnosis" value="Manage diagnosis"  ></p:menuitem>
-                            </p:submenu>
-                            <p:submenu label="Manage Families"  >
-                                <p:menuitem  ajax="false"  action="#{familyController.listFamilies()}" value="Families"  ></p:menuitem>
-                            </p:submenu>
-
-                        </p:menubar>
-
-                      
-
-                  
-                    </h:panelGroup>
-
-                </h:form>
-            </h:panelGroup>
+                            
+                            </p:menubar>
 
 
-            <h:panelGrid id="pgM" columns="1" style="width: 100%; border: 0px; min-height: 100%;" >
+                        </h:panelGroup>
 
-                <h:panelGroup rendered ="#{sessionController.logged}" >
-                    <div style="min-height: 80%; min-height: 200px;" >
-                        <ui:insert name="content"   >
-                            Use Menu to Navigate
-                        </ui:insert>
-                    </div>
+                    </h:form>
                 </h:panelGroup>
 
-                <p:panel rendered ="#{!sessionController.logged}" style="min-height: 200px; padding: 50px;" styleClass="nonPrintBlock">
-                    <ui:insert name="login"   >
 
-                        <p:panel header="Please login" id="loginbox" style="margin-left: 20%;margin-right: 20%; text-align: center; ">
-                            <h:panelGrid columns="2" >
-                                <h:panelGroup >
-                                    <h:graphicImage  library="image" name="lock.png" />
-                                </h:panelGroup>
-                                <h:panelGroup >
-                                    <h:form id="formLogin">
-                                        <h:panelGrid columns="2">
-                                            <h:outputLabel value="Username"  style="text-align: left; margin: 5px; padding: 5px;"  ></h:outputLabel>
-                                            <p:inputText autocomplete="off"  value="#{sessionController.userName}" required="true" requiredMessage="Please enter a username" style="text-align: left; margin: 5px; padding: 5px; " ></p:inputText>
-                                            <h:outputLabel value="Password"  style="text-align: left; margin: 5px; padding: 5px;" ></h:outputLabel>
-                                            <p:password value="#{sessionController.passord }" required="true" requiredMessage="Please enter a password"  style="text-align: left; margin: 5px; padding: 5px;" ></p:password>
-                                            <h:outputLabel value=""  style="text-align: left; margin: 5px; padding: 5px;" ></h:outputLabel>
-                                            <p:commandButton value="Login" action="#{sessionController.loginAction()}" ajax="false" ></p:commandButton>
-                                        </h:panelGrid>
-                                    </h:form>
-                                </h:panelGroup>
-                            </h:panelGrid>
-                        </p:panel>
+                <h:panelGrid id="pgM" columns="1" style="width: 100%; border: 0px; min-height: 100%;" >
 
-                    </ui:insert>
-                </p:panel>
-                <p:panel styleClass="nonPrintBlock" style="position: fixed; bottom: 10px; left: 10px; "  >
-                    <h:panelGroup rendered="#{sessionController.logged}" >
-                        <h:form>
-                            User - #{sessionController.loggedUser.webUserPerson.name} ||
-                            Institution  - #{sessionController.loggedUser.institution.name} ||
-                            Area  - #{sessionController.area.name} ||
-                          
-                           
-                            <h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
-                            ||
-                            <h:commandLink value="සිංහල" action="#{languageController.makeSiDefault() }" ></h:commandLink>
-                            ||
-                            <h:commandLink value="English" action="#{languageController.makeEnDefault()}" ></h:commandLink>
-                            ||
-                            <h:commandLink value="தமிழ்" action="#{languageController.makeTaDefault() }" ></h:commandLink>
-                          
-                        </h:form>
+                    <h:panelGroup rendered ="#{sessionController.logged}" >
+                        <div style="min-height: 80%; min-height: 200px;" >
+                            <ui:insert name="content"   >
+                                Use Menu to Navigate
+                            </ui:insert>
+                        </div>
                     </h:panelGroup>
-                </p:panel>
-               
 
-            </h:panelGrid>
+                    <p:panel rendered ="#{!sessionController.logged}" style="min-height: 200px; padding: 50px;" styleClass="nonPrintBlock">
+                        <ui:insert name="login"   >
 
-            <div style="position: fixed; bottom: 10px; right: 10px; " class="nonPrintBlock" >
-                <p:clock pattern="HH:mm a - dd MMMM yyyy" mode="server"  /> 
+                            <p:panel header="Please login" id="loginbox" style="margin-left: 20%;margin-right: 20%; text-align: center; ">
+                                <h:panelGrid columns="2" >
+                                    <h:panelGroup >
+                                        <h:graphicImage  library="image" name="lock.png" />
+                                    </h:panelGroup>
+                                    <h:panelGroup >
+                                        <h:form id="formLogin">
+                                            <h:panelGrid columns="2">
+                                                <h:outputLabel value="Username"  style="text-align: left; margin: 5px; padding: 5px;"  ></h:outputLabel>
+                                                <p:inputText autocomplete="off"  value="#{sessionController.userName}" required="true" requiredMessage="Please enter a username" style="text-align: left; margin: 5px; padding: 5px; " ></p:inputText>
+                                                <h:outputLabel value="Password"  style="text-align: left; margin: 5px; padding: 5px;" ></h:outputLabel>
+                                                <p:password value="#{sessionController.passord }" required="true" requiredMessage="Please enter a password"  style="text-align: left; margin: 5px; padding: 5px;" ></p:password>
+                                                <h:outputLabel value=""  style="text-align: left; margin: 5px; padding: 5px;" ></h:outputLabel>
+                                                <p:commandButton value="Login" action="#{sessionController.loginAction()}" ajax="false" ></p:commandButton>
+                                            </h:panelGrid>
+                                        </h:form>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                            </p:panel>
 
-            </div>
+                        </ui:insert>
+                    </p:panel>
+                    <p:panel styleClass="nonPrintBlock" style="position: fixed; bottom: 10px; left: 10px; "  >
+                        <h:panelGroup rendered="#{sessionController.logged}" >
+                            <h:form>
+                                User - #{sessionController.loggedUser.webUserPerson.name} ||
+                                
 
-            <h:outputLabel value="#{labels.subtopic}" style="alignment-adjust: middle;"  styleClass="heading2"/> 
 
-        </p:panel>
+                                <h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
+                                ||
+                                <h:commandLink value="සිංහල" action="#{languageController.makeSiDefault() }" ></h:commandLink>
+                                ||
+                                <h:commandLink value="English" action="#{languageController.makeEnDefault()}" ></h:commandLink>
+                                ||
+                                <h:commandLink value="தமிழ்" action="#{languageController.makeTaDefault() }" ></h:commandLink>
 
-</f:view>
+                            </h:form>
+                        </h:panelGroup>
+                    </p:panel>
+
+
+                </h:panelGrid>
+
+                <div style="position: fixed; bottom: 10px; right: 10px; " class="nonPrintBlock" >
+                    <p:clock pattern="HH:mm a - dd MMMM yyyy" mode="server"  /> 
+
+                </div>
+
+                <h:outputLabel value="#{labels.subtopic}" style="alignment-adjust: middle;"  styleClass="heading2"/> 
+
+            </p:panel>
+
+        </f:view>
 
     </h:body>
 </html>

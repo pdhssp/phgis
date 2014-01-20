@@ -10,10 +10,10 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <h:panelGrid columns="2" styleClass="alignTop" >
+             <h:panelGrid columns="2" styleClass="alignTop" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin'}">
 
                 <h:panelGroup>
-                    <p:panel header="Health Form">
+                    <p:panel header="Health Form" >
                         <p:autoComplete widgetVar="aPt" id="acPt" forceSelection="true" converter="hfcon"
                                         value="#{healthFormItemController.currentInvestigation}" 
                                         completeMethod="#{healthFormController.completeInvest}" 
@@ -29,7 +29,7 @@
                         </p:panel>
 
                     </p:panel>
-                    <p:panel  header="Investigation Items List" id="pIx">
+                    <p:panel  header="HealthForm Items List" id="pIx">
                         <p:selectOneMenu  id="dtbItem" value="#{healthFormItemController.current}" style="width: 270px;" >
                             <f:selectItem itemLabel="Select" />
                             <f:selectItems value="#{healthFormItemController.items}" var="ii" itemLabel="#{ii.name} - #{ii.healthFormItemType }" itemValue="#{ii}" />

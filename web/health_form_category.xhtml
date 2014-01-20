@@ -9,7 +9,8 @@
 
 
     <ui:define name="content">
-
+  <h:outputText value="You are not authorize to view this content "   rendered="#{sessionController.loggedUser.staff.staffRole ne 'Pdhs'or sessionController.loggedUser.staff.staffRole ne 'Rdhs'or sessionController.loggedUser.staff.staffRole ne 'Admin'}"/>
+          
         <h:panelGroup >
             <h:form  >
                 <p:growl autoUpdate="true" />
@@ -19,8 +20,8 @@
 
 
                 <p:panel header="Manage Health Form Category" >
-                    <h:panelGrid id ="gpVeda" columns="2" >
-
+                    <h:panelGrid id ="gpVeda" columns="2" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin'}">
+    
                         <h:panelGrid id="gpSelect" columns="1"  >
                             <p:panel >
                                 <h:panelGrid id="gpSelectText" >

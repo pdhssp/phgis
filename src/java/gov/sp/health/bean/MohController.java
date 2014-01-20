@@ -163,13 +163,13 @@ public class MohController implements Serializable {
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             current.setAreaType(AreaType.MohArea);
             getFacade().edit(current);
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("updated Successfully");
         } else {
             current.setAreaType(AreaType.MohArea);
             current.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             current.setCreater(sessionController.getLoggedUser());
             getFacade().create(current);
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved Successfully");
         }
         recreateModel();
         getItems();

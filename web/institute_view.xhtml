@@ -22,20 +22,9 @@
                     <f:ajax execute="txtSearch" render="lstSelect" event="keyup" />
                 </h:inputText>
                       
-                  <h:outputLabel value="Institute Type" styleClass="nonPrintBlock"/>
-                  <h:inputText id="txtSearcht" value="#{institutionController.selectText}" styleClass="nonPrintBlock" >
-                    <f:ajax execute="txtSearcht" render="lstSelect" event="keyup" />
-                </h:inputText>
+                 
                   
-                  <h:outputLabel value="Province" styleClass="nonPrintBlock"/>
-                  <h:inputText id="txtSearchp" value="#{institutionController.selectText} " styleClass="nonPrintBlock"  >
-                    <f:ajax execute="txtSearcht" render="lstSelect" event="keyup" />
-                </h:inputText>
-                  
-                  <h:outputLabel value="District" styleClass="nonPrintBlock"/>
-                  <h:inputText id="txtSearchd" value="#{institutionController.selectText}" styleClass="nonPrintBlock" >
-                    <f:ajax execute="txtSearcht" render="lstSelect" event="keyup" />
-                </h:inputText>
+                 
 </p:panelGrid>
                   <p:dataTable id="lstSelect" value="#{institutionController.selectedItems}" var="u">
                     <f:facet name="header" >
@@ -69,9 +58,7 @@
                       <p:column headerText="E-Mail">
                         #{u.email}
                     </p:column>
-                      <p:column headerText="Web">
-                        #{u.web}
-                    </p:column>
+                      
                 </p:dataTable>
                   
                    

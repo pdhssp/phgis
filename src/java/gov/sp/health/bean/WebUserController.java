@@ -4,6 +4,7 @@ package gov.sp.health.bean;
 import gov.sp.health.data.AreaType;
 import java.util.TimeZone;
 import gov.sp.health.data.StaffRole;
+import static gov.sp.health.data.StaffRole.Pdhs;
 import gov.sp.health.entity.Area;
 import gov.sp.health.entity.Institution;
 import gov.sp.health.entity.Person;
@@ -115,6 +116,15 @@ public class WebUserController implements Serializable {
                 break;
             case Pdhs: at=AreaType.Province;
             break;
+                case Rdhs: at=AreaType.District;
+            break;
+                    case Admin: at=AreaType.Province;
+            break;
+                        case Eu: at=AreaType.District;
+            break;  
+                            case Fhb: at=AreaType.District;
+            break;
+  
   
         }
         String s = "Select a from Area a where a.retired=false and a.areaType=:at order by a.name" ;

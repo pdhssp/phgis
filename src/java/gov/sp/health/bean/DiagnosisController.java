@@ -148,7 +148,7 @@ public class DiagnosisController implements Serializable {
            
            
             getEjbFacade().edit(getCurrent());
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("updated Successfully");
         } else {
             System.out.println("4");
             getCurrent().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
@@ -157,7 +157,7 @@ public class DiagnosisController implements Serializable {
             
             
             getEjbFacade().edit(getCurrent());
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved Successfully");
         }
         recreateModel();
         getItems();

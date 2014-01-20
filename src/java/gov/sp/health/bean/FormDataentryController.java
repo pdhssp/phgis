@@ -372,6 +372,7 @@ public class FormDataentryController implements Serializable {
         m.put("a", sessionController.getLoggedUser().getStaff().getArea());
         m.put("i", healthForm);
         String jpql;
+        Calendar c = Calendar.getInstance();
         switch (healthForm.getDurationType()) {
             case Annually:
                 
@@ -385,7 +386,7 @@ public class FormDataentryController implements Serializable {
                     filledHealthForm = new FilledHealthForm();
                     filledHealthForm.setItem(healthForm);
                     //Date temFrdomDate = Calendar.getInstance().getTime();
-                    Calendar c = Calendar.getInstance();
+                    
                     c.set(Calendar.YEAR, yearVal);
                     c.set(Calendar.MONTH, 1);
                     c.set(Calendar.DATE, 1);
@@ -403,7 +404,7 @@ public class FormDataentryController implements Serializable {
                 break;
 
             case Daily:
-                Calendar c = Calendar.getInstance();
+                
                 System.out.println("Daily report");
                 jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + c.get(Calendar.YEAR) + " and f.monthVal=" + c.get(Calendar.MONTH) + " and f.dateVal=" + c.get(Calendar.DATE) + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
@@ -437,7 +438,6 @@ public class FormDataentryController implements Serializable {
                     filledHealthForm = new FilledHealthForm();
                     filledHealthForm.setItem(healthForm);
                     Date temFrdomDate = Calendar.getInstance().getTime();
-                    Calendar c = Calendar.getInstance();
                     c.set(Calendar.YEAR, yearVal);//this year
                     c.add(Calendar.MONTH, monthVal);//this month
                     c.set(Calendar.DATE, 1);
@@ -451,7 +451,6 @@ public class FormDataentryController implements Serializable {
                     filledHealthForm.setToDate(c.getTime()); // set the to date of the form
                     filledHealthForm.setYearVal(yearVal);
                     filledHealthForm.setMonthVal(monthVal);
-                    
                     filledHealthForm.setArea(sessionController.getLoggedUser().getStaff().getArea());
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());

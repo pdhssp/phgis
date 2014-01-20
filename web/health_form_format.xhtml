@@ -225,7 +225,7 @@
                             <ui:repeat value="#{healthFormItemController.items}" var="myIi" >
                                 <div style="#{myIi.cssStyle}; position:absolute;">
                                     <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'si'}" >
-                                        <h:outputText rendered="#{myIi.retired ne true}"  value="#{myIi.sname}" style="color: #{myIi.cssColor}" escape="false" ></h:outputText>
+                                        <h:outputText  rendered="#{myIi.retired ne true}"  value="#{myIi.sname}" style="color: #{myIi.cssColor}" escape="false" ></h:outputText>
                                     </h:panelGroup>
                                     <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'ta'}" >
                                         <h:outputText rendered="#{myIi.retired ne true}"  value="#{myIi.tname}" style="color: #{myIi.cssColor}" escape="false" ></h:outputText>

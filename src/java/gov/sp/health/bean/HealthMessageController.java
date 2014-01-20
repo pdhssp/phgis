@@ -217,7 +217,7 @@ public class HealthMessageController implements Serializable {
         String sql;
         sql="select m from Message m where m.toArea=:p";
         Map m = new HashMap();
-        m.put("p", getSessionController().getLoggedUser().getStaff().getArea());
+        m.put("p", getSessionController().getArea());
         staffItems = getEjbFacade().findBySQL(sql, m);
         
         return areaItems;

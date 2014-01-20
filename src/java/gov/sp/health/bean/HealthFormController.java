@@ -1,4 +1,3 @@
-
 package gov.sp.health.bean;
 
 import gov.sp.health.data.HealthFormItemType;
@@ -29,8 +28,8 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- *  
- *  )
+ *
+ * )
  */
 @Named
 @SessionScoped
@@ -52,7 +51,6 @@ public class HealthFormController implements Serializable {
     boolean reportedAs;
     HealthFormCategory category;
     List<HealthForm> catIxs;
-   
     private List<HealthForm> midvifesForms;
 
     public List<HealthForm> getMidvifesForms() {
@@ -234,20 +232,26 @@ public class HealthFormController implements Serializable {
 
     public void saveSelected() {
 
+        if (getCurrent().getName().equals("")) {
+            UtilityController.addErrorMessage("Please Enter Form Name");
+            return;
+        }
+        
+         if (getCurrent().getCode().equals("")) {
+            UtilityController.addErrorMessage("Please Enter Code");
+            return;
+        }
+         
+        
+         
         getCurrent().setCategory(getCurrent().getFormCategory());
+
+
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             System.out.println("1");
-            if (billedAs == false) {
-                System.out.println("2");
-                getCurrent().setBilledAs(getCurrent());
 
-            }
-            if (reportedAs == false) {
-                System.out.println("3");
-                getCurrent().setReportedAs(getCurrent());
-            }
             getFacade().edit(getCurrent());
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("updated Successfully");
         } else {
             System.out.println("4");
             getCurrent().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
@@ -262,7 +266,7 @@ public class HealthFormController implements Serializable {
                 getCurrent().setReportedAs(getCurrent());
             }
             getFacade().edit(getCurrent());
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved Successfully");
         }
         recreateModel();
         getItems();
@@ -348,8 +352,6 @@ public class HealthFormController implements Serializable {
         this.specialityFacade = specialityFacade;
     }
 
-   
-
     /**
      *
      */
@@ -371,8 +373,13 @@ public class HealthFormController implements Serializable {
 
         java.lang.Long getKey(String value) {
             java.lang.Long key;
-            key = Long.valueOf(value);
+            try {
+                key = Long.valueOf(value);
+            } catch (Exception ee) {
+                key = 0l;
+            }
             return key;
+
         }
 
         String getStringKey(java.lang.Long value) {
@@ -395,8 +402,7 @@ public class HealthFormController implements Serializable {
             }
         }
     }
-    
-    
+
     @FacesConverter(forClass = HealthForm.class)
     public static class HealthFormControllerConverter implements Converter {
 
@@ -439,5 +445,4 @@ public class HealthFormController implements Serializable {
             }
         }
     }
-    
 }

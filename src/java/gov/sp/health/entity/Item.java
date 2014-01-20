@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -56,7 +57,9 @@ public class Item implements Serializable {
     String name;
     String sname;
     String tname;
+    @Column(unique = true, nullable = false)   
     String code;
+    
     String printName;
     String shortName;
     String fullName;

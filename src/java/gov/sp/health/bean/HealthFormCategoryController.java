@@ -1,4 +1,3 @@
-
 package gov.sp.health.bean;
 
 import gov.sp.health.entity.form.HealthFormCategory;
@@ -8,7 +7,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 import javax.inject.Inject;
-import javax.inject.Named; import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -18,12 +18,12 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- *  
- *  )
+ *
+ * )
  */
 @Named
 @SessionScoped
-public  class HealthFormCategoryController implements Serializable {
+public class HealthFormCategoryController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -58,14 +58,19 @@ public  class HealthFormCategoryController implements Serializable {
 
     public void saveSelected() {
 
+        if (getCurrent().getName().equals("")) {
+
+            UtilityController.addSuccessMessage("Please Enter Category Name");
+            return;
+        }
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             getFacade().edit(current);
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("updated Successfully");
         } else {
             current.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             current.setCreater(sessionController.getLoggedUser());
             getFacade().create(current);
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved Successfully");
         }
         recreateModel();
         getItems();

@@ -14,8 +14,8 @@
             <h:form id="form"  >
                 <p:growl autoUpdate="true" />
 
-                <p:panel header="Manage Health Form" >
-                    <h:panelGrid id ="gpVeda" columns="2" styleClass="alignTop" >
+                <p:panel  header="Manage Health Form"  >
+                    <h:panelGrid id ="gpVeda" columns="2" styleClass="alignTop" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin'}" >
 
                         <h:panelGrid id="gpSelect" columns="1"  >
                             <p:panel header="Search Health Form" >
@@ -57,11 +57,11 @@
                                 <h:panelGrid id="gpDetailText" columns="2">
                                     
                                     <h:outputText id="lblName" value="Name" ></h:outputText>
-                                    <h:inputText id="txtName" value="#{healthFormController.current.name}" required="true" ></h:inputText>
+                                    <h:inputText id="txtName" value="#{healthFormController.current.name}" required="true" requiredMessage="Please Enter form name"></h:inputText>
                                     <h:outputText id="lblsName" value="Sinhala Name" ></h:outputText>
-                                    <h:inputText id="txtsName" value="#{healthFormController.current.sname}" required="true" ></h:inputText>
+                                    <h:inputText id="txtsName" value="#{healthFormController.current.sname}"  ></h:inputText>
                                     <h:outputText id="lbltName" value="Tamil Name" ></h:outputText>
-                                    <h:inputText id="txttName" value="#{healthFormController.current.tname}" required="true" ></h:inputText>
+                                    <h:inputText id="txttName" value="#{healthFormController.current.tname}"  ></h:inputText>
                                    
                                     
                                     <h:outputText id="lblAddress" value="Printing Name" ></h:outputText>
@@ -71,14 +71,14 @@
                                     <p:outputLabel value="Code"/>
                                     <p:inputText value="#{healthFormController.current.code}"/>
                                     <h:outputText value="Category" ></h:outputText>
-                                    <h:selectOneListbox id="cmbCat"  size="1" value="#{healthFormController.current.formCategory}" >
+                                    <h:selectOneListbox id="cmbCat"  size="1" value="#{healthFormController.current.formCategory}" required="true" requiredMessage="Please Select a Category">
                                         <f:selectItem itemLabel="Please select a category"/>
                                         <f:selectItems value="#{healthFormCategoryController.items}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat}" />
                                     </h:selectOneListbox>
 
 
                                     <p:outputLabel value="Duration"/>
-                                    <p:selectOneMenu value="#{healthFormController.current.durationType}" >
+                                    <p:selectOneMenu value="#{healthFormController.current.durationType}" required="true"  requiredMessage="Please Select Duration type">
                                         <f:selectItem itemLabel="Select"  />
                                         <f:selectItem itemValue="Daily" itemLabel="Daily"/>
                                         <f:selectItem itemValue="Weekly" itemLabel="Weekly"/>
@@ -90,7 +90,7 @@
 
 
                                     <p:outputLabel value="Area"/>
-                                    <p:selectOneMenu value="#{healthFormController.current.areaType}">
+                                    <p:selectOneMenu value="#{healthFormController.current.areaType}" required="true" requiredMessage="Please select Area">
                                         <f:selectItem itemLabel="Select"/>
                                         <f:selectItem itemValue="Country" itemLabel="Country"/>
                                         <f:selectItem itemValue="Province" itemLabel="Province"/>
@@ -106,9 +106,15 @@
 
                                     
                                     <p:outputLabel value="Staff Role"/>
-                                    <p:selectOneMenu value="#{healthFormController.current.staffRole}">
+                                    <p:selectOneMenu value="#{healthFormController.current.staffRole}" required="true" requiredMessage="Please select a Staff Role">
                                         <f:selectItem itemLabel="Select"/>
-                                        <f:selectItem itemValue="Phm" itemLabel="Public Health Midwife"/>
+                                       <f:selectItem itemLabel="Mid wife" itemValue="Phm" />
+                                        <f:selectItem itemLabel="Public Health Inspector " itemValue="Phi" />
+                                        <f:selectItem itemLabel="Medical Officer of Health" itemValue="Moh" />
+                                        <f:selectItem itemLabel="Reginal Director of Health Services " itemValue="Rdhs" />
+                                        <f:selectItem itemLabel="Provincial Director of Health Services" itemValue="Pdhs" />
+                                        <f:selectItem itemLabel="Family Health Bureau" itemValue="Fhb" />
+                                        <f:selectItem itemLabel="Edpid Unit" itemValue="Eu" />
                                     </p:selectOneMenu>
 
 

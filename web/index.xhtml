@@ -32,7 +32,7 @@
                                     </p:column>
                                     <p:column headerText="Duration" >
                                         <h:panelGroup rendered="#{ftf.durationType eq 'Annually'}">
-                                            <h:outputLabel  value="#{formDataentryController.yearVal}" ></h:outputLabel>>
+                                            <h:outputLabel  value="Year #{formDataentryController.yearVal}" ></h:outputLabel>>
 
                                         </h:panelGroup>
                                         <h:panelGroup rendered="#{ftf.durationType eq 'Daily'}">
@@ -76,7 +76,7 @@
                                         <h:outputLabel value="#{fhf.item.name}" />
                                     </p:column>
                                     <p:column headerText="Time Period" >
-                                        <h:outputLabel value="#{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
+                                        <h:outputLabel value=" Year : #{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
                                         <h:outputLabel value=" | #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
                                         <h:outputLabel value=" | #{fhf.dateVal}"  rendered="#{fhf.dateVal>0}"/>
                                     </p:column>
@@ -96,7 +96,7 @@
                                         <h:outputLabel value="#{shf.item.name}" />
                                     </p:column>
                                     <p:column headerText="Time Period" >
-                                       <h:outputLabel value="#{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                        <h:outputLabel value="#{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
                                         <h:outputLabel value=" | #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
                                         <h:outputLabel value=" | #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
                                     </p:column>
@@ -113,20 +113,20 @@
                         <p:panel header="Fill New Form" >
 
                             <h:form>
-                                
-                                    
-                                    <h:panelGroup id="gpTis" >
-                                        
-                                    
-                             
-                                <h:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
-                                    <f:selectItem itemLabel="Please select a form" />
-                                    <f:selectItems value="#{healthFormController.midvifesForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
-                                    </f:selectItems>
-                                    <f:ajax event="change" execute ="cmbHf" render="gpTimes" />
-                                </h:selectOneMenu>
-                                        
-                                         </h:panelGroup> 
+
+
+                                <h:panelGroup id="gpTis" >
+
+
+
+                                    <h:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
+                                        <f:selectItem itemLabel="Please select a form" />
+                                        <f:selectItems value="#{healthFormController.midvifesForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
+                                        </f:selectItems>
+                                        <f:ajax event="change" execute ="cmbHf" render="gpTimes" />
+                                    </h:selectOneMenu>
+
+                                </h:panelGroup> 
 
                                 <h:panelGroup id="gpTimes" >
                                     <h:panelGroup id="gpDaily" rendered="#{formDataentryController.healthForm.durationType eq 'Daily'}" >
@@ -184,7 +184,7 @@
                                             <f:selectItem itemLabel="2012" itemValue="2012" />
                                             <f:selectItem itemLabel="2013" itemValue="2013" />
                                             <f:selectItem itemLabel="2014" itemValue="2014" />
-                                            
+
 
                                         </p:selectOneMenu>
                                     </h:panelGroup>
@@ -193,7 +193,7 @@
 
                                 <p:commandButton ajax="false" value="Enter Data" action="#{formDataentryController.startPhmDataEntry()}" >
                                 </p:commandButton>
-                         </h:form>
+                            </h:form>
                         </p:panel>
 
 

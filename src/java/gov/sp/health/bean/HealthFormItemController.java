@@ -160,6 +160,11 @@ public  class HealthFormItemController implements Serializable {
     }
 
     public void removeItem() {
+        if(current==null)
+        {
+            UtilityController.addErrorMessage("Please select an Item");
+            return;
+        }
         current.setRetired(true);
         current.setRetirer(sessionController.getLoggedUser());
         current.setRetiredAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
@@ -257,15 +262,19 @@ public  class HealthFormItemController implements Serializable {
     }
 
     public void saveSelected() {
+        if (getCurrent().getHealthformItemValues() == null) {
+            UtilityController.addErrorMessage("Please add items");
+            return;
+        }
 
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             getFacade().edit(getCurrent());
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("updated Successfully");
         } else {
             getCurrent().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             getCurrent().setCreater(sessionController.getLoggedUser());
             getFacade().create(getCurrent());
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved Successfully");
             getCurrentInvestigation().getReportItems().add(current);
             getIxFacade().edit(currentInvestigation);
         }

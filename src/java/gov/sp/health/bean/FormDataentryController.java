@@ -369,16 +369,18 @@ public class FormDataentryController implements Serializable {
             return "";
         }
         Map m = new HashMap();
-        m.put("a", sessionController.getLoggedUser().getStaff().getArea());
+        m.put("a", sessionController.getArea());
         m.put("i", healthForm);
         String jpql;
         Calendar c = Calendar.getInstance();
         switch (healthForm.getDurationType()) {
             case Annually:
+               
                 
                 System.out.println("anual report");
                 jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + getYearVal();
                 System.out.println("jpql = " + jpql);
+                System.out.println("m = " + m);
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
                 if (filledHealthForm == null) {
@@ -397,7 +399,7 @@ public class FormDataentryController implements Serializable {
                     c.set(Calendar.DATE, 31);
                     filledHealthForm.setToDate(c.getTime());
                     filledHealthForm.setYearVal(yearVal);
-                    filledHealthForm.setArea(sessionController.getLoggedUser().getStaff().getArea());
+                    filledHealthForm.setArea(sessionController.getArea());
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());
                 }
@@ -406,6 +408,7 @@ public class FormDataentryController implements Serializable {
             case Daily:
                 
                 System.out.println("Daily report");
+                
                 jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + c.get(Calendar.YEAR) + " and f.monthVal=" + c.get(Calendar.MONTH) + " and f.dateVal=" + c.get(Calendar.DATE) + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
@@ -430,7 +433,7 @@ public class FormDataentryController implements Serializable {
 
             case Monthly:
                 System.out.println("Monthly report");
-                jpql = "select f from FilledHealthForm f where f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + "";
+                jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.yearVal = " + getYearVal() + " and f.monthVal=" + getMonthVal() + "";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
                 if (filledHealthForm == null) {

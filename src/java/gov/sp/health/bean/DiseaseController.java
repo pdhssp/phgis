@@ -36,25 +36,6 @@ public class DiseaseController implements Serializable {
     private Disease current;
     private  List<Disease> disease;
     
-    @EJB
-    GisCoordinateFacade gisCoordinateFacade;
-    MapModel familyMapModel;
-
-    public GisCoordinateFacade getGisCoordinateFacade() {
-        return gisCoordinateFacade;
-    }
-
-    public void setGisCoordinateFacade(GisCoordinateFacade gisCoordinateFacade) {
-        this.gisCoordinateFacade = gisCoordinateFacade;
-    }
-
-    public MapModel getFamilyMapModel() {
-        return familyMapModel;
-    }
-
-    public void setFamilyMapModel(MapModel familyMapModel) {
-        this.familyMapModel = familyMapModel;
-    }
     
     
     public DiseaseController() {
@@ -76,18 +57,7 @@ public class DiseaseController implements Serializable {
         }
         return current;
     }
- public void addMarker(ActionEvent actionEvent) {
-        Marker marker = new Marker(new LatLng(getCurrent().getCoordinate().getLatitude(), getCurrent().getCoordinate().getLongtide()),"");
-        familyMapModel = new DefaultMapModel();
-        familyMapModel.addOverlay(marker);
-        
-        if (current == null) {
-            UtilityController.addErrorMessage("Select disease");
-            return;
-        }
-        getGisCoordinateFacade().edit(current.getCoordinate());//save coordinate
-        
-    }
+ 
     public void setCurrent(Disease current) {
         this.current = current;
     }
@@ -122,12 +92,12 @@ public class DiseaseController implements Serializable {
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             getDiseaseFacade().edit(current);
             getDiseaseFacade().edit(getCurrent().getd));
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("updated Successfully");
         } else {
             current.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             current.setCreater(sessionController.getLoggedUser());
             getFacade().create(current);
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved Successfully");
         }
         recreateModel();
         getItems();

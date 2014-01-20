@@ -56,10 +56,47 @@ public class HealthMessageController implements Serializable {
     
     private List<Message> staffItems = null;
     
+     private List<Message> areaItems = null;
+     
+    
+    List<Message>sentItems =null;
+
+    public SpecialityFacade getSpecialityFacade() {
+        return specialityFacade;
+    }
+
+    public void setSpecialityFacade(SpecialityFacade specialityFacade) {
+        this.specialityFacade = specialityFacade;
+    }
+
+    public List<Message> getSelectedItems() {
+        return selectedItems;
+    }
+
+    public void setSelectedItems(List<Message> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
+    public List<Message> getSentItems() {
+        String sql;
+        sql="select m from Message m where m.fromPerson=:p";
+        Map m = new HashMap();
+        m.put("p", getSessionController().getLoggedUser().getWebUserPerson());
+        sentItems = getEjbFacade().findBySQL(sql, m);
+        return sentItems;
+    }
+
+    public void setSentItems(List<Message> sentItems) {
+        this.sentItems = sentItems;
+    }
+    
+    
     String selectText = "";
   
     @EJB
     MessageFacade itemFacade;
+    
+  
 
     public List<Message> getStaffItems() {
         String sql;
@@ -96,18 +133,19 @@ public class HealthMessageController implements Serializable {
     }
 
     public void saveSelected() {
-
+           getCurrent().setFromPerson(getSessionController().getLoggedUser().getWebUserPerson());
+          
 
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             System.out.println("1");
             getEjbFacade().edit(getCurrent());
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("updated Successfully");
         } else {
             System.out.println("4");
                        getEjbFacade().create(getCurrent());
 
             getEjbFacade().edit(getCurrent());
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved Successfully");
         }
         recreateModel();
         getItems();
@@ -173,6 +211,20 @@ public class HealthMessageController implements Serializable {
 
     public void setMyItems(List<Message> myItems) {
         this.myItems = myItems;
+    }
+
+    public List<Message> getAreaItems() {
+        String sql;
+        sql="select m from Message m where m.toArea=:p";
+        Map m = new HashMap();
+        m.put("p", getSessionController().getLoggedUser().getStaff().getArea());
+        staffItems = getEjbFacade().findBySQL(sql, m);
+        
+        return areaItems;
+    }
+
+    public void setAreaItems(List<Message> areaItems) {
+        this.areaItems = areaItems;
     }
 
     

@@ -38,7 +38,7 @@
                         <p:commandButton value="Send" ajax="false" action="#{healthMessageController.saveSelected()}" ></p:commandButton>
                         
                         
-                        <p:dataTable value="#{healthMessageController.items}" var="m" >
+                         <p:dataTable value="#{healthMessageController.sentItems}" var="m" >
                             <p:column headerText="Topic" >
                                 
                                 <h:outputLabel value="#{m.topic}" ></h:outputLabel>
@@ -46,6 +46,18 @@
                             <p:column headerText="Contents" >
                                 
                                 <h:outputLabel value="#{m.content}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Recived Person" >
+                                <h:outputLabel value="#{m.toPerson}"  ></h:outputLabel>                                </p:column>
+                            <p:column headerText="Recived Staff" >
+                                
+                                 <h:outputLabel value="#{m.toStaff}" ></h:outputLabel> 
+                               
+                            </p:column>
+                            <p:column headerText="Recived Area" >
+                                                             
+                                <h:outputLabel value="#{m.toArea.name}"  ></h:outputLabel> 
+                               
                             </p:column>
                         </p:dataTable>
                         

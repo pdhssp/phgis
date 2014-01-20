@@ -14,15 +14,9 @@
         <ui:composition template="./resources/template/template.xhtml">
             <ui:define name="content">
                 <p:panelGrid columns="2" >
-                    <p:panelGrid columns="1" >
-
-                    </p:panelGrid>
                     <p:panelGrid columns="2" >
                         <p:panel header="Forms to Enter Data" >
                             <h:form>    
-
-
-
                                 <p:dataTable value="#{formDataentryController.formsToFill}" var="ftf" rendered="#{formDataentryController.formsToFill ne null}">
                                     <p:column headerText="Form No." >
                                         <h:outputLabel value="#{ftf.code}" />
@@ -113,19 +107,13 @@
                         <p:panel header="Fill New Form" >
 
                             <h:form>
-
-
                                 <h:panelGroup id="gpTis" >
-
-
-
                                     <h:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
                                         <f:selectItem itemLabel="Please select a form" />
                                         <f:selectItems value="#{healthFormController.midvifesForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
                                         </f:selectItems>
                                         <f:ajax event="change" execute ="cmbHf" render="gpTimes" />
                                     </h:selectOneMenu>
-
                                 </h:panelGroup> 
 
                                 <h:panelGroup id="gpTimes" >

@@ -38,6 +38,18 @@
                                     </h:panelGroup>
                                 </p:column>
                             </p:dataTable>
+                            
+                            
+                            <p:panelGrid columns="2">
+                                <h:outputLabel value="Saved At" ></h:outputLabel>
+                                <h:outputLabel value="#{formDataentryController.filledHealthForm.createdAt}" >
+                                </h:outputLabel>
+                                <h:outputLabel value="Saved By" ></h:outputLabel>
+                                <h:outputLabel value="#{formDataentryController.filledHealthForm.creater.webUserPerson.nameWithTitle}" >
+                                </h:outputLabel>
+                                #{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}
+                            </p:panelGrid>
+                            
                             <ui:repeat value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
 
                                 <h:panelGroup rendered="#{iv.healthFormItem.retired ne true}" >

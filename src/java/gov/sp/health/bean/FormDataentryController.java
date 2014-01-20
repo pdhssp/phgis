@@ -451,6 +451,7 @@ public class FormDataentryController implements Serializable {
                     filledHealthForm.setToDate(c.getTime()); // set the to date of the form
                     filledHealthForm.setYearVal(yearVal);
                     filledHealthForm.setMonthVal(monthVal);
+                    
                     filledHealthForm.setArea(sessionController.getLoggedUser().getStaff().getArea());
                     createFillefFormFromHealthForm(filledHealthForm);
                     System.out.println("filled health form values id " + filledHealthForm.getFilledHealthFormReportItemValue());

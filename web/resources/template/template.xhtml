@@ -140,7 +140,7 @@
                         <h:panelGroup rendered="#{sessionController.logged}" >
                             <h:form>
                                 User - #{sessionController.loggedUser.webUserPerson.name} ||
-                                
+                                Area - #{sessionController.area.name} ||
 
 
                                 <h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>

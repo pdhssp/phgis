@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 @Entity
 @Inheritance
 public class Diagnosis extends Item implements Serializable {
+    
+    double langitude;
+    double latitude;
     @ManyToOne
     private GisCoordinate coordinate;
     @ManyToOne

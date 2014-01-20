@@ -56,7 +56,7 @@ public class SessionController implements Serializable, HttpSessionListener {
 
     public Area getArea() {
         if (getLoggedUser() != null && getLoggedUser().getStaff() != null) {
-            area = getLoggedUser().getStaff().getArea();
+            area = getLoggedUser().getWebUserPerson().getArea();
         }else{
             area =null;
         }
@@ -347,6 +347,7 @@ public class SessionController implements Serializable, HttpSessionListener {
 
                     setLoggedUser(u);
                     setLogged(Boolean.TRUE);
+                    setArea(u.getWebUserPerson().getArea());
                     setActivated(u.isActivated());
                     setRole(u.getRole());
                     getMessageController().setDefLocale(u.getDefLocale());

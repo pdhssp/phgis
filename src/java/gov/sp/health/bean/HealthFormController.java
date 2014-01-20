@@ -230,6 +230,16 @@ public class HealthFormController implements Serializable {
         items = null;
     }
 
+    
+    public boolean codeExists(){
+        String sql;
+        sql = "Select hf from HealthForm hf where hf.code =:c and hf.retired=false";
+        Map m = new HashMap();
+        m.put("c", current.getCode());
+        HealthForm hf = getFacade().findFirstBySQL(sql, m);
+        return (hf!=null);
+    }
+    
     public void saveSelected() {
 
         if (getCurrent().getName().equals("")) {
@@ -254,6 +264,10 @@ public class HealthFormController implements Serializable {
             UtilityController.addSuccessMessage("updated Successfully");
         } else {
             System.out.println("4");
+            if(codeExists()){
+                UtilityController.addErrorMessage("Already Exists");
+                return;
+            }
             getCurrent().setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             getCurrent().setCreater(sessionController.getLoggedUser());
             getFacade().create(getCurrent());

@@ -10,10 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-/**
- *
- * @author www.divudi.com
- */
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class HealthFormReportFormat extends Category implements Serializable {

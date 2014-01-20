@@ -10,7 +10,7 @@
 
     <ui:define name="content">
 
-        <h:panelGroup >
+        <h:panelGroup  rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
             <h:form  >
                 <p:growl autoUpdate="true" />
                 <p:focus id="selectFocus" context="gpSelect" />
@@ -53,7 +53,7 @@
                                     <p:selectOneMenu value="#{institutionController.current.institutionType}" >
                                         <f:selectItem itemLabel="Select"/>
                                         <f:selectItem itemValue="PdhsOffice" itemLabel="PDHS office"/>
-                                        <f:selectItem itemValue="RdhsOffice" itemLabel="Province"/>
+                                        <f:selectItem itemValue="RdhsOffice" itemLabel="RDHS office"/>
                                         <f:selectItem itemValue="MohOffice" itemLabel="MOH office"/>
                                         <f:selectItem itemValue="PhiOffice" itemLabel="PHM office"/>
                                         <f:selectItem itemValue="PhmOffice"  itemLabel="PHI Office"/>
@@ -71,8 +71,22 @@
                                     <h:outputLabel value="Telephone" />
                                     <p:inputMask id="txtPhone" value="#{institutionController.current.phone}"  mask="999-9999999"  ></p:inputMask>
                                    <h:outputLabel value="Fax" />
-
+                                   
                                    <p:inputMask  id="txtFax" value="#{institutionController.current.fax}" mask="999-9999999" ></p:inputMask>
+                                   
+                                   <h:outputText id="lblprovince" value="Province" ></h:outputText>
+                                   <p:selectOneMenu converter="provinceCon" id="cmbHf" value="#{institutionController.current.province}"  >
+                                        <f:selectItem itemLabel="Please select a province" />
+                                        <f:selectItems  value="#{provinceController.items}" var="p" itemValue="#{p}" itemLabel="#{p.name}" ></f:selectItems>
+                                        
+                                    </p:selectOneMenu>
+                                   
+                                   <h:outputText id="lbldistrict" value="District" ></h:outputText>
+                                   <p:selectOneMenu converter="districtCon" id="cmbdf" value="#{institutionController.current.distric}"  >
+                                        <f:selectItem itemLabel="Please select a district" />
+                                        <f:selectItems  value="#{districtController.items}" var="d" itemValue="#{d}" itemLabel="#{d.name}" ></f:selectItems>
+                                        
+                                    </p:selectOneMenu>
                                    
 
                                    <h:outputLabel value="Moblie" />

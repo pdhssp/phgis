@@ -24,10 +24,7 @@ import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 import org.primefaces.model.map.Polygon;
 
-/**
- *
- * @author Buddhika
- */
+
 @Named(value = "gisController")
 @SessionScoped
 public class GisController implements Serializable {
@@ -168,7 +165,7 @@ public class GisController implements Serializable {
         if (province == null) {
             return new ArrayList<Area>();
         }
-        String jql = "select a from Area a where a.superArea = :s order by a.name";
+        String jql = "select a from Area a where a.superArea = :s and a.retired = false order by a.name";
         Map m = new HashMap();
         m.put("s", province);       
         districts = getAreaFacade().findBySQL(jql, m);
@@ -183,7 +180,7 @@ public class GisController implements Serializable {
         if (district == null) {
             return new ArrayList<Area>();
         }
-        String jql = "select a from Area a where a.superArea = :s order by a.name";
+        String jql = "select a from Area a where a.superArea = :s and a.retired = false order by a.name";
         Map m = new HashMap();
         m.put("s", district);
         mohs = getAreaFacade().findBySQL(jql, m);
@@ -198,7 +195,7 @@ public class GisController implements Serializable {
         if (moh == null) {
             return new ArrayList<Area>();
         }
-        String jql = "select a from Area a where a.superArea = :s order by a.name";
+        String jql = "select a from Area a where a.superArea = :s and a.retired = false order by a.name";
         Map m = new HashMap();
         m.put("s", moh);
         phis = getAreaFacade().findBySQL(jql, m);

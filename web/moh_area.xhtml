@@ -22,17 +22,21 @@
                     <h:panelGrid id ="gpVeda" columns="3" >
 
                         <h:panelGrid id="gpSelect" columns="1"  >
-                            <p:panel >
+                            
                                 <h:panelGrid id="gpSelectText" >
                                     <h:selectOneListbox converter="mohCon"  id="lstSelect"   size="10" value="#{mohController.current}" style="min-width: 223px">
                                         <f:selectItems  value="#{mohController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
-                                        <f:ajax render="gpDetail" execute="lstSelect" >
+                                        <f:ajax render="gpDetail map " execute="lstSelect" >
                                         </f:ajax>
                                     </h:selectOneListbox>
+                                     <h:commandButton id="butViewMap" value="View in Map" styleClass="buttons">
+                                    </h:commandButton>
+                               
                                 </h:panelGrid>
+                                <p:panel rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
                                 <h:panelGrid id="gpSelectButtons" columns="3"  >
                                     <h:commandButton id="btnAdd" value="Add"  action="#{mohController.prepareAdd()}" styleClass="buttons" >
-                                        <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail detailFocus" execute="" >
+                                        <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail detailFocus map" execute="" >
                                         </f:ajax>
                                     </h:commandButton>
                                     <h:commandButton id="btnDelete" onclick="if (!confirm('Are you sure you want to delete this record?'))
@@ -42,7 +46,7 @@
                             </p:panel>
                         </h:panelGrid  >
 
-                        <p:panel>
+                        <p:panel rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
                             <h:panelGrid id="gpDetail" columns="1">
                                 <h:panelGrid id="gpDetailText" columns="2">
                                      <h:outputText id="lblprovince" value="District" ></h:outputText>
@@ -65,9 +69,11 @@
                             </h:panelGrid>
                         </p:panel>
 
-                        <p:panel rendered="#{mohController.current.id ne 0 or mohController.current.id ne null }" >
-
-                            <p:panel header="Coordinates" >
+                        <p:panel id="map" rendered="#{mohController.current.id ne 0 or mohController.current.id ne null }" >
+<p:gmap rendered="#{mohController.current.cordinates.size()>0}" center="#{mohController.current.cordinates.get(0).latitude}, #{mohController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{mohController.mapModel}">  
+                                            </p:gmap>
+                            
+                            <p:panel header="Coordinates"  rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
                                 <p:panelGrid >
                                     <p:row >
                                         <p:column >
@@ -121,21 +127,12 @@
                                             </p:dataTable>
                                         </p:column>
                                     </p:row>
-                                    <p:row>
-                                        <p:column >
-                                            #{mohController.mapModel}
-                                            <p:gmap rendered="#{mohController.current.cordinates.size()>0}" center="#{mohController.current.cordinates.get(0).latitude}, #{mohController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{mohController.mapModel}">  
-                                            </p:gmap>
-                                        </p:column>
-                                    </p:row>
+                                    
 
                                 </p:panelGrid>
                             </p:panel>
 
-                            <p:panel header="Map" >
 
-
-                            </p:panel>
                         </p:panel>
 
 

@@ -44,6 +44,12 @@
                                     </f:facet>
                                     <h:outputText value="#{ff.coordinate.longtide }" />
                                 </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Area" />
+                                    </f:facet>
+                                    <h:outputText value="#{ff.phmArea }" />
+                                </p:column>
 
                                 <p:column >
                                     <p:commandButton ajax="false" value="Manage Families" action="family_members" >

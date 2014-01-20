@@ -1,17 +1,21 @@
 package gov.sp.health.bean;
 
 import gov.sp.health.data.DefaultsBean;
+import gov.sp.health.entity.Area;
 import java.util.TimeZone;
 import gov.sp.health.facade.FamilyFacade;
 import gov.sp.health.entity.Family;
 import gov.sp.health.entity.GisCoordinate;
 import gov.sp.health.entity.Person;
+import gov.sp.health.facade.AreaFacade;
 import gov.sp.health.facade.GisCoordinateFacade;
 import gov.sp.health.facade.PersonFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ejb.EJB;
@@ -42,6 +46,20 @@ public class FamilyController implements Serializable {
     MapModel familyMapModel;
     MapModel allFamiliesModel;
     GisCoordinate defaultCoordinate;
+    
+     @EJB
+    AreaFacade areaFacade;
+
+    public AreaFacade getAreaFacade() {
+        return areaFacade;
+    }
+
+    public void setAreaFacade(AreaFacade areaFacade) {
+        this.areaFacade = areaFacade;
+    }
+
+    
+   
 
     public GisCoordinate getDefaultCoordinate() {
         if (defaultCoordinate == null) {
@@ -112,6 +130,12 @@ public class FamilyController implements Serializable {
 //        getPerson().setFamily(current);
 //        getPersonFacade().edit(person);
 //        
+        if(person.getName().equals("")){
+            UtilityController.addErrorMessage("Enter person name");
+            return;
+        }
+        
+        
         getCurrent().getPersons().add(person);
         getFacade().edit(current);
         UtilityController.addSuccessMessage("Added");
@@ -138,14 +162,18 @@ public class FamilyController implements Serializable {
 
     public void saveSelected() {
 
-        if (getCurrent().getId() != null && getCurrent().getId() > 0) {
+       if (getCurrent().getId() != null && getCurrent().getId() > 0) {
+          // current.setPhmArea(sessionController.getLoggedUser().getArea());
             getFacade().edit(current);
-            UtilityController.addSuccessMessage("savedOldSuccessfully");
+            UtilityController.addSuccessMessage("Updated Successfully");
         } else {
+           
             current.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
             current.setCreater(sessionController.getLoggedUser());
+            current.setPhmArea(sessionController.getLoggedUser().getArea());
+      
             getFacade().create(current);
-            UtilityController.addSuccessMessage("savedNewSuccessfully");
+            UtilityController.addSuccessMessage("saved New Successfully");
         }
         recreateModel();
         getItems();
@@ -265,7 +293,8 @@ public class FamilyController implements Serializable {
     public List<Family> getItems() {
         return items;
     }
-    /**
-     *
-     */
+
+  
+
+        
 }

@@ -15,20 +15,34 @@
 
         <h:panelGroup rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" >
             <h:form  >
-                                <p:wizard widgetVar="wiz"
-                                      flowListener="#{webUserController.onFlowProcess}" style="width: 600px; min-height: 300px;">
-                                <p:tab id="tabPerson" title="Institution Details">
-                  <h:outputLabel value="Name" />
-                  <h:inputText id="txtSearch" value="#{institutionController.selectText}" >
+                               
+                  <p:panelGrid id="list" columns="2">
+                      <h:outputLabel value="Name" styleClass="nonPrintBlock"/>
+                  <h:inputText id="txtSearch" value="#{institutionController.selectText}" styleClass="nonPrintBlock">
                     <f:ajax execute="txtSearch" render="lstSelect" event="keyup" />
                 </h:inputText>
-
+                      
+                  <h:outputLabel value="Institute Type" styleClass="nonPrintBlock"/>
+                  <h:inputText id="txtSearcht" value="#{institutionController.selectText}" styleClass="nonPrintBlock" >
+                    <f:ajax execute="txtSearcht" render="lstSelect" event="keyup" />
+                </h:inputText>
+                  
+                  <h:outputLabel value="Province" styleClass="nonPrintBlock"/>
+                  <h:inputText id="txtSearchp" value="#{institutionController.selectText} " styleClass="nonPrintBlock"  >
+                    <f:ajax execute="txtSearcht" render="lstSelect" event="keyup" />
+                </h:inputText>
+                  
+                  <h:outputLabel value="District" styleClass="nonPrintBlock"/>
+                  <h:inputText id="txtSearchd" value="#{institutionController.selectText}" styleClass="nonPrintBlock" >
+                    <f:ajax execute="txtSearcht" render="lstSelect" event="keyup" />
+                </h:inputText>
+</p:panelGrid>
                   <p:dataTable id="lstSelect" value="#{institutionController.selectedItems}" var="u">
                     <f:facet name="header" >
                         <h:outputLabel value="List of All Institutes" />
                     </f:facet>
                     <p:column headerText="Institution Type">
-                        #{u.institutionCode}
+                        #{u.institutionType}
                     </p:column>
                
                     <p:column headerText="Name">
@@ -36,6 +50,12 @@
                     </p:column>
                    <p:column headerText="Address">
                         #{u.address}
+                    </p:column>
+                      <p:column headerText="Province">
+                        #{u.province.name}
+                    </p:column>
+                      <p:column headerText="District">
+                        #{u.distric.name}
                     </p:column>
                       <p:column headerText="Phone">
                         #{u.phone}
@@ -54,10 +74,9 @@
                     </p:column>
                 </p:dataTable>
                   
-                   </p:tab>
+                   
 
 
-                            </p:wizard>
             </h:form>
 
         </h:panelGroup>

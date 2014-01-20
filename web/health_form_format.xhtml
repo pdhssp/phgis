@@ -13,7 +13,7 @@
             <h:panelGrid columns="2" styleClass="alignTop" >
 
                 <h:panelGroup>
-                    <p:panel header="Investigation">
+                    <p:panel header="Health Form">
                         <p:autoComplete widgetVar="aPt" id="acPt" forceSelection="true" converter="hfcon"
                                         value="#{healthFormItemController.currentInvestigation}" 
                                         completeMethod="#{healthFormController.completeInvest}" 
@@ -21,7 +21,7 @@
                                         itemValue="#{apt}" size="30"  style="width: 400px;">
                             <p:ajax event="itemSelect" process="acPt" update=":#{p:component('pPreview')} :#{p:component('pDetails')} :#{p:component('pIx')} "/>
                         </p:autoComplete> 
-                        <!--hfconverter-->
+                        
                         <p:panel header="Add New ..." >
                             <h:commandButton value="Label" action="#{healthFormItemController.addNewLabel()}"/>
                             <h:commandButton value="Value" action="#{healthFormItemController.addNewValue()}"/>

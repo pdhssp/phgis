@@ -31,6 +31,20 @@
                     <p:column headerText="User Name">
                         #{u.name}
                     </p:column>
+                    
+                    <p:column headerText="Address">
+                        #{u.webUserPerson.address}
+                    </p:column>
+                    
+                    <p:column headerText="Area">
+                        #{u.webUserPerson.area.name}
+                    </p:column>
+                    
+                    <p:column headerText="Address">
+                        #{u.webUserPerson.address}
+                    </p:column>
+                    
+                    
                     <p:column headerText="Remove User">
                         <p:commandButton ajax="false" value="Remove" action="#{webUserController.removeUser}" >
                             <f:setPropertyActionListener value="#{u}" target="#{webUserController.removingUser}" />

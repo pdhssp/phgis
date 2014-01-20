@@ -9,10 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author Buddhika
- */
+
 @Stateless
 public class HealthFormFacade extends AbstractFacade<HealthForm> {
     @PersistenceContext(unitName = "phgisPU")

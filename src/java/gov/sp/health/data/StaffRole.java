@@ -4,10 +4,6 @@
  */
 package gov.sp.health.data;
 
-/**
- *
- * @author HIU
- */
 public enum StaffRole {
     Pdhs,
     Rdhs,   
@@ -17,4 +13,5 @@ public enum StaffRole {
     Eu,
     Fhb,
     Gn,
+    Admin,
 }

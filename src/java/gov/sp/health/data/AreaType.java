@@ -4,10 +4,7 @@
  */
 package gov.sp.health.data;
 
-/**
- *
- * @author HIU
- */
+
 public enum AreaType {
     Country,
     Province,

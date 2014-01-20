@@ -26,10 +26,15 @@
                                 <h:panelGrid id="gpSelectText" >
                                     <h:selectOneListbox converter="phiCon"  id="lstSelect"   size="10" value="#{phiController.current}" style="min-width: 223px">
                                         <f:selectItems  value="#{phiController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
-                                        <f:ajax render="gpDetail ph" execute="lstSelect" >
+                                        <f:ajax render="gpDetail map ph" execute="lstSelect" >
                                         </f:ajax>
                                     </h:selectOneListbox>
+                                     <h:commandButton id="butViewMap" value="View in Map" styleClass="buttons">
+                                    </h:commandButton>
+                               
                                 </h:panelGrid>
+                            </p:panel>
+                            <p:panel id="aa" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
                                 <h:panelGrid id="gpSelectButtons" columns="3"  >
                                     <h:commandButton id="btnAdd" value="Add"  action="#{phiController.prepareAdd()}" styleClass="buttons" >
                                         <f:ajax render="btnAdd  btnDelete btnSave   lstSelect gpDetail detailFocus" execute="" >
@@ -42,7 +47,7 @@
                             </p:panel>
                         </h:panelGrid  >
 
-                        <p:panel>
+                        <p:panel id="c" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }">
                             <h:panelGrid id="gpDetail" columns="1">
                                 <h:panelGrid id="gpDetailText" columns="2">
                                      <h:outputText id="lblphi" value="MOH area" ></h:outputText>
@@ -66,8 +71,9 @@
                         </p:panel>
 
                         <p:panel rendered="#{phiController.current.id ne 0 or phiController.current.id ne null }" >
-
-                            <p:panel header="Coordinates" >
+                        <p:gmap id="map" rendered="#{phiController.current.cordinates.size()>0}" center="#{phiController.current.cordinates.get(0).latitude}, #{phiController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{phiController.mapModel}">  
+                                            </p:gmap>
+                            <p:panel header="Coordinates" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Pdhs'or sessionController.loggedUser.staff.staffRole eq 'Rdhs'or sessionController.loggedUser.staff.staffRole eq 'Admin' }" >
                                 <p:panelGrid id="ph">
                                     <p:row >
                                         <p:column >
@@ -121,21 +127,12 @@
                                             </p:dataTable>
                                         </p:column>
                                     </p:row>
-                                    <p:row>
-                                        <p:column >
-                                            #{phiController.mapModel}
-                                            <p:gmap rendered="#{phiController.current.cordinates.size()>0}" center="#{phiController.current.cordinates.get(0).latitude}, #{phiController.current.cordinates.get(0).longtide}" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{phiController.mapModel}">  
-                                            </p:gmap>
-                                        </p:column>
-                                    </p:row>
+                                    
 
                                 </p:panelGrid>
                             </p:panel>
 
-                            <p:panel header="Map" >
-
-
-                            </p:panel>
+          
                         </p:panel>
 
 

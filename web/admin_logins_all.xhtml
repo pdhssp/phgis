@@ -47,9 +47,7 @@
                         </p:panel>
 
                         <p:dataTable value="#{loginController.logins}" var="b" >
-                            <p:column headerText="Institution" >
-                                <h:outputLabel value="#{b.institution.name}" ></h:outputLabel>
-                            </p:column>
+                          
                            
                             <p:column headerText="Code">
                                 <h:outputLabel value="#{b.webUser.code}" >

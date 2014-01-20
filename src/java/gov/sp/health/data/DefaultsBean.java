@@ -8,10 +8,7 @@ import gov.sp.health.entity.GisCoordinate;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 
-/**
- *
- * @author Buddhika
- */
+
 @Named(value = "defaultsBean")
 @ApplicationScoped
 public class DefaultsBean {

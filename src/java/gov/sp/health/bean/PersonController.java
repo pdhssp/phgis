@@ -132,7 +132,8 @@ public  class PersonController implements Serializable {
     }
 
     public List<Person> getItems() {
-        items = getFacade().findAll();
+        String sql="select p from Person p where p.retired=true";
+        items = getFacade().findBySQL(sql);
         return items;
     }
 

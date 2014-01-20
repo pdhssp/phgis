@@ -13,7 +13,7 @@
             You are NOT authorized
         </h:panelGroup>
 
-        <h:panelGroup rendered="#{webUserController.hasPrivilege('AdminManagingUsers')}" >
+        <h:panelGroup rendered="#{sessionController.loggedUser.staff.staffRole ne 'Pdhs'or sessionController.loggedUser.staff.staffRole ne 'Rdhs'or sessionController.loggedUser.staff.staffRole ne 'Admin'}">
             <h:form  >
                   <h:outputLabel value="Name" />
                 <h:inputText id="txtSearch" value="#{webUserController.selectText}" >

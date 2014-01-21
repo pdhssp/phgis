@@ -33,7 +33,7 @@
                             </p:panelGrid>
                                 
                                 
-                            <p:commandButton ajax="false" value="Update" action="#{familyController.saveSelected()}" />
+                            <p:commandButton rendered="#{sessionController.loggedUser.staff.staffRole eq 'Phm'}" ajax="false" value="Update" action="#{familyController.saveSelected()}" />
                             <p:commandButton ajax="false" value="View GIS" action="map_view_location" >
                             </p:commandButton>
                             <p:commandButton ajax="false" value="Add GIS" action="map_mark_new" >

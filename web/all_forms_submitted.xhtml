@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <script src="http://maps.google.com/maps/api/js?sensor=true"
+        type="text/javascript"></script>
+    </head>
+
+    <body>
+        <ui:composition template="./resources/template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+
+                    <p:panel header="Recently Submitted Forms" >
+                        <h:form>
+                            <p:dataTable value="#{formDataentryController.submittedFormsAll}" var="shf" >
+                                <p:column headerText="Form" >
+                                    <h:outputLabel value="#{shf.item.name}" />
+                                </p:column>
+                                <p:column headerText="Time Period" >
+                                    <h:outputLabel value="#{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                    <h:outputLabel value=" | #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
+                                    <h:outputLabel value=" | #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
+                                </p:column>
+                                <p:column headerText="View" >
+                                    <p:commandButton value="View" action="health_form_fill" ajax="false" >
+                                        <f:setPropertyActionListener value="#{shf}" target="#{formDataentryController.filledHealthForm}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:form>
+                    </p:panel>
+
+                </form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

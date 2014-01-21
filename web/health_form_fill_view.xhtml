@@ -27,28 +27,30 @@
 
                                 <ui:repeat value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
 
-                                    <h:outputLabel value="#{iv.strValue}"  style="#{iv.healthFormItem.cssStyle}; position:absolute;" rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Varchar' }" />
-                                    <h:outputLabel value="#{iv.doubleValue}" style="#{iv.healthFormItem.cssStyle}; position:absolute;" rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Double'}" />
-                                    <h:outputLabel value="#{iv.lobValue }" style="#{iv.healthFormItem.cssStyle}; position:absolute;"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Memo'}" />
+                                    <h:outputLabel value="#{iv.strValue}"  style="#{iv.healthFormItem.cssStyle}; position:absolute;" rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Varchar' }" escape="true" />
+                                    <h:outputLabel value="#{iv.doubleValue}" style="#{iv.healthFormItem.cssStyle}; position:absolute;" rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Double'}" escape="true"/>
+                                    <h:outputLabel value="#{iv.lobValue }" style="#{iv.healthFormItem.cssStyle}; position:absolute;"  rendered="#{iv.healthFormItem.healthFormItemValueType eq 'Memo'}" escape="true"/>
 
                                 </ui:repeat>
 
                                 <ui:repeat value="#{formDataentryController.healthForm.reportItems}" var="ivr" >
                                     <div style="#{ivr.cssStyle}; position:absolute;" >
-                                        
-                                        <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'si'}" >
-                                            
-                                            ghjgjhgh
-                                            <h:outputLabel escape="true" value="#{ivr.sname}" rendered="#{ivr.healthFormItemType eq 'Label'}" />
-                                        </h:panelGroup> 
-                                        
-                                        <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'ta'}" >
-                                            <h:outputLabel  value="#{ivr.tname}" rendered="#{ivr.healthFormItemType eq 'Label'}" />
-                                        </h:panelGroup> 
-                                        
-                                        <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'en'}">
-                                            <h:outputLabel  value="#{ivr.name}" rendered="#{ivr.healthFormItemType eq 'Label'}" />
-                                        </h:panelGroup> 
+
+                                        <h:panelGroup rendered="#{ivr.retired ne true}" >
+
+                                            <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'si'}" >
+                                                <h:outputLabel value="#{ivr.sname}" rendered="#{ivr.healthFormItemType eq 'Label'}"  escape="false" />
+                                            </h:panelGroup> 
+
+                                            <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'ta'}" >
+                                                <h:outputLabel  value="#{ivr.tname}" rendered="#{ivr.healthFormItemType eq 'Label'}"  escape="false" />
+                                            </h:panelGroup> 
+
+                                            <h:panelGroup rendered="#{sessionController.loggedUser.defLocale eq 'en'}">
+                                                <h:outputLabel  value="#{ivr.name}" rendered="#{ivr.healthFormItemType eq 'Label'}" escape="false" />
+                                            </h:panelGroup> 
+
+                                        </h:panelGroup>|
                                     </div>
                                 </ui:repeat>
 

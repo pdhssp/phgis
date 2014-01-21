@@ -1,4 +1,3 @@
-
 package gov.sp.health.bean;
 
 import gov.sp.health.data.CalculationType;
@@ -16,7 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import javax.inject.Named; import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -27,12 +27,12 @@ import javax.persistence.TemporalType;
 
 /**
  *
- *  
- *  )
+ *
+ * )
  */
 @Named
 @SessionScoped
-public  class HealthFormCalController implements Serializable {
+public class HealthFormCalController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -111,7 +111,7 @@ public  class HealthFormCalController implements Serializable {
 
     public FormCal lastCal() {
         FormCal tcal = null;
-        if (items != null || items.isEmpty()!=true) {
+        if (items != null || items.isEmpty() != true) {
             System.out.println("items are null or empty");
             tcal = items.get(items.size() - 1);
         }
@@ -164,11 +164,11 @@ public  class HealthFormCalController implements Serializable {
     }
 
     public List<HealthFormItem> getVals() {
-        if (ix != null) {
-            Map m = new HashMap();
-            m.put("iit", HealthFormItemType.Value);
-            vals = getIiFacade().findBySQL("select i from HealthFormItem i where i.retired=false and i.item.id = " + ix.getId() + " and i.healthFormItemType =:iit", m, TemporalType.TIMESTAMP);
-        }
+
+        Map m = new HashMap();
+        m.put("iit", HealthFormItemType.Value);
+        vals = getIiFacade().findBySQL("select i from HealthFormItem i where i.retired=false and i.healthFormItemType =:iit", m, TemporalType.TIMESTAMP);
+
         if (vals == null) {
             vals = new ArrayList<HealthFormItem>();
         }

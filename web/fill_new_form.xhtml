@@ -22,7 +22,7 @@
 
                                 <h:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
                                     <f:selectItem itemLabel="Please select a form" />
-                                    <f:selectItems value="#{healthFormController.midvifesForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
+                                    <f:selectItems value="#{healthFormController.fillableForms}" var="form" itemLabel="#{form.code} - #{form.name}" itemValue="#{form}" >
                                     </f:selectItems>
                                     <f:ajax event="change" execute ="cmbHf" render="gpTimes" />
                                 </h:selectOneMenu>
@@ -81,7 +81,7 @@
 
                                 </h:panelGroup>
 
-                                <p:commandButton ajax="false" value="Enter Data" action="#{formDataentryController.startPhmDataEntry()}" >
+                                <p:commandButton ajax="false" value="Enter Data" action="#{formDataentryController.startRoleDataEntry()}" >
 
                                 </p:commandButton>
 

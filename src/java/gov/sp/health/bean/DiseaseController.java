@@ -36,25 +36,6 @@ public class DiseaseController implements Serializable {
     private Disease current;
     private  List<Disease> disease;
     
-    @EJB
-    GisCoordinateFacade gisCoordinateFacade;
-    MapModel familyMapModel;
-
-    public GisCoordinateFacade getGisCoordinateFacade() {
-        return gisCoordinateFacade;
-    }
-
-    public void setGisCoordinateFacade(GisCoordinateFacade gisCoordinateFacade) {
-        this.gisCoordinateFacade = gisCoordinateFacade;
-    }
-
-    public MapModel getFamilyMapModel() {
-        return familyMapModel;
-    }
-
-    public void setFamilyMapModel(MapModel familyMapModel) {
-        this.familyMapModel = familyMapModel;
-    }
     
     
     public DiseaseController() {
@@ -76,18 +57,7 @@ public class DiseaseController implements Serializable {
         }
         return current;
     }
- public void addMarker(ActionEvent actionEvent) {
-        Marker marker = new Marker(new LatLng(getCurrent().getCoordinate().getLatitude(), getCurrent().getCoordinate().getLongtide()),"");
-        familyMapModel = new DefaultMapModel();
-        familyMapModel.addOverlay(marker);
-        
-        if (current == null) {
-            UtilityController.addErrorMessage("Select disease");
-            return;
-        }
-        getGisCoordinateFacade().edit(current.getCoordinate());//save coordinate
-        
-    }
+ 
     public void setCurrent(Disease current) {
         this.current = current;
     }

@@ -41,7 +41,7 @@
                             <p:menubar styleClass="nonPrintBlock" style=" border: 0px;" rendered="#{sessionController.logged}" >
                                 <p:menuitem ajax="false" action="index" value="#{labels.topic}"  ></p:menuitem>
                                 <p:menuitem ajax="false" action="index" value="||"  ></p:menuitem>
-                                <p:submenu label="Health Forms ||"  >
+                                <p:submenu label="#{labels.home}||"  >
                                     <p:menuitem  ajax="false"  action="fill_new_form" value="#{labels.home}"  ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="lab_bill_collecting_centre" value="Consolidate Forms"  ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="approve_filled_forms" value="Approve Filled Forms"  ></p:menuitem>
@@ -52,15 +52,15 @@
                                 <p:menuitem  ajax="false"  action="demography_index" value="#{labels.demog} ||"  ></p:menuitem>
 
                                 
-                                    <p:menuitem  ajax="false"  action="#{familyController.listFamilies()}" value="Manage Families ||"  ></p:menuitem>
+                                <p:menuitem  ajax="false"  action="#{familyController.listFamilies()}" value="#{labels.manageFamiles}||"  ></p:menuitem>
                                
 
 
-                                    <p:menuitem  ajax="false"  action="diagnosis" value="Manage diagnosis ||"  ></p:menuitem>
+                                <p:menuitem  ajax="false"  action="diagnosis" value="#{labels.Managediagnosis} ||"  ></p:menuitem>
                                 
 
 
-                                <p:submenu label="Messsage center ||"  >
+                                <p:submenu label="#{labels.Messsagecenter} ||"  >
                                     <p:submenu label="Messsage Inbox"  >
                                         <p:menuitem  ajax="false"  action="myMessage" value="Personal"  ></p:menuitem>
                                         <p:menuitem  ajax="false"  action="staffMessage" value="Staff"  ></p:menuitem>
@@ -75,19 +75,19 @@
                                     </p:submenu>
                                 </p:submenu>
 
-                                <p:submenu label="GISMap"  >
+                                <p:submenu label="#{labels.GISMap} ||"  >
                                     <p:menuitem  ajax="false"  action="gis_map" value="GIS Map"  ></p:menuitem>
                                 </p:submenu>
                             
 
-                            <p:submenu label="User ||"  >
+                                <p:submenu label="#{labels.User}||"  >
                                 <p:menuitem  ajax="false"  action="user_change_password" value="Change Password"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="user_preferances" value="Change Preferances"  ></p:menuitem>
                             </p:submenu>
 
-                            <p:menuitem  ajax="false"  action="instituteMenu" value="Manage Institutions ||"  ></p:menuitem>
+                                <p:menuitem  ajax="false"  action="instituteMenu" value="#{labels.ManageInstitutions} ||"  ></p:menuitem>
 
-                            <p:submenu label="Administration ||"  >
+                                <p:submenu label="#{labels.Administration}||"  >
                                 <p:menuitem  ajax="false"  action="admin_manage_users" value="Manage Users"  ></p:menuitem>
                                 <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
                             </p:submenu>

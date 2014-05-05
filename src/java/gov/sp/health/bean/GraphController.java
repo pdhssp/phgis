@@ -76,13 +76,15 @@ public class GraphController implements Serializable {
         List<FilledHealthFormItemValue> ffivs;
         Map m = new HashMap();
         String jpql;
-        jpql = "select v from FilledHealthFormItemValue v where v.filledHealthFormReport.fromDate between :fd and :td and v.healthFormItem =:hfi ";
+        jpql = "select v from FilledHealthFormItemValue v where v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi ";
 //        jpql = "select v from FilledHealthFormItemValue v ";
         System.out.println("jpql is " + jpql);
         m.put("fd", from);
         m.put("td", to);
         m.put("hfi", healthFormItem);
         System.out.println("m = " + m);
+        System.out.println("from="+from);
+        System.out.println("to"+to);
         
         ffivs = getFhfivFacade().findBySQL(jpql, m);
 //        ffivs = getFhfivFacade().findBySQL(jpql);

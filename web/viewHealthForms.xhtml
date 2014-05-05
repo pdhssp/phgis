@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:outputStylesheet library="css" name="maincss.css" />
+                <h:outputStylesheet library="css" name="css1.css" />
+
+                <h:panelGroup >
+                    <h:form  >
+                        <h:panelGrid id="gpc" columns="2"  >
+                            
+                            <p:outputLabel value="Health Form" ></p:outputLabel>
+                            <p:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
+                                <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.name}" itemValue="#{hf}" />
+                                <f:ajax event="change" execute="cmbHf" render="cmbHfi" />
+                            </p:selectOneMenu>
+                            
+                             <h:outputText id="cmbHfi" value="Role" ></h:outputText>
+                                    <p:selectOneMenu  required="true" value="#{webUserController.staffRole}" id="sr"  requiredMessage="Please select a staff Role"  >
+                                        <f:selectItem itemLabel="Please select a Role"  noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Public Health Mid wife" itemValue="Phm" />
+                                        <f:selectItem itemLabel="Public Health Inspector " itemValue="Phi" />
+                                        <f:selectItem itemLabel="Medical Officer of Health" itemValue="Moh" />
+                                        <f:selectItem itemLabel="Reginal Director of Health Services " itemValue="Rdhs" />
+                                        <f:selectItem itemLabel="Provincial Director of Health Services" itemValue="Pdhs" />
+                                        <f:ajax event="change" execute="sr" render="area" />
+                                    </p:selectOneMenu>
+
+                                    
+
+                                    <h:outputText value="Area" ></h:outputText>
+                                    <p:selectOneMenu converter="areaCon" id="area" required="true"   value="#{formDataentryController.area}" requiredMessage="Please select an Area">
+                                        <f:selectItem itemLabel="Please select an Area" />
+                                        <f:selectItems value="#{webUserController.areas}" var="d" itemLabel="#{d.name}" itemValue="#{d}" />
+                                    </p:selectOneMenu>
+                                    
+                                    
+                           
+
+                            <p:outputLabel> From </p:outputLabel>                             
+                            <p:calendar id="cf" value="#{formDataentryController.fromDate}"  ></p:calendar>
+                            <p:outputLabel> To </p:outputLabel>  
+                            <p:calendar id="ct" value="#{formDataentryController.toDate}" pattern="dd MMMM yyyy hh:mm a" ></p:calendar>  
+                             <p:commandButton styleClass="noPrintButton" value="Refresh" ajax="false" ></p:commandButton>
+                         
+                           
+                        </h:panelGrid>
+                        
+                        
+                      
+                                <p:dataTable value="#{formDataentryController.receivedFormsTopTenBySearch}" var="shf" >
+                                    <p:column headerText="Form" >
+                                        <h:outputLabel value="#{shf.item.name}" />
+                                    </p:column>
+                                    
+                                    <p:column headerText="From" >
+                                        <h:outputLabel value="#{shf.area.name}" />
+                                    </p:column>
+                                     <p:column headerText="Time Period" >
+                                        <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                        <h:outputLabel value=" | #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
+                                        <h:outputLabel value=" | #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
+                                    </p:column>
+                                   
+                                    <p:column headerText="View" >
+                                        <p:commandButton value="View" action="health_form_fill" ajax="false" >
+                                            <f:setPropertyActionListener value="#{shf}" target="#{formDataentryController.filledHealthForm}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                    <h:commandLink value="List all received forms" action="all_forms_received" ></h:commandLink>
+                                </p:dataTable>
+                            </h:form>
+                    
+                </h:panelGroup >  
+
+
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

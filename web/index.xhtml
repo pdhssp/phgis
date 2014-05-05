@@ -35,7 +35,7 @@
 
                                 <h:panelGroup id="gpTimes" >
                                     <h:panelGroup id="gpDaily" rendered="#{formDataentryController.healthForm.durationType eq 'Daily'}" >
-                                        <p:calendar yearRange="#{formDataentryController.yearVal}"  value="#{formDataentryController.formDate}">
+                                        <p:calendar id="cf"  value="#{formDataentryController.fDate}"  pattern="dd MM yyyy">
                                         </p:calendar>
                                     </h:panelGroup>
 
@@ -46,6 +46,13 @@
                                             <f:selectItem itemLabel="2011" itemValue="2011" />
                                             <f:selectItem itemLabel="2012" itemValue="2012" />
                                             <f:selectItem itemLabel="2013" itemValue="2013" />
+                                             <f:selectItem itemLabel="2010" itemValue="2014" />
+                                            <f:selectItem itemLabel="2015" itemValue="2015" />
+                                            <f:selectItem itemLabel="2016" itemValue="2016" />
+                                            <f:selectItem itemLabel="2017" itemValue="2017" />
+                                             <f:selectItem itemLabel="2018" itemValue="2018" />
+                                            <f:selectItem itemLabel="2019" itemValue="2019" />
+                                            <f:selectItem itemLabel="2020" itemValue="2020" />
                                         </p:selectOneMenu>
                                         <p:selectOneMenu  value="#{formDataentryController.monthVal}">
                                             <f:selectItem itemLabel="January" itemValue="1" />
@@ -71,6 +78,14 @@
                                             <f:selectItem itemLabel="2011" itemValue="2011" />
                                             <f:selectItem itemLabel="2012" itemValue="2012" />
                                             <f:selectItem itemLabel="2013" itemValue="2013" />
+                                              <f:selectItem itemLabel="2014" itemValue="2014" />
+                                            <f:selectItem itemLabel="2015" itemValue="2015" />
+                                            <f:selectItem itemLabel="2016" itemValue="2016" />
+                                            <f:selectItem itemLabel="2017" itemValue="2017" />
+                                             <f:selectItem itemLabel="2018" itemValue="2018" />
+                                            <f:selectItem itemLabel="2019" itemValue="2019" />
+                                            <f:selectItem itemLabel="2020" itemValue="2020" />
+                                            
 
                                         </p:selectOneMenu>
                                         <p:selectOneMenu  value="#{formDataentryController.quarterVal}">
@@ -88,7 +103,13 @@
                                             <f:selectItem itemLabel="2011" itemValue="2011" />
                                             <f:selectItem itemLabel="2012" itemValue="2012" />
                                             <f:selectItem itemLabel="2013" itemValue="2013" />
-                                            <f:selectItem itemLabel="2014" itemValue="2014" />
+                                                <f:selectItem itemLabel="2014" itemValue="2014" />
+                                            <f:selectItem itemLabel="2015" itemValue="2015" />
+                                            <f:selectItem itemLabel="2016" itemValue="2016" />
+                                            <f:selectItem itemLabel="2017" itemValue="2017" />
+                                             <f:selectItem itemLabel="2018" itemValue="2018" />
+                                            <f:selectItem itemLabel="2019" itemValue="2019" />
+                                            <f:selectItem itemLabel="2020" itemValue="2020" />
 
 
                                         </p:selectOneMenu>
@@ -180,6 +201,11 @@
                                     
                                     <p:column headerText="From" >
                                         <h:outputLabel value="#{shf.area.name}" />
+                                    </p:column>
+                                     <p:column headerText="Time Period" >
+                                        <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                        <h:outputLabel value=" | #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
+                                        <h:outputLabel value=" | #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
                                     </p:column>
                                    
                                     <p:column headerText="View" >

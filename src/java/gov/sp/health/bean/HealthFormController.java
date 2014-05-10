@@ -54,7 +54,9 @@ public class HealthFormController implements Serializable {
     private List<HealthForm> fillableForms;
 
     public List<HealthForm> getFillableForms() {
-        fillableForms = getStaffRoleForms(sessionController.getLoggedUser().getStaff().getStaffRole());
+        if (sessionController.getLoggedUser() != null && sessionController.getLoggedUser().getStaff() != null) {
+            fillableForms = getStaffRoleForms(sessionController.getLoggedUser().getStaff().getStaffRole());
+        }
         return fillableForms;
     }
 
@@ -205,12 +207,9 @@ public class HealthFormController implements Serializable {
                 String f = w.get(4);
                 System.out.println(code + " " + ix + " " + ic + " " + f);
 
-
                 HealthForm tix = new HealthForm();
                 tix.setCode(code);
                 tix.setName(ix);
-
-
 
             } catch (Exception e) {
             }
@@ -230,32 +229,28 @@ public class HealthFormController implements Serializable {
         items = null;
     }
 
-    
-    public boolean codeExists(){
+    public boolean codeExists() {
         String sql;
         sql = "Select hf from HealthForm hf where hf.code =:c and hf.retired=false";
         Map m = new HashMap();
         m.put("c", current.getCode());
         HealthForm hf = getFacade().findFirstBySQL(sql, m);
-        return (hf!=null);
+        return (hf != null);
     }
-    
+
     public void saveSelected() {
 
         if (getCurrent().getName().equals("")) {
             UtilityController.addErrorMessage("Please Enter Form Name");
             return;
         }
-        
-         if (getCurrent().getCode().equals("")) {
+
+        if (getCurrent().getCode().equals("")) {
             UtilityController.addErrorMessage("Please Enter Code");
             return;
         }
-         
-        
-         
-        getCurrent().setCategory(getCurrent().getFormCategory());
 
+        getCurrent().setCategory(getCurrent().getFormCategory());
 
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             System.out.println("1");
@@ -264,7 +259,7 @@ public class HealthFormController implements Serializable {
             UtilityController.addSuccessMessage("updated Successfully");
         } else {
             System.out.println("4");
-            if(codeExists()){
+            if (codeExists()) {
                 UtilityController.addErrorMessage("Already Exists");
                 return;
             }

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content" >
+
+                <h:form>
+
+                    <p:panelGrid columns="3" id="gpDetail" styleClass="alignTop">
+                        <p:panel header="Case Details" >
+                            <p:panelGrid columns="2">
+                                <p:outputLabel> Case Number</p:outputLabel> 
+                                <p:inputText value="#{diagnosisCaseController.current.name}"  required="true" requiredMessage="Please Enter Family Name"></p:inputText>
+                                <p:outputLabel> Address </p:outputLabel> 
+                                <p:inputText value="#{diagnosisCaseController.current.address}" required="true" requiredMessage="Please Enter Address" ></p:inputText>
+
+                                <p:outputLabel> Longitude </p:outputLabel> 
+                                <p:inputText rendered="#{diagnosisCaseController.current.coordinate ne null}"   value="#{diagnosisCaseController.current.coordinate.longtide}" ></p:inputText>
+                                <p:outputLabel> Latitude </p:outputLabel> 
+                                <p:inputText rendered="#{diagnosisCaseController.current.coordinate ne null}"   value="#{diagnosisCaseController.current.coordinate.latitude}"></p:inputText>
+
+
+
+
+                            </p:panelGrid>
+
+
+                            <p:commandButton ajax="false" value="Update" action="#{diagnosisCaseController.saveSelected()}" />
+
+                            <p:commandButton ajax="false" value="View GIS" action="map_view_diagnosis_location" >
+                            </p:commandButton>
+
+                            <p:commandButton ajax="false" value="Add GIS" action="map_mark_new_diagnosis" >
+                            </p:commandButton>
+
+                        </p:panel>
+
+                        <p:panel header="Location">
+                            <p:gmap widgetVar="w_gmap" center="#{diagnosisCaseController.defaultCoordinate.longtide}, #{diagnosisCaseController.defaultCoordinate.latitude}" zoom="15" type="hybrid" model="#{diagnosisCaseController.familyMapModel}"
+                                    style="width:600px;height:400px" />
+                        </p:panel>
+                    </p:panelGrid>
+
+
+                </h:form>
+
+
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

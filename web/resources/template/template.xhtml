@@ -55,8 +55,11 @@
                                 <p:menuitem  ajax="false"  action="#{familyController.listFamilies()}" value="#{labels.manageFamiles}||"  ></p:menuitem>
                                
 
-
-                                <p:menuitem  ajax="false"  action="diagnosis" value="#{labels.Managediagnosis} ||"  ></p:menuitem>
+                                <p:submenu label="#{labels.Managediagnosis}||"  >
+                                    <p:menuitem  ajax="false"  action="diagnosis" value="#{labels.disease} ||"  ></p:menuitem>
+                                  <p:menuitem  ajax="false"  action="area_diagnosis_cases" value="#{labels.Managediagnosis} ||"  ></p:menuitem>
+                              
+                                </p:submenu>
                                 
 
 

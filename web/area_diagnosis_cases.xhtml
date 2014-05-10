@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content" >
+
+                <h:form>
+
+                    <p:panelGrid columns="3">
+                        <p:panel id="panelReport" header="Manage Diagnosis Case" >
+
+                            <f:facet name="header" >
+      
+                                 <p:outputLabel  styleClass="noPrintButton"  value="#{labels.ManageCasesof }" ></p:outputLabel>
+                           
+                                 <h:selectOneListbox styleClass="noPrintButton"  id="lstSelect"   size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
+                                    <f:selectItems  value="#{diagnosisController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
+                                <f:ajax render="aa" execute="aa" >
+                                        </f:ajax>
+                                 
+                                 </h:selectOneListbox>
+                            </f:facet>
+
+
+
+                            <p:commandButton  styleClass="noPrintButton"  ajax="false" value="Add New" action="#{diagnosisCaseController.prepareAdd()}">
+                            </p:commandButton>
+                            <p:commandButton styleClass="noPrintButton"  ajax="false" value="List All Cases" action="#{diagnosisCaseController.listMyAreaCases()}" />
+                              <p:commandButton styleClass="noPrintButton"  ajax="false" value="List Case" action="#{diagnosisCaseController.listMyAreaCasesByCase()}" />
+                       
+                              
+                                <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
+                                <p:printer target="panelReport" />
+                            </p:commandButton>
+                            <p:dataTable value="#{diagnosisCaseController.items}" var="ff" id="aa">
+                                
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Case No" />
+                                    </f:facet>
+                                    <h:outputText value="#{ff.name}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Diagnosis" />
+                                    </f:facet>
+                                    <h:outputText value="#{ff.diagnosis.name}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Address" />
+                                    </f:facet>
+                                    <h:outputText value="#{ff.address}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Latitude" />
+                                    </f:facet>
+                                    <h:outputText value="#{ff.coordinate.latitude }" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Longtide" />
+                                    </f:facet>
+                                    <h:outputText value="#{ff.coordinate.longtide }" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Area" />
+                                    </f:facet>
+                                    <h:outputText value="#{ff.phmArea.name }" />
+                                </p:column>
+
+                                <p:column >
+                                    <p:commandButton styleClass="noPrintButton" ajax="false" value="Manage Diagnosis case" action="diagnosis_case" >
+                                        <f:setPropertyActionListener target="#{diagnosisCaseController.current}" value="#{ff}" />
+                                    </p:commandButton>
+                                    <h:commandButton  styleClass="noPrintButton" value="Delete" action="#{diagnosisCaseController.delete()}" >
+                                        <f:setPropertyActionListener target="#{diagnosisCaseController.current}" value="#{ff}" />
+                                    </h:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+                            
+                           
+
+                        </p:panel>
+
+                      
+                        <p:panel id="loc" header="Location">
+                            <p:gmap widgetVar="w_gmap" center="#{diagnosisCaseController.defaultCoordinate.longtide}, #{diagnosisCaseController.defaultCoordinate.latitude}" zoom="15" type="hybrid" model="#{diagnosisCaseController.allFamiliesModel}"
+                                    style="width:600px;height:400px" />
+                            <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
+                                <p:printer target="loc" />
+                            </p:commandButton>
+                        </p:panel>
+                            
+                    </p:panelGrid>
+
+
+                </h:form>
+
+
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -563,7 +563,7 @@ public class FormDataentryController implements Serializable {
                
                  System.out.println("=========="+fDate);    
           
-                m.put("fd", fDate);
+                m.put("fd", fromDate);
                 jpql = "select f from FilledHealthForm f where f.item=:i and f.area=:a and f.fromDate=:fd";
                 filledHealthForm = getFilledHealthFormFacade().findFirstBySQL(jpql, m);
                 System.out.println("filled health form is " + filledHealthForm);
@@ -571,8 +571,8 @@ public class FormDataentryController implements Serializable {
                     System.out.println("filled health form is null");
                     filledHealthForm = new FilledHealthForm();
                     filledHealthForm.setItem(healthForm);
-                    filledHealthForm.setFromDate(fDate);
-                    filledHealthForm.setToDate(fDate);
+                    filledHealthForm.setFromDate(fromDate);
+                    filledHealthForm.setToDate(fromDate);
                    
                     filledHealthForm.setArea(sessionController.getArea());
                     filledHealthForm.setDataEntryUser(sessionController.getLoggedUser());

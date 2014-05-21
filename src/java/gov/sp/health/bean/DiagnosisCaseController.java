@@ -3,8 +3,8 @@ package gov.sp.health.bean;
 import gov.sp.health.ejb.GisEjb;
 import gov.sp.health.entity.Diagnosis;
 import gov.sp.health.entity.DiagnosisCase;
+import gov.sp.health.entity.DiagnosisList;
 import gov.sp.health.entity.Disease;
-import java.util.TimeZone;
 import gov.sp.health.entity.GisCoordinate;
 import gov.sp.health.entity.Person;
 import gov.sp.health.facade.AreaFacade;
@@ -15,14 +15,17 @@ import gov.sp.health.facade.PersonFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.inject.Named;
+import java.util.TimeZone;
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.primefaces.component.datalist.DataList;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
@@ -49,6 +52,33 @@ public class DiagnosisCaseController implements Serializable {
     GisCoordinate defaultCoordinate;
     @EJB
     AreaFacade areaFacade;
+    private Date fromDate;
+    private Date toDate;
+    private int count;
+    List<DiagnosisList>  groupList;
+    
+    private List<DiagnosisCaseController> dcist;
+    
+    
+    
+    private DataList dl;
+    
+    
+    
+
+    public List<DiagnosisList> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(List<DiagnosisList> groupList) {
+        this.groupList = groupList;
+    }
+    
+    
+    
+    
+    
+    
     
     
 
@@ -161,20 +191,39 @@ public class DiagnosisCaseController implements Serializable {
 
     public void saveSelected() {
 
+        
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             getFacade().edit(current);
             UtilityController.addSuccessMessage("Updated Successfully");
-        } else {
+        } 
+        else {
+             
             if (diagnosis == null) {
-                UtilityController.addErrorMessage("Please Select Diagnosis ");
+                UtilityController.addErrorMessage("Please Select Diagnosis  ");
                 return;
-            }
+            }           
+               else
+               {
             current.setDiagnosis(diagnosis);
+              
             current.setCreatedAt(Calendar.getInstance(TimeZone.getTimeZone("IST")).getTime());
+            
             current.setCreater(sessionController.getLoggedUser());
-            current.setPhmArea(sessionController.getArea());
+            System.out.println("3");
+            if(sessionController.getArea().getAreaType().name().equals("PhmArea"))
+               current.setPhmArea(sessionController.getArea());
+             else                     
+                if(sessionController.getArea().getAreaType().name().equals("PhiArea"))
+                  current.setPhiArea(sessionController.getArea());
+             else
+                {
+                    UtilityController.addErrorMessage("Your not allow to save");
+                    return;
+                }
+                
             getFacade().create(current);
             UtilityController.addSuccessMessage("saved New Successfully");
+                       }
         }
         recreateModel();
         getItems();
@@ -210,7 +259,7 @@ public class DiagnosisCaseController implements Serializable {
         familyMapModel.addOverlay(marker);
 
         if (current == null) {
-            UtilityController.addErrorMessage("Select family");
+            UtilityController.addErrorMessage("Select ");
             return;
         }
         getGisCoordinateFacade().edit(current.getCoordinate());//save coordinate
@@ -222,7 +271,8 @@ public class DiagnosisCaseController implements Serializable {
             current = new DiagnosisCase();
             GisCoordinate c = new GisCoordinate();
             Person person = new Person();
-            current.setDiagnosis(diagnosis);            
+            Diagnosis d=new Diagnosis();
+            current.setDiagnosis(d);            
             current.setPerson(person);
             c.setLatitude(6.0350);
             c.setLongtide(80.2158);
@@ -278,9 +328,14 @@ public class DiagnosisCaseController implements Serializable {
     }
 
     public String listMyAreaCases() {
-        String sql = "SELECT i FROM DiagnosisCase i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a)";
+       // String sql = "SELECT i FROM DiagnosisCase i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a)  or i.phiArea.superArea=:a or i.phiArea.superArea.superArea=:a or i.phiArea.superArea.superArea.superArea=:a or i.phiArea.superArea.superArea.superArea.superArea=:a)";
+         String sql = "SELECT i FROM DiagnosisCase i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a)  ";
         Map m = new HashMap();
+         System.out.println("sql = " + sql);
+       
+        
         m.put("a", getSessionController().getArea());
+         System.out.println("m = " + m);
         items = getEjbFacade().findBySQL(sql, m);
 
         if (items == null) {
@@ -296,6 +351,22 @@ public class DiagnosisCaseController implements Serializable {
         }
         defaultCoordinate = getGisEjb().getCentre(allFamiliesModel);
         return "area_diagnosis_cases";
+    }
+    
+     public String listMyAreaCasesSummary() {
+        String sql = "SELECT i FROM DiagnosisCase i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a) and i.diagnosis=:d";
+        Map m = new HashMap();
+        m.put("a", getSessionController().getArea());
+          m.put("d",diagnosis);
+        items = getEjbFacade().findBySQL(sql, m);
+
+        if (items == null) {
+            items = new ArrayList<DiagnosisCase>();
+        }
+        
+        count=items.size();
+        
+        return "area_diagnosis_cases_by_duration_count_summary";
     }
     
      public String listMyAreaCasesByCase() {
@@ -317,7 +388,80 @@ public class DiagnosisCaseController implements Serializable {
             }
         }
         defaultCoordinate = getGisEjb().getCentre(allFamiliesModel);
-        return "area_diagnosis_cases";
+        return "area_diagnosis_cases_by_case";
+    }
+     
+      public String listMyAreaCasesByCaseByDate() {
+        String sql = "SELECT i FROM DiagnosisCase i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a) and i.diagnosis=:d and i.createdAt between :df and :dt";
+        Map m = new HashMap();
+        m.put("a", getSessionController().getArea());
+        m.put("d",diagnosis);
+        m.put("df", fromDate);
+        m.put("dt", toDate);
+        items = getEjbFacade().findBySQL(sql, m);
+        count=items.size();
+        
+        if (items == null) {
+            items = new ArrayList<DiagnosisCase>();
+        }
+        allFamiliesModel = new DefaultMapModel();
+        for (DiagnosisCase f : items) {
+            if (f.getCoordinate() != null) {
+                Marker marker = new Marker(new LatLng(f.getCoordinate().getLatitude(), f.getCoordinate().getLongtide()), f.getAddress());
+                allFamiliesModel.addOverlay(marker);
+
+            }
+        }
+        defaultCoordinate = getGisEjb().getCentre(allFamiliesModel);
+        return "area_diagnosis_cases_by_duration";
+    }
+     
+       public String listMyAreaCasesByCaseByDateCount() {
+       
+        String sql = "SELECT i FROM DiagnosisCase i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a) and i.diagnosis=:d and i.createdAt between :df and :dt ";
+        Map m = new HashMap();
+        m.put("a", getSessionController().getArea());
+        m.put("d",diagnosis);
+        m.put("df", fromDate);
+        m.put("dt", toDate);
+        items = getEjbFacade().findBySQL(sql, m);
+        count=items.size();
+        
+        if (items == null) {
+            items = new ArrayList<DiagnosisCase>();
+        }
+        
+       
+//        allFamiliesModel = new DefaultMapModel();
+//        for (DiagnosisCase f : items) {
+//            if (f.getCoordinate() != null) {
+//                Marker marker = new Marker(new LatLng(f.getCoordinate().getLatitude(), f.getCoordinate().getLongtide()), f.getAddress());
+//                allFamiliesModel.addOverlay(marker);
+//
+//            }
+//        }
+        //defaultCoordinate = getGisEjb().getCentre(allFamiliesModel);
+        return "area_diagnosis_cases_by_duration";
+    }
+       
+        public String listMyAreaCasesByCaseByDateCountSummary() {
+       
+        String sql = "select i.name,count(d.diagnosis_id) from item i,DiagnosisCase d where i.dtype='Diagnosis' group by i.name ";
+        Map m = new HashMap();
+//        m.put("a", getSessionController().getArea());
+//        m.put("d",diagnosis);
+//        m.put("df", fromDate);
+//        m.put("dt", toDate);
+        
+        count=items.size();
+        
+        if (items == null) {
+            items = new ArrayList<DiagnosisCase>();
+        }
+        
+       
+//       
+        return "area_diagnosis_cases_by_duration";
     }
      
     @EJB
@@ -341,5 +485,45 @@ public class DiagnosisCaseController implements Serializable {
 
     public void setDiagnosis(Diagnosis diagnosis) {
         this.diagnosis = diagnosis;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public DataList getDl() {
+        return dl;
+    }
+
+    public void setDl(DataList dl) {
+        this.dl = dl;
+    }
+
+    public List<DiagnosisCaseController> getDcist() {
+        return dcist;
+    }
+
+    public void setDcist(List<DiagnosisCaseController> dcist) {
+        this.dcist = dcist;
     }
 }

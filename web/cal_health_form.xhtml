@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:outputStylesheet library="css" name="maincss.css" />
+                <h:outputStylesheet library="css" name="css1.css" />
+
+                <h:panelGroup >
+                    <h:form  >
+                        <h:panelGrid id="gpc" columns="2"  >
+                            <p:outputLabel styleClass="nonPrintBlock" value="#{labels.healthFormName}" ></p:outputLabel>
+                            <p:selectOneMenu styleClass="nonPrintBlock"  id="cmbHf" value="#{graphController.healthForm}"  >
+                                <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.name}" itemValue="#{hf}" rendered="#{sessionController.loggedUser.defLocale == 'en' }" />
+                                <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.sname}" itemValue="#{hf}" rendered="#{sessionController.loggedUser.defLocale == 'si' }" />
+                                <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.tname}" itemValue="#{hf}" rendered="#{sessionController.loggedUser.defLocale == 'ta' }" />
+                                <f:ajax event="change" execute="cmbHf" render="cmbHfi" />
+                            </p:selectOneMenu>
+                            <p:outputLabel styleClass="nonPrintBlock" value="#{labels.HealthFormItem}" ></p:outputLabel>
+                            <p:selectOneMenu styleClass="nonPrintBlock" id="cmbHfi" value="#{graphController.healthFormItem}"  >
+                                <f:selectItems value="#{graphController.healthForm.reportItems}" var="hfi" itemLabel="#{hfi.name}" itemValue="#{hfi}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel  styleClass="nonPrintBlock" value="#{labels.From}" />                             
+                            <p:calendar styleClass="nonPrintBlock"  id="cf" value="#{graphController.from}"></p:calendar>
+                            <p:outputLabel styleClass="nonPrintBlock" value="#{labels.To}" />  
+                            <p:outputLabel  styleClass="nonPrintBlock" value="#{graphController.to}" />
+                        </h:panelGrid>
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Total" action="#{graphController.calAvrage()   }" ></p:commandButton>
+                      
+                        <p:panelGrid  columns="8" id="pg">
+                        <p:outputLabel value="Total"/> 
+                        <p:outputLabel value="#{graphController.total}"/> 
+                        
+                        
+                        <p:outputLabel value="Avrage"/> 
+                        <p:outputLabel value="#{ graphController.avrage}"/> 
+                          
+                        <p:outputLabel value="Max"/> 
+                        <p:outputLabel value="#{graphController.max}"/> 
+                            
+                        <p:outputLabel value="Min"/> 
+                        <p:outputLabel value="#{graphController.minVal}"/> 
+                        
+                        </p:panelGrid>
+                              
+                        
+                             <p:panel styleClass="printBlock" >
+                            <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 18px;" /> 
+                            <br/>
+                              <br/>       
+                              <h:outputLabel value="#{labels.healthFormName}" />  :            &nbsp;&nbsp;&nbsp;&nbsp;               &nbsp;&nbsp;&nbsp;&nbsp;   
+                              
+                               <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'en' }" value="#{graphController.healthForm.name}" />
+                                        <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'si'}" value="#{graphController.healthForm.sname}" />
+                                        <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'ta'}" value="#{graphController.healthForm.tname}" />
+:
+                                 
+                    
+                            &nbsp;&nbsp;&nbsp;&nbsp;                         
+                            
+                            <h:outputLabel value="#{sessionController.loggedUser.webUserPerson.area.name}" />
+                            
+
+                        </p:panel>
+                        <p:dataTable value="#{graphController.ffivs}" var="shf" >
+                            <p:column headerText="#{labels.Duration}" >
+                                <h:outputLabel value="#{labels.Date} : #{shf.filledHealthFormReport.fromDate}" rendered="#{graphController.healthForm.durationType eq 'Daily' }" />
+                                <h:outputLabel value="  #{labels.Year} : #{ shf.filledHealthFormReport.yearVal}" rendered="#{graphController.healthForm.durationType ne 'Daily' }" />
+                                <h:outputLabel value="   #{labels.Month} : #{shf.filledHealthFormReport.monthVal}" rendered="#{graphController.healthForm.durationType eq 'Monthly' }" />
+                                                                     
+                                    
+                                    </p:column>
+                                    
+                            <p:column headerText="#{labels.Count}" >
+                                        <h:outputLabel value="#{shf.doubleValue}" />
+                                    </p:column>
+                          </p:dataTable>
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Print" onclick="window.print();" >
+                        </p:commandButton>
+                        <p:lineChart  rendered="#{graphController.linearModel ne null}"  id="linear" value="#{graphController.linearModel}" legendPosition="e"  
+                                      title="Linear Chart"  style="height:500px"/>  
+                    </h:form>
+                </h:panelGroup >  
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+
+
+
+

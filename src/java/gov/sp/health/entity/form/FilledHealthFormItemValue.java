@@ -157,6 +157,6 @@ public class FilledHealthFormItemValue implements Serializable {
 
     @Override
     public String toString() {
-        return "gov.sp.health.entity.PatientInvestigationItemValue[ id=" + id + " ]";
+        return "gov.sp.health.entity.FilledHealthFormItemValue[ id=" + id + " ]";
     }
 }

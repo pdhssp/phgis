@@ -45,6 +45,10 @@ public class DiagnosisCase implements Serializable {
     Date retiredAt;
     @ManyToOne
     Area phmArea;
+    @ManyToOne
+    private Area phiArea;
+    
+    
     @Lob
     String address;
 
@@ -176,5 +180,13 @@ public class DiagnosisCase implements Serializable {
     @Override
     public String toString() {
         return "gov.sp.health.entity.DiagnosisCase[ id=" + id + " ]";
+    }
+
+    public Area getPhiArea() {
+        return phiArea;
+    }
+
+    public void setPhiArea(Area phiArea) {
+        this.phiArea = phiArea;
     }
 }

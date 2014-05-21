@@ -8,18 +8,20 @@
 
     <body>
 
-        <ui:composition template="./resources/template/template.xhtml">
+        <ui:composition template="./resources/template/template.xhtml" >
 
             <ui:define name="content" >
 
-                <h:form>
+                <h:form >
 
-                    <p:panelGrid columns="3">
-                        <p:panel id="panelReport" header="Manage Diagnosis Case" >
+                    <p:panelGrid  columns="3">
+                        <p:panel   id="panelReport" header="View Diagnosis Case by Case" >
 
                             <f:facet name="header" >
-      
-                                 <p:outputLabel  styleClass="noPrintButton"  value="#{labels.ManageCasesof }" ></p:outputLabel>
+                                <p:panelGrid columns="2" styleClass="noPrintButton">
+                                
+                                   
+                                <p:outputLabel  styleClass="noPrintButton"  value="#{labels.SelectCase }" ></p:outputLabel>
                            
                                  <h:selectOneListbox styleClass="noPrintButton"  id="lstSelect"   size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
                                     <f:selectItems  value="#{diagnosisController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
@@ -27,14 +29,22 @@
                                         </f:ajax>
                                  
                                  </h:selectOneListbox>
+                                 
+                                 <p:outputLabel styleClass="noPrintButton" value="#{labels.From}"/>                             
+                                 <p:calendar styleClass="noPrintButton"  id="cf" value="#{diagnosisCaseController.fromDate}" pattern="dd MMMM yyyy"  ></p:calendar>
+             
+                            
+                            <p:outputLabel styleClass="noPrintButton" value="#{labels.To}"/>  
+                            <p:calendar styleClass="noPrintButton" id="ct" value="#{diagnosisCaseController.toDate}" pattern="dd MMMM yyyy " ></p:calendar>  
+                             </p:panelGrid> 
                             </f:facet>
 
 
 
-                            <p:commandButton  styleClass="noPrintButton"  ajax="false" value="#{labels.AddNew}" action="#{diagnosisCaseController.prepareAdd()}">
-                            </p:commandButton>
-                            <p:commandButton styleClass="noPrintButton"  ajax="false" value="#{labels.ListAllCase}" action="#{diagnosisCaseController.listMyAreaCases()}" />
-                                 
+                           
+                            <p:commandButton styleClass="noPrintButton"  ajax="false" value="#{labels.View}" action="#{diagnosisCaseController.listMyAreaCasesByCaseByDate()}" />
+                       
+                              
                                 <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
                                 <p:printer target="panelReport" />
                             </p:commandButton>
@@ -42,16 +52,39 @@
                               <p:panel styleClass="printBlock" >
                             <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 18px;" /> 
                             <br/>
-                              <br/>       
+                              <br/>  
+                               <h:outputLabel value="#{diagnosisCaseController.diagnosis.name}" />  &nbsp;&nbsp; 
                             <h:outputLabel value="#{labels.DiagnosisCasesReport}" />
+                            
+                            
+                              
+                             
                             <br/>
                                 <br/>       
                                         <h:outputLabel value="#{labels.Area}" />
                             &nbsp;&nbsp;&nbsp;&nbsp;                         
                             
                             <h:outputLabel value="#{sessionController.loggedUser.webUserPerson.area.name}" />
+                            <br/>
+                                 <br/>   
+                            <h:outputLabel value="#{labels.Duration}"/>
                             
-
+                             &nbsp;&nbsp;&nbsp;&nbsp; 
+                             :
+                              &nbsp;&nbsp;&nbsp;&nbsp; 
+                              &nbsp;&nbsp;&nbsp;&nbsp; 
+                             <h:outputLabel value="#{labels.From}"/>
+                              &nbsp;&nbsp;&nbsp;&nbsp; 
+                                    <h:outputLabel value="#{diagnosisCaseController.fromDate}">
+                                       <f:convertDateTime pattern="dd MM yyyy" />
+                                    </h:outputLabel>
+                             &nbsp;&nbsp;&nbsp;&nbsp; 
+                             <h:outputLabel value="#{labels.To}"/>
+                              &nbsp;&nbsp;&nbsp;&nbsp; 
+                             <h:outputLabel value="#{diagnosisCaseController.toDate}">
+                                       <f:convertDateTime pattern="dd MM yyyy" />
+                                    </h:outputLabel>
+                            
                         </p:panel>
                             <p:dataTable value="#{diagnosisCaseController.items}" var="ff" id="aa">
                                 
@@ -108,9 +141,26 @@
                                         <f:setPropertyActionListener target="#{diagnosisCaseController.current}" value="#{ff}" />
                                     </h:commandButton>
                                 </p:column>
-
+                                
+                                           
                             </p:dataTable>
                             
+<br>
+</br>
+    
+                            <b>
+                                
+                           
+                            <h:outputLabel value="#{labels.TotalNumberOfCases}">
+                                       
+                                    </h:outputLabel>
+                            
+                             &nbsp;&nbsp;&nbsp;&nbsp; 
+                            <h:outputLabel value="#{diagnosisCaseController.count}">
+                                       
+                                    </h:outputLabel>
+                            
+                             </b>
                            
  
                         </p:panel>
@@ -120,7 +170,7 @@
                         
                       
                         <p:panel id="loc" header="Location">
-                            <p:gmap widgetVar="w_gmap" center="#{80.21587657902273}, #{6.031305016840389}" zoom="15" type="hybrid" model="#{diagnosisCaseController.allFamiliesModel}"
+                            <p:gmap widgetVar="w_gmap" center="#{diagnosisCaseController.defaultCoordinate.longtide}, #{diagnosisCaseController.defaultCoordinate.latitude}" zoom="15" type="hybrid" model="#{diagnosisCaseController.allFamiliesModel}"
                                     style="width:600px;height:400px" />
                             <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
                                 <p:printer target="loc" />

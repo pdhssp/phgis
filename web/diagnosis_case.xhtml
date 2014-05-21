@@ -17,14 +17,16 @@
                     <p:panelGrid columns="3" id="gpDetail" styleClass="alignTop">
                         <p:panel header="Case Details" >
                             <p:panelGrid columns="2">
-                                <p:outputLabel> Case Number</p:outputLabel> 
-                                <p:inputText value="#{diagnosisCaseController.current.name}"  required="true" requiredMessage="Please Enter Family Name"></p:inputText>
-                                <p:outputLabel> Address </p:outputLabel> 
+                                <p:outputLabel value="Diagnosis"></p:outputLabel> 
+                                <p:outputLabel value="#{diagnosisCaseController.diagnosis}"></p:outputLabel> 
+                                <p:outputLabel value="#{labels.CaseNo}"></p:outputLabel> 
+                                <p:inputText value="#{diagnosisCaseController.current.name}"  required="true" requiredMessage="Please Enter Case ID"></p:inputText>
+                                <p:outputLabel value="#{labels.Address}"> </p:outputLabel> 
                                 <p:inputText value="#{diagnosisCaseController.current.address}" required="true" requiredMessage="Please Enter Address" ></p:inputText>
 
-                                <p:outputLabel> Longitude </p:outputLabel> 
+                                <p:outputLabel value="#{labels.Longtide}"> </p:outputLabel> 
                                 <p:inputText rendered="#{diagnosisCaseController.current.coordinate ne null}"   value="#{diagnosisCaseController.current.coordinate.longtide}" ></p:inputText>
-                                <p:outputLabel> Latitude </p:outputLabel> 
+                                <p:outputLabel value="#{labels.Latitude}" ></p:outputLabel> 
                                 <p:inputText rendered="#{diagnosisCaseController.current.coordinate ne null}"   value="#{diagnosisCaseController.current.coordinate.latitude}"></p:inputText>
 
 

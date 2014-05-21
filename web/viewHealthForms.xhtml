@@ -46,13 +46,12 @@
                                     
                            
 
-                            <p:outputLabel> From </p:outputLabel>                             
-                            <p:calendar id="cf" value="#{formDataentryController.fromDate}"  ></p:calendar>
-                            <p:outputLabel> To </p:outputLabel>  
-                            <p:calendar id="ct" value="#{formDataentryController.toDate}" pattern="dd MMMM yyyy hh:mm a" ></p:calendar>  
-                             <p:commandButton styleClass="noPrintButton" value="Refresh" ajax="false" ></p:commandButton>
+                              <p:outputLabel  styleClass="noPrintButton" value="#{labels.From}">  </p:outputLabel>                             
+                            <p:calendar id="cf"  styleClass="noPrintButton"  value="#{formDataentryController.fromDate}"  ></p:calendar>
+                            <p:outputLabel  styleClass="noPrintButton"  value="#{labels.To}"> </p:outputLabel>  
+                            <p:calendar id="ct"  styleClass="noPrintButton" value="#{formDataentryController.toDate}"  ></p:calendar>  
+                          <p:commandButton styleClass="noPrintButton" value="Refresh" ajax="false" ></p:commandButton>
                          
-                           
                         </h:panelGrid>
                         
                         

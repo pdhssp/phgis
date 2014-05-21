@@ -32,7 +32,9 @@
                             <p:outputLabel> To </p:outputLabel>  
                             <p:calendar id="ct" value="#{graphController.to}"></p:calendar>
                         </h:panelGrid>
-                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw" action="#{graphController.createChartBean()}" ></p:commandButton>
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw" action="#{graphController.createChartBean()   }" ></p:commandButton>
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Total" action="#{graphController.createLinearModelValue()   }" ></p:commandButton>
+                      
                         <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Print" onclick="window.print();" >
                         </p:commandButton>
                         <p:lineChart  rendered="#{graphController.linearModel ne null}"  id="linear" value="#{graphController.linearModel}" legendPosition="e"  

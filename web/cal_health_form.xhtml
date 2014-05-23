@@ -32,7 +32,7 @@
                             <p:outputLabel  styleClass="nonPrintBlock" value="#{labels.From}" />                             
                             <p:calendar styleClass="nonPrintBlock"  id="cf" value="#{graphController.from}"></p:calendar>
                             <p:outputLabel styleClass="nonPrintBlock" value="#{labels.To}" />  
-                            <p:outputLabel  styleClass="nonPrintBlock" value="#{graphController.to}" />
+                            <p:calendar styleClass="nonPrintBlock"  id="cf2" value="#{graphController.to}"></p:calendar>
                         </h:panelGrid>
                         <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Total" action="#{graphController.calAvrage()   }" ></p:commandButton>
                       

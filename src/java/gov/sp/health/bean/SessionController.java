@@ -384,12 +384,14 @@ public class SessionController implements Serializable, HttpSessionListener {
     }
 
     public void logout() {
+        System.out.println("logging out");
         userPrivilages = null;
         recordLogout();
         setLoggedUser(null);
         getWebUserBean().setLoggedUser(null);
         setLogged(false);
         setActivated(false);
+        System.out.println("logged out completed.");
 
     }
 
@@ -675,7 +677,7 @@ public class SessionController implements Serializable, HttpSessionListener {
         applicationController.removeLoggins(this);
         thisLogin.setLogoutAt(Calendar.getInstance().getTime());
         getLoginsFacade().edit(thisLogin);
-        thisLogin = null;
+thisLogin = null;
     }
 
     @Override

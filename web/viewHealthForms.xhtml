@@ -64,11 +64,12 @@
                                     <p:column headerText="From" >
                                         <h:outputLabel value="#{shf.area.name}" />
                                     </p:column>
-                                     <p:column headerText="Time Period" >
-                                        <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
-                                        <h:outputLabel value=" | #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
-                                        <h:outputLabel value=" | #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
-                                    </p:column>
+                                      <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                        <h:outputLabel value=" Month : #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
+                                     
+                                        <p:outputLabel value=" Date : #{shf.fromDate}"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }" >
+                                            <f:convertDateTime pattern="DD MM YYYY" />
+                                        </p:outputLabel>
                                    
                                     <p:column headerText="View" >
                                         <p:commandButton value="View" action="health_form_fill" ajax="false" >

@@ -13,12 +13,16 @@
             <ui:define name="content" >
 
                 <h:form>
-
+                    <p:growl autoUpdate="true" />
+                    <p:focus id="detailF" context="gd" />
+                    <p:focus id="detailFocus" context="gpDetail" />
                     <p:panelGrid columns="3" id="gpDetail" styleClass="alignTop">
                         <p:panel header="Case Details" >
-                            <p:panelGrid columns="2">
+                            <p:panelGrid columns="2" id="gd">
                                 <p:outputLabel value="Diagnosis"></p:outputLabel> 
-                                <p:outputLabel value="#{diagnosisCaseController.diagnosis}"></p:outputLabel> 
+                                <h:selectOneListbox  id="lstSelect"   size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
+                                    <f:selectItems  value="#{diagnosisController.items}" var="dx" itemValue="#{dx}" itemLabel="#{dx.name}" ></f:selectItems>
+                                </h:selectOneListbox>
                                 <p:outputLabel value="#{labels.CaseNo}"></p:outputLabel> 
                                 <p:inputText value="#{diagnosisCaseController.current.name}"  required="true" requiredMessage="Please Enter Case ID"></p:inputText>
                                 <p:outputLabel value="#{labels.Address}"> </p:outputLabel> 
@@ -29,11 +33,17 @@
                                 <p:outputLabel value="#{labels.Latitude}" ></p:outputLabel> 
                                 <p:inputText rendered="#{diagnosisCaseController.current.coordinate ne null}"   value="#{diagnosisCaseController.current.coordinate.latitude}"></p:inputText>
 
+                                <p:outputLabel value="PHM Area"></p:outputLabel> 
+                                <h:selectOneListbox  id="lstPhmSelect"   size="10" converter="areaCon" value="#{diagnosisCaseController.current.phmArea}" style="min-width: 223px">
+                                    <f:selectItems  value="#{areaController.myPhmAres}"  var="ax" itemValue="#{ax}" itemLabel="#{ax.name}" ></f:selectItems>
+                                </h:selectOneListbox>
 
 
 
                             </p:panelGrid>
 
+                            <p:commandButton  styleClass="noPrintButton"  ajax="false" value="#{labels.AddNew}" action="#{diagnosisCaseController.prepareAdd()}">
+                            </p:commandButton>
 
                             <p:commandButton ajax="false" value="Update" action="#{diagnosisCaseController.saveSelected()}" />
 

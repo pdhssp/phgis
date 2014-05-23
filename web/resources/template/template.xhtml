@@ -51,18 +51,18 @@
 
                                 <p:menuitem  ajax="false"  action="demography_index" value="#{labels.demog} ||"  ></p:menuitem>
 
-                                
+
                                 <p:menuitem  ajax="false"  action="#{familyController.listFamilies()}" value="#{labels.manageFamiles}||"  ></p:menuitem>
-                               
+
 
                                 <p:submenu label="#{labels.Managediagnosis}||"  >
                                     <p:menuitem  ajax="false"  action="diagnosis" value="#{labels.disease} ||"  ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="area_diagnosis_cases" value="#{labels.ManageCasesof} ||"  ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="area_diagnosis_cases_by_case" value="#{labels.searchByCase} ||"  ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="area_diagnosis_cases_by_duration" value="#{labels.searchByDuration} ||"  ></p:menuitem>
-                              
+
                                 </p:submenu>
-                                
+
 
 
                                 <p:submenu label="#{labels.Messsagecenter} ||"  >
@@ -83,20 +83,20 @@
                                 <p:submenu label="#{labels.GISMap} ||"  >
                                     <p:menuitem  ajax="false"  action="gis_map" value="GIS Map"  ></p:menuitem>
                                 </p:submenu>
-                            
+
 
                                 <p:submenu label="#{labels.User}||"  >
-                                <p:menuitem  ajax="false"  action="user_change_password" value="Change Password"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="user_preferances" value="Change Preferances"  ></p:menuitem>
-                            </p:submenu>
+                                    <p:menuitem  ajax="false"  action="user_change_password" value="Change Password"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="user_preferances" value="Change Preferances"  ></p:menuitem>
+                                </p:submenu>
 
                                 <p:menuitem  ajax="false"  action="instituteMenu" value="#{labels.ManageInstitutions} ||"  ></p:menuitem>
 
                                 <p:submenu label="#{labels.Administration}||"  >
-                                <p:menuitem  ajax="false"  action="admin_manage_users" value="Manage Users"  ></p:menuitem>
-                                <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
-                            </p:submenu>
-                            
+                                    <p:menuitem  ajax="false"  action="admin_manage_users" value="Manage Users"  ></p:menuitem>
+                                    <p:menuitem  ajax="false"  action="administration" value="Manage Forms"  ></p:menuitem>
+                                </p:submenu>
+
                             </p:menubar>
 
 
@@ -141,7 +141,10 @@
 
                         </ui:insert>
                     </p:panel>
+
+
                     <p:panel styleClass="nonPrintBlock" style="position: fixed; bottom: 10px; left: 10px; "  >
+
                         <h:panelGroup rendered="#{sessionController.logged}" >
                             <h:form>
                                 User - #{sessionController.loggedUser.webUserPerson.name} ||
@@ -155,7 +158,9 @@
                                 <h:commandLink value="English" action="#{languageController.makeEnDefault()}" ></h:commandLink>
                                 ||
                                 <h:commandLink value="தமிழ்" action="#{languageController.makeTaDefault() }" ></h:commandLink>
-
+       
+              
+         
                             </h:form>
                         </h:panelGroup>
                     </p:panel>
@@ -171,6 +176,9 @@
                 <h:outputLabel value="#{labels.subtopic}" style="alignment-adjust: middle;"  styleClass="heading2"/> 
 
             </p:panel>
+
+    
+
 
         </f:view>
 

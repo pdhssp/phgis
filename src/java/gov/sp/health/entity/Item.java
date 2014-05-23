@@ -5,6 +5,8 @@
  */
 package gov.sp.health.entity;
 
+import gov.sp.health.data.HealthFormItemType;
+import gov.sp.health.data.HealthFormItemValueType;
 import gov.sp.health.data.SessionNumberType;
 import gov.sp.health.entity.form.HealthFormItem;
 import gov.sp.health.entity.form.ReportItem;
@@ -137,9 +139,22 @@ public class Item implements Serializable {
         return reportItems;
     }
 
+     public List<HealthFormItem> getReportItemsForGraphs() {
+        getReportItems();
+        List<HealthFormItem> gris=new ArrayList<HealthFormItem>();
+        for(HealthFormItem i : reportItems){
+            if(i.getHealthFormItemType()==HealthFormItemType.Value && i.getHealthFormItemValueType()==HealthFormItemValueType.Double ){
+                gris.add(i);
+            }
+        }
+        return gris;
+    }
+    
     public void setReportItems(List<HealthFormItem> reportItems) {
         this.reportItems = reportItems;
     }
+    
+    
 
     public Item getBilledAs() {
         return billedAs;

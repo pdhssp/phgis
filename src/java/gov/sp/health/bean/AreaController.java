@@ -1,15 +1,18 @@
-
 package gov.sp.health.bean;
 
+import gov.sp.health.data.AreaType;
 import gov.sp.health.facade.AreaFacade;
 import gov.sp.health.entity.Area;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import javax.inject.Inject;
-import javax.inject.Named; import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -18,10 +21,9 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.omg.CORBA.Current;
 
-
 @Named
 @SessionScoped
-public  class AreaController implements Serializable {
+public class AreaController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Inject
@@ -39,12 +41,12 @@ public  class AreaController implements Serializable {
     }
 
     public List<Area> completeArea(String qry) {
-        List<Area> a=null ;
+        List<Area> a = null;
         if (qry != null) {
             a = getFacade().findBySQL("select c from Area c where c.retired=false and upper(c.name) like '%" + qry.toUpperCase() + "%' order by c.name");
         }
-        if(a==null){
-            a=new ArrayList<Area>();
+        if (a == null) {
+            a = new ArrayList<Area>();
         }
         return a;
     }
@@ -66,7 +68,6 @@ public  class AreaController implements Serializable {
     }
 
     public void saveSelected() {
-
         if (getCurrent().getId() != null && getCurrent().getId() > 0) {
             getFacade().edit(current);
             UtilityController.addSuccessMessage("updated Successfully");
@@ -127,18 +128,91 @@ public  class AreaController implements Serializable {
         current = null;
         getCurrent();
     }
-    
-    public Boolean checkCurrent(){
-        if (current == null){
+
+    public Boolean checkCurrent() {
+        if (current == null) {
             UtilityController.addSuccessMessage("Nothing To Delete");
-             return false;
-        }            
-           
-        else
-            return true;       
-        
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
+    
+    
+    public List<Area> getMyPhmAres() {
+        String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();
+        m.put("phm", AreaType.PhmArea);
+        m.put("ma", getSessionController().getArea());
+        switch (at) {
+            case Country:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phm and a.superArea.superArea.superArea.superArea.superArea=:ma";
+                break;
+
+            case Province:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phm and a.superArea.superArea.superArea.superArea=:ma";
+                break;
+
+            case District:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phm and a.superArea.superArea.superArea=:ma";
+                break;
+
+            case MohArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phm and a.superArea.superArea=:ma";
+                break;
+
+            case PhiArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phm and a.superArea=:ma";
+                break;
+
+            case PhmArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phm and a=:ma";
+                break;
+            default:
+                 sql = "select a from Area a where a.retired=false and a.areaType=:phm";
+        }
+        return getFacade().findBySQL(sql, m);
+    }
+
+    
+    public List<Area> getMyAres() {
+        String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();
+       
+        m.put("ma", getSessionController().getArea());
+        switch (at) {
+            case Country:
+                sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea.superArea=:ma";
+                break;
+
+            case Province:
+                sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea=:ma";
+                break;
+
+            case District:
+                sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea=:ma";
+                break;
+
+            case MohArea:
+                sql = "select a from Area a where a.retired=false and a.superArea.superArea=:ma";
+                break;
+
+            case PhiArea:
+                sql = "select a from Area a where a.retired=false and a.superArea=:ma";
+                break;
+
+            case PhmArea:
+                sql = "select a from Area a where a.retired=false  and a=:ma";
+                break;
+            default:
+                 sql = "select a from Area a where a.retired=false ";
+        }
+        return getFacade().findBySQL(sql, m);
+    }
     private AreaFacade getFacade() {
         return ejbFacade;
     }
@@ -154,10 +228,9 @@ public  class AreaController implements Serializable {
     @FacesConverter("areaCon")
     public static class AreaControllerConverter implements Converter {
 
-
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0 ) {
+            if (value == null || value.length() == 0) {
                 return null;
             }
             AreaController controller = (AreaController) facesContext.getApplication().getELResolver().
@@ -166,19 +239,17 @@ public  class AreaController implements Serializable {
         }
 
         java.lang.Long getKey(String value) {
-             if (value == null || value.length() == 0 ) {
+            if (value == null || value.length() == 0) {
                 return null;
             }
-             java.lang.Long key;
-             
-             try
-             {
-            key = Long.valueOf(value);
-             }
-             catch(Exception ee){
-                 key=0l;
-             }
-            
+            java.lang.Long key;
+
+            try {
+                key = Long.valueOf(value);
+            } catch (Exception ee) {
+                key = 0l;
+            }
+
             return key;
         }
 
@@ -202,5 +273,4 @@ public  class AreaController implements Serializable {
             }
         }
     }
-    }
-
+}

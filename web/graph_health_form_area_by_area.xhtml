@@ -37,12 +37,20 @@
                             <p:calendar id="cf" value="#{graphController.from}"></p:calendar>
                             <p:outputLabel value="#{labels.From}"/>  
                             <p:calendar id="ct" value="#{graphController.to}"></p:calendar>
+                            
+                            
+                             <p:outputLabel value="PHM Area"></p:outputLabel> 
+                             <h:selectOneListbox  id="lstPhmSelect"   size="10" converter="areaCon" value="#{graphController.area}" style="min-width: 223px">
+                                    <f:selectItems  value="#{areaController.myAres}"  var="ax" itemValue="#{ax}" itemLabel="#{ax.name}" ></f:selectItems>
+                                </h:selectOneListbox>
+                             
+                             
                         </h:panelGrid>
-                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Area Details" action="#{graphController.createChartBean()   }" ></p:commandButton>
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Area Details" action="#{graphController.createBarchartModelArea()  }" ></p:commandButton>
                       
                       
                         
-                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Summery" action="#{graphController.createChartBeanSummary()}" ></p:commandButton>
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Summery" action="#{graphController.createBarchartModelArea()}" ></p:commandButton>
                       
                         <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Print" onclick="window.print();" >
                         </p:commandButton>
@@ -56,8 +64,15 @@
                         <p:lineChart rendered="#{graphController.linearModel ne null}"  id="linear" value="#{graphController.linearModel}" legendPosition="e"  
                                       title="Linear Chart"  style="height:500px" />  
                         
+                      
+                            
+                        <br/>
                          <p:outputLabel value="Bar Chart"/>
-                        <p:chart  rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}"  style="width:200px" ></p:chart>
+                         <br/>
+                         <p:outputLabel value="#{labels.Area}"/>
+                         <p:outputLabel value="#{graphController.area.name}"/>
+                         
+                        <p:chart  rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}"  ></p:chart>
                          </p:panel>
 
                                              

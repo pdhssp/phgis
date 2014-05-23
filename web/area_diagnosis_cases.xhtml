@@ -16,45 +16,30 @@
 
                     <p:panelGrid columns="3">
                         <p:panel id="panelReport" header="Manage Diagnosis Case" >
-
-                            <f:facet name="header" >
-      
-                                 <p:outputLabel  styleClass="noPrintButton"  value="#{labels.ManageCasesof }" ></p:outputLabel>
-                           
-                                 <h:selectOneListbox styleClass="noPrintButton"  id="lstSelect"   size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
-                                    <f:selectItems  value="#{diagnosisController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
-                                <f:ajax render="aa" execute="aa" >
-                                        </f:ajax>
-                                 
-                                 </h:selectOneListbox>
-                            </f:facet>
-
-
-
                             <p:commandButton  styleClass="noPrintButton"  ajax="false" value="#{labels.AddNew}" action="#{diagnosisCaseController.prepareAdd()}">
                             </p:commandButton>
                             <p:commandButton styleClass="noPrintButton"  ajax="false" value="#{labels.ListAllCase}" action="#{diagnosisCaseController.listMyAreaCases()}" />
-                                 
-                                <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
+
+                            <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
                                 <p:printer target="panelReport" />
                             </p:commandButton>
-                              
-                              <p:panel styleClass="printBlock" >
-                            <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 18px;" /> 
-                            <br/>
-                              <br/>       
-                            <h:outputLabel value="#{labels.DiagnosisCasesReport}" />
-                            <br/>
-                                <br/>       
-                                        <h:outputLabel value="#{labels.Area}" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;                         
-                            
-                            <h:outputLabel value="#{sessionController.loggedUser.webUserPerson.area.name}" />
-                            
 
-                        </p:panel>
+                            <p:panel styleClass="printBlock" >
+                                <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 18px;" /> 
+                                <br/>
+                                <br/>       
+                                <h:outputLabel value="#{labels.DiagnosisCasesReport}" />
+                                <br/>
+                                <br/>       
+                                <h:outputLabel value="#{labels.Area}" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;                         
+
+                                <h:outputLabel value="#{sessionController.loggedUser.webUserPerson.area.name}" />
+
+
+                            </p:panel>
                             <p:dataTable value="#{diagnosisCaseController.items}" var="ff" id="aa">
-                                
+
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{labels.CaseNo}" />
@@ -73,13 +58,13 @@
                                     </f:facet>
                                     <h:outputText value="#{ff.address}" />
                                 </p:column>
-                                 <p:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{labels.DateNotified}"  />
                                     </f:facet>
-                                     <h:outputLabel value="#{ff.createdAt}" > 
-                                      <f:convertDateTime pattern="dd MMMM yyyy" />
-                                      </h:outputLabel>
+                                    <h:outputLabel value="#{ff.createdAt}" > 
+                                        <f:convertDateTime pattern="dd MMMM yyyy" />
+                                    </h:outputLabel>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
@@ -110,15 +95,15 @@
                                 </p:column>
 
                             </p:dataTable>
-                            
-                           
- 
+
+
+
                         </p:panel>
 
-                       
 
-                        
-                      
+
+
+
                         <p:panel id="loc" header="Location">
                             <p:gmap widgetVar="w_gmap" center="#{80.21587657902273}, #{6.031305016840389}" zoom="15" type="hybrid" model="#{diagnosisCaseController.allFamiliesModel}"
                                     style="width:600px;height:400px" />
@@ -126,7 +111,7 @@
                                 <p:printer target="loc" />
                             </p:commandButton>
                         </p:panel>
-                            
+
                     </p:panelGrid>
 
 

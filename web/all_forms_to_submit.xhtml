@@ -20,11 +20,12 @@
                             <p:column headerText="Form" >
                                 <h:outputLabel value="#{fhf.item.name}" />
                             </p:column>
-                            <p:column headerText="Time Period" >
-                                <h:outputLabel value=" Year : #{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
-                                <h:outputLabel value=" | #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
-                                <h:outputLabel value=" | #{fhf.dateVal}"  rendered="#{fhf.dateVal>0}"/>
-                            </p:column>
+                              <h:outputLabel value=" Year : #{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
+                                        <h:outputLabel value=" Month : #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
+                                     
+                                        <p:outputLabel value=" Date : #{fhf.fromDate}"  rendered="#{ fhf.yearVal le 0 and fhf.monthVal le 0 }" >
+                                            <f:convertDateTime pattern="DD MM YYYY" />
+                                        </p:outputLabel>
                             <p:column headerText="View/Edit" >
                                 <p:commandButton value="View/Edit" action="health_form_fill" ajax="false" >
                                     <f:setPropertyActionListener value="#{fhf}" target="#{formDataentryController.filledHealthForm}" />

@@ -24,6 +24,27 @@
 
                         <p:panel styleClass="myDivToPrint" id="divPrint" style="border: 0px; margin: 0px; padding: 0px; position: relative;" >
                             <div id="divReport"  style="min-width:800px;min-height: 1100px; position: relative; font-size: 150%;">
+                                
+                                
+                           
+                                <h:outputLabel value=" #{labels.Year} :  #{formDataentryController.filledHealthForm.yearVal}"  rendered="#{formDataentryController.filledHealthForm.yearVal>0}"/>
+                                <h:outputLabel value="#{labels.Month} :  #{formDataentryController.filledHealthForm.monthVal} " rendered="#{formDataentryController.filledHealthForm.monthVal>0}" />
+                                     
+                                <p:outputLabel value="#{labels.Date} :   #{formDataentryController.filledHealthForm.fromDate}"  rendered="#{ formDataentryController.filledHealthForm.yearVal le 0 and formDataentryController.filledHealthForm.monthVal le 0 }" >
+                                            <f:convertDateTime pattern="DD MM YYYY" />
+                                        </p:outputLabel>
+                                        
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        
+                                        <h:outputLabel value="#{labels.Area}" />  &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <h:outputLabel value="#{formDataentryController.filledHealthForm.area.name}"/>
+                                     
+                                        
+                                    
+                                    
+                                    
+                                 
 
                                 <ui:repeat value="#{formDataentryController.filledHealthForm.filledHealthFormReportItemValue}" var="iv" >
 
@@ -50,7 +71,7 @@
                                                 <h:outputLabel  value="#{ivr.name}" rendered="#{ivr.healthFormItemType eq 'Label'}" escape="false" />
                                             </h:panelGroup> 
 
-                                        </h:panelGroup>|
+                                        </h:panelGroup>
                                     </div>
                                 </ui:repeat>
 

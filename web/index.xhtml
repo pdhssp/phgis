@@ -18,9 +18,6 @@
 
 
 
-
-
-
                         <p:panel header="Fill New Form" >
 
                             <h:form>
@@ -155,8 +152,14 @@
                                     </p:column>
                                     <p:column headerText="Time Period" >
                                         <h:outputLabel value=" Year : #{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
-                                        <h:outputLabel value=" | #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
-                                        <h:outputLabel value=" | #{fhf.dateVal}"  rendered="#{fhf.dateVal>0}"/>
+                                        <h:outputLabel value=" Month : #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
+                                     
+                                        <p:outputLabel value=" Date : #{fhf.fromDate}"  rendered="#{ fhf.yearVal le 0 and fhf.monthVal le 0 }" >
+                                            <f:convertDateTime pattern="DD MM YYYY" />
+                                        </p:outputLabel>
+                                    
+                                    
+                                    
                                     </p:column>
                                     <p:column headerText="View/Edit" >
                                         <p:commandButton value="View/Edit" action="health_form_fill" ajax="false" >
@@ -175,9 +178,12 @@
                                         <h:outputLabel value="#{shf.item.name}" />
                                     </p:column>
                                     <p:column headerText="Time Period" >
-                                        <h:outputLabel value="#{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
-                                        <h:outputLabel value=" | #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
-                                        <h:outputLabel value=" | #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
+                                          <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                        <h:outputLabel value=" Month : #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
+                                     
+                                        <p:outputLabel value=" Date : #{shf.fromDate}"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }" >
+                                            <f:convertDateTime pattern="DD MM YYYY" />
+                                        </p:outputLabel>
                                     </p:column>
                                     <p:column headerText="View" >
                                         <p:commandButton value="View" action="health_form_fill" ajax="false" >
@@ -203,9 +209,12 @@
                                         <h:outputLabel value="#{shf.area.name}" />
                                     </p:column>
                                      <p:column headerText="Time Period" >
-                                        <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
-                                        <h:outputLabel value=" | #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
-                                        <h:outputLabel value=" | #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
+                                          <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                        <h:outputLabel value=" Month : #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
+                                     
+                                        <p:outputLabel value=" Date : #{shf.fromDate}"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }" >
+                                            <f:convertDateTime pattern="DD MM YYYY" />
+                                        </p:outputLabel>
                                     </p:column>
                                    
                                     <p:column headerText="View" >

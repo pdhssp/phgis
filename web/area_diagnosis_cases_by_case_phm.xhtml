@@ -19,20 +19,26 @@
 
                             <f:facet name="header" >
       
+                               <p:panelGrid columns="2">
                                 <p:outputLabel  styleClass="noPrintButton"  value="#{labels.SelectCase }" ></p:outputLabel>
-                           
+                               
                                 <h:selectOneMenu styleClass="noPrintButton"  id="lstSelect"   value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
                                     <f:selectItems  value="#{diagnosisController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
                                 <f:ajax render="aa" execute="aa" >
-                                        </f:ajax>
-                                 
+                                        </f:ajax>                                 
                                  </h:selectOneMenu>
+                               
+                                <p:outputLabel value="#{labels.Area}" styleClass="nonPrintBlock"/> 
+                                <h:selectOneMenu  id="lsti"   converter="areaCon" value="#{diagnosisCaseController.area}" style="min-width: 223px" styleClass="nonPrintBlock">
+                                 <f:selectItems  value="#{areaController.myPhmAresToAll}"  var="ax" itemValue="#{ax}" itemLabel="#{ax.name}"  ></f:selectItems>
+                                </h:selectOneMenu>
+                                </p:panelGrid>
                             </f:facet>
 
 
 
                            
-                            <p:commandButton styleClass="noPrintButton"  ajax="false" value="#{labels.View}" action="#{diagnosisCaseController.listMyAreaCasesByCase()}" />
+                            <p:commandButton styleClass="noPrintButton"  ajax="false" value="#{labels.View}" action="#{diagnosisCaseController.listMyAreaCasesByCaseArea()}" />
                        
                               
                                 <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
@@ -54,7 +60,7 @@
                                         <h:outputLabel value="#{labels.Area} : " />
                             &nbsp;&nbsp;&nbsp;&nbsp;                         
                             
-                            <h:outputLabel value="#{sessionController.loggedUser.webUserPerson.area.name}" />
+                            <h:outputLabel value="#{diagnosisCaseController.area.name}" />
                            
                                 
                            

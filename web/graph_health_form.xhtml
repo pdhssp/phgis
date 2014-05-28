@@ -15,65 +15,41 @@
                 <h:outputStylesheet library="css" name="css1.css" />
 
                 <h:panelGroup >
-                    <h:form  >
-                        
-                        
-                         
-                        <p:panel >
-                            
-                        
-                        <h:panelGrid id="gpc" columns="2"  >
-                            <p:outputLabel value="Health Form" ></p:outputLabel>
+                    <h:form  >                      
+                        <p:panel styleClass="nonPrintBlock">
+                              <h:panelGrid id="gpc" columns="10"  >
+                           <p:outputLabel value="#{labels.healthForm}" ></p:outputLabel>
                             <p:selectOneMenu id="cmbHf" value="#{graphController.healthForm}"  >
                                 <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.name}" itemValue="#{hf}" />
                                 <f:ajax event="change" execute="cmbHf" render="cmbHfi" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="Health Form Item" ></p:outputLabel>
+                            <p:outputLabel value="#{labels.HealthFormItem}" ></p:outputLabel>
                             <p:selectOneMenu id="cmbHfi" value="#{graphController.healthFormItem}"  >
                                 <f:selectItems value="#{graphController.healthForm.reportItemsForGraphs}" var="hfi" itemLabel="#{hfi.name}" itemValue="#{hfi}" />
                             </p:selectOneMenu>
 
+
                             <p:outputLabel  value="#{labels.From}"/>                             
                             <p:calendar id="cf" value="#{graphController.from}"></p:calendar>
-                            <p:outputLabel value="#{labels.From}"/>  
+                            <p:outputLabel value="#{labels.To}"/>  
                             <p:calendar id="ct" value="#{graphController.to}"></p:calendar>
                         </h:panelGrid>
                         <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Area Details" action="#{graphController.createChartBean()   }" ></p:commandButton>
-                      
-                      
-                        
+                         
                         <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Summery" action="#{graphController.createChartBeanSummary()}" ></p:commandButton>
                       
-                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Print" onclick="window.print();" >
-                        </p:commandButton>
-                        
-                        <p:commandButton value="Clear" styleClass="buttons" action="#{graphController.clearLinearModel()}">
-                        </p:commandButton>
-                       
-                                      
-                            
-                       
-                        <p:lineChart rendered="#{graphController.linearModel ne null}"  id="linear" value="#{graphController.linearModel}" legendPosition="e"  
+                        <p:lineChart rendered="#{graphController.linearModel ne null}"  id="x" value="#{graphController.linearModel}" legendPosition="e"  
                                       title="Linear Chart"  style="height:500px" />  
                         
-                         <p:outputLabel value="Bar Chart"/>
-                        <p:chart  rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}"  style="width:200px" ></p:chart>
+                        <p:outputLabel  value="Bar Chart" rendered="#{graphController.barchartModel ne null}"/>
+                        <p:chart id="aa"  styleClass="nonPrintBlock"  rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}"  style="width:100%" ></p:chart>
                          </p:panel>
-
-                                             
-                        <p:panel id="pg" >
-                            
-                             
-                        <p:chart    rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}"  style="width:200px" ></p:chart>
-                         </p:panel>
+                   
+                       
                      </h:form>
                 </h:panelGroup >  
 
-
-
-
             </ui:define>
-
 
 
         </ui:composition>

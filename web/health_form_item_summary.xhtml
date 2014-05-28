@@ -29,7 +29,7 @@
                             </p:selectOneMenu>
                             <p:outputLabel styleClass="nonPrintBlock" value="#{labels.HealthFormItem}" ></p:outputLabel>
                             <p:selectOneMenu styleClass="nonPrintBlock" id="cmbHfi" value="#{graphController.healthFormItem}"  >
-                                <f:selectItems value="#{graphController.healthForm.reportItemsForGraphs}" var="hfi" itemLabel="#{hfi.name}" itemValue="#{hfi}" />
+                                <f:selectItems value="#{graphController.healthForm.reportItemsForSummary}" var="hfi" itemLabel="#{hfi.name}" itemValue="#{hfi}" />
                             </p:selectOneMenu>
 
                             <p:outputLabel  styleClass="nonPrintBlock" value="#{labels.From}" />                             
@@ -38,94 +38,10 @@
                             <p:calendar styleClass="nonPrintBlock"  id="cf2" value="#{graphController.to}"></p:calendar>
                         </h:panelGrid>
                         
-                      <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Calculate" action="#{graphController.calAvrage()   }" ></p:commandButton>
+                            <p:commandButton styleClass="nonPrintBlock" ajax="false" value="View" action="#{graphController.viewHealthFormItems()   }" ></p:commandButton>
                          <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Print" onclick="window.print();" >
                         </p:commandButton>
-                      <p:panelGrid  columns="100" id="pg" styleClass="nonPrintBlock">
-                            <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                            <p:panelGrid id="g1" columns="2">
-                                
-                          
-                        <p:outputLabel value="Total" styleClass="rh1" style="font-size: 20px;"/> 
-                        <p:outputLabel value="#{graphController.total}"/> 
-                        </p:panelGrid>
-                        <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                         <p:panelGrid id="g2" columns="2">
-                        <p:outputLabel value="Avrage" styleClass="rh1" style="font-size: 20px;"/> 
-                        <p:outputLabel value="#{ graphController.avrage}">
-                            
-                        </p:outputLabel> 
-                          </p:panelGrid>
-                        <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                         <p:panelGrid id="g3" columns="2">
-                        <p:outputLabel value="Max" styleClass="rh1" style="font-size: 20px;"/> 
-                        <p:outputLabel value="#{graphController.max}" /> 
-                        </p:panelGrid>
-                            
-                            <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                         <p:panelGrid id="g4" columns="2">
-                            
-                        <p:outputLabel value="Min" styleClass="rh1" style="font-size: 20px;"/> 
-                        <p:outputLabel value="#{graphController.minVal}"/> 
-                          </p:panelGrid>
-                            <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                                <p:panelGrid>
-                                
-                            </p:panelGrid>
-                        </p:panelGrid>
-                              
+                     
                         
                              <p:panel styleClass="printBlock" >
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -139,7 +55,7 @@
                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            
-                            <h:outputLabel value="HFCALA001" style="font-size: 20px;"/>
+                            <h:outputLabel value="HFIA001" style="font-size: 20px;"/>
                             <br/>
                             <br/>
                             <h:outputLabel value="#{labels.HealthFormItemCalculation}" style="font-size: 20px;"/>
@@ -191,52 +107,6 @@
                             <br/>
                             <br/>
                            
-                            <p:panelGrid columns="2">
-                                 <h:outputLabel value="#{labels.Total}" />
-                            <h:outputLabel value="#{graphController.total}"/>
-                                                               
-                            </p:panelGrid>
-                           
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           
-                              <p:panelGrid columns="2">
-                                  <h:outputLabel value="#{labels.Average}" />
-                                  <h:outputLabel value="#{graphController.avrage}"/>
-                                                               
-                            </p:panelGrid>
-                           
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           
-                              <p:panelGrid columns="2">
-                                  <h:outputLabel value="#{labels.Max}" />
-                                  <h:outputLabel value="#{graphController.max}"/>
-                                                               
-                            </p:panelGrid>
-                           
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <p:panelGrid columns="2">
-                                <h:outputLabel value="#{labels.Min}" />
-                                <h:outputLabel value="#{graphController.minVal}"/>
-                                                               
-                            </p:panelGrid>
-                           
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                            
                              <br/>
                              <br/>
@@ -257,6 +127,8 @@
                                     </p:column>
                             <p:column headerText="#{labels.Count}" >
                                         <h:outputLabel value="#{shf.doubleValue}" />
+                                        <h:outputLabel value="#{shf.strValue}" />
+                                      
                                     </p:column>
                           </p:dataTable>
                       

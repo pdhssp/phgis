@@ -126,7 +126,7 @@
 
                         <p:panel header="Forms to Enter Data" >
                             <h:form>    
-                                <p:dataTable value="#{formDataentryController.formsToFill}" var="ftf" rendered="#{formDataentryController.formsToFill ne null}">
+                                <p:dataTable value="#{formDataentryController.formsToFill}" var="ftf"   >
                                     <p:column headerText="Form No." >
                                         <h:outputLabel value="#{ftf.code}" />
                                     </p:column>
@@ -146,16 +146,20 @@
 
                         <p:panel header="Recent Forms to Forward" >
                             <h:form>
-                                <p:dataTable value="#{formDataentryController.filledFormsTopTen}" var="fhf" >
-                                    <p:column headerText="Form" >
+                                <p:dataTable value="#{formDataentryController.filledFormsTopTen}" var="fhf" paginator="true"
+                         >
+                                    <p:column headerText="#{labels.healthFormName}" >
                                         <h:outputLabel value="#{fhf.item.name}" />
                                     </p:column>
-                                    <p:column headerText="Time Period" >
-                                        <h:outputLabel value=" Year : #{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
-                                        <h:outputLabel value=" Month : #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
+                                    <p:column headerText="#{labels.Duration}" >
+                                        <h:outputLabel value=" #{labels.Year} : #{fhf.yearVal}"  rendered="#{fhf.yearVal>0}"/>
+                                        <h:outputLabel value=" #{labels.Month} : #{fhf.monthVal} " rendered="#{fhf.monthVal>0}" />
                                      
-                                        <p:outputLabel value=" Date : #{fhf.fromDate}"  rendered="#{ fhf.yearVal le 0 and fhf.monthVal le 0 }" >
-                                            <f:convertDateTime pattern="DD MM YYYY" />
+                                         <p:outputLabel value=" #{labels.Date} : "  rendered="#{ fhf.yearVal le 0 and fhf.monthVal le 0 }" >
+                                          
+                                        </p:outputLabel>
+                                        <p:outputLabel value="#{fhf.fromDate}"  rendered="#{ fhf.yearVal le 0 and fhf.monthVal le 0 }" >
+                                            <f:convertDateTime pattern="DD MMMM YYYY" />
                                         </p:outputLabel>
                                     
                                     
@@ -173,7 +177,8 @@
                         </p:panel>
                         <p:panel header="Recently Submitted Forms" >
                             <h:form>
-                                <p:dataTable value="#{formDataentryController.submittedFormsTopTen}" var="shf" >
+                                <p:dataTable value="#{formDataentryController.submittedFormsTopTen}" var="shf"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
                                     <p:column headerText="Form" >
                                         <h:outputLabel value="#{shf.item.name}" />
                                     </p:column>
@@ -201,14 +206,14 @@
                         <p:panel header="Recently Received Forms" >
                             <h:form>
                                 <p:dataTable value="#{formDataentryController.receivedFormsTopTen}" var="shf" >
-                                    <p:column headerText="Form" >
+                                    <p:column headerText="#{labels.healthFormName}" >
                                         <h:outputLabel value="#{shf.item.name}" />
                                     </p:column>
                                     
-                                    <p:column headerText="From" >
+                                    <p:column headerText="#{labels.From}" >
                                         <h:outputLabel value="#{shf.area.name}" />
                                     </p:column>
-                                     <p:column headerText="Time Period" >
+                                    <p:column headerText="#{labels.Duration}" >
                                           <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
                                         <h:outputLabel value=" Month : #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
                                      

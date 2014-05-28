@@ -38,79 +38,83 @@
 
 
                             </p:panel>
-                            <p:dataTable value="#{diagnosisCaseController.items}" var="ff" id="aa">
 
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{labels.CaseNo}" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.name}" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{labels.Diagnosis}" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.diagnosis.name}" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{labels.Address}" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.address}" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{labels.DateNotified}"  />
-                                    </f:facet>
-                                    <h:outputLabel value="#{ff.createdAt}" > 
-                                        <f:convertDateTime pattern="dd MMMM yyyy" />
-                                    </h:outputLabel>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{labels.Latitude}" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.coordinate.latitude }" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{labels.Longtide}" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.coordinate.longtide }" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{labels.Area}" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.phmArea.name }" />
-                                </p:column>
+                            <p:panelGrid columns="1">
 
-                                <p:column styleClass="noPrintButton">
-                                    <p:commandButton styleClass="noPrintButton" ajax="false" value="Manage Diagnosis case" action="diagnosis_case" >
-                                        <f:setPropertyActionListener target="#{diagnosisCaseController.current}" value="#{ff}" />
+
+                                <p:dataTable value="#{diagnosisCaseController.items}" var="ff" id="aa">
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.CaseNo}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.name}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Diagnosis}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.diagnosis.name}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Address}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.address}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.DateNotified}"  />
+                                        </f:facet>
+                                        <h:outputLabel value="#{ff.createdAt}" > 
+                                            <f:convertDateTime pattern="dd MMMM yyyy" />
+                                        </h:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Latitude}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.coordinate.latitude }" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Longtide}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.coordinate.longtide }" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Area}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.phmArea.name }" />
+                                    </p:column>
+
+                                    <p:column styleClass="noPrintButton">
+                                        <p:commandButton styleClass="noPrintButton" ajax="false" value="Manage Diagnosis case" action="diagnosis_case" >
+                                            <f:setPropertyActionListener target="#{diagnosisCaseController.current}" value="#{ff}" />
+                                        </p:commandButton>
+                                        <h:commandButton  styleClass="noPrintButton" value="Delete" action="#{diagnosisCaseController.delete()}" >
+                                            <f:setPropertyActionListener target="#{diagnosisCaseController.current}" value="#{ff}" />
+                                        </h:commandButton>
+                                    </p:column>
+
+                                </p:dataTable>
+                                <p:panel id="loc" header="Location">
+                                    <p:gmap widgetVar="w_gmap" center="#{80.21587657902273}, #{6.031305016840389}" zoom="15" type="hybrid" model="#{diagnosisCaseController.allFamiliesModel}"
+                                            style="width:600px;height:400px" />
+                                    <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
+                                        <p:printer target="loc" />
                                     </p:commandButton>
-                                    <h:commandButton  styleClass="noPrintButton" value="Delete" action="#{diagnosisCaseController.delete()}" >
-                                        <f:setPropertyActionListener target="#{diagnosisCaseController.current}" value="#{ff}" />
-                                    </h:commandButton>
-                                </p:column>
+                                </p:panel>
 
-                            </p:dataTable>
-
-
-
+                            </p:panelGrid>
                         </p:panel>
 
 
 
 
 
-                        <p:panel id="loc" header="Location">
-                            <p:gmap widgetVar="w_gmap" center="#{80.21587657902273}, #{6.031305016840389}" zoom="15" type="hybrid" model="#{diagnosisCaseController.allFamiliesModel}"
-                                    style="width:600px;height:400px" />
-                            <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
-                                <p:printer target="loc" />
-                            </p:commandButton>
-                        </p:panel>
+
 
                     </p:panelGrid>
 

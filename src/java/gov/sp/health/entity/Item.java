@@ -150,6 +150,17 @@ public class Item implements Serializable {
         return gris;
     }
     
+     public List<HealthFormItem> getReportItemsForSummary() {
+        getReportItems();
+        List<HealthFormItem> gris=new ArrayList<HealthFormItem>();
+        for(HealthFormItem i : reportItems){
+            if(i.getHealthFormItemType()==HealthFormItemType.Value ){
+                gris.add(i);
+            }
+        }
+        return gris;
+    }
+    
     public void setReportItems(List<HealthFormItem> reportItems) {
         this.reportItems = reportItems;
     }

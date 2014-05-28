@@ -20,9 +20,9 @@
                         <p:panel header="Case Details" >
                             <p:panelGrid columns="2" id="gd">
                                 <p:outputLabel value="Diagnosis"></p:outputLabel> 
-                                <h:selectOneListbox  id="lstSelect"   size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
+                                <h:selectOneMenu  id="lstSelect"    value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
                                     <f:selectItems  value="#{diagnosisController.items}" var="dx" itemValue="#{dx}" itemLabel="#{dx.name}" ></f:selectItems>
-                                </h:selectOneListbox>
+                                </h:selectOneMenu >
                                 <p:outputLabel value="#{labels.CaseNo}"></p:outputLabel> 
                                 <p:inputText value="#{diagnosisCaseController.current.name}"  required="true" requiredMessage="Please Enter Case ID"></p:inputText>
                                 <p:outputLabel value="#{labels.Address}"> </p:outputLabel> 

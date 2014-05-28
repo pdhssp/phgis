@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./resources/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:outputStylesheet library="css" name="maincss.css" />
+                <h:outputStylesheet library="css" name="css1.css" />
+
+              
+                <h:panelGroup  >
+                    <h:form  >
+                        <p:outputLabel value="Search By PHI Area" style="font-size:20px;color:brown;font-style:oblique " />
+                        
+                         
+                        <p:panel menuTitle="Search By PHI Area" >
+                            
+                        
+                             <p:growl id="msgs" showDetail="true" />
+ 
+    <h3 style="margin-top:0">Basic</h3>
+    <p:tabView>
+
+        
+        <p:tab title="Search By MOH Area">
+            
+                  <p:panel menuTitle="Search By PHI Area" >
+                            
+                        
+                            <h:panelGrid id="gpcH" columns="4" title="Search By PHI Area" >
+                            <p:outputLabel value="#{labels.healthForm}" ></p:outputLabel>
+                            <p:selectOneMenu id="cmbHfH" value="#{graphController.healthForm}"  >
+                                <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.name}" itemValue="#{hf}" />
+                                <f:ajax event="change" execute="cmbHfH" render="cmbHfiH" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{labels.HealthFormItem}" ></p:outputLabel>
+                            <p:selectOneMenu id="cmbHfiH" value="#{graphController.healthFormItem}"  >
+                                <f:selectItems value="#{graphController.healthForm.reportItemsForGraphs}" var="hfi" itemLabel="#{hfi.name}" itemValue="#{hfi}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel  value="#{labels.From}"/>                             
+                            <p:calendar id="cfH" value="#{graphController.from}"></p:calendar>
+                            <p:outputLabel value="#{labels.To}"/>  
+                            <p:calendar id="ctH" value="#{graphController.to}"></p:calendar>
+                            
+                            
+                               <p:outputLabel value="#{labels.Area}" /> 
+                               <h:selectOneMenu id="lstiH"    converter="areaCon" value="#{graphController.area}" style="min-width: 223px">
+                                   <f:selectItems  value="#{areaController.myMohAres }"  var="ax" itemValue="#{ax}" itemLabel="#{ax.name}"  ></f:selectItems>
+                                </h:selectOneMenu>
+                               
+                            
+                             
+                             
+                        </h:panelGrid>
+                            <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Area Details" action="#{graphController.createArea()  }" ></p:commandButton>
+                      
+                      
+                        
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Summery" action="#{graphController.createAreaSum()}" ></p:commandButton>
+                      
+                                           
+                                      
+                            
+                       
+                        <p:lineChart rendered="#{graphController.linearModel ne null}"  id="linearH" value="#{graphController.linearModel}" legendPosition="e"  
+                                      title="Linear Chart"  style="height:500px" />  
+                        
+                      
+                            
+                        <br/>
+                         <p:outputLabel value="Bar Chart"/>
+                         <br/>
+                       
+                         
+                        <p:chart  id="H" rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}" widgetVar="chart"  ></p:chart>
+                        
+                      
+ 
+                        
+                        </p:panel>
+            
+        </p:tab>
+        
+        <p:tab title="Search By PHI Area">
+            
+                  <p:panel menuTitle="Search By PHI Area" >
+                            
+                        
+                            <h:panelGrid id="gpc" columns="10" title="Search By PHI Area" >
+                            <p:outputLabel value="#{labels.healthForm}" ></p:outputLabel>
+                            <p:selectOneMenu id="cmbHf" value="#{graphController.healthForm}"  >
+                                <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.name}" itemValue="#{hf}" />
+                                <f:ajax event="change" execute="cmbHf" render="cmbHfi" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{labels.HealthFormItem}" ></p:outputLabel>
+                            <p:selectOneMenu id="cmbHfi" value="#{graphController.healthFormItem}"  >
+                                <f:selectItems value="#{graphController.healthForm.reportItemsForGraphs}" var="hfi" itemLabel="#{hfi.name}" itemValue="#{hfi}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel  value="#{labels.From}"/>                             
+                            <p:calendar id="cf" value="#{graphController.from}"></p:calendar>
+                            <p:outputLabel value="#{labels.To}"/>  
+                            <p:calendar id="ct" value="#{graphController.to}"></p:calendar>
+                            
+                            
+                               <p:outputLabel value="PHM Area" /> 
+                               <h:selectOneMenu id="lsti"    converter="areaCon" value="#{graphController.area}" style="min-width: 223px">
+                                 <f:selectItems  value="#{areaController.myPhiAres }"  var="ax" itemValue="#{ax}" itemLabel="#{ax.name}"  ></f:selectItems>
+                                </h:selectOneMenu>
+                               
+                            
+                             
+                             
+                        </h:panelGrid>
+                            <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Area Details" action="#{graphController.createArea()  }" ></p:commandButton>
+                      
+                      
+                        
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Summery" action="#{graphController.createAreaSum()}" ></p:commandButton>
+                      
+                                           
+                                      
+                            
+                       
+                        <p:lineChart rendered="#{graphController.linearModel ne null}"  id="linearm" value="#{graphController.linearModel}" legendPosition="e"  
+                                      title="Linear Chart"  style="height:500px" />  
+                        
+                      
+                            
+                        <br/>
+                         <p:outputLabel value="Bar Chart"/>
+                         <br/>
+                       
+                         
+                        <p:chart  id="m" rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}" widgetVar="chart"  ></p:chart>
+                        
+                      
+ 
+                        
+                        </p:panel>
+            
+        </p:tab>
+        <p:tab title="Godfather Part II">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+                <h:outputText value="Francis Ford Coppola's legendary..." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Godfather Part III">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
+                <h:outputText value="After a break of more than 15 years..." />
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+                        </p:panel>
+
+                        
+                            
+                             
+                        
+                     </h:form>
+                </h:panelGroup >  
+
+
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

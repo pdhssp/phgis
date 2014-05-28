@@ -17,32 +17,27 @@
                 <h:panelGroup >
                     <h:form  >
                         <p:panel id="panelReport" >
+                             &nbsp;
+                             
+                             <p:outputLabel styleClass="nonPrintBlock" value="#{labels.searchHealthFormByDistrict}" style="font-size:20px;color:brown;font-style:oblique " />
+                       &nbsp;
+                
                         <h:panelGrid id="gpc" columns="2"  >
                             
                             <p:outputLabel  styleClass="noPrintButton"  value="#{labels.healthForm}" ></p:outputLabel>
                             <p:selectOneMenu  styleClass="noPrintButton"  id="cmbHf" value="#{formDataentryController.healthForm}"  >
                                 <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.name}" itemValue="#{hf}" />
-                                <f:ajax event="change" execute="cmbHf" render="cmbHfi" />
-                            </p:selectOneMenu>
+                               </p:selectOneMenu>
                             
-                            <h:outputText  styleClass="noPrintButton"  id="cmbHfi" value="#{labels.Role}" ></h:outputText>
-                                    <p:selectOneMenu  styleClass="noPrintButton" required="true" value="#{webUserController.staffRole}" id="sr"  requiredMessage="Please select a staff Role"  >
-                                        <f:selectItem itemLabel="Please select a Role"  noSelectionOption="true" />
-                                        <f:selectItem itemLabel="Public Health Mid wife" itemValue="Phm" />
-                                        <f:selectItem itemLabel="Public Health Inspector " itemValue="Phi" />
-                                        <f:selectItem itemLabel="Medical Officer of Health" itemValue="Moh" />
-                                        <f:selectItem itemLabel="Reginal Director of Health Services " itemValue="Rdhs" />
-                                        <f:selectItem itemLabel="Provincial Director of Health Services" itemValue="Pdhs" />
-                                        <f:ajax event="change" execute="sr" render="area" />
-                                    </p:selectOneMenu>
+                           
 
                                     
 
-                            <h:outputText  styleClass="noPrintButton"  value="#{labels.Area}" ></h:outputText>
+                            <h:outputText  styleClass="noPrintButton"  value="#{labels.District}" ></h:outputText>
                                     <p:selectOneMenu styleClass="noPrintButton"  converter="areaCon" id="area" required="true"   value="#{formDataentryController.area}" requiredMessage="Please select an Area">
                                         <f:selectItem itemLabel="Please select an Area" />
-                                        <f:selectItems value="#{webUserController.areas}" var="d" itemLabel="#{d.name}" itemValue="#{d}" />
-                                    </p:selectOneMenu>
+                                        <f:selectItems  value="#{areaController.myRdhsAres}"  var="ax" itemValue="#{ax}" itemLabel="#{ax.name}"  ></f:selectItems>
+                             </p:selectOneMenu>
                                     
                                     
                            
@@ -51,8 +46,8 @@
                             <p:calendar id="cf"  styleClass="noPrintButton"  value="#{formDataentryController.fromDate}"  ></p:calendar>
                             <p:outputLabel  styleClass="noPrintButton"  value="#{labels.To}"> </p:outputLabel>  
                             <p:calendar id="ct"  styleClass="noPrintButton" value="#{formDataentryController.toDate}"  ></p:calendar>  
-                             <p:commandButton styleClass="noPrintButton" value="View" ajax="false" ></p:commandButton>
-                          <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
+                             <p:commandButton styleClass="noPrintButton" value="View" ajax="false" action="#{formDataentryController.listReceivedFormsTopTenBySearchWithHealthForm()}" ></p:commandButton>
+                           <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
                                 <p:printer target="panelReport" />
                             </p:commandButton>
                            
@@ -60,12 +55,20 @@
                         
                             <p:panel styleClass="printBlock" >
                             <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 20px;" /> 
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           
+                            <h:outputLabel value="HFBFRDHS001" style="font-size: 20px;"/>
                             <br/>
                             <br/>
                             <h:outputLabel value="#{labels.FilledHealthFormsDetailsReport}" style="font-size: 20px;"/>
                             <br/>
                             <br/>
-                            <h:outputLabel value="#{labels.healthFormName}" />
+                            <h:outputLabel value="#{labels.healthFormName}: " />
                             &nbsp;&nbsp;&nbsp;&nbsp;                         
                             
                              <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'en' }" value="#{formDataentryController.healthForm.name}" />
@@ -74,13 +77,15 @@
 
                                         
                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             <h:outputLabel value="#{labels.Area}"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             <h:outputLabel value="#{labels.District} : "/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                  <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'en' }" value="#{formDataentryController.area.name}" />
                                         <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'si'}" value="#{formDataentryController.area.sname}" />
                                         <h:outputLabel rendered="#{sessionController.loggedUser.defLocale == 'ta'}" value="#{formDataentryController.area.tname}" />
 
                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             <h:outputLabel value="#{labels.Duration}"  ></h:outputLabel>
+                             <br/>
+                             <br/>
+                             <h:outputLabel value="#{labels.Duration} :"  ></h:outputLabel>
                              &nbsp;&nbsp;&nbsp;&nbsp;
                             <h:outputLabel value="#{formDataentryController.fromDate}" >
                                 <f:convertDateTime pattern="dd MMMM yyyy" />
@@ -97,8 +102,8 @@
                         
                       
                         <p:dataTable value="#{formDataentryController.receivedFormsTopTenBySearchWithHealthForm}" var="shf" >
-                            <p:column headerText="#{labels.healthFormName}" >
-                                        <h:outputLabel value="#{shf.item.name}" />
+                            <p:column headerText="#{labels.healthFormName}" styleClass="nonPrintBlock" >
+                                <h:outputLabel value="#{shf.item.name}" styleClass="nonPrintBlock" />
                                     </p:column>
                                     
                             <p:column headerText="#{labels.Area}" >
@@ -108,8 +113,13 @@
                                 <h:outputLabel value=" #{labels.Year} : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
                                 <h:outputLabel value=" #{labels.Month} : #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
                                 <h:outputLabel value=" #{labels.Date} #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
+                                 
+                                
+                               <h:outputLabel value="#{labels.Date} :"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }">
                                        
-                                <h:outputLabel value="#{labels.Date}  :  #{shf.fromDate}"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }">
+                                    </h:outputLabel>
+                                       
+                                <h:outputLabel value="#{shf.fromDate}"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }">
                                        <f:convertDateTime pattern="dd MM yyyy" />
                                     </h:outputLabel>
                                        

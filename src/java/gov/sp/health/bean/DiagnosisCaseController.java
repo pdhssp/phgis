@@ -1,6 +1,7 @@
 package gov.sp.health.bean;
 
 import gov.sp.health.ejb.GisEjb;
+import gov.sp.health.entity.Area;
 import gov.sp.health.entity.Diagnosis;
 import gov.sp.health.entity.DiagnosisCase;
 import gov.sp.health.entity.DiagnosisList;
@@ -177,7 +178,7 @@ public class DiagnosisCaseController implements Serializable {
     }
 
     public void saveSelected() {
-        if (diagnosis == null) {
+        if ( diagnosis == null) {
             UtilityController.addErrorMessage("Please Select Diagnosis  ");
             return;
         }
@@ -332,6 +333,10 @@ public class DiagnosisCaseController implements Serializable {
         return "area_diagnosis_cases_by_duration_count_summary";
     }
 
+    private Area area;
+    
+    
+    
     public String listMyAreaCasesByCase() {
         String sql = "SELECT i FROM DiagnosisCase i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a) and i.diagnosis=:d";
         Map m = new HashMap();
@@ -352,6 +357,28 @@ public class DiagnosisCaseController implements Serializable {
         }
         defaultCoordinate = getGisEjb().getCentre(allFamiliesModel);
         return "area_diagnosis_cases_by_case";
+    }
+
+     public String listMyAreaCasesByCaseArea() {
+        String sql = "SELECT i FROM DiagnosisCase i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a) and i.diagnosis=:d";
+        Map m = new HashMap();
+        m.put("a", area );
+        m.put("d", diagnosis);
+        items = getEjbFacade().findBySQL(sql, m);
+
+        if (items == null) {
+            items = new ArrayList<DiagnosisCase>();
+        }
+        allFamiliesModel = new DefaultMapModel();
+        for (DiagnosisCase f : items) {
+            if (f.getCoordinate() != null) {
+                Marker marker = new Marker(new LatLng(f.getCoordinate().getLatitude(), f.getCoordinate().getLongtide()), f.getAddress());
+                allFamiliesModel.addOverlay(marker);
+
+            }
+        }
+        defaultCoordinate = getGisEjb().getCentre(allFamiliesModel);
+        return "area_diagnosis_cases_by_case_phm";
     }
 
     public String listMyAreaCasesByCaseByDate() {
@@ -486,5 +513,13 @@ public class DiagnosisCaseController implements Serializable {
 
     public void setDcist(List<DiagnosisCaseController> dcist) {
         this.dcist = dcist;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
     }
 }

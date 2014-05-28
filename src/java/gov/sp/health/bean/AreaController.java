@@ -178,6 +178,10 @@ public class AreaController implements Serializable {
     }
 
     
+   
+    
+    
+    
     public List<Area> getMyAres() {
         String sql;
         Map m = new HashMap();
@@ -191,6 +195,8 @@ public class AreaController implements Serializable {
 
             case Province:
                 sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea=:ma";
+                // sql = "select a from Area a where a.retired=false  and a.superArea=:ma";
+               
                 break;
 
             case District:
@@ -213,6 +219,251 @@ public class AreaController implements Serializable {
         }
         return getFacade().findBySQL(sql, m);
     }
+    
+    
+     public List<Area> getMyProvinceAres() {
+        String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();      
+                 
+                //sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea=:ma";
+         sql = "select a from Area a where a.retired=false  and a.superArea.areaType<>=:ma";
+               
+               m.put("ma", getSessionController().getArea());
+        return getFacade().findBySQL(sql, m);
+    }
+     
+     public List<Area> getMyDistrictAres() {
+        String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();      
+                 
+                //sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea=:ma";
+         sql = "select a from Area a where a.retired=false  and a.superArea.superArea=:ma";
+               
+               m.put("ma", getSessionController().getArea());
+        return getFacade().findBySQL(sql, m);
+    }
+     
+     
+      public List<Area> getMyDistrictAresNew() {
+       String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();
+        m.put("phi", AreaType.MohArea);
+        m.put("ma", getSessionController().getArea());
+        switch (at) {
+            case Country:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea.superArea.superArea=:ma";
+                break;
+
+            case Province:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea=:ma";
+                break;
+
+            case District:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a=:ma";
+                break;
+
+            case MohArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea=:ma";
+                break;
+
+            case PhiArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a=:ma";
+                break;
+
+            
+            default:
+                 return null;
+        }
+        return getFacade().findBySQL(sql, m);
+    }
+     
+     public List<Area> getMyMohAres() {
+       String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();
+        m.put("phi", AreaType.MohArea);
+        m.put("ma", getSessionController().getArea());
+        switch (at) {
+            case Country:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea.superArea=:ma";
+                break;
+
+            case Province:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea=:ma";
+                break;
+
+            case District:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea=:ma";
+                break;
+
+            case MohArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a=:ma";
+                break;
+
+            
+            
+            default:
+                 return null;
+        }
+        return getFacade().findBySQL(sql, m);
+    }
+     
+     
+//          public List<Area> getMyPhiAres() {
+//        String sql;
+//        Map m = new HashMap();
+//        AreaType at = getSessionController().getArea().getAreaType();      
+//                 
+//                //sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea=:ma";
+//         sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea=:ma";
+//               
+//               m.put("ma", getSessionController().getArea());
+//        return getFacade().findBySQL(sql, m);
+//    }
+      public List<Area> getMyPhiAres() {
+       String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();
+        m.put("phi", AreaType.PhiArea);
+        m.put("ma", getSessionController().getArea());
+        switch (at) {
+            case Country:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea.superArea.superArea=:ma";
+                break;
+
+            case Province:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea.superArea=:ma";
+                break;
+
+            case District:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea=:ma";
+                break;
+
+            case MohArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea=:ma";
+                break;
+
+            case PhiArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a=:ma";
+                break;
+                
+          
+
+            
+            default:
+                 return null;
+        }
+        return getFacade().findBySQL(sql, m);
+    }
+     
+     
+       public List<Area> getMyPhmmAres() {
+        String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();      
+                 
+                //sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea=:ma";
+         sql = "select a from Area a where a.retired=false  and a.superArea.superArea.superArea.superArea.superArea=:ma";
+               
+               m.put("ma", getSessionController().getArea());
+        return getFacade().findBySQL(sql, m);
+    }
+       
+       public List<Area> getMyRdhsAres() {
+       String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();
+        m.put("phi", AreaType.District);
+        m.put("ma", getSessionController().getArea());
+        switch (at) {
+            case Country:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea=:ma";
+                break;
+
+            case Province:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea=:ma";
+                break;
+
+            case District:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a=:ma";
+                break;
+
+                       
+            
+            default:
+                 return null;
+        }
+        return getFacade().findBySQL(sql, m);
+    }
+       
+              public List<Area> getMyPdhsAres() {
+       String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();
+        m.put("phi", AreaType.Province);
+        m.put("ma", getSessionController().getArea());
+        switch (at) {
+            case Country:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea=:ma";
+                break;
+
+            case Province:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a=:ma";
+                break;
+
+          
+
+                       
+            
+            default:
+                 return null;
+        }
+        return getFacade().findBySQL(sql, m);
+    }
+              
+                 public List<Area> getMyPhmAresToAll() {
+       String sql;
+        Map m = new HashMap();
+        AreaType at = getSessionController().getArea().getAreaType();
+        m.put("phi", AreaType.PhmArea);
+        m.put("ma", getSessionController().getArea());
+        switch (at) {
+            case Country:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea.superArea.superArea=:ma";
+                break;
+
+            case Province:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea.superArea.superArea=:ma";
+                break;
+
+            case District:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea.superArea=:ma";
+                break;
+
+            case MohArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea.superArea=:ma";
+                break;
+
+            case PhiArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a.superArea=:ma";
+                break;
+            case PhmArea:
+                sql = "select a from Area a where a.retired=false and a.areaType=:phi and a=:ma";
+                break;
+                
+          
+
+            
+            default:
+                 return null;
+        }
+        return getFacade().findBySQL(sql, m);
+    }
+     
+     
     private AreaFacade getFacade() {
         return ejbFacade;
     }

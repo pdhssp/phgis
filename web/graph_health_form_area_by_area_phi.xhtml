@@ -14,19 +14,22 @@
                 <h:outputStylesheet library="css" name="maincss.css" />
                 <h:outputStylesheet library="css" name="css1.css" />
 
-                <h:panelGroup >
+              
+                <h:panelGroup  >
                     <h:form  >
-                                                 
-                        <p:panel >
-                          
+                        <p:outputLabel value="Search By PHI Area" style="font-size:20px;color:brown;font-style:oblique " />
                         
-                        <h:panelGrid id="gpc" columns="2"  >
-                            <p:outputLabel value="Health Form" ></p:outputLabel>
+                         
+                        <p:panel menuTitle="Search By PHI Area" >
+                            
+                        
+                            <h:panelGrid id="gpc" columns="4" title="Search By PHI Area" >
+                            <p:outputLabel value="#{labels.healthForm}" ></p:outputLabel>
                             <p:selectOneMenu id="cmbHf" value="#{graphController.healthForm}"  >
                                 <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.name}" itemValue="#{hf}" />
                                 <f:ajax event="change" execute="cmbHf" render="cmbHfi" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="Health Form Item" ></p:outputLabel>
+                            <p:outputLabel value="#{labels.HealthFormItem}" ></p:outputLabel>
                             <p:selectOneMenu id="cmbHfi" value="#{graphController.healthFormItem}"  >
                                 <f:selectItems value="#{graphController.healthForm.reportItemsForGraphs}" var="hfi" itemLabel="#{hfi.name}" itemValue="#{hfi}" />
                             </p:selectOneMenu>
@@ -37,14 +40,12 @@
                             <p:calendar id="ct" value="#{graphController.to}"></p:calendar>
                             
                             
-                           
-                             
-                            <p:outputLabel value="#{labels.Area}" /> 
-                             <h:selectOneListbox  id="lstProelect"   size="10" converter="areaCon" value="#{graphController.area}" style="min-width: 223px" >
-                                 <f:selectItems  value="#{areaController.getMyMohAres()}"  var="ax" itemValue="#{ax}" itemLabel="#{ax.name}"  ></f:selectItems>
-                                </h:selectOneListbox>
-                             
-                             
+                               <p:outputLabel value="PHM Area" /> 
+                             <h:selectOneMenu  id="lsti"   converter="areaCon" value="#{graphController.area}" style="min-width: 223px">
+                                 <f:selectItems  value="#{areaController.myPhiAres }"  var="ax" itemValue="#{ax}" itemLabel="#{ax.name}"  ></f:selectItems>
+                                </h:selectOneMenu>
+                               
+                            
                              
                              
                         </h:panelGrid>
@@ -52,14 +53,9 @@
                       
                       
                         
-                            <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Summery" action="#{graphController.createAreaSum()}" ></p:commandButton>
+                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Draw Summery" action="#{graphController.createAreaSum()}" ></p:commandButton>
                       
-                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Print" onclick="window.print();" >
-                        </p:commandButton>
-                        
-                        <p:commandButton value="Clear" styleClass="buttons" action="#{graphController.clearLinearModel()}">
-                        </p:commandButton>
-                       
+                                           
                                       
                             
                        
@@ -71,10 +67,9 @@
                         <br/>
                          <p:outputLabel value="Bar Chart"/>
                          <br/>
-                         <p:outputLabel value="#{labels.Area}"/>
-                         <p:outputLabel value="#{graphController.area.name}"/>
+                       
                          
-                        <p:chart  rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}" widgetVar="chart" style="width:500px;height:300px" ></p:chart>
+                        <p:chart   rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}" widgetVar="chart"  ></p:chart>
                         
                       
  

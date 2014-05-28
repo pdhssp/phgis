@@ -18,11 +18,7 @@
                     <h:form  >
                         <h:panelGrid id="gpc" columns="2"  >
                             
-                            <p:outputLabel value="Health Form" ></p:outputLabel>
-                            <p:selectOneMenu id="cmbHf" value="#{formDataentryController.healthForm}"  >
-                                <f:selectItems value="#{healthFormController.items}" var="hf" itemLabel="#{hf.name}" itemValue="#{hf}" />
-                                <f:ajax event="change" execute="cmbHf" render="cmbHfi" />
-                            </p:selectOneMenu>
+                           
                             
                              <h:outputText id="cmbHfi" value="Role" ></h:outputText>
                                     <p:selectOneMenu  required="true" value="#{webUserController.staffRole}" id="sr"  requiredMessage="Please select a staff Role"  >
@@ -57,22 +53,39 @@
                         
                       
                                 <p:dataTable value="#{formDataentryController.receivedFormsTopTenBySearch}" var="shf" >
-                                    <p:column headerText="Form" >
+                                    <p:column headerText="#{labels.healthFormName}" >
                                         <h:outputLabel value="#{shf.item.name}" />
                                     </p:column>
                                     
-                                    <p:column headerText="From" >
+                                    <p:column headerText="#{labels.From}" >
                                         <h:outputLabel value="#{shf.area.name}" />
                                     </p:column>
-                                      <h:outputLabel value=" Year : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
-                                        <h:outputLabel value=" Month : #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
-                                     
-                                        <p:outputLabel value=" Date : #{shf.fromDate}"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }" >
-                                            <f:convertDateTime pattern="DD MM YYYY" />
-                                        </p:outputLabel>
+                                     <p:column headerText="#{labels.Duration}" >
+                                <h:outputLabel value=" #{labels.Year} : #{shf.yearVal}"  rendered="#{shf.yearVal>0}"/>
+                                <h:outputLabel value=" #{labels.Month} : #{shf.monthVal} " rendered="#{shf.monthVal>0}" />
+                                <h:outputLabel value=" #{labels.Date} #{shf.dateVal}"  rendered="#{shf.dateVal>0}"/>
+                                       
+                                 <h:outputLabel value="#{labels.Date} :"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }">
+                                       
+                                    </h:outputLabel>
+                                       
+                                <h:outputLabel value="#{shf.fromDate}"  rendered="#{ shf.yearVal le 0 and shf.monthVal le 0 }">
+                                       <f:convertDateTime pattern="dd MM yyyy" />
+                                    </h:outputLabel>
+                                       
+                                                    </p:column>
+                                         <p:column headerText="#{labels.DataEntryUser}" >
+                                        <h:outputLabel value="#{shf.dataEntryUser.webUserPerson.name}" />
+                                    </p:column>
+                            
+                                                      
+                            <p:column headerText="#{labels.ApprovedUser}" >
+                                        <h:outputLabel value="#{shf.approveUser.webUserPerson.name }" />
+                                    </p:column>
+                                        
                                    
-                                    <p:column headerText="View" >
-                                        <p:commandButton value="View" action="health_form_fill" ajax="false" >
+                                        <p:column headerText="#{labels.View}" >
+                                        <p:commandButton value="#{labels.View}" action="health_form_fill" ajax="false" >
                                             <f:setPropertyActionListener value="#{shf}" target="#{formDataentryController.filledHealthForm}" />
                                         </p:commandButton>
                                     </p:column>

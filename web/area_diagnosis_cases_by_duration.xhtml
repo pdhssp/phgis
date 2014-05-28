@@ -23,7 +23,7 @@
                                    
                                 <p:outputLabel  styleClass="noPrintButton"  value="#{labels.SelectCase }" ></p:outputLabel>
                            
-                                 <h:selectOneListbox styleClass="noPrintButton"  id="lstSelect"   size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
+                                 <h:selectOneListbox styleClass="noPrintButton"  id="lstSelect" converter="dxcon"  size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
                                     <f:selectItems  value="#{diagnosisController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
                                 <f:ajax render="aa" execute="aa" >
                                         </f:ajax>
@@ -86,6 +86,11 @@
                                     </h:outputLabel>
                             
                         </p:panel>
+                            
+                            
+                            <p:panelGrid columns="1">
+                                
+                            
                             <p:dataTable value="#{diagnosisCaseController.items}" var="ff" id="aa">
                                 
                                 <p:column>
@@ -161,7 +166,15 @@
                                     </h:outputLabel>
                             
                              </b>
-                           
+                           </p:panelGrid>
+                            
+                            <p:panel id="loc" header="Location">
+                            <p:gmap widgetVar="w_gmap" center="#{diagnosisCaseController.defaultCoordinate.longtide}, #{diagnosisCaseController.defaultCoordinate.latitude}" zoom="15" type="hybrid" model="#{diagnosisCaseController.allFamiliesModel}"
+                                    style="width:600px;height:400px" />
+                            <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
+                                <p:printer target="loc" />
+                            </p:commandButton>
+                        </p:panel>
  
                         </p:panel>
 
@@ -169,13 +182,7 @@
 
                         
                       
-                        <p:panel id="loc" header="Location">
-                            <p:gmap widgetVar="w_gmap" center="#{diagnosisCaseController.defaultCoordinate.longtide}, #{diagnosisCaseController.defaultCoordinate.latitude}" zoom="15" type="hybrid" model="#{diagnosisCaseController.allFamiliesModel}"
-                                    style="width:600px;height:400px" />
-                            <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
-                                <p:printer target="loc" />
-                            </p:commandButton>
-                        </p:panel>
+                        
                             
                     </p:panelGrid>
 

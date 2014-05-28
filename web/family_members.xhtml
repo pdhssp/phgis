@@ -17,20 +17,43 @@
                     <p:panelGrid columns="3" id="gpDetail" styleClass="alignTop">
                         <p:panel header="Family Details" >
                             <p:panelGrid columns="2">
-                                <p:outputLabel> Family Name</p:outputLabel> 
+                                <p:outputLabel value="#{labels.FamilyName}"/> 
                                 <p:inputText value="#{familyController.current.name}"  required="true" requiredMessage="Please Enter Family Name"></p:inputText>
-                                <p:outputLabel> Address </p:outputLabel> 
+                                <p:outputLabel value="#{labels.Address}"/>
                                 <p:inputText value="#{familyController.current.address}" required="true" requiredMessage="Please Enter Address" ></p:inputText>
                                  
-                                <p:outputLabel> Longitude </p:outputLabel> 
+                                <p:outputLabel value="#{labels.Latitude}" /> 
                                 <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.longtide}" ></p:inputText>
-                                <p:outputLabel> Latitude </p:outputLabel> 
+                                <p:outputLabel value="#{labels.Longtide}" /> 
                                 <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.latitude}"></p:inputText>
 
                                 
                             
                             
                             </p:panelGrid>
+                            
+                               <p:panel styleClass="printBlock" >
+                                    <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 20px;" /> 
+                                    <br/>
+                                    <br/>
+                                    <h:outputLabel value="#{labels.FamilyDetailsReport}" style="font-size: 20px;"/>
+                                    <br/>
+                                    <br/>
+
+                                    <h:outputLabel value="#{labels.Area} : "/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <h:outputLabel value="#{sessionController.area.name}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputLabel value="#{labels.FamilyName} : "/>
+                                    <h:outputLabel value="#{familyController.person.name} : "/>
+                                    
+                                     <br/>
+                                    <br/>
+                                    <h:outputLabel value="#{labels.Address} : "/>
+                                    <h:outputLabel value="#{familyController.person.address} : "/>
+
+
+                                </p:panel>
                                 
                                 
                             <p:commandButton rendered="#{sessionController.loggedUser.staff.staffRole eq 'Phm'}" ajax="false" value="Update" action="#{familyController.saveSelected()}" />
@@ -51,22 +74,22 @@
                             </p:panelGrid>
 
                             <p:dataTable value="#{familyController.current.persons}" var="fp" >
-                                <p:column >
+                                <p:column  headerText="Member Name">
                                     <h:outputLabel value="#{fp.name}" ></h:outputLabel>
                                 </p:column>
-                                <p:column >
+                                <p:column headerText="Date of Birth" >
                                     <h:outputLabel value="#{fp.dob}" ></h:outputLabel>
                                 </p:column>
                                 <p:column >
                                     <h:outputLabel value="#{fp.nic}" ></h:outputLabel>
                                 </p:column>
-                                <p:column >
+                                <p:column headerText="Comments">
                                     <h:outputLabel value="#{fp.description}" ></h:outputLabel>
                                 </p:column>
                             </p:dataTable>
                         </p:panel>
 
-                        <p:panel header="Location">
+                        <p:panel header="Location" styleClass="nonPrintBlock">
                             <p:gmap widgetVar="w_gmap" center="#{familyController.defaultCoordinate.longtide}, #{familyController.defaultCoordinate.latitude}" zoom="15" type="hybrid" model="#{familyController.familyMapModel}"
                                     style="width:600px;height:400px" />
                         </p:panel>

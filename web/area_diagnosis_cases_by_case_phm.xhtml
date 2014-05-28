@@ -22,10 +22,9 @@
                                <p:panelGrid columns="2">
                                 <p:outputLabel  styleClass="noPrintButton"  value="#{labels.SelectCase }" ></p:outputLabel>
                                
-                                <h:selectOneMenu styleClass="noPrintButton"  id="lstSelect"   value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
+                                <h:selectOneMenu styleClass="noPrintButton"  id="lstSelect" converter="dxcon"  value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
                                     <f:selectItems  value="#{diagnosisController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
-                                <f:ajax render="aa" execute="aa" >
-                                        </f:ajax>                                 
+                                                               
                                  </h:selectOneMenu>
                                
                                 <p:outputLabel value="#{labels.Area}" styleClass="nonPrintBlock"/> 

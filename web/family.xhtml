@@ -14,56 +14,81 @@
 
                 <h:form>
 
-                    <p:panelGrid columns="3">
-                        <p:panel header="Manage Families" >
-                            <p:commandButton  ajax="false" value="Add New" action="#{familyController.prepareAdd()}">
-                            </p:commandButton>
-                            <p:commandButton ajax="false" value="List All Families" action="#{familyController.listFamilies()}" />
-                            <p:dataTable value="#{familyController.items}" var="ff" >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Family Name" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.name}" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Address" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.address}" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Latitude" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.coordinate.latitude }" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Longtide" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.coordinate.longtide }" />
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Area" />
-                                    </f:facet>
-                                    <h:outputText value="#{ff.phmArea.name }" />
-                                </p:column>
+                    <p:panelGrid columns="1">
+                        <p:panel  header="Manage Families" >
+                             <p:commandButton  styleClass="nonPrintBlock" ajax="false" value="Add New" action="#{familyController.prepareAdd()}">
+                                </p:commandButton>
+                                <p:commandButton styleClass="nonPrintBlock"  ajax="false" value="List All Families" action="#{familyController.listFamilies()}" />
 
-                                <p:column >
-                                    <p:commandButton ajax="false" value="Manage Families" action="family_members" >
-                                        <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
-                                    </p:commandButton>
-                                    <h:commandButton  value="Delete" action="#{familyController.delete()}" >
-                                        <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
-                                    </h:commandButton>
-                                </p:column>
+                                <p:commandButton styleClass="noPrintButton" value="Print" ajax="false" >
+                                    <p:printer target="panelReport" />
+                                </p:commandButton>
+                            <p:panel id="panelReport">
 
-                            </p:dataTable>
 
+                               
+
+                                <p:panel styleClass="printBlock" >
+                                    <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 20px;" /> 
+                                    <br/>
+                                    <br/>
+                                    <h:outputLabel value="#{labels.FamilyDetailsReport}" style="font-size: 20px;"/>
+                                    <br/>
+                                    <br/>
+
+                                    <h:outputLabel value="#{labels.Area}"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <h:outputLabel value="#{sessionController.area.name}" />
+
+
+                                </p:panel>
+
+                                <p:dataTable value="#{familyController.items}" var="ff" >
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.FamilyName}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.name}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Address}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.address}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Latitude}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.coordinate.latitude }" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Longtide}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.coordinate.longtide }" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{labels.Area}" />
+                                        </f:facet>
+                                        <h:outputText value="#{ff.phmArea.name }" />
+                                    </p:column>
+
+                                    <p:column  styleClass="nonPrintBlock">
+                                        <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Manage Families" action="family_members" >
+                                            <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
+                                        </p:commandButton>
+                                        <h:commandButton styleClass="nonPrintBlock"  value="Delete" action="#{familyController.delete()}" >
+                                            <f:setPropertyActionListener target="#{familyController.current}" value="#{ff}" />
+                                        </h:commandButton>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:panel>
                         </p:panel>
 
+                        
+                        
 
                         <p:panel header="Location">
                             <p:gmap widgetVar="w_gmap" center="#{familyController.defaultCoordinate.longtide}, #{familyController.defaultCoordinate.latitude}" zoom="15" type="hybrid" model="#{familyController.allFamiliesModel}"

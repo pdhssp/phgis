@@ -23,7 +23,7 @@
                                    
                                 <p:outputLabel  styleClass="noPrintButton"  value="#{labels.SelectCase }" ></p:outputLabel>
                            
-                                 <h:selectOneListbox styleClass="noPrintButton"  id="lstSelect"   size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
+                                 <h:selectOneListbox styleClass="noPrintButton"  id="lstSelect" converter="dxcon"  size="10" value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
                                     <f:selectItems  value="#{diagnosisController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
                                 <f:ajax render="aa" execute="aa" >
                                         </f:ajax>

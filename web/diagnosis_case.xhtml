@@ -20,7 +20,7 @@
                         <p:panel header="Case Details" >
                             <p:panelGrid columns="2" id="gd">
                                 <p:outputLabel value="Diagnosis"></p:outputLabel> 
-                                <h:selectOneMenu  id="lstSelect"    value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
+                                <h:selectOneMenu  id="lstSelect"  converter="dxcon"  value="#{diagnosisCaseController.diagnosis}" style="min-width: 223px">
                                     <f:selectItems  value="#{diagnosisController.items}" var="dx" itemValue="#{dx}" itemLabel="#{dx.name}" ></f:selectItems>
                                 </h:selectOneMenu >
                                 <p:outputLabel value="#{labels.CaseNo}"></p:outputLabel> 

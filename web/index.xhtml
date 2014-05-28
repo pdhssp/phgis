@@ -18,7 +18,7 @@
 
 
 
-                        <p:panel header="Fill New Form" >
+                        <p:panel header="#{labels.FillNewForm}" >
 
                             <h:form>
                                 <h:panelGroup id="gpTis" >
@@ -124,7 +124,7 @@
 
 
 
-                        <p:panel header="Forms to Enter Data" >
+                        <p:panel header="#{labels.FormstoEnterData}" >
                             <h:form>    
                                 <p:dataTable value="#{formDataentryController.formsToFill}" var="ftf"   >
                                     <p:column headerText="Form No." >
@@ -144,7 +144,7 @@
 
                         </p:panel>
 
-                        <p:panel header="Recent Forms to Forward" >
+                        <p:panel header="#{labels.RecentFormstoForward}" >
                             <h:form>
                                 <p:dataTable value="#{formDataentryController.filledFormsTopTen}" var="fhf" paginator="true"
                          >
@@ -175,7 +175,7 @@
                                 <h:commandLink value="List all forms awaiting forward" action="all_forms_to_submit" ></h:commandLink>
                             </h:form>
                         </p:panel>
-                        <p:panel header="Recently Submitted Forms" >
+                        <p:panel header="#{labels.RecentlySubmittedForms}" >
                             <h:form>
                                 <p:dataTable value="#{formDataentryController.submittedFormsTopTen}" var="shf"   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15">
@@ -203,7 +203,7 @@
 
 
 
-                        <p:panel header="Recently Received Forms" >
+                        <p:panel header="#{labels.RecentlyReceivedForms}" >
                             <h:form>
                                 <p:dataTable value="#{formDataentryController.receivedFormsTopTen}" var="shf" >
                                     <p:column headerText="#{labels.healthFormName}" >

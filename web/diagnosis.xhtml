@@ -24,7 +24,7 @@
                         <h:panelGrid id="gpSelect" columns="1"  >
                             <p:panel >
                                 <h:panelGrid id="gpSelectText" >
-                                    <h:selectOneListbox  id="lstSelect"   size="10" value="#{diagnosisController.current}" style="min-width: 223px">
+                                    <h:selectOneListbox  id="lstSelect"  converter="dxcon" size="10" value="#{diagnosisController.current}" style="min-width: 223px">
                                         <f:selectItems  value="#{diagnosisController.items}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
                                         <f:ajax render="gpDetail" execute="lstSelect" >
                                         </f:ajax>
@@ -46,9 +46,7 @@
                             <h:panelGrid id="gpDetail" columns="1">
                                 <h:panelGrid id="gpDetailText" columns="2">
                                     <h:outputText id="lblCode" value="Name" ></h:outputText>
-                                    <h:inputText id="txtCode" value="#{diagnosisController.current.name}"  ></h:inputText>
-                                     <h:outputText id="lblName" value="Code" ></h:outputText>
-                                     <h:inputText id="txtName" value="#{diagnosisController.current.code}"  ></h:inputText>
+                                    <h:inputText id="txtCode" value="#{diagnosisController.current.name}"  required="true" requiredMessage="Please Enter Name" ></h:inputText>
                                      <h:outputText id="lblDes" value="Descreption" ></h:outputText>
                                      <h:inputTextarea id="txtDese" value="#{diagnosisController.current.comments }"  ></h:inputTextarea>
                                     
@@ -59,10 +57,7 @@
                                         </f:ajax>
                                     </h:commandButton>
                                     
-                                    <p:commandButton ajax="false" value="Add GIS" action="disease_mark_new" >
-                                        <f:setPropertyActionListener target="#{diagnosisController.current}" value="#{ff}" />
-                                    </p:commandButton>
-
+                                  
                                 </h:panelGrid>
                             </h:panelGrid>
                         </p:panel>

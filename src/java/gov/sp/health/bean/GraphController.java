@@ -351,7 +351,8 @@ public class GraphController implements Serializable {
             } else if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area.superArea.superArea.superArea.superArea=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-                sql = null;
+               UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
                 
                 break;
@@ -367,7 +368,8 @@ public class GraphController implements Serializable {
             } else if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area.superArea.superArea.superArea=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-               sql = null;
+              UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
                 
                 break;
@@ -381,7 +383,8 @@ public class GraphController implements Serializable {
             } else if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area.superArea.superArea=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-                sql = null;
+               UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
                 
                 
@@ -394,7 +397,8 @@ public class GraphController implements Serializable {
             } else if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area.superArea=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-                sql = null;
+               UtilityController.addErrorMessage("Not Applicable");
+                return;
             }          
                 
                 break;
@@ -404,7 +408,8 @@ public class GraphController implements Serializable {
                  if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-                sql = null;
+               UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
                 
                 break;
@@ -688,7 +693,8 @@ public class GraphController implements Serializable {
             } else if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area.superArea.superArea.superArea.superArea=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-                sql = null;
+                UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
         }
                   
@@ -704,7 +710,8 @@ public class GraphController implements Serializable {
             } else if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area.superArea.superArea.superArea=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-               sql = null;
+               UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
         }
                   else
@@ -717,7 +724,8 @@ public class GraphController implements Serializable {
             } else if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area.superArea.superArea=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-                sql = null;
+                UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
         }
                    else
@@ -728,7 +736,8 @@ public class GraphController implements Serializable {
             } else if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area.superArea=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-                sql = null;
+                UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
         }
                    else
@@ -737,7 +746,8 @@ public class GraphController implements Serializable {
              if (healthForm.getAreaType().equals(AreaType.PhmArea)) {
                 sql = "select v from FilledHealthFormItemValue v where  v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  and  v.filledHealthFormReport.area=:a  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
             } else {
-                sql = null;
+                UtilityController.addErrorMessage("Not Applicable");
+                return;
             }
              
              

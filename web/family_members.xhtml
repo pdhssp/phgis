@@ -13,26 +13,12 @@
             <ui:define name="content" >
 
                 <h:form>
-
-                    <p:panelGrid columns="3" id="gpDetail" styleClass="alignTop">
-                        <p:panel header="Family Details" >
-                            <p:panelGrid columns="2">
-                                <p:outputLabel value="#{labels.FamilyName}"/> 
-                                <p:inputText value="#{familyController.current.name}"  required="true" requiredMessage="Please Enter Family Name"></p:inputText>
-                                <p:outputLabel value="#{labels.Address}"/>
-                                <p:inputText value="#{familyController.current.address}" required="true" requiredMessage="Please Enter Address" ></p:inputText>
-                                 
-                                <p:outputLabel value="#{labels.Latitude}" /> 
-                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.longtide}" ></p:inputText>
-                                <p:outputLabel value="#{labels.Longtide}" /> 
-                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.latitude}"></p:inputText>
-
-                                
-                            
-                            
-                            </p:panelGrid>
-                            
-                               <p:panel styleClass="printBlock" >
+                    <p:panel id="panelReport">
+                        
+                       
+                    <p:panelGrid columns="1" id="gpDetail" styleClass="alignTop">
+                        
+                         <p:panel styleClass="printBlock" >
                                     <h:outputLabel value="#{labels.topic}" styleClass="rh1" style="font-size: 20px;" /> 
                                     <br/>
                                     <br/>
@@ -56,38 +42,32 @@
                                 </p:panel>
                                 
                                 
-                            <p:commandButton rendered="#{sessionController.loggedUser.staff.staffRole eq 'Phm'}" ajax="false" value="Update" action="#{familyController.saveSelected()}" />
-                            <p:commandButton ajax="false" value="View GIS" action="map_view_location" >
-                            </p:commandButton>
-                            <p:commandButton ajax="false" value="Add GIS" action="map_mark_new" >
-                            </p:commandButton>
-                        </p:panel>
-                        <p:panel header="Manage Family Members">
-                            <p:panelGrid columns="2" >
-                                <h:outputLabel value="Name" ></h:outputLabel>
-                                <p:inputText value="#{familyController.person.name}" ></p:inputText>
-                                <h:outputLabel value="Date of birth" ></h:outputLabel>
-                                <p:calendar value="#{familyController.person.dob}" ></p:calendar>
-                                <h:outputLabel value="Comments" ></h:outputLabel>
-                                <p:inputText value="#{familyController.person.description}" ></p:inputText>
-                                <p:commandButton ajax="false" value="Add to Family" action="#{familyController.addPersonToFamily()}" ></p:commandButton>
-                            </p:panelGrid>
+                        <p:panel header="Family Details"  styleClass="nonPrintBlock">
+                            <p:panelGrid columns="2" styleClass="nonPrintBlock">
+                                <p:outputLabel value="#{labels.FamilyName}"/> 
+                                <p:inputText value="#{familyController.current.name}"  required="true" requiredMessage="Please Enter Family Name"></p:inputText>
+                                <p:outputLabel value="#{labels.Address}"/>
+                                <p:inputText value="#{familyController.current.address}" required="true" requiredMessage="Please Enter Address" ></p:inputText>
+                                 
+                                <p:outputLabel value="#{labels.Latitude}" /> 
+                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.longtide}" ></p:inputText>
+                                <p:outputLabel value="#{labels.Longtide}" /> 
+                                <p:inputText rendered="#{familyController.current.coordinate ne null}"   value="#{familyController.current.coordinate.latitude}"></p:inputText>
 
-                            <p:dataTable value="#{familyController.current.persons}" var="fp" >
-                                <p:column  headerText="Member Name">
-                                    <h:outputLabel value="#{fp.name}" ></h:outputLabel>
-                                </p:column>
-                                <p:column headerText="Date of Birth" >
-                                    <h:outputLabel value="#{fp.dob}" ></h:outputLabel>
-                                </p:column>
-                                <p:column >
-                                    <h:outputLabel value="#{fp.nic}" ></h:outputLabel>
-                                </p:column>
-                                <p:column headerText="Comments">
-                                    <h:outputLabel value="#{fp.description}" ></h:outputLabel>
-                                </p:column>
-                            </p:dataTable>
-                        </p:panel>
+                                
+                            
+                            
+                            </p:panelGrid>
+                            
+                              
+                            <p:commandButton styleClass="nonPrintBlock" rendered="#{sessionController.loggedUser.staff.staffRole eq 'Phm'}" ajax="false" value="Update" action="#{familyController.saveSelected()}" />
+                            <p:commandButton styleClass="nonPrintBlock" ajax="false" value="View GIS" action="map_view_location" >
+                            </p:commandButton>
+                            <p:commandButton styleClass="nonPrintBlock" ajax="false" value="Add GIS" action="map_mark_new" >
+                            </p:commandButton>
+                        </p:panel> 
+                        
+                       
 
                         <p:panel header="Location" styleClass="nonPrintBlock">
                             <p:gmap widgetVar="w_gmap" center="#{familyController.defaultCoordinate.longtide}, #{familyController.defaultCoordinate.latitude}" zoom="15" type="hybrid" model="#{familyController.familyMapModel}"
@@ -95,7 +75,7 @@
                         </p:panel>
                     </p:panelGrid>
 
-
+                    </p:panel> 
                 </h:form>
 
 

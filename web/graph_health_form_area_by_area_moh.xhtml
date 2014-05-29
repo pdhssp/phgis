@@ -16,11 +16,11 @@
 
               
                 <h:panelGroup  >
-                    <h:form  >
+                    <h:form >
                         <p:outputLabel value="Search By MOH Area" style="font-size:20px;color:brown;font-style:oblique " />
                         
                          
-                        <p:panel menuTitle="Search By District" >
+                        <p:panel id="bbb" menuTitle="Search By District" >
                             
                         
                             <h:panelGrid id="gpc" columns="4" title="Search By District" >
@@ -59,7 +59,7 @@
                                       
                             
                        
-                        <p:lineChart rendered="#{graphController.linearModel ne null}"  id="linear" value="#{graphController.linearModel}" legendPosition="e"  
+                        <p:lineChart rendered="#{graphController.linearModel ne null}"  id="linearMOH" value="#{graphController.linearModel}" legendPosition="e"  
                                       title="Linear Chart"  style="height:500px" />  
                         
                       
@@ -69,7 +69,7 @@
                          <br/>
                        
                          
-                        <p:chart   rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}" widgetVar="chart"  ></p:chart>
+                        <p:chart  id="abc"  rendered="#{graphController.barchartModel ne null}"  type="bar" model="#{graphController.barchartModel}" widgetVar="chart"  ></p:chart>
                         
                       
  

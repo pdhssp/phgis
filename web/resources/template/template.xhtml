@@ -48,9 +48,9 @@
                                 </f:facet>  
                             </p:ajaxStatus>
                             <p:menubar styleClass="nonPrintBlock" style=" border: 0px;" rendered="#{sessionController.logged}" >
-                                <p:menuitem ajax="false" action="index" value="#{labels.topic}"  ></p:menuitem>
+                                <p:menuitem ajax="false" action="index" value="#{labels.home}"  ></p:menuitem>
                                 <p:menuitem ajax="false" action="index" value="||"  ></p:menuitem>
-                                <p:submenu label="#{labels.home}||"  >
+                                <p:submenu label="#{labels.healthForm}||"  >
                                     <p:menuitem  ajax="false"  action="fill_new_form" value="#{labels.home}"  ></p:menuitem>
                                      <p:menuitem  ajax="false"  action="approve_filled_forms" value="Approve Filled Forms"  ></p:menuitem>
                                     <p:menuitem  ajax="false"  action="recently_submitted_forms" value="Forward Forms"  ></p:menuitem>
@@ -95,11 +95,7 @@
                                       
                                             
                                             <p:menuitem  ajax="false"  action="cal_health_form" value=" #{sessionController.area.name }"  ></p:menuitem>
-                                            <p:menuitem  ajax="false"  action="viewHealthFormsWithHealthForm_phi" value="PHI #{labels.Area}"   ></p:menuitem>
-                                            <p:menuitem  ajax="false"  action="viewHealthFormsWithHealthForm_moh" value="MOH #{labels.Area}"   ></p:menuitem>
-                                            <p:menuitem  ajax="false"  action="viewHealthFormsWithHealthForm_rdhs" value="RDHS #{labels.Area}"   ></p:menuitem>
-                                            <p:menuitem  ajax="false"  action="viewHealthFormsWithHealthForm_pdhs" value="PDHS #{labels.Area}"   ></p:menuitem>
-                                        </p:submenu>
+                                           </p:submenu>
                                     </p:submenu>
                                         
                                         

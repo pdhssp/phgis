@@ -40,6 +40,7 @@ public class GraphController implements Serializable {
 
     @Inject
     private SessionController sessionController;
+    private boolean graf=false;
 
     private List<HealthForm> healthForms;
     private List<HealthFormItem> healthFormItems;
@@ -305,6 +306,8 @@ public class GraphController implements Serializable {
     public void createArea() {
         if (area == null) {
             UtilityController.addErrorMessage("Please Select an Area");
+            linearModel=null;
+            barchartModel=null;
             return;
         }
         createBarchartModelAreaV();
@@ -313,6 +316,8 @@ public class GraphController implements Serializable {
 
     public void createAreaSum() {
         if (area == null) {
+            linearModel=null;
+            barchartModel=null;
             UtilityController.addErrorMessage("Please Select an Area");
             return;
         }
@@ -2347,12 +2352,12 @@ public class GraphController implements Serializable {
     private List<FilledHealthFormItemValue> ffivs;
 
     public void viewHealthFormItems() {
-        System.out.println("creating data" + sessionController.getLoggedUser().getStaff().getArea().getName());
+      //  System.out.println("creating data" + sessionController.getLoggedUser().getStaff().getArea().getName());
 
         Map m = new HashMap();
         String jpql;
-        //jpql = "select v from FilledHealthFormItemValue v where v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi and   (v.filledHealthFormReport.area=:a or v.filledHealthFormReport.area.superArea=:a or v.filledHealthFormReport.area.superArea.superArea=:a or v.filledHealthFormReport.area.superArea.superArea.superArea=:a or v.filledHealthFormReport.area.superArea.superArea.superArea.superArea=:a) order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
-        jpql = "select v from FilledHealthFormItemValue v where v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
+        jpql = "select v from FilledHealthFormItemValue v where v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi and   (v.filledHealthFormReport.area=:a or v.filledHealthFormReport.area.superArea=:a or v.filledHealthFormReport.area.superArea.superArea=:a or v.filledHealthFormReport.area.superArea.superArea.superArea=:a or v.filledHealthFormReport.area.superArea.superArea.superArea.superArea=:a) order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
+        //jpql = "select v from FilledHealthFormItemValue v where v.filledHealthFormReport.fromDate >= :fd and v.filledHealthFormReport.toDate<=:td and v.healthFormItem =:hfi  order by v.filledHealthFormReport.fromDate ";//        jpql = "select v from FilledHealthFormItemValue v ";
         System.out.println("jpql is " + jpql);
         m.put("fd", from);
         m.put("td", to);
@@ -2665,6 +2670,14 @@ public class GraphController implements Serializable {
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    public boolean isGraf() {
+        return graf;
+    }
+
+    public void setGraf(boolean graf) {
+        this.graf = graf;
     }
 
     public class SummeryRowForFieldValues {

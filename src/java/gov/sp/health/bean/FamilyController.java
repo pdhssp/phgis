@@ -48,6 +48,10 @@ public class FamilyController implements Serializable {
     MapModel allFamiliesModel;
     GisCoordinate defaultCoordinate;
     
+    private List<Person> familiMembers;
+    
+    
+    
      @EJB
     AreaFacade areaFacade;
 
@@ -303,6 +307,18 @@ public class FamilyController implements Serializable {
         defaultCoordinate= getGisEjb().getCentre(allFamiliesModel);
         return "family";
     }
+    
+    
+     public void listFamiliesMembers() {
+        String sql = "SELECT i FROM Family.Person i where i.retired=false and (i.phmArea=:a or i.phmArea.superArea=:a or i.phmArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea=:a or i.phmArea.superArea.superArea.superArea.superArea=:a) order by i.address";
+        Map m = new HashMap();
+        m.put("a", getSessionController().getArea());
+        person = (Person) getEjbFacade().findBySQL(sql,m);
+        
+        
+       
+    }
+
 
     
     @EJB
@@ -317,6 +333,14 @@ public class FamilyController implements Serializable {
     }
     public List<Family> getItems() {
         return items;
+    }
+
+    public List<Person> getFamiliMembers() {
+        return familiMembers;
+    }
+
+    public void setFamiliMembers(List<Person> familiMembers) {
+        this.familiMembers = familiMembers;
     }
 
   
